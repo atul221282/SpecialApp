@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.API", "SpecialApp.API\SpecialApp.API.csproj", "{1BA77A06-ADC0-47B7-9CA3-BB073FFDF779}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Web", "SpecialApp.Web\SpecialApp.Web.csproj", "{B429F625-9B22-44D1-9DB8-F4744C9C4E72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApecialApp.API", "ApecialApp.API\ApecialApp.API.csproj", "{CBFDFA6B-8123-402D-9294-1AB3F8C7F62B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BA77A06-ADC0-47B7-9CA3-BB073FFDF779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BA77A06-ADC0-47B7-9CA3-BB073FFDF779}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BA77A06-ADC0-47B7-9CA3-BB073FFDF779}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BA77A06-ADC0-47B7-9CA3-BB073FFDF779}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B429F625-9B22-44D1-9DB8-F4744C9C4E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B429F625-9B22-44D1-9DB8-F4744C9C4E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B429F625-9B22-44D1-9DB8-F4744C9C4E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B429F625-9B22-44D1-9DB8-F4744C9C4E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFDFA6B-8123-402D-9294-1AB3F8C7F62B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBFDFA6B-8123-402D-9294-1AB3F8C7F62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBFDFA6B-8123-402D-9294-1AB3F8C7F62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBFDFA6B-8123-402D-9294-1AB3F8C7F62B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
