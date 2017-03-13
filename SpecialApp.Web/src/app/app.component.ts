@@ -3,18 +3,15 @@
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent
-    implements OnInit, OnChanges {
-
+    implements OnInit {
     title = 'Angular app works! YAY';
 
     ngOnInit() {
         setTimeout(() => {
             this.title = "Changes after 5 secs";
-        }, 5000);
-    }
-    ngOnChanges() {
+        }, 2000);
     }
 }
