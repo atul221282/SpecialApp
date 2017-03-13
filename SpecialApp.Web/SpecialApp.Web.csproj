@@ -11,6 +11,16 @@
     <EmbeddedResource Remove=".git\**" />
     <None Remove=".git\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\dist\favicon.ico" />
+    <Content Include="wwwroot\dist\index.html" />
+    <Content Include="wwwroot\dist\inline.74d4d1020735a0ae1e01.bundle.js" />
+    <Content Include="wwwroot\dist\main.f555ed43715f61d1ad94.bundle.js" />
+    <Content Include="wwwroot\dist\polyfills.b445e9fc396ea1784811.bundle.js" />
+    <Content Include="wwwroot\dist\styles.d41d8cd98f00b204e980.bundle.css" />
+    <Content Include="wwwroot\dist\vendor.a2da17b9c49cdce7678a.bundle.js" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
