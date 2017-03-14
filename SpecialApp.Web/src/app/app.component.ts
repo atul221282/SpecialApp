@@ -6,7 +6,6 @@
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
     title = 'Angular app works! YAY';
 
     ngOnInit() {
