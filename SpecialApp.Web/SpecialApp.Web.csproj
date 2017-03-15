@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -17,6 +17,67 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".git\COMMIT_EDITMSG" />
+    <None Include=".git\config" />
+    <None Include=".git\description" />
+    <None Include=".git\HEAD" />
+    <None Include=".git\hooks\applypatch-msg.sample" />
+    <None Include=".git\hooks\commit-msg.sample" />
+    <None Include=".git\hooks\post-update.sample" />
+    <None Include=".git\hooks\pre-applypatch.sample" />
+    <None Include=".git\hooks\pre-commit.sample" />
+    <None Include=".git\hooks\pre-push.sample" />
+    <None Include=".git\hooks\pre-rebase.sample" />
+    <None Include=".git\hooks\pre-receive.sample" />
+    <None Include=".git\hooks\prepare-commit-msg.sample" />
+    <None Include=".git\hooks\update.sample" />
+    <None Include=".git\index" />
+    <None Include=".git\info\exclude" />
+    <None Include=".git\logs\HEAD" />
+    <None Include=".git\logs\refs\heads\master" />
+    <None Include=".git\objects\1c\5e1e5a44ea4887043440f2c6cae3e7f797cb6d" />
+    <None Include=".git\objects\2f\d3ce2b7173bf69d53368ccf2735c224e3d576d" />
+    <None Include=".git\objects\36\12073bc31cd4c1f5d6cbb00318521e9a61bd8a" />
+    <None Include=".git\objects\49\e6f7b37438ffb847a8a17aefe50ff55ecc2d89" />
+    <None Include=".git\objects\53\bdaf1b86424df5230596f8352e78e4a4de66f5" />
+    <None Include=".git\objects\5a\810e31ece66ede3170afb8a3d6ad0c0a7e644b" />
+    <None Include=".git\objects\67\08ebc056068a68c27c53f9618c4926bfb6fe63" />
+    <None Include=".git\objects\67\ae49119baa632d3c92a74364eddb6a32cbdd8e" />
+    <None Include=".git\objects\6d\cf83cca4c61260c63cadd401364df1219cd598" />
+    <None Include=".git\objects\6e\87a003da89defd554080af5af93600cc9f91fe" />
+    <None Include=".git\objects\72\912c8f8bbed6eded5983ca207628c4ba981011" />
+    <None Include=".git\objects\72\a2d6d9f3695f89ba53338ee0eb5c0c323234f3" />
+    <None Include=".git\objects\80\81c7ceaf2be08bf59010158c586170d9d2d517" />
+    <None Include=".git\objects\84\b4cd5acab29968044fc5748fa53dd97d21229d" />
+    <None Include=".git\objects\8a\1447db0ad28a1717698a6da52698f621e55391" />
+    <None Include=".git\objects\90\d4ee0072ce3fc41812f8af910219f9eea3c3de" />
+    <None Include=".git\objects\91\13f1368b224fe758fc39b529c6e9089fd06280" />
+    <None Include=".git\objects\9b\f72267e9b1ada4f46ff6a7729ef5f272f7c947" />
+    <None Include=".git\objects\a3\5a8ee3a40d4326972a6d31edf57a9bce437520" />
+    <None Include=".git\objects\a9\ca1caf8ceebeb432bbf02b6a2b18378653fbd0" />
+    <None Include=".git\objects\b4\d57d03d2a67c4369e523fc010956b0401b4e55" />
+    <None Include=".git\objects\b6\931b538a2c5989bfedffeef51a11abadd6df58" />
+    <None Include=".git\objects\b7\f639aecac5c903f5449c7d14846f92b0a9b342" />
+    <None Include=".git\objects\bb\7fe45deea5e9281ff8c266bf3811998b7a2480" />
+    <None Include=".git\objects\c7\40bcd745ed906aff93b9a3d3bdda3a2a2272b5" />
+    <None Include=".git\objects\c9\da994952bba9c15724a3553fed4cc047b81238" />
+    <None Include=".git\objects\d5\64d0bc3dd917926892c55e3706cc116d5b165e" />
+    <None Include=".git\objects\da\2cccb96c4883489da63938911f677e8aef9a27" />
+    <None Include=".git\objects\e6\9de29bb2d1d6434b8b29ae775ad8c2e48c5391" />
+    <None Include=".git\objects\e9\b5582aa527c96f4405a63a8641296d5a9c17e2" />
+    <None Include=".git\objects\ed\c2f1e52bd4db41a64f8be6ba568a536bdd7205" />
+    <None Include=".git\objects\f2\2a3cb798095355bdc8900f0eca26f13465bac2" />
+    <None Include=".git\objects\fd\a5d69ab3eb2fb2abff90aca25c063ff90a5dff" />
+    <None Include=".git\objects\ff\3d8ada6bb49bc11d98ca088372a6347b8a6991" />
+    <None Include=".git\objects\ff\63e050488720c0766df3a354191d53d1af2ca5" />
+    <None Include=".git\refs\heads\master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\objects\pack\" />
+    <Folder Include=".git\refs\tags\" />
   </ItemGroup>
 
 </Project>
