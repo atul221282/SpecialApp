@@ -1,4 +1,4 @@
-﻿namespace SpecialApp.Entity
+﻿namespace SpecialApp.Entity2
 {
     public interface IObjectWithState
     {

@@ -95,5 +95,7 @@
             get { return _suburb; }
             set { _suburb = value; }
         }
+
+        public AddressType AddressType { get; set; }
     }
 }

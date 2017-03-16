@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpecialApp.Entity
+namespace SpecialApp.Entity2
 {
     public abstract class BaseEntity : IObjectWithState
     {

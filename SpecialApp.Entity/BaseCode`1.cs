@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpecialApp.Entity
+namespace SpecialApp.Entity2
 {
     public abstract class BaseCode<T> : BaseEntity<T>
     {

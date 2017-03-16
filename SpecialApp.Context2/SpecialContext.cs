@@ -13,10 +13,11 @@ namespace SpecialApp.Context2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
             base.OnModelCreating(modelBuilder);
         }
-
+        public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
     }
 }
