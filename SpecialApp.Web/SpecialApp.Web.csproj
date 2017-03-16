@@ -38,6 +38,7 @@
     <None Include=".git\logs\HEAD" />
     <None Include=".git\logs\refs\heads\master" />
     <None Include=".git\objects\1c\5e1e5a44ea4887043440f2c6cae3e7f797cb6d" />
+    <None Include=".git\objects\28\9a8c0b765124749c8a410f33ccaaea65bc0ef6" />
     <None Include=".git\objects\2f\d3ce2b7173bf69d53368ccf2735c224e3d576d" />
     <None Include=".git\objects\36\12073bc31cd4c1f5d6cbb00318521e9a61bd8a" />
     <None Include=".git\objects\49\e6f7b37438ffb847a8a17aefe50ff55ecc2d89" />
