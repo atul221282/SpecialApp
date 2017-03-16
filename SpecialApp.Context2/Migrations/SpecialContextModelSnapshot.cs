@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using SpecialApp.Context2;
 
-namespace SpecialApp.Context2.Migrations
+namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
     partial class SpecialContextModelSnapshot : ModelSnapshot

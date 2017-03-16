@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.API", "SpecialAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Web", "SpecialApp.Web\SpecialApp.Web.csproj", "{B986A4C1-6195-4554-914A-4491E396F14F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Context2", "SpecialApp.Context2\SpecialApp.Context2.csproj", "{51BCE886-14DA-4E3F-A973-650510B1D824}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Context", "SpecialApp.Context2\SpecialApp.Context.csproj", "{51BCE886-14DA-4E3F-A973-650510B1D824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Entity2", "SpecialApp.Entity2\SpecialApp.Entity2.csproj", "{E58C9B0D-7511-4AF6-AC9D-90D0994E4D89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Entity", "SpecialApp.Entity2\SpecialApp.Entity.csproj", "{E58C9B0D-7511-4AF6-AC9D-90D0994E4D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
