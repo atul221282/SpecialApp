@@ -12,14 +12,15 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SpecialApp.Context\SpecialApp.Context.csproj" />
-    <ProjectReference Include="..\SpecialApp.Entity\SpecialApp.Entity.csproj" />
+    <ProjectReference Include="..\SpecialApp.Context2\SpecialApp.Context2.csproj" />
+    <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity2.csproj" />
   </ItemGroup>
 
 </Project>

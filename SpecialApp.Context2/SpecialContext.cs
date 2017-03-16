@@ -1,19 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpecialApp.Context.Configuration;
-using SpecialApp.Entity;
-using System;
+using SpecialApp.Context2.Configuration;
+using SpecialApp.Entity2;
 
-namespace SpecialApp.Context
+namespace SpecialApp.Context2
 {
     public class SpecialContext : DbContext
     {
-        
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"
-                Server = (localdb)\MSSQLLocalDB; Database = SpecialApp; Trusted_Connection = True;
-            ");
+            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp; Trusted_Connection = True; ");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SpecialApp.Entity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using SpecialApp.Context;
+using SpecialApp.Entity2;
+//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SpecialApp.Context2;
 
 namespace SpecialApp.API
 {
@@ -30,8 +30,8 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<SpecialAppUsers, IdentityRole>()
-                .AddEntityFrameworkStores<SpecialContext>();
+            //services.AddIdentity<SpecialAppUsers, IdentityRole>()
+            //    .AddEntityFrameworkStores<SpecialContext>();
             // Add framework services.
             services.AddMvc();
         }
