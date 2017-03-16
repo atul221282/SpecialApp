@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using SpecialApp.Context2;
-using SpecialApp.Entity2;
 
 namespace SpecialApp.Context2.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170316124340_Init")]
+    [Migration("20170316125659_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +38,8 @@ namespace SpecialApp.Context2.Migrations
 
                     b.Property<bool?>("IsDeleted");
 
-                    b.Property<byte[]>("RowVersion");
-
-                    b.Property<int>("State");
+                    b.Property<byte[]>("RowVersion")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

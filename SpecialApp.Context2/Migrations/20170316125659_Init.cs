@@ -20,8 +20,7 @@ namespace SpecialApp.Context2.Migrations
                     Code = table.Column<string>(maxLength: 75, nullable: true),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: true),
-                    State = table.Column<int>(nullable: false)
+                    RowVersion = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {
