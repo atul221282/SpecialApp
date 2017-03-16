@@ -15,8 +15,10 @@ namespace SpecialApp.Context2
         {
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
+            new CountryConfiguration(modelBuilder.Entity<Country>());
             base.OnModelCreating(modelBuilder);
         }
+        public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
     }
