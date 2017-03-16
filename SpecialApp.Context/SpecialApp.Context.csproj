@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpecialApp.Entity\SpecialApp.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
