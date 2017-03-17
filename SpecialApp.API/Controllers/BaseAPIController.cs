@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace SpecialApp.API.Controllers
 {
     [Route("api/[controller]")]
-    public class BaseApiController
+    public abstract class BaseApiController
     {
+
     }
 }
