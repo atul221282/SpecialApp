@@ -47,7 +47,7 @@ namespace SpecialApp.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseMvc(routes =>
             {
