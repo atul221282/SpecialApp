@@ -10,16 +10,16 @@ namespace SpecialApp.API.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(new string[] { "value1", "value2" });
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return $"value {id}";
+            return  Ok(new { data = $"value {id}" });
         }
 
         // POST api/values

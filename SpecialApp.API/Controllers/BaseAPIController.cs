@@ -9,6 +9,9 @@ namespace SpecialApp.API.Controllers
     [Route("api/[controller]")]
     public abstract class BaseApiController
     {
-
+        public OkObjectResult Ok<T>(T data)
+        {
+            return new OkObjectResult(data);
+        }
     }
 }
