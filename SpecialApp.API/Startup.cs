@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using SpecialApp.Entity2;
 using SpecialApp.Context2;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SpecialApp.API.Helpers;
 
 namespace SpecialApp.API
 {
@@ -26,9 +27,11 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<SpecialAppUsers, IdentityRole>()
-                .AddEntityFrameworkStores<SpecialContext>();
-            // Add framework services.
+            // add cors
+            services.AddCorsExtension();
+            // add identity and entity framework context to it
+            services.AddIdentityExtension();
+
             services.AddMvc();
         }
 
@@ -37,6 +40,7 @@ namespace SpecialApp.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseCors(APIGlobalConstants.CorsPolicy);
             app.UseIdentity();
             app.UseMvc();
         }
