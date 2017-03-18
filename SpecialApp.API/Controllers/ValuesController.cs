@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SpecialApp.Service;
 
 namespace SpecialApp.API.Controllers
 {
     public class ValuesController : BaseApiController
     {
-        private readonly ITempService tempService;
+        private readonly ITestService tempService;
 
-        public ValuesController(ITempService tempService)
+        public ValuesController(ITestService tempService)
         {
             this.tempService = tempService;
         }
