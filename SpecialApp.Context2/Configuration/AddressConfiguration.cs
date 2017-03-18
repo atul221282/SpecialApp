@@ -14,7 +14,7 @@ namespace SpecialApp.Context2.Configuration
             this.entityTypeBuilder = entityTypeBuilder;
             this.entityTypeBuilder.HasKey(x => x.Id);
             this.entityTypeBuilder.Ignore(x => x.State);
-            this.entityTypeBuilder.Property(x => x.RowVersion).IsRequired();
+            this.entityTypeBuilder.Property(x => x.RowVersion).IsConcurrencyToken().IsRowVersion();
         }
     }
 }

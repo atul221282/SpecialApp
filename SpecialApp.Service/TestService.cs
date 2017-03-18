@@ -1,4 +1,5 @@
-﻿using SpecialApp.Entity2;
+﻿using Microsoft.EntityFrameworkCore;
+using SpecialApp.Entity2;
 using SpecialApp.UnitOfWork;
 using System;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace SpecialApp.Service
             return await this.uowFunc().CommitAsync();
         }
 
-        public string Test()
+        public async Task<string>Test()
         {
-            return uowFunc().AddressTypeRepository.GetAll().FirstOrDefault()?.Code ?? "Test no code";
+            return (await uowFunc().AddressTypeRepository.GetAll().FirstOrDefaultAsync())?.Code ?? "Test no code";
         }
     }
 }

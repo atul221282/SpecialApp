@@ -4,7 +4,7 @@ namespace SpecialApp.Service
 {
     public interface ITestService
     {
-        string Test();
+        Task<string> Test();
 
         Task<int> CommitAsync();
     }

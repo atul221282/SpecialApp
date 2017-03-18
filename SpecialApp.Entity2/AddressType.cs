@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.Entity2
 {
-    public class AddressType : BaseCode
+    public class AddressType : BaseCode<byte>
     {
 
     }

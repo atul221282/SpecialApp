@@ -19,7 +19,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(new string[] { tempServiceFunc().Test(), "value1", "value2" });
+            return Ok(new string[] { await tempServiceFunc().Test(), "value1", "value2" });
         }
 
         // GET api/values/5
