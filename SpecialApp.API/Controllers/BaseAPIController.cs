@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 namespace SpecialApp.API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [EnableCors(APIGlobalConstants.CorsPolicy)]
-    public abstract class BaseApiController
+    public abstract class BaseApiController : Controller
     {
         public OkObjectResult Ok<T>(T data)
         {
-            return new OkObjectResult(data);
+            return Ok(data);
         }
     }
 }

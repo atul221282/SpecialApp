@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.UnitOfWork", "Sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Repository", "SpecialApp.Repository\SpecialApp.Repository.csproj", "{443DBEC6-2D52-4265-8238-7347CF623C71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{E735F184-8F52-47EF-9876-2CD8D21216E1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +57,6 @@ Global
 		{443DBEC6-2D52-4265-8238-7347CF623C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{443DBEC6-2D52-4265-8238-7347CF623C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{443DBEC6-2D52-4265-8238-7347CF623C71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E735F184-8F52-47EF-9876-2CD8D21216E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E735F184-8F52-47EF-9876-2CD8D21216E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E735F184-8F52-47EF-9876-2CD8D21216E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E735F184-8F52-47EF-9876-2CD8D21216E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
