@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SpecialApp.Base;
 using SpecialApp.Context2;
@@ -28,8 +30,13 @@ namespace SpecialApp.API.Helpers
             });
         }
 
-        public static void AddIdentityExtension(this IServiceCollection services)
+        public static void AddContextAndIdentityExtension(this IServiceCollection services, IConfigurationRoot Configuration)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<SpecialContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
             services.AddIdentity<SpecialAppUsers, IdentityRole>()
                 .AddEntityFrameworkStores<SpecialContext>();
         }

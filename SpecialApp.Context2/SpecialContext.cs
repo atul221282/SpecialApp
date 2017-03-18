@@ -8,6 +8,7 @@ namespace SpecialApp.Context2
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //TODO : Read it from options 
             optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp; Trusted_Connection = True; ");
         }
 

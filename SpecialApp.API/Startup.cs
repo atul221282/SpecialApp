@@ -31,7 +31,7 @@ namespace SpecialApp.API
             // add cors middle ware
             services.AddCorsExtension();
             // add identity and entity framework context to it
-            services.AddIdentityExtension();
+            services.AddContextAndIdentityExtension(Configuration);
             // add mvc middleware
             services.AddMvc();
             // add ioc extension
