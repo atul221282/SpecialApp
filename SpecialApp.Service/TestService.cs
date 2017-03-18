@@ -5,15 +5,15 @@ namespace SpecialApp.Service
 {
     public class TestService : ITestService
     {
-        private readonly ISpecialUOW uow;
+        private readonly Func<ISpecialUOW> uowFunc;
 
-        public TestService(ISpecialUOW uow)
+        public TestService(Func<ISpecialUOW> uowFunc)
         {
-            this.uow = uow;
+            this.uowFunc = uowFunc;
         }
         public string Test()
         {
-            return uow.Test();
+            return uowFunc().Test();
         }
     }
 }

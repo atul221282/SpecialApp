@@ -9,24 +9,24 @@ namespace SpecialApp.API.Controllers
 {
     public class ValuesController : BaseApiController
     {
-        private readonly ITestService tempService;
+        private readonly Func<ITestService> tempServiceFunc;
 
-        public ValuesController(ITestService tempService)
+        public ValuesController(Func<ITestService> tempServiceFunc)
         {
-            this.tempService = tempService;
+            this.tempServiceFunc = tempServiceFunc;
         }
         // GET api/values
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new string[] { tempService.Test(), "value1", "value2" });
+            return Ok(new string[] { tempServiceFunc().Test(), "value1", "value2" });
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(new { data = $"{tempService.Test()} {id}" });
+            return Ok(new { data = $"{tempServiceFunc().Test()} {id}" });
         }
 
         // POST api/values
