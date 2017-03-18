@@ -27,7 +27,7 @@ namespace SpecialApp.Context.Migrations
 
                     b.Property<string>("AddressState");
 
-                    b.Property<byte?>("AddressTypeId");
+                    b.Property<int?>("AddressTypeId");
 
                     b.Property<string>("AuditCreatedBy");
 
@@ -63,7 +63,7 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("SpecialApp.Entity2.AddressType", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuditCreatedBy");
@@ -83,7 +83,8 @@ namespace SpecialApp.Context.Migrations
                     b.Property<bool?>("IsDeleted");
 
                     b.Property<byte[]>("RowVersion")
-                        .IsRequired();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 

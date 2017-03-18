@@ -13,7 +13,8 @@ namespace SpecialApp.Context.Migrations
                 name: "AddressType",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuditCreatedBy = table.Column<string>(nullable: true),
                     AuditCreatedDate = table.Column<DateTime>(nullable: true),
                     AuditLastUpdatedBy = table.Column<string>(nullable: true),
@@ -21,7 +22,7 @@ namespace SpecialApp.Context.Migrations
                     Code = table.Column<string>(maxLength: 75, nullable: true),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: false)
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,7 +58,7 @@ namespace SpecialApp.Context.Migrations
                     AddressLine1 = table.Column<string>(nullable: true),
                     AddressLine2 = table.Column<string>(nullable: true),
                     AddressState = table.Column<string>(nullable: true),
-                    AddressTypeId = table.Column<byte>(nullable: true),
+                    AddressTypeId = table.Column<int>(nullable: true),
                     AuditCreatedBy = table.Column<string>(nullable: true),
                     AuditCreatedDate = table.Column<DateTime>(nullable: true),
                     AuditLastUpdatedBy = table.Column<string>(nullable: true),

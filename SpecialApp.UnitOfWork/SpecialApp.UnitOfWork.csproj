@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SpecialApp.Context2\SpecialApp.Context.csproj" />
+    <ProjectReference Include="..\SpecialApp.Repository\SpecialApp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

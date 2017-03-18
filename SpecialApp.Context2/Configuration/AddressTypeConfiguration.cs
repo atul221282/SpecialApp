@@ -14,7 +14,7 @@ namespace SpecialApp.Context2.Configuration
             this.entityTypeBuilder.Property(x => x.Code).HasMaxLength(75);
             this.entityTypeBuilder.Property(x => x.Description).HasMaxLength(250);
             this.entityTypeBuilder.Ignore(x => x.State);
-            this.entityTypeBuilder.Property(x => x.RowVersion).IsRequired();
+            this.entityTypeBuilder.Property(x => x.RowVersion).IsConcurrencyToken().IsRowVersion();
         }
     }
 }

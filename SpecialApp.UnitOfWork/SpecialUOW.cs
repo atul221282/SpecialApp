@@ -3,6 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SpecialApp.Entity2;
+using SpecialApp.Repository;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SpecialApp.Repository.Helpers;
 
 namespace SpecialApp.UnitOfWork
 {
@@ -14,9 +19,13 @@ namespace SpecialApp.UnitOfWork
         {
             this.context = context;
         }
-        public string Test()
+
+        public IRepository<AddressType> AddressTypeRepository => new Repository<AddressType>(context());
+
+        public async Task<int> CommitAsync()
         {
-            return "Test ";
+            context().ApplyStateChange();
+            return await context().SaveChangesAsync();
         }
     }
 }

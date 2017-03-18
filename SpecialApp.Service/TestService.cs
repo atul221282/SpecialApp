@@ -1,5 +1,8 @@
-﻿using SpecialApp.UnitOfWork;
+﻿using SpecialApp.Entity2;
+using SpecialApp.UnitOfWork;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SpecialApp.Service
 {
@@ -11,9 +14,15 @@ namespace SpecialApp.Service
         {
             this.uowFunc = uowFunc;
         }
+
+        public async Task<int> CommitAsync()
+        {
+            return await this.uowFunc().CommitAsync();
+        }
+
         public string Test()
         {
-            return uowFunc().Test();
+            return uowFunc().AddressTypeRepository.GetAll().FirstOrDefault()?.Code ?? "Test no code";
         }
     }
 }
