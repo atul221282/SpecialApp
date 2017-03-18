@@ -1,11 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SpecialApp.Context2.Configuration;
 using SpecialApp.Entity2;
 
 namespace SpecialApp.Context2
 {
-    public class SpecialContext : DbContext
+    public class SpecialContext : IdentityDbContext<SpecialAppUsers>
     {
+        public SpecialContext() : base()
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //TODO : Read it from options 

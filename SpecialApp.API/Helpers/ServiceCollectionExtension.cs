@@ -38,7 +38,8 @@ namespace SpecialApp.API.Helpers
                 options.UseSqlServer(connectionString);
             });
             services.AddIdentity<SpecialAppUsers, IdentityRole>()
-                .AddEntityFrameworkStores<SpecialContext>();
+                .AddEntityFrameworkStores<SpecialContext>()
+                .AddDefaultTokenProviders();
         }
 
         public static Container AddIocExtension(this IServiceCollection services)

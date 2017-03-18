@@ -1,39 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SpecialApp.Context2;
 
-namespace SpecialApp.Context.Migrations
+namespace TestWebApp.Data.Migrations
 {
-    [DbContext(typeof(SpecialContext))]
-    partial class SpecialContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1")
+                .HasAnnotation("ProductVersion", "1.0.0-rc3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
-                        .IsUnique()
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
@@ -105,6 +105,8 @@ namespace SpecialApp.Context.Migrations
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -123,116 +125,9 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
+            modelBuilder.Entity("TestWebApp.Models.ApplicationUser", b =>
                 {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AddressLine1");
-
-                    b.Property<string>("AddressLine2");
-
-                    b.Property<string>("AddressState");
-
-                    b.Property<int?>("AddressTypeId");
-
-                    b.Property<string>("AuditCreatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate");
-
-                    b.Property<string>("AuditLastUpdatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
-
-                    b.Property<string>("City");
-
-                    b.Property<int?>("CountryId");
-
-                    b.Property<bool?>("IsDeleted");
-
-                    b.Property<string>("PostalCode");
-
-                    b.Property<string>("Province");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("Suburb");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressTypeId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Address");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity2.AddressType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuditCreatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate");
-
-                    b.Property<string>("AuditLastUpdatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(75);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250);
-
-                    b.Property<bool?>("IsDeleted");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AddressType");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity2.Country", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuditCreatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate");
-
-                    b.Property<string>("AuditLastUpdatedBy");
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(75);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250);
-
-                    b.Property<bool?>("IsDeleted");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Country");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity2.SpecialAppUsers", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -240,7 +135,7 @@ namespace SpecialApp.Context.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -249,10 +144,10 @@ namespace SpecialApp.Context.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("PasswordHash");
 
@@ -265,7 +160,7 @@ namespace SpecialApp.Context.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.HasKey("Id");
 
@@ -289,7 +184,7 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("TestWebApp.Models.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -297,7 +192,7 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("TestWebApp.Models.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -310,21 +205,10 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("TestWebApp.Models.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
-                {
-                    b.HasOne("SpecialApp.Entity2.AddressType", "AddressType")
-                        .WithMany()
-                        .HasForeignKey("AddressTypeId");
-
-                    b.HasOne("SpecialApp.Entity2.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
                 });
         }
     }
