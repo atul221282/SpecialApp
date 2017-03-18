@@ -8,18 +8,24 @@ namespace SpecialApp.API.Controllers
 {
     public class ValuesController : BaseApiController
     {
+        private readonly ITempService tempService;
+
+        public ValuesController(ITempService tempService)
+        {
+            this.tempService = tempService;
+        }
         // GET api/values
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new string[] { "value1", "value2" });
+            return Ok(new string[] { tempService.Test(), "value1", "value2" });
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return  Ok(new { data = $"value {id}" });
+            return Ok(new { data = $"{tempService.Test()} {id}" });
         }
 
         // POST api/values

@@ -7,6 +7,7 @@ using SpecialApp.Entity2;
 using SpecialApp.Context2;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SpecialApp.API.Helpers;
+using System;
 
 namespace SpecialApp.API
 {
@@ -25,7 +26,7 @@ namespace SpecialApp.API
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // add cors middle ware
             services.AddCorsExtension();
@@ -33,6 +34,16 @@ namespace SpecialApp.API
             services.AddIdentityExtension();
             // add mvc middleware
             services.AddMvc();
+            // add ioc extension
+            var container = services.AddIocExtension();
+            
+            return container.GetInstance<IServiceProvider>();
+            //return ConfigureIoC(services);
+        }
+
+        private IServiceProvider ConfigureIoC(IServiceCollection services)
+        {
+            throw new NotImplementedException();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,5 +55,6 @@ namespace SpecialApp.API
             app.UseIdentity();
             app.UseMvc();
         }
+
     }
 }

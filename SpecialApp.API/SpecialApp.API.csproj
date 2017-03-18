@@ -20,11 +20,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+    <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="1.3.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpecialApp.Base\SpecialApp.Base.csproj" />
     <ProjectReference Include="..\SpecialApp.Context2\SpecialApp.Context.csproj" />
     <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity.csproj" />
   </ItemGroup>
