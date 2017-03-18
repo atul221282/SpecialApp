@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpecialApp.UnitOfWork
+﻿namespace SpecialApp.UnitOfWork
 {
     public interface ISpecialUOW
     {
+        string Test();
     }
 }

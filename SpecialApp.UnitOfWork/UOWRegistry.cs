@@ -1,11 +1,9 @@
 ﻿using StructureMap;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SpecialApp.UnitOfWork.Infrastructure
+namespace SpecialApp.UnitOfWork
 {
-    public class UOWRegistry : Registry
+    public class UOWRegistry:Registry
     {
         public UOWRegistry()
         {
