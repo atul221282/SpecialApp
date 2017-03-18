@@ -13,10 +13,12 @@ namespace SpecialApp.API.Controllers
     public class AuthController : BaseApiController
     {
         private readonly UserManager<SpecialAppUsers> userManager;
+        private readonly IPasswordHasher<SpecialAppUsers> pwdHasher;
 
-        public AuthController(UserManager<SpecialAppUsers> userManager)
+        public AuthController(UserManager<SpecialAppUsers> userManager, IPasswordHasher<SpecialAppUsers> pwdHasher)
         {
             this.userManager = userManager;
+            this.pwdHasher = pwdHasher;
         }
         // GET: api/Auth
         public async Task<IActionResult> Get()
@@ -26,11 +28,15 @@ namespace SpecialApp.API.Controllers
         }
 
         // GET: api/Auth/5
-        [HttpGet("{email}", Name = "Get")]
-        public async Task<IActionResult> Get(string email)
+        [HttpGet("{email}/{password}", Name = "Get")]
+        public async Task<IActionResult> Get(string email, string password)
         {
             var user = await userManager.FindByEmailAsync(email);
-            return Ok(user);
+            var rightUser = pwdHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+            if (rightUser == PasswordVerificationResult.Success)
+                return Ok(user);
+            else
+                return StatusCode(500);
         }
 
         // POST: api/Auth
@@ -45,7 +51,7 @@ namespace SpecialApp.API.Controllers
                     if (userResult != null)
                         return StatusCode(500);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return StatusCode(500);
                 }
