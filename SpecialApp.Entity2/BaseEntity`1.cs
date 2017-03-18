@@ -1,11 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpecialApp.Entity2
 {
     public abstract class BaseEntity<T> : IObjectWithState
     {
-        private DateTime? _auditCreatedDate;
-        private DateTime? _auditLastUpdatedDate;
+        private DateTimeOffset? _auditCreatedDate;
+        private DateTimeOffset? _auditLastUpdatedDate;
         /// <summary>
         ///
         /// </summary>
@@ -14,7 +16,6 @@ namespace SpecialApp.Entity2
         /// <summary>
         /// Gets or sets the Id
         /// </summary>
-
         public T Id { get; set; }
         /// <summary>
         /// Gets or sets the user AuditCreatedBy
@@ -32,7 +33,7 @@ namespace SpecialApp.Entity2
         /// Gets or sets the user AuditCreatedDate
         /// </summary>
 
-        public DateTime? AuditCreatedDate
+        public DateTimeOffset? AuditCreatedDate
         {
             get { return _auditCreatedDate; }
             set { _auditCreatedDate = value; }
@@ -42,7 +43,7 @@ namespace SpecialApp.Entity2
         /// Gets or sets the user AuditCreatedDate
         /// </summary>
 
-        public DateTime? AuditLastUpdatedDate
+        public DateTimeOffset? AuditLastUpdatedDate
         {
             get { return _auditLastUpdatedDate; }
             set { _auditLastUpdatedDate = value; }

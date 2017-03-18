@@ -8,7 +8,7 @@ using SpecialApp.Context2;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170318061715_init")]
+    [Migration("20170318111205_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,11 @@ namespace SpecialApp.Context.Migrations
 
                     b.Property<string>("AuditCreatedBy");
 
-                    b.Property<DateTime?>("AuditCreatedDate");
+                    b.Property<DateTimeOffset?>("AuditCreatedDate");
 
                     b.Property<string>("AuditLastUpdatedBy");
 
-                    b.Property<DateTime?>("AuditLastUpdatedDate");
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
 
                     b.Property<string>("City");
 
@@ -49,7 +49,8 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("Province");
 
                     b.Property<byte[]>("RowVersion")
-                        .IsRequired();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Suburb");
 
@@ -64,16 +65,16 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("SpecialApp.Entity2.AddressType", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuditCreatedBy");
 
-                    b.Property<DateTime?>("AuditCreatedDate");
+                    b.Property<DateTimeOffset?>("AuditCreatedDate");
 
                     b.Property<string>("AuditLastUpdatedBy");
 
-                    b.Property<DateTime?>("AuditLastUpdatedDate");
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
 
                     b.Property<string>("Code")
                         .HasMaxLength(75);
@@ -99,11 +100,11 @@ namespace SpecialApp.Context.Migrations
 
                     b.Property<string>("AuditCreatedBy");
 
-                    b.Property<DateTime?>("AuditCreatedDate");
+                    b.Property<DateTimeOffset?>("AuditCreatedDate");
 
                     b.Property<string>("AuditLastUpdatedBy");
 
-                    b.Property<DateTime?>("AuditLastUpdatedDate");
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate");
 
                     b.Property<string>("Code")
                         .HasMaxLength(75);
@@ -114,7 +115,8 @@ namespace SpecialApp.Context.Migrations
                     b.Property<bool?>("IsDeleted");
 
                     b.Property<byte[]>("RowVersion")
-                        .IsRequired();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 

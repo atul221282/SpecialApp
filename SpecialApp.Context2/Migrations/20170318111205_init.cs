@@ -16,9 +16,9 @@ namespace SpecialApp.Context.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuditCreatedBy = table.Column<string>(nullable: true),
-                    AuditCreatedDate = table.Column<DateTime>(nullable: true),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: true),
                     AuditLastUpdatedBy = table.Column<string>(nullable: true),
-                    AuditLastUpdatedDate = table.Column<DateTime>(nullable: true),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: true),
                     Code = table.Column<string>(maxLength: 75, nullable: true),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
@@ -36,13 +36,13 @@ namespace SpecialApp.Context.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuditCreatedBy = table.Column<string>(nullable: true),
-                    AuditCreatedDate = table.Column<DateTime>(nullable: true),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: true),
                     AuditLastUpdatedBy = table.Column<string>(nullable: true),
-                    AuditLastUpdatedDate = table.Column<DateTime>(nullable: true),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: true),
                     Code = table.Column<string>(maxLength: 75, nullable: true),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: false)
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,15 +60,15 @@ namespace SpecialApp.Context.Migrations
                     AddressState = table.Column<string>(nullable: true),
                     AddressTypeId = table.Column<int>(nullable: true),
                     AuditCreatedBy = table.Column<string>(nullable: true),
-                    AuditCreatedDate = table.Column<DateTime>(nullable: true),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: true),
                     AuditLastUpdatedBy = table.Column<string>(nullable: true),
-                    AuditLastUpdatedDate = table.Column<DateTime>(nullable: true),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     CountryId = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
                     PostalCode = table.Column<string>(nullable: true),
                     Province = table.Column<string>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     Suburb = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
