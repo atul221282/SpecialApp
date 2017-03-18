@@ -1,4 +1,5 @@
-﻿using StructureMap;
+﻿using SpecialApp.Context.Infrastructure;
+using StructureMap;
 using System;
 
 namespace SpecialApp.UnitOfWork.Infrastructure
@@ -7,6 +8,7 @@ namespace SpecialApp.UnitOfWork.Infrastructure
     {
         public UOWRegistry()
         {
+            IncludeRegistry<ContextRegistry>();
             Scan(y =>
             {
                 y.TheCallingAssembly();
