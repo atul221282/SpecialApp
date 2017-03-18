@@ -1,0 +1,4 @@
+﻿dotnet ef --startup-project ../SpecialApp.API migrations add init
+
+dotnet ef --startup-project ../SpecialApp.API database update
+

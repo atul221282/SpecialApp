@@ -8,8 +8,8 @@ using SpecialApp.Context2;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170316133154_Init")]
-    partial class Init
+    [Migration("20170318044926_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
