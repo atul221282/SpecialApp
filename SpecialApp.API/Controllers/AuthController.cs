@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Entity2;
 using Microsoft.AspNetCore.Identity;
+using SpecialApp.API.Filters;
 
 namespace SpecialApp.API.Controllers
 {
-
+    [ExceptionHandlerFilter]
     public class AuthController : BaseApiController
     {
         private readonly UserManager<SpecialAppUsers> userManager;
@@ -31,6 +32,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet("{email}/{password}", Name = "Get")]
         public async Task<IActionResult> Get(string email, string password)
         {
+            throw new Exception("cool");
             var user = await userManager.FindByEmailAsync(email);
             var rightUser = pwdHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             if (rightUser == PasswordVerificationResult.Success)

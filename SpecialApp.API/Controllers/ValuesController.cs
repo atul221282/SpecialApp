@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Service;
 using SpecialApp.Entity2;
+using SpecialApp.API.Filters;
 
 namespace SpecialApp.API.Controllers
 {
+    [ExceptionHandlerFilter]
     public class ValuesController : BaseApiController
     {
         private readonly Func<IAddressTypeService> tempServiceFunc;
@@ -20,6 +22,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            
             AddressType at = null;
             try
             {
