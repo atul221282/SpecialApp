@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SpecialApp.Base;
+using SpecialApp.Base.Infrastructure;
 using SpecialApp.Context2;
 using SpecialApp.Entity2;
 using SpecialApp.Service.Infrastructure;
@@ -53,10 +54,8 @@ namespace SpecialApp.API.Helpers
                     y.TheCallingAssembly();
                     y.WithDefaultConventions();
                 });
+                config.AddRegistry<BaseRegistry>();
                 config.AddRegistry<ServiceRegistry>();
-                // c.AddRegistry<Business.Config>();
-                // c.AddRegistry<StandardRegisrty>();
-                // c.AddRegistry<ValidationConfig>();
                 config.Populate(services);
             });
             // Populate the container using the service collection

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Entity2;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.API.Filters;
+using SpecialApp.Base;
 
 namespace SpecialApp.API.Controllers
 {
@@ -15,11 +16,15 @@ namespace SpecialApp.API.Controllers
     {
         private readonly UserManager<SpecialAppUsers> userManager;
         private readonly IPasswordHasher<SpecialAppUsers> pwdHasher;
+        private readonly IBusinessException busEx;
 
-        public AuthController(UserManager<SpecialAppUsers> userManager, IPasswordHasher<SpecialAppUsers> pwdHasher)
+        public AuthController(UserManager<SpecialAppUsers> userManager,
+            IPasswordHasher<SpecialAppUsers> pwdHasher,
+            IBusinessException busEx)
         {
             this.userManager = userManager;
             this.pwdHasher = pwdHasher;
+            this.busEx = busEx;
         }
         // GET: api/Auth
         public async Task<IActionResult> Get()
@@ -32,7 +37,6 @@ namespace SpecialApp.API.Controllers
         [HttpGet("{email}/{password}", Name = "Get")]
         public async Task<IActionResult> Get(string email, string password)
         {
-            throw new Exception("cool");
             var user = await userManager.FindByEmailAsync(email);
             var rightUser = pwdHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             if (rightUser == PasswordVerificationResult.Success)

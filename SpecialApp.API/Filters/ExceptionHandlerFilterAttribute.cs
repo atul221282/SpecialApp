@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SpecialApp.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,24 @@ namespace SpecialApp.API.Filters
         public override void OnException(ExceptionContext context)
         {
             var exception = context.Exception;
-            context.Result = new JsonResult(exception)
+
+            if (exception.GetType() == typeof(BusinessException))
             {
-                StatusCode = 500,
-                Value = new { Data = exception.Message }
-            };
+                var busEx = exception as BusinessException;
+                context.Result = new JsonResult(exception)
+                {
+                    StatusCode = 500,
+                    Value = new { Data = busEx.GetErrors() }
+                };
+            }
+            else
+            {
+                context.Result = new JsonResult(exception)
+                {
+                    StatusCode = 500,
+                    Value = new { Data = exception.Message }
+                };
+            }
             context.ExceptionHandled = true;
         }
     }
