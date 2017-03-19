@@ -34,12 +34,11 @@ namespace SpecialApp.API.Controllers
         }
 
         // GET: api/Auth/5
-        [HttpGet("{email}/{password}", Name = "Get")]
-        public async Task<IActionResult> Get(string email, string password)
+        [HttpGet("{email}", Name = "Get")]
+        public async Task<IActionResult> Get(string email)
         {
             var user = await userManager.FindByEmailAsync(email);
-            var rightUser = pwdHasher.VerifyHashedPassword(user, user.PasswordHash, password);
-            if (rightUser == PasswordVerificationResult.Success)
+            if (user != null)
                 return Ok(user);
             else
                 return StatusCode(500);
