@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SpecialApp.Entity2;
 
 namespace SpecialApp.Context2.Configuration
@@ -8,6 +6,7 @@ namespace SpecialApp.Context2.Configuration
     public class CountryConfiguration
     {
         private EntityTypeBuilder<Country> entityTypeBuilder;
+
         public CountryConfiguration(EntityTypeBuilder<Country> entityTypeBuilder)
         {
             this.entityTypeBuilder = entityTypeBuilder;

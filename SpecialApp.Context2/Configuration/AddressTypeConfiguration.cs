@@ -1,6 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SpecialApp.Entity2;
 
 namespace SpecialApp.Context2.Configuration
@@ -8,6 +6,7 @@ namespace SpecialApp.Context2.Configuration
     public class AddressTypeConfiguration
     {
         private EntityTypeBuilder<AddressType> entityTypeBuilder;
+
         public AddressTypeConfiguration(EntityTypeBuilder<AddressType> entityTypeBuilder)
         {
             this.entityTypeBuilder = entityTypeBuilder;

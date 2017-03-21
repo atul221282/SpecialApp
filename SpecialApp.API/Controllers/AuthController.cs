@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SpecialApp.Entity2;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
 using SpecialApp.Base;
+using SpecialApp.Entity2;
+using System;
+using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers
 {
@@ -26,6 +23,7 @@ namespace SpecialApp.API.Controllers
             this.pwdHasher = pwdHasher;
             this.busEx = busEx;
         }
+
         // GET: api/Auth
         public async Task<IActionResult> Get()
         {

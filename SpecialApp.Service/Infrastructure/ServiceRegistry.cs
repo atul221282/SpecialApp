@@ -1,5 +1,5 @@
-﻿using StructureMap;
-using SpecialApp.UnitOfWork;
+﻿using SpecialApp.UnitOfWork;
+using StructureMap;
 
 namespace SpecialApp.Service.Infrastructure
 {

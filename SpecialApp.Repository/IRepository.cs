@@ -22,22 +22,24 @@ namespace SpecialApp.Repository
         /// <param name="includedProperties">The included properties.</param>
         /// <returns></returns>
         IQueryable<T> GetAll(params Expression<Func<T, object>>[] includedProperties);
+
         /// <summary>
         /// Gets T class by the identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         Task<T> Get(long id);
+
         /// <summary>
         /// Adds the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Add(T entity);
+
         /// <summary>
         /// Updates the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Update(T entity);
-
     }
 }

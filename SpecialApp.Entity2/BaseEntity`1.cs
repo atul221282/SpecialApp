@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpecialApp.Entity2
 {
@@ -8,6 +6,7 @@ namespace SpecialApp.Entity2
     {
         private DateTimeOffset? _auditCreatedDate;
         private DateTimeOffset? _auditLastUpdatedDate;
+
         /// <summary>
         ///
         /// </summary>
@@ -17,6 +16,7 @@ namespace SpecialApp.Entity2
         /// Gets or sets the Id
         /// </summary>
         public T Id { get; set; }
+
         /// <summary>
         /// Gets or sets the user AuditCreatedBy
         /// </summary>

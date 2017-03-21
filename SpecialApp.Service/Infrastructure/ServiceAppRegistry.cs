@@ -1,5 +1,4 @@
-﻿
-using StructureMap;
+﻿using StructureMap;
 
 namespace SpecialApp.Service.Infrastructure
 {
@@ -7,7 +6,6 @@ namespace SpecialApp.Service.Infrastructure
     {
         public ServiceAppRegistry()
         {
-            
             Scan(y =>
             {
                 y.TheCallingAssembly();

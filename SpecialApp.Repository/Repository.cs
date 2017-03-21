@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SpecialApp.Repository
 {
@@ -15,7 +13,6 @@ namespace SpecialApp.Repository
         public DbSet<T> DbSet { get; set; }
 
         //private readonly DbSet<T> DbSet;
-
 
         public Repository(DbContext context)
         {
@@ -86,7 +83,6 @@ namespace SpecialApp.Repository
                 query = query.Include(includedProperty);
             }
             return query;
-
         }
     }
 }

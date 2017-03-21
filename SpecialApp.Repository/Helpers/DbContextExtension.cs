@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity2;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SpecialApp.Repository.Helpers
 {
@@ -30,10 +27,13 @@ namespace SpecialApp.Repository.Helpers
             {
                 case State.Added:
                     return EntityState.Added;
+
                 case State.Modified:
                     return EntityState.Modified;
+
                 case State.Deleted:
                     return EntityState.Deleted;
+
                 default:
                     return EntityState.Unchanged;
             }

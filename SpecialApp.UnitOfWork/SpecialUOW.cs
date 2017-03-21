@@ -1,13 +1,9 @@
 ﻿using SpecialApp.Context2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SpecialApp.Entity2;
 using SpecialApp.Repository;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using SpecialApp.Repository.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace SpecialApp.UnitOfWork
 {
@@ -26,7 +22,6 @@ namespace SpecialApp.UnitOfWork
         {
             context().ApplyStateChange();
             return await context().SaveChangesAsync();
-
         }
     }
 }

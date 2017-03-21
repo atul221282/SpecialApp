@@ -18,6 +18,5 @@ export class ApiClientService {
                 return res.json() as T;
             })
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-
     }
 }

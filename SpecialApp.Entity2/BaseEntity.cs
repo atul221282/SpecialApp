@@ -6,6 +6,7 @@ namespace SpecialApp.Entity2
     {
         private DateTimeOffset? _auditCreatedDate;
         private DateTimeOffset? _auditLastUpdatedDate;
+
         /// <summary>
         ///
         /// </summary>

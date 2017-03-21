@@ -7,7 +7,6 @@ import { ApiClientService } from './';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
     title = 'app works!';
 
     constructor(private apiClientService: ApiClientService) {

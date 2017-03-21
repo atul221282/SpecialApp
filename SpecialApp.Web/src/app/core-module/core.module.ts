@@ -4,7 +4,7 @@ import { LoadingSpinnerComponent, ApiClientService } from './';
 
 @NgModule({
     imports: [
-        
+
     ],
     declarations: [
         LoadingSpinnerComponent

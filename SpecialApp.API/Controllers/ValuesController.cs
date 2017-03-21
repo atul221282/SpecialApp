@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SpecialApp.Service;
-using SpecialApp.Entity2;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
+using SpecialApp.Entity2;
+using SpecialApp.Service;
+using System;
+using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers
 {
@@ -18,11 +16,11 @@ namespace SpecialApp.API.Controllers
         {
             this.tempServiceFunc = tempServiceFunc;
         }
+
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            
             AddressType at = null;
             try
             {

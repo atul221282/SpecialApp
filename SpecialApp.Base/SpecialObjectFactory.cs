@@ -6,7 +6,6 @@ namespace SpecialApp.Base
 {
     public static class SpecialObjectFactory
     {
-
         private static readonly Lazy<Container> _containerBuilder =
                 new Lazy<Container>(defaultContainer, LazyThreadSafetyMode.ExecutionAndPublication);
 
@@ -24,4 +23,3 @@ namespace SpecialApp.Base
         }
     }
 }
-

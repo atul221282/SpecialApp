@@ -1,9 +1,8 @@
 ﻿using StructureMap;
-using System;
 
 namespace SpecialApp.UnitOfWork
 {
-    public class UOWRegistry:Registry
+    public class UOWRegistry : Registry
     {
         public UOWRegistry()
         {

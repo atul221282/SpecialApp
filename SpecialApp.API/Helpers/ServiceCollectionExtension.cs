@@ -9,9 +9,6 @@ using SpecialApp.Entity2;
 using SpecialApp.Service.Infrastructure;
 using StructureMap;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpecialApp.API.Helpers
 {

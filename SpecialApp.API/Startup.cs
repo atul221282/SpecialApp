@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SpecialApp.Entity2;
-using SpecialApp.Context2;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SpecialApp.API.Helpers;
 using System;
 
@@ -36,7 +33,7 @@ namespace SpecialApp.API
             services.AddMvc();
             // add ioc extension
             var container = services.AddIocExtension();
-            
+
             return container.GetInstance<IServiceProvider>();
             //return ConfigureIoC(services);
         }
@@ -50,6 +47,5 @@ namespace SpecialApp.API
             app.UseIdentity();
             app.UseMvc();
         }
-
     }
 }

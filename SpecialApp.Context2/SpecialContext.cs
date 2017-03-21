@@ -9,11 +9,11 @@ namespace SpecialApp.Context2
     {
         public SpecialContext() : base()
         {
-
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //TODO : Read it from options 
+            //TODO : Read it from options
             optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp;Timeout=240; Trusted_Connection = True; ");
         }
 
@@ -24,6 +24,7 @@ namespace SpecialApp.Context2
             new CountryConfiguration(modelBuilder.Entity<Country>());
             base.OnModelCreating(modelBuilder);
         }
+
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }

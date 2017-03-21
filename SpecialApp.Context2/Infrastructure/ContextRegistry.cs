@@ -1,8 +1,5 @@
 ﻿using SpecialApp.Context2;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SpecialApp.Context.Infrastructure
 {

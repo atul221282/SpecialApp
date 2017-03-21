@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpecialApp.Entity2
+﻿namespace SpecialApp.Entity2
 {
     public class Users
     {
