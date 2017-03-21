@@ -14,7 +14,7 @@ namespace SpecialApp.Context2
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //TODO : Read it from options 
-            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp; Trusted_Connection = True; ");
+            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp;Timeout=240; Trusted_Connection = True; ");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

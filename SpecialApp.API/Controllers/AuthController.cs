@@ -14,21 +14,22 @@ namespace SpecialApp.API.Controllers
     [ExceptionHandlerFilter]
     public class AuthController : BaseApiController
     {
-        private readonly UserManager<SpecialAppUsers> userManager;
+        private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
         private readonly IPasswordHasher<SpecialAppUsers> pwdHasher;
         private readonly IBusinessException busEx;
 
-        public AuthController(UserManager<SpecialAppUsers> userManager,
+        public AuthController(Func<UserManager<SpecialAppUsers>> userManagerFunc,
             IPasswordHasher<SpecialAppUsers> pwdHasher,
             IBusinessException busEx)
         {
-            this.userManager = userManager;
+            this.userManagerFunc = userManagerFunc;
             this.pwdHasher = pwdHasher;
             this.busEx = busEx;
         }
         // GET: api/Auth
         public async Task<IActionResult> Get()
         {
+            var userManager = userManagerFunc();
             var user = await userManager.FindByEmailAsync("");
             return Ok(user);
         }
@@ -37,17 +38,26 @@ namespace SpecialApp.API.Controllers
         [HttpGet("{email}", Name = "Get")]
         public async Task<IActionResult> Get(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
-            if (user != null)
-                return Ok(user);
-            else
+            try
+            {
+                var userManager = userManagerFunc();
+                var user = await userManager.FindByEmailAsync(email);
+                if (user != null)
+                    return Ok(user);
+                else
+                    return StatusCode(500);
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(500);
+            }
         }
 
         // POST: api/Auth
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]SpecialAppUsers user, [FromQuery]string password)
         {
+            var userManager = userManagerFunc();
             if (user != null)
             {
                 try

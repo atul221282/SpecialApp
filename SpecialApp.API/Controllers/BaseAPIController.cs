@@ -13,9 +13,5 @@ namespace SpecialApp.API.Controllers
     [EnableCors(APIGlobalConstants.CorsPolicy)]
     public abstract class BaseApiController : Controller
     {
-        public OkObjectResult Ok<T>(T data)
-        {
-            return Ok(data);
-        }
     }
 }
