@@ -12,15 +12,15 @@ namespace SpecialApp.API.Controllers
     public class AuthController : BaseApiController
     {
         private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
-        private readonly IPasswordHasher<SpecialAppUsers> pwdHasher;
+        private readonly Func<IPasswordHasher<SpecialAppUsers>> pwdHasherFunc;
         private readonly IBusinessException busEx;
 
         public AuthController(Func<UserManager<SpecialAppUsers>> userManagerFunc,
-            IPasswordHasher<SpecialAppUsers> pwdHasher,
+           Func<IPasswordHasher<SpecialAppUsers>> pwdHasherFunc,
             IBusinessException busEx)
         {
             this.userManagerFunc = userManagerFunc;
-            this.pwdHasher = pwdHasher;
+            this.pwdHasherFunc = pwdHasherFunc;
             this.busEx = busEx;
         }
 
