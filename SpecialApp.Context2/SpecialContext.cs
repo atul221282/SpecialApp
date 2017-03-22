@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Context.Configuration;
+using SpecialApp.Context.Configuration.Companies;
+using SpecialApp.Context.Configuration.Special;
 using SpecialApp.Context2.Configuration;
+using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Special;
 using SpecialApp.Entity2;
 
@@ -27,6 +30,8 @@ namespace SpecialApp.Context2
             new CountryConfiguration(modelBuilder.Entity<Country>());
             new CompanyFranchiseCategoryConfiguration(modelBuilder.Entity<CompanyFranchiseCategory>());
             new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
+            new CompanyConfiguration(modelBuilder.Entity<Company>());
+            new CompanyAddressConfiguration(modelBuilder.Entity<CompanyAddress>());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -35,5 +40,8 @@ namespace SpecialApp.Context2
         public virtual DbSet<AddressType> AddressType { get; set; }
         public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
         public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
+        public virtual DbSet<Company> Company { get; set; }
+        public virtual DbSet<CompanyAddress> CompanyAddress { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using SpecialApp.Entity2;
+﻿using SpecialApp.Entity.Companies;
+using SpecialApp.Entity2;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -90,15 +91,17 @@ namespace SpecialApp.Entity.Special
         }
 
 
-        private int _createdById;
+        private string _createdById;
 
-        public int CreatedById
+        public string CreatedById
         {
             get { return _createdById; }
             set { _createdById = value; }
         }
-
         public virtual SpecialAppUsers CreatedBy { get; set; }
+
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
 
         //public List<SpecialAppUsers> CompanyFranchiseUsers
         //{

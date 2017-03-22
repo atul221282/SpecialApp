@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpecialApp.Context.Configuration
+namespace SpecialApp.Context.Configuration.Special
 {
     public class CompanyFranchiseCategoryConfiguration : BaseCodeConfiguration<CompanyFranchiseCategory>
     {
