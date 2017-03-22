@@ -21,10 +21,10 @@ namespace SpecialApp.Entity.Special
         //private List<CompanyFranchiseViewed> _companyFranchiseViewed = new List<CompanyFranchiseViewed>();
         private CompanyFranchiseCategory _companyFranchiseCaregory;
         private string _confirmationToken;
-        private SpecialAppUsers _createdBy;
+
         private int _companyFranchiseCaregoryId;
         private int _addressId;
-        private int _createdById;
+
         #endregion
 
         public bool IsConfirmed
@@ -60,22 +60,10 @@ namespace SpecialApp.Entity.Special
             set { _confirmationToken = value; }
         }
 
-        public int AddressId
-        {
-            get { return _addressId; }
-            set { _addressId = value; }
-        }
-
         public int CompanyFranchiseCategoryId
         {
             get { return _companyFranchiseCaregoryId; }
             set { _companyFranchiseCaregoryId = value; }
-        }
-
-        public int CreatedById
-        {
-            get { return _createdById; }
-            set { _createdById = value; }
         }
 
         //public Company Company
@@ -83,6 +71,11 @@ namespace SpecialApp.Entity.Special
         //    get { return _company; }
         //    set { _company = value; }
         //}
+        public int AddressId
+        {
+            get { return _addressId; }
+            set { _addressId = value; }
+        }
 
         public virtual Address Address
         {
@@ -96,11 +89,16 @@ namespace SpecialApp.Entity.Special
             set { _companyFranchiseCaregory = value; }
         }
 
-        public virtual SpecialAppUsers CreatedBy
+
+        private int _createdById;
+
+        public int CreatedById
         {
-            get { return _createdBy; }
-            set { _createdBy = value; }
+            get { return _createdById; }
+            set { _createdById = value; }
         }
+
+        public virtual SpecialAppUsers CreatedBy { get; set; }
 
         //public List<SpecialAppUsers> CompanyFranchiseUsers
         //{

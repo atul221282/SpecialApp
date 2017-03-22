@@ -16,7 +16,7 @@ namespace SpecialApp.Context2
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //TODO : Read it from options
-            optionsBuilder.UseSqlServer(@"Server = (localdb)\\MSSQLLocalDB; Database = SpecialApp;Timeout=240; 
+            optionsBuilder.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database = SpecialApp;Timeout=240; 
                                             Trusted_Connection = True; ");
         }
 
@@ -25,15 +25,15 @@ namespace SpecialApp.Context2
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
             new CountryConfiguration(modelBuilder.Entity<Country>());
-            //new CompanyFranchiseCategoryConfiguration(modelBuilder.Entity<CompanyFranchiseCategory>());
-            //new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
+            new CompanyFranchiseCategoryConfiguration(modelBuilder.Entity<CompanyFranchiseCategory>());
+            new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
             base.OnModelCreating(modelBuilder);
         }
 
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
-        //public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
-        //public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
+        public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
+        public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
     }
 }

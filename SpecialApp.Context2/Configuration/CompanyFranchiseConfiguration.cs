@@ -6,20 +6,18 @@ using System.Text;
 
 namespace SpecialApp.Context.Configuration
 {
-    public class CompanyFranchiseConfiguration
+    public class CompanyFranchiseConfiguration : BaseEntityConfiguration<CompanyFranchise>
     {
         private EntityTypeBuilder<CompanyFranchise> entityTypeBuilder;
 
         public CompanyFranchiseConfiguration(EntityTypeBuilder<CompanyFranchise> entityTypeBuilder)
+            : base(entityTypeBuilder)
         {
             this.entityTypeBuilder = entityTypeBuilder;
-            this.entityTypeBuilder.HasKey(x => x.Id);
             this.entityTypeBuilder.Property(x => x.AddressId).IsRequired();
             this.entityTypeBuilder.Property(x => x.CompanyFranchiseCategoryId).IsRequired();
+            this.entityTypeBuilder.Property(x => x.ConfirmationToken).HasMaxLength(250);
             this.entityTypeBuilder.Property(x => x.CreatedById).IsRequired();
-            this.entityTypeBuilder.Property(x => x.IsConfirmed).IsRequired();
-            this.entityTypeBuilder.Ignore(x => x.State);
-            this.entityTypeBuilder.Property(x => x.RowVersion).IsConcurrencyToken().IsRowVersion();
         }
     }
 }

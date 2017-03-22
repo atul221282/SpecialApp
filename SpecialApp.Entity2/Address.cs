@@ -3,24 +3,30 @@
     public class Address : BaseEntity
     {
         #region Private member
-
         private string _addressLine1;
         private string _addressLine2;
         private string _city;
         private string _suburb;
-
         private string _addresState;
         private string _postalCode;
         private string _province;
         private Country _country;
-
+        private int _counrtyId;
+        private int _addressTypeId;
+        private AddressType _addressType;
         #endregion Private member
+
+        public int CounrtyId
+        {
+            get { return _counrtyId; }
+            set { _counrtyId = value; }
+        }
 
         /// <summary>
         /// Gets or sets the Country
         /// </summary>
 
-        public Country Country
+        public virtual Country Country
         {
             get { return _country; }
             set { _country = value; }
@@ -96,6 +102,20 @@
             set { _suburb = value; }
         }
 
-        public AddressType AddressType { get; set; }
+
+        public int AddressTypeId
+        {
+            get { return _addressTypeId; }
+            set { _addressTypeId = value; }
+        }
+
+
+
+        public virtual AddressType AddressType
+        {
+            get { return _addressType; }
+            set { _addressType = value; }
+        }
+
     }
 }
