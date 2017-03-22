@@ -32,6 +32,8 @@ namespace SpecialApp.Context2
             new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
             new CompanyConfiguration(modelBuilder.Entity<Company>());
             new CompanyAddressConfiguration(modelBuilder.Entity<CompanyAddress>());
+            new CompanyFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFollowedByUsers>());
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -42,6 +44,6 @@ namespace SpecialApp.Context2
         public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<CompanyAddress> CompanyAddress { get; set; }
-
+        public virtual DbSet<CompanyFollowedByUsers> CompanyFollowedByUsers { get; set; }
     }
 }

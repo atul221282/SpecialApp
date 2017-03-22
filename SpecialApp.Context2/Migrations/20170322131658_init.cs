@@ -179,7 +179,6 @@ namespace SpecialApp.Context.Migrations
                     AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
                     AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
                     City = table.Column<string>(maxLength: 150, nullable: true),
-                    CompanyId = table.Column<int>(nullable: true),
                     CounrtyId = table.Column<int>(nullable: false),
                     CountryId = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -197,12 +196,6 @@ namespace SpecialApp.Context.Migrations
                         principalTable: "AddressType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Address_Company_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Address_Country_CountryId",
                         column: x => x.CountryId,
@@ -271,6 +264,30 @@ namespace SpecialApp.Context.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompanyFollowedByUsers",
+                columns: table => new
+                {
+                    SpecialAppUsersId = table.Column<string>(nullable: false),
+                    CompanyId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyFollowedByUsers", x => new { x.SpecialAppUsersId, x.CompanyId });
+                    table.ForeignKey(
+                        name: "FK_CompanyFollowedByUsers_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompanyFollowedByUsers_AspNetUsers_SpecialAppUsersId",
+                        column: x => x.SpecialAppUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -383,6 +400,11 @@ namespace SpecialApp.Context.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompanyFollowedByUsers_CompanyId",
+                table: "CompanyFollowedByUsers",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyFranchise_AddressId",
                 table: "CompanyFranchise",
                 column: "AddressId");
@@ -406,11 +428,6 @@ namespace SpecialApp.Context.Migrations
                 name: "IX_Address_AddressTypeId",
                 table: "Address",
                 column: "AddressTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Address_CompanyId",
-                table: "Address",
-                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_CountryId",
@@ -450,6 +467,9 @@ namespace SpecialApp.Context.Migrations
                 name: "CompanyAddress");
 
             migrationBuilder.DropTable(
+                name: "CompanyFollowedByUsers");
+
+            migrationBuilder.DropTable(
                 name: "CompanyFranchise");
 
             migrationBuilder.DropTable(
@@ -462,13 +482,13 @@ namespace SpecialApp.Context.Migrations
                 name: "CompanyFranchiseCategory");
 
             migrationBuilder.DropTable(
+                name: "Company");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "AddressType");
-
-            migrationBuilder.DropTable(
-                name: "Company");
 
             migrationBuilder.DropTable(
                 name: "Country");

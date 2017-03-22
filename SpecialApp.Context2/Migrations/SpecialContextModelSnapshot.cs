@@ -175,6 +175,19 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("CompanyAddress");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFollowedByUsers", b =>
+                {
+                    b.Property<string>("SpecialAppUsersId");
+
+                    b.Property<int>("CompanyId");
+
+                    b.HasKey("SpecialAppUsersId", "CompanyId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("CompanyFollowedByUsers");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Special.CompanyFranchise", b =>
                 {
                     b.Property<int?>("Id")
@@ -304,8 +317,6 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("City")
                         .HasMaxLength(150);
 
-                    b.Property<int?>("CompanyId");
-
                     b.Property<int>("CounrtyId");
 
                     b.Property<int?>("CountryId");
@@ -330,8 +341,6 @@ namespace SpecialApp.Context.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressTypeId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("CountryId");
 
@@ -507,8 +516,21 @@ namespace SpecialApp.Context.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
-                        .WithMany()
+                        .WithMany("CompanyAddresses")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFollowedByUsers", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
+                        .WithMany("CompanyFollowedByUsers")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
+                        .WithMany()
+                        .HasForeignKey("SpecialAppUsersId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -541,10 +563,6 @@ namespace SpecialApp.Context.Migrations
                         .WithMany()
                         .HasForeignKey("AddressTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SpecialApp.Entity.Companies.Company")
-                        .WithMany("CompanyAddressses")
-                        .HasForeignKey("CompanyId");
 
                     b.HasOne("SpecialApp.Entity2.Country", "Country")
                         .WithMany()

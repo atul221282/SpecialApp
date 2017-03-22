@@ -34,11 +34,11 @@ namespace SpecialApp.Entity.Companies
         /// <summary>
         /// Gets or sets the list of address company got
         /// </summary>
-        public List<Address> CompanyAddressses { get; set; }
+        public List<CompanyAddress> CompanyAddresses { get; set; }
 
-        ///// <summary>
-        ///// Gets or sets the list of Company followed by users
-        ///// </summary>
-        //public List<CompanyFollowedByUser> CompanyFollowedByUsers { get; set; }
+        /// <summary>
+        /// Gets or sets the list of Company followed by users
+        /// </summary>
+        public List<CompanyFollowedByUsers> CompanyFollowedByUsers { get; set; }
     }
 }

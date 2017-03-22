@@ -34,20 +34,17 @@ namespace SpecialApp.Entity.Special
             set { _isConfirmed = value; }
         }
 
-
         public bool CanGetCustomerDetails
         {
             get { return _canGetCustomerDetails; }
             set { _canGetCustomerDetails = value; }
         }
 
-
         public bool CanContactCustomers
         {
             get { return _canContactCustomers; }
             set { _canContactCustomers = value; }
         }
-
 
         public bool CanSellOnline
         {
@@ -67,11 +64,6 @@ namespace SpecialApp.Entity.Special
             set { _companyFranchiseCaregoryId = value; }
         }
 
-        //public Company Company
-        //{
-        //    get { return _company; }
-        //    set { _company = value; }
-        //}
         public int AddressId
         {
             get { return _addressId; }
@@ -89,7 +81,6 @@ namespace SpecialApp.Entity.Special
             get { return _companyFranchiseCaregory; }
             set { _companyFranchiseCaregory = value; }
         }
-
 
         private string _createdById;
 
