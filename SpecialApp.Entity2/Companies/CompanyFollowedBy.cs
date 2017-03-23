@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpecialApp.Entity.Companies
 {
-    public class CompanyFollowedByUsers
+    public class CompanyFollowedBy
     {
         public int CompanyId { get; set; }
         public Company Company { get; set; }

@@ -8,7 +8,7 @@ namespace SpecialApp.Context.Configuration.Companies
 {
     public class CompanyFollowedByUsersConfiguration
     {
-        public CompanyFollowedByUsersConfiguration(EntityTypeBuilder<CompanyFollowedByUsers> entityTypeBuilder)
+        public CompanyFollowedByUsersConfiguration(EntityTypeBuilder<CompanyFollowedBy> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => new { x.SpecialAppUsersId, x.CompanyId });
         }

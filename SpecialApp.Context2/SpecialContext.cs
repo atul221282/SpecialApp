@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SpecialApp.Context.Configuration;
-using SpecialApp.Context.Configuration.Companies;
 using SpecialApp.Context.Configuration.Companies;
 using SpecialApp.Context2.Configuration;
 using SpecialApp.Entity.Companies;
@@ -28,11 +26,14 @@ namespace SpecialApp.Context2
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
             new CountryConfiguration(modelBuilder.Entity<Country>());
-            new CompanyFranchiseCategoryConfiguration(modelBuilder.Entity<CompanyFranchiseCategory>());
-            new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
             new CompanyConfiguration(modelBuilder.Entity<Company>());
             new CompanyAddressConfiguration(modelBuilder.Entity<CompanyAddress>());
-            new CompanyFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFollowedByUsers>());
+            new CompanyFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFollowedBy>());
+
+            new CompanyFranchiseCategoryConfiguration(modelBuilder.Entity<CompanyFranchiseCategory>());
+            new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
+            new CompanyFranchiseFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFranchiseFollowedBy>());
+            new CompanyFranchiseViewedConfiguration(modelBuilder.Entity<CompanyFranchiseViewed>());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -40,10 +41,14 @@ namespace SpecialApp.Context2
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
-        public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
-        public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
+
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<CompanyAddress> CompanyAddress { get; set; }
-        public virtual DbSet<CompanyFollowedByUsers> CompanyFollowedByUsers { get; set; }
+        public virtual DbSet<CompanyFollowedBy> CompanyFollowedByUsers { get; set; }
+
+        public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
+        public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
+        public virtual DbSet<CompanyFranchiseFollowedBy> CompanyFranchiseFollowedBy { get; set; }
+        public virtual DbSet<CompanyFranchiseViewed> CompanyFranchiseViewed { get; set; }
     }
 }

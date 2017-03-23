@@ -39,6 +39,6 @@ namespace SpecialApp.Entity.Companies
         /// <summary>
         /// Gets or sets the list of Company followed by users
         /// </summary>
-        public List<CompanyFollowedByUsers> CompanyFollowedByUsers { get; set; }
+        public List<CompanyFollowedBy> CompanyFollowedBy { get; set; }
     }
 }
