@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Context.Configuration;
 using SpecialApp.Context.Configuration.Companies;
-using SpecialApp.Context.Configuration.Special;
+using SpecialApp.Context.Configuration.Companies;
 using SpecialApp.Context2.Configuration;
 using SpecialApp.Entity.Companies;
-using SpecialApp.Entity.Special;
+
 using SpecialApp.Entity2;
 
 namespace SpecialApp.Context2

@@ -1,4 +1,4 @@
-﻿dotnet ef --startup-project ../SpecialApp.API migrations add init
+﻿8dotnet ef --startup-project ../SpecialApp.API migrations add init --verbose
 
 dotnet ef --startup-project ../SpecialApp.API database update --verbose
 

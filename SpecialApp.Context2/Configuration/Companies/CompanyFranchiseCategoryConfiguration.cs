@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SpecialApp.Entity.Special;
+using SpecialApp.Entity.Companies;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpecialApp.Context.Configuration.Special
+namespace SpecialApp.Context.Configuration.Companies
 {
     public class CompanyFranchiseCategoryConfiguration : BaseCodeConfiguration<CompanyFranchiseCategory>
     {

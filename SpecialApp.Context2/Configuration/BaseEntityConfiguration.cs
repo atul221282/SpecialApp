@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SpecialApp.Entity.Special;
+
 using SpecialApp.Entity2;
 
 namespace SpecialApp.Context.Configuration

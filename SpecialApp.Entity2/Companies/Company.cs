@@ -1,4 +1,4 @@
-﻿using SpecialApp.Entity.Special;
+﻿
 using SpecialApp.Entity2;
 using System;
 using System.Collections.Generic;
