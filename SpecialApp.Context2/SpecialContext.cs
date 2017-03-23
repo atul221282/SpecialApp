@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SpecialApp.Context.Configuration.Companies;
+using SpecialApp.Context.Configuration.Specials;
 using SpecialApp.Context2.Configuration;
 using SpecialApp.Entity.Companies;
-
+using SpecialApp.Entity.Specials;
 using SpecialApp.Entity2;
+using System.Linq;
 
 namespace SpecialApp.Context2
 {
@@ -23,6 +26,11 @@ namespace SpecialApp.Context2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
             new CountryConfiguration(modelBuilder.Entity<Country>());
@@ -34,6 +42,10 @@ namespace SpecialApp.Context2
             new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
             new CompanyFranchiseFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFranchiseFollowedBy>());
             new CompanyFranchiseViewedConfiguration(modelBuilder.Entity<CompanyFranchiseViewed>());
+
+            new SpecialCategoryConfiguration(modelBuilder.Entity<SpecialCategory>());
+            new SpecialConfiguration(modelBuilder.Entity<Special>());
+            new SpecialAddressConfiguration(modelBuilder.Entity<SpecialAddress>());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -50,5 +62,10 @@ namespace SpecialApp.Context2
         public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
         public virtual DbSet<CompanyFranchiseFollowedBy> CompanyFranchiseFollowedBy { get; set; }
         public virtual DbSet<CompanyFranchiseViewed> CompanyFranchiseViewed { get; set; }
+
+        public virtual DbSet<SpecialCategory> SpecialCategory { get; set; }
+        public virtual DbSet<Special> Special { get; set; }
+        public virtual DbSet<SpecialAddress> SpecialAddress { get; set; }
+
     }
 }

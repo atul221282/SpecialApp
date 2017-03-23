@@ -1,4 +1,5 @@
 ﻿using SpecialApp.Entity.Companies;
+using SpecialApp.Entity.Specials;
 using SpecialApp.Entity2;
 using System;
 using System.Collections.Generic;
@@ -33,10 +34,6 @@ namespace SpecialApp.Entity.Companies
         public List<CompanyFranchiseFollowedBy> CompanyFranchiseFollowedByUsers { get; set; }
         public List<CompanyFranchiseViewed> CompanyFranchiseViewed { get; set; }
 
-        //public List<CompanyFranchiseSpecial> CompanyFranchiseSpecial
-        //{
-        //    get { return _companyFranchiseSpecial; }
-        //    set { _companyFranchiseSpecial = value; }
-        //}
+        public virtual ICollection<Special> Specials { get; set; }
     }
 }

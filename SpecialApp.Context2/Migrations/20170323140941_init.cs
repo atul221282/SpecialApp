@@ -79,6 +79,26 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpecialCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    Code = table.Column<string>(maxLength: 75, nullable: true),
+                    Description = table.Column<string>(maxLength: 250, nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AddressType",
                 columns: table => new
                 {
@@ -161,7 +181,7 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,7 +215,7 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.AddressTypeId,
                         principalTable: "AddressType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Address_Country_CountryId",
                         column: x => x.CountryId,
@@ -222,7 +242,7 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -242,7 +262,7 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,13 +280,13 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,13 +304,13 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFollowedByUsers_AspNetUsers_SpecialAppUsersId",
                         column: x => x.SpecialAppUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -308,13 +328,13 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyAddress_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -347,19 +367,19 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchise_CompanyFranchiseCategory_CompanyFranchiseCategoryId",
                         column: x => x.CompanyFranchiseCategoryId,
                         principalTable: "CompanyFranchiseCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchise_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchise_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
@@ -383,13 +403,13 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.CompanyFranchiseId,
                         principalTable: "CompanyFranchise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchiseFollowedBy_AspNetUsers_SpecialAppUsersId",
                         column: x => x.SpecialAppUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -407,13 +427,84 @@ namespace SpecialApp.Context.Migrations
                         column: x => x.CompanyFranchiseId,
                         principalTable: "CompanyFranchise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchiseViewed_AspNetUsers_SpecialAppUsersId",
                         column: x => x.SpecialAppUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Special",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    CompanyFranchiseId = table.Column<int>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedById = table.Column<string>(nullable: true),
+                    Details = table.Column<string>(maxLength: 1000, nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    IsAvailableOnline = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    ProductType = table.Column<string>(nullable: true),
+                    PromoCode = table.Column<string>(nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    SpecialCategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Special", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Special_CompanyFranchise_CompanyFranchiseId",
+                        column: x => x.CompanyFranchiseId,
+                        principalTable: "CompanyFranchise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Special_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Special_SpecialCategory_SpecialCategoryId",
+                        column: x => x.SpecialCategoryId,
+                        principalTable: "SpecialCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialAddress",
+                columns: table => new
+                {
+                    SpecialId = table.Column<int>(nullable: false),
+                    AddressId = table.Column<int>(nullable: false),
+                    ContactEmail = table.Column<string>(maxLength: 100, nullable: true),
+                    ContactNumber = table.Column<string>(maxLength: 20, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialAddress", x => new { x.SpecialId, x.AddressId });
+                    table.ForeignKey(
+                        name: "FK_SpecialAddress_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SpecialAddress_Special_SpecialId",
+                        column: x => x.SpecialId,
+                        principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -483,6 +574,26 @@ namespace SpecialApp.Context.Migrations
                 column: "CompanyFranchiseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Special_CompanyFranchiseId",
+                table: "Special",
+                column: "CompanyFranchiseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Special_CreatedById",
+                table: "Special",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Special_SpecialCategoryId",
+                table: "Special",
+                column: "SpecialCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialAddress_AddressId",
+                table: "SpecialAddress",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Address_AddressTypeId",
                 table: "Address",
                 column: "AddressTypeId");
@@ -534,10 +645,19 @@ namespace SpecialApp.Context.Migrations
                 name: "CompanyFranchiseViewed");
 
             migrationBuilder.DropTable(
+                name: "SpecialAddress");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Special");
+
+            migrationBuilder.DropTable(
                 name: "CompanyFranchise");
+
+            migrationBuilder.DropTable(
+                name: "SpecialCategory");
 
             migrationBuilder.DropTable(
                 name: "Address");

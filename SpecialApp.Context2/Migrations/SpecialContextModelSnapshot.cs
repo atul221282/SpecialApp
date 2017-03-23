@@ -309,6 +309,120 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("CompanyFranchiseViewed");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Specials.Special", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<int>("CompanyFranchiseId");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .IsRequired();
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime?>("EndDate")
+                        .IsRequired();
+
+                    b.Property<bool>("IsAvailableOnline");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<string>("ProductType");
+
+                    b.Property<string>("PromoCode");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("SpecialCategoryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyFranchiseId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("SpecialCategoryId");
+
+                    b.ToTable("Special");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialAddress", b =>
+                {
+                    b.Property<int>("SpecialId");
+
+                    b.Property<int>("AddressId");
+
+                    b.Property<string>("ContactEmail")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(20);
+
+                    b.HasKey("SpecialId", "AddressId");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("SpecialAddress");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialCategory", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(75);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250);
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpecialCategory");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
                 {
                     b.Property<int?>("Id")
@@ -500,81 +614,69 @@ namespace SpecialApp.Context.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
                         .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
                         .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyAddress", b =>
                 {
                     b.HasOne("SpecialApp.Entity2.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
                         .WithMany("CompanyAddresses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFollowedBy", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
                         .WithMany("CompanyFollowedBy")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
-                        .HasForeignKey("SpecialAppUsersId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SpecialAppUsersId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchise", b =>
                 {
                     b.HasOne("SpecialApp.Entity2.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("SpecialApp.Entity.Companies.CompanyFranchiseCategory", "CompanyFranchiseCategory")
                         .WithMany()
-                        .HasForeignKey("CompanyFranchiseCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyFranchiseCategoryId");
 
                     b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
                         .WithMany("CompanyFranchises")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "CreatedBy")
                         .WithMany()
@@ -585,34 +687,55 @@ namespace SpecialApp.Context.Migrations
                 {
                     b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
                         .WithMany("CompanyFranchiseFollowedByUsers")
-                        .HasForeignKey("CompanyFranchiseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyFranchiseId");
 
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
-                        .HasForeignKey("SpecialAppUsersId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SpecialAppUsersId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseViewed", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
                         .WithMany("CompanyFranchiseViewed")
-                        .HasForeignKey("CompanyFranchiseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyFranchiseId");
 
                     b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
-                        .HasForeignKey("SpecialAppUsersId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SpecialAppUsersId");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.Special", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
+                        .WithMany("Specials")
+                        .HasForeignKey("CompanyFranchiseId");
+
+                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("SpecialApp.Entity.Specials.SpecialCategory", "SpecialCategory")
+                        .WithMany()
+                        .HasForeignKey("SpecialCategoryId");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialAddress", b =>
+                {
+                    b.HasOne("SpecialApp.Entity2.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
+                        .WithMany("SpecialAddresses")
+                        .HasForeignKey("SpecialId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
                 {
                     b.HasOne("SpecialApp.Entity2.AddressType", "AddressType")
                         .WithMany()
-                        .HasForeignKey("AddressTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressTypeId");
 
                     b.HasOne("SpecialApp.Entity2.Country", "Country")
                         .WithMany()
