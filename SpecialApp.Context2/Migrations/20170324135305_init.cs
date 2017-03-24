@@ -546,10 +546,10 @@ namespace SpecialApp.Context.Migrations
                     AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
                     AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
                     Comment = table.Column<string>(maxLength: 1000, nullable: true),
-                    CommentById = table.Column<string>(nullable: true),
+                    CommentById = table.Column<string>(nullable: false),
                     CommentDate = table.Column<DateTimeOffset>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    ParentCommentId = table.Column<int>(nullable: false),
+                    ParentCommentId = table.Column<int>(nullable: true),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     SpecialId = table.Column<int>(nullable: false)
                 },

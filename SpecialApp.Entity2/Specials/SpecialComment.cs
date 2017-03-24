@@ -17,7 +17,7 @@ namespace SpecialApp.Entity.Specials
 
         public ICollection<SpecialComment> Replies { get; set; }
 
-        public int ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
         public virtual SpecialComment ParentComment { get; set; }
     }
 }

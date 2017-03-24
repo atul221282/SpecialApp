@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170324134333_init")]
+    [Migration("20170324135305_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -691,14 +691,15 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("Comment")
                         .HasMaxLength(1000);
 
-                    b.Property<string>("CommentById");
+                    b.Property<string>("CommentById")
+                        .IsRequired();
 
                     b.Property<DateTimeOffset>("CommentDate");
 
                     b.Property<bool?>("IsDeleted")
                         .IsRequired();
 
-                    b.Property<int>("ParentCommentId");
+                    b.Property<int?>("ParentCommentId");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()

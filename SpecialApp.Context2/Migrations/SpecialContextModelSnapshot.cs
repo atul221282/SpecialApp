@@ -690,14 +690,15 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("Comment")
                         .HasMaxLength(1000);
 
-                    b.Property<string>("CommentById");
+                    b.Property<string>("CommentById")
+                        .IsRequired();
 
                     b.Property<DateTimeOffset>("CommentDate");
 
                     b.Property<bool?>("IsDeleted")
                         .IsRequired();
 
-                    b.Property<int>("ParentCommentId");
+                    b.Property<int?>("ParentCommentId");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
