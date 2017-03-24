@@ -33,9 +33,9 @@ namespace SpecialApp.Entity.Specials
 
         public List<SpecialFile> SpecialFiles { get; set; }
 
-        //public List<CompanyFranchiseSpecialRatingsAndComments> CompanyFranchiseSpecialRatingsAndComments { get; set; }
+        public List<SpecialComment> SpecialComments { get; set; }
 
-        //public List<CompanyFranchiseSpecialViewed> CompanyFranchiseSpecialVieweds { get; set; }
+        public List<SpecialView> SpecialViews { get; set; }
 
         //public List<CompanyFranchiseSpecialLocation> CompanyFranchiseSpecialLocations { get; set; }
 
