@@ -1,4 +1,4 @@
-﻿using SpecialApp.Entity2;
+﻿using SpecialApp.Entity;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Service

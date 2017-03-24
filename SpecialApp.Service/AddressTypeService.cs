@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using SpecialApp.UnitOfWork;
 using System;
 using System.Threading.Tasks;

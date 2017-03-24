@@ -424,7 +424,7 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("SpecialCategory");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd();
@@ -487,7 +487,7 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.AddressType", b =>
+            modelBuilder.Entity("SpecialApp.Entity.AddressType", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd();
@@ -524,7 +524,7 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("AddressType");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.Country", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Country", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd();
@@ -561,7 +561,7 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.SpecialAppUsers", b =>
+            modelBuilder.Entity("SpecialApp.Entity.SpecialAppUsers", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -620,14 +620,14 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers")
                         .WithMany("Claims")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers")
                         .WithMany("Logins")
                         .HasForeignKey("UserId");
                 });
@@ -638,14 +638,14 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers")
                         .WithMany("Roles")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyAddress", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.Address", "Address")
+                    b.HasOne("SpecialApp.Entity.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
@@ -660,14 +660,14 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("CompanyFollowedBy")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
                         .HasForeignKey("SpecialAppUsersId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchise", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.Address", "Address")
+                    b.HasOne("SpecialApp.Entity.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
@@ -679,7 +679,7 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("CompanyFranchises")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "CreatedBy")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
                 });
@@ -690,7 +690,7 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("CompanyFranchiseFollowedByUsers")
                         .HasForeignKey("CompanyFranchiseId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
                         .HasForeignKey("SpecialAppUsersId");
                 });
@@ -701,7 +701,7 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("CompanyFranchiseViewed")
                         .HasForeignKey("CompanyFranchiseId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "SpecialAppUsers")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "SpecialAppUsers")
                         .WithMany()
                         .HasForeignKey("SpecialAppUsersId");
                 });
@@ -712,7 +712,7 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("Specials")
                         .HasForeignKey("CompanyFranchiseId");
 
-                    b.HasOne("SpecialApp.Entity2.SpecialAppUsers", "CreatedBy")
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -723,7 +723,7 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialAddress", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.Address", "Address")
+                    b.HasOne("SpecialApp.Entity.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
@@ -732,13 +732,13 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("SpecialId");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity2.Address", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
                 {
-                    b.HasOne("SpecialApp.Entity2.AddressType", "AddressType")
+                    b.HasOne("SpecialApp.Entity.AddressType", "AddressType")
                         .WithMany()
                         .HasForeignKey("AddressTypeId");
 
-                    b.HasOne("SpecialApp.Entity2.Country", "Country")
+                    b.HasOne("SpecialApp.Entity.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId");
                 });

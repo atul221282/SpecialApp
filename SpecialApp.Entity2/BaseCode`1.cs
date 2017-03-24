@@ -1,4 +1,4 @@
-﻿namespace SpecialApp.Entity2
+﻿namespace SpecialApp.Entity
 {
     public abstract class BaseCode<T> : BaseEntity<T>
     {

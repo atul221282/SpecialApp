@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SpecialApp.Base;
 using SpecialApp.Base.Infrastructure;
 using SpecialApp.Context2;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using SpecialApp.Service.Infrastructure;
 using StructureMap;
 using System;

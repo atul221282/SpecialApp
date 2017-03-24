@@ -1,5 +1,5 @@
 ﻿using SpecialApp.Context2;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using SpecialApp.Repository;
 using SpecialApp.Repository.Helpers;
 using System;

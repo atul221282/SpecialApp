@@ -6,7 +6,7 @@ using SpecialApp.Context.Configuration.Specials;
 using SpecialApp.Context2.Configuration;
 using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Specials;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using System.Linq;
 
 namespace SpecialApp.Context2

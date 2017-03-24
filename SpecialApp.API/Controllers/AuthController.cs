@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
 using SpecialApp.Base;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using System;
 using System.Threading.Tasks;
 

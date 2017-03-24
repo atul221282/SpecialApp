@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using SpecialApp.Service;
 using System;
 using System.Threading.Tasks;

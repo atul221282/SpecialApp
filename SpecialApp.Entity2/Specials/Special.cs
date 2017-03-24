@@ -1,5 +1,5 @@
 ﻿using SpecialApp.Entity.Companies;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;

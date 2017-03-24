@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace SpecialApp.Entity2
+namespace SpecialApp.Entity
 {
     public class SpecialAppUsers : IdentityUser
     {

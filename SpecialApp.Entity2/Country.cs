@@ -1,4 +1,4 @@
-﻿namespace SpecialApp.Entity2
+﻿namespace SpecialApp.Entity
 {
     public class Country : BaseCode
     {

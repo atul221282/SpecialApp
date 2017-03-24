@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SpecialApp.Context.Configuration;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 
 namespace SpecialApp.Context2.Configuration
 {

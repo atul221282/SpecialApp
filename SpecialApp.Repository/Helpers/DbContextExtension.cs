@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpecialApp.Entity2;
+using SpecialApp.Entity;
 
 namespace SpecialApp.Repository.Helpers
 {
