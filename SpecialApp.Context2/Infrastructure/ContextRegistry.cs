@@ -1,4 +1,4 @@
-﻿using SpecialApp.Context2;
+﻿using SpecialApp.Context;
 using StructureMap;
 
 namespace SpecialApp.Context.Infrastructure

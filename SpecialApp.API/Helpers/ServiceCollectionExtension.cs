@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SpecialApp.Base;
 using SpecialApp.Base.Infrastructure;
-using SpecialApp.Context2;
+using SpecialApp.Context;
 using SpecialApp.Entity;
 using SpecialApp.Service.Infrastructure;
 using StructureMap;

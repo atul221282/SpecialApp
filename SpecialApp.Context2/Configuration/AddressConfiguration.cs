@@ -2,7 +2,7 @@
 using SpecialApp.Context.Configuration;
 using SpecialApp.Entity;
 
-namespace SpecialApp.Context2.Configuration
+namespace SpecialApp.Context.Configuration
 {
     public class AddressConfiguration: BaseEntityConfiguration<Address>
     {

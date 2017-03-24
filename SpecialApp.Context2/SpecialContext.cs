@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SpecialApp.Context.Configuration.Companies;
 using SpecialApp.Context.Configuration.Specials;
-using SpecialApp.Context2.Configuration;
+using SpecialApp.Context.Configuration;
 using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Specials;
 using SpecialApp.Entity;
 using System.Linq;
 
-namespace SpecialApp.Context2
+namespace SpecialApp.Context
 {
     public class SpecialContext : IdentityDbContext<SpecialAppUsers>
     {
