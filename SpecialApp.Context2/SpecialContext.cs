@@ -31,6 +31,7 @@ namespace SpecialApp.Context
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            new FileDataConfiguration(modelBuilder.Entity<FileData>());
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
             new CountryConfiguration(modelBuilder.Entity<Country>());
@@ -46,10 +47,12 @@ namespace SpecialApp.Context
             new SpecialCategoryConfiguration(modelBuilder.Entity<SpecialCategory>());
             new SpecialConfiguration(modelBuilder.Entity<Special>());
             new SpecialAddressConfiguration(modelBuilder.Entity<SpecialAddress>());
+            new SpecialFileConfiguration(modelBuilder.Entity<SpecialFile>());
 
             base.OnModelCreating(modelBuilder);
         }
 
+        public virtual DbSet<FileData> FileData { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
@@ -66,6 +69,7 @@ namespace SpecialApp.Context
         public virtual DbSet<SpecialCategory> SpecialCategory { get; set; }
         public virtual DbSet<Special> Special { get; set; }
         public virtual DbSet<SpecialAddress> SpecialAddress { get; set; }
+        public virtual DbSet<SpecialFile> SpecialFile { get; set; }
 
     }
 }

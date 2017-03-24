@@ -38,6 +38,26 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AddressType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    Code = table.Column<string>(maxLength: 75, nullable: true),
+                    Description = table.Column<string>(maxLength: 250, nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Company",
                 columns: table => new
                 {
@@ -79,46 +99,6 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpecialCategory",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
-                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
-                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
-                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
-                    Code = table.Column<string>(maxLength: 75, nullable: true),
-                    Description = table.Column<string>(maxLength: 250, nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SpecialCategory", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AddressType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
-                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
-                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
-                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
-                    Code = table.Column<string>(maxLength: 75, nullable: true),
-                    Description = table.Column<string>(maxLength: 250, nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AddressType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Country",
                 columns: table => new
                 {
@@ -136,6 +116,34 @@ namespace SpecialApp.Context.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Country", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileData",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    ContentType = table.Column<string>(maxLength: 10, nullable: false),
+                    Data = table.Column<byte[]>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsMarkedForDeletion = table.Column<bool>(nullable: false),
+                    IsUploaded = table.Column<bool>(nullable: false),
+                    IsValidFileType = table.Column<bool>(nullable: false),
+                    Length = table.Column<int>(nullable: true),
+                    OriginalFileName = table.Column<string>(maxLength: 100, nullable: false),
+                    Path = table.Column<string>(nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    Title = table.Column<string>(maxLength: 100, nullable: true),
+                    UniqueFileName = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileData", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,6 +169,26 @@ namespace SpecialApp.Context.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    Code = table.Column<string>(maxLength: 75, nullable: true),
+                    Description = table.Column<string>(maxLength: 250, nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -507,6 +535,30 @@ namespace SpecialApp.Context.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SpecialFile",
+                columns: table => new
+                {
+                    SpecialId = table.Column<int>(nullable: false),
+                    FileDataId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialFile", x => new { x.SpecialId, x.FileDataId });
+                    table.ForeignKey(
+                        name: "FK_SpecialFile_FileData_FileDataId",
+                        column: x => x.FileDataId,
+                        principalTable: "FileData",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SpecialFile_Special_SpecialId",
+                        column: x => x.SpecialId,
+                        principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
@@ -532,6 +584,16 @@ namespace SpecialApp.Context.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_AddressTypeId",
+                table: "Address",
+                column: "AddressTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_CountryId",
+                table: "Address",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyAddress_CompanyId",
@@ -574,6 +636,17 @@ namespace SpecialApp.Context.Migrations
                 column: "CompanyFranchiseId");
 
             migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Special_CompanyFranchiseId",
                 table: "Special",
                 column: "CompanyFranchiseId");
@@ -594,25 +667,9 @@ namespace SpecialApp.Context.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_AddressTypeId",
-                table: "Address",
-                column: "AddressTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Address_CountryId",
-                table: "Address",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true);
+                name: "IX_SpecialFile_FileDataId",
+                table: "SpecialFile",
+                column: "FileDataId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -648,7 +705,13 @@ namespace SpecialApp.Context.Migrations
                 name: "SpecialAddress");
 
             migrationBuilder.DropTable(
+                name: "SpecialFile");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "FileData");
 
             migrationBuilder.DropTable(
                 name: "Special");

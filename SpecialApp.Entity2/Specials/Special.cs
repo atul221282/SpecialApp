@@ -31,6 +31,8 @@ namespace SpecialApp.Entity.Specials
 
         public List<SpecialAddress> SpecialAddresses { get; set; }
 
+        public List<SpecialFile> SpecialFiles { get; set; }
+
         //public List<CompanyFranchiseSpecialRatingsAndComments> CompanyFranchiseSpecialRatingsAndComments { get; set; }
 
         //public List<CompanyFranchiseSpecialViewed> CompanyFranchiseSpecialVieweds { get; set; }

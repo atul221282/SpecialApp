@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170323140941_init")]
+    [Migration("20170324125927_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,6 +122,106 @@ namespace SpecialApp.Context.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddressLine1")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("AddressLine2")
+                        .HasMaxLength(250);
+
+                    b.Property<string>("AddressState")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("AddressTypeId");
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("City")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("CounrtyId");
+
+                    b.Property<int?>("CountryId");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Province")
+                        .HasMaxLength(150);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Suburb")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressTypeId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.AddressType", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(75);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250);
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddressType");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.Company", b =>
@@ -310,6 +410,151 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("CompanyFranchiseViewed");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Country", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(75);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250);
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.FileData", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<byte[]>("Data");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<bool>("IsMarkedForDeletion");
+
+                    b.Property<bool>("IsUploaded");
+
+                    b.Property<bool>("IsValidFileType");
+
+                    b.Property<int?>("Length");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Path");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("UniqueFileName")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FileData");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.SpecialAppUsers", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Specials.Special", b =>
                 {
                     b.Property<int?>("Id")
@@ -424,191 +669,17 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("SpecialCategory");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialFile", b =>
                 {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("SpecialId");
 
-                    b.Property<string>("AddressLine1")
-                        .HasMaxLength(150);
+                    b.Property<int>("FileDataId");
 
-                    b.Property<string>("AddressLine2")
-                        .HasMaxLength(250);
+                    b.HasKey("SpecialId", "FileDataId");
 
-                    b.Property<string>("AddressState")
-                        .HasMaxLength(150);
+                    b.HasIndex("FileDataId");
 
-                    b.Property<int>("AddressTypeId");
-
-                    b.Property<string>("AuditCreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("AuditLastUpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("City")
-                        .HasMaxLength(150);
-
-                    b.Property<int>("CounrtyId");
-
-                    b.Property<int?>("CountryId");
-
-                    b.Property<bool?>("IsDeleted")
-                        .IsRequired();
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Province")
-                        .HasMaxLength(150);
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("Suburb")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressTypeId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Address");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity.AddressType", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuditCreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("AuditLastUpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(75);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250);
-
-                    b.Property<bool?>("IsDeleted")
-                        .IsRequired();
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AddressType");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity.Country", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuditCreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditCreatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("AuditLastUpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
-                        .IsRequired();
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(75);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250);
-
-                    b.Property<bool?>("IsDeleted")
-                        .IsRequired();
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Country");
-                });
-
-            modelBuilder.Entity("SpecialApp.Entity.SpecialAppUsers", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("SpecialFile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -641,6 +712,17 @@ namespace SpecialApp.Context.Migrations
                     b.HasOne("SpecialApp.Entity.SpecialAppUsers")
                         .WithMany("Roles")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.AddressType", "AddressType")
+                        .WithMany()
+                        .HasForeignKey("AddressTypeId");
+
+                    b.HasOne("SpecialApp.Entity.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyAddress", b =>
@@ -732,15 +814,15 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("SpecialId");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity.Address", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialFile", b =>
                 {
-                    b.HasOne("SpecialApp.Entity.AddressType", "AddressType")
+                    b.HasOne("SpecialApp.Entity.FileData", "FileData")
                         .WithMany()
-                        .HasForeignKey("AddressTypeId");
+                        .HasForeignKey("FileDataId");
 
-                    b.HasOne("SpecialApp.Entity.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
+                    b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
+                        .WithMany("SpecialFiles")
+                        .HasForeignKey("SpecialId");
                 });
         }
     }

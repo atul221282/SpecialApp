@@ -4,7 +4,7 @@ namespace SpecialApp.Entity
 {
     public class FileData : BaseEntity
     {
-        public int Length { get; set; }
+        public int? Length { get; set; }
 
         public string ContentType { get; set; }
 
