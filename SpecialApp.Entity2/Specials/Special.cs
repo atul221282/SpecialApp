@@ -39,7 +39,5 @@ namespace SpecialApp.Entity.Specials
 
         //public List<CompanyFranchiseSpecialLocation> CompanyFranchiseSpecialLocations { get; set; }
 
-        //public List<CompanyFranchiseSpecialFile> CompanyFranchiseSpecialFiles { get; set; }
-
     }
 }

@@ -536,6 +536,47 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpecialComment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    Comment = table.Column<string>(maxLength: 1000, nullable: true),
+                    CommentById = table.Column<string>(nullable: true),
+                    CommentDate = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    ParentCommentId = table.Column<int>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    SpecialId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialComment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SpecialComment_AspNetUsers_CommentById",
+                        column: x => x.CommentById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SpecialComment_SpecialComment_ParentCommentId",
+                        column: x => x.ParentCommentId,
+                        principalTable: "SpecialComment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SpecialComment_Special_SpecialId",
+                        column: x => x.SpecialId,
+                        principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpecialFile",
                 columns: table => new
                 {
@@ -555,6 +596,31 @@ namespace SpecialApp.Context.Migrations
                         name: "FK_SpecialFile_Special_SpecialId",
                         column: x => x.SpecialId,
                         principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialView",
+                columns: table => new
+                {
+                    SpecialId = table.Column<int>(nullable: false),
+                    ViewedById = table.Column<string>(nullable: false),
+                    ViewedDate = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialView", x => new { x.SpecialId, x.ViewedById });
+                    table.ForeignKey(
+                        name: "FK_SpecialView_Special_SpecialId",
+                        column: x => x.SpecialId,
+                        principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SpecialView_AspNetUsers_ViewedById",
+                        column: x => x.ViewedById,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -667,9 +733,29 @@ namespace SpecialApp.Context.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SpecialComment_CommentById",
+                table: "SpecialComment",
+                column: "CommentById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialComment_ParentCommentId",
+                table: "SpecialComment",
+                column: "ParentCommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialComment_SpecialId",
+                table: "SpecialComment",
+                column: "SpecialId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SpecialFile_FileDataId",
                 table: "SpecialFile",
                 column: "FileDataId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialView_ViewedById",
+                table: "SpecialView",
+                column: "ViewedById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -705,7 +791,13 @@ namespace SpecialApp.Context.Migrations
                 name: "SpecialAddress");
 
             migrationBuilder.DropTable(
+                name: "SpecialComment");
+
+            migrationBuilder.DropTable(
                 name: "SpecialFile");
+
+            migrationBuilder.DropTable(
+                name: "SpecialView");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

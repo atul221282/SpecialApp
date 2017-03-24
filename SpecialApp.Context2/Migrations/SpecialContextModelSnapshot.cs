@@ -668,6 +668,54 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("SpecialCategory");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialComment", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("CommentById");
+
+                    b.Property<DateTimeOffset>("CommentDate");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<int>("ParentCommentId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("SpecialId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentById");
+
+                    b.HasIndex("ParentCommentId");
+
+                    b.HasIndex("SpecialId");
+
+                    b.ToTable("SpecialComment");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialFile", b =>
                 {
                     b.Property<int>("SpecialId");
@@ -679,6 +727,21 @@ namespace SpecialApp.Context.Migrations
                     b.HasIndex("FileDataId");
 
                     b.ToTable("SpecialFile");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
+                {
+                    b.Property<int>("SpecialId");
+
+                    b.Property<string>("ViewedById");
+
+                    b.Property<DateTimeOffset>("ViewedDate");
+
+                    b.HasKey("SpecialId", "ViewedById");
+
+                    b.HasIndex("ViewedById");
+
+                    b.ToTable("SpecialView");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -813,6 +876,21 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("SpecialId");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialComment", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "CommentBy")
+                        .WithMany()
+                        .HasForeignKey("CommentById");
+
+                    b.HasOne("SpecialApp.Entity.Specials.SpecialComment", "ParentComment")
+                        .WithMany("Replies")
+                        .HasForeignKey("ParentCommentId");
+
+                    b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
+                        .WithMany()
+                        .HasForeignKey("SpecialId");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialFile", b =>
                 {
                     b.HasOne("SpecialApp.Entity.FileData", "FileData")
@@ -822,6 +900,17 @@ namespace SpecialApp.Context.Migrations
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
                         .WithMany("SpecialFiles")
                         .HasForeignKey("SpecialId");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
+                        .WithMany()
+                        .HasForeignKey("SpecialId");
+
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "ViewedBy")
+                        .WithMany()
+                        .HasForeignKey("ViewedById");
                 });
         }
     }

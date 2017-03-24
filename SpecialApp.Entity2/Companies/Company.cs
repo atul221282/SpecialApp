@@ -8,8 +8,6 @@ namespace SpecialApp.Entity.Companies
 {
     public class Company : BaseEntity
     {
-        private string _details;
-
         /// <summary>
         /// Gets or sets the CompanyName
         /// </summary>
@@ -20,11 +18,7 @@ namespace SpecialApp.Entity.Companies
         /// </summary>
         public int? NumberOfEmployees { get; set; }
 
-        public string Details
-        {
-            get { return _details; }
-            set { _details = value; }
-        }
+        public string Details { get; set; }
 
         /// <summary>
         /// Gets or sets the list of company franchise got
