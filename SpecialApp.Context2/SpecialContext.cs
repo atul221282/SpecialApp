@@ -31,6 +31,7 @@ namespace SpecialApp.Context
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            new LocationConfiguration(modelBuilder.Entity<Location>());
             new FileDataConfiguration(modelBuilder.Entity<FileData>());
             new AddressConfiguration(modelBuilder.Entity<Address>());
             new AddressTypeConfiguration(modelBuilder.Entity<AddressType>());
@@ -50,6 +51,7 @@ namespace SpecialApp.Context
             new SpecialFileConfiguration(modelBuilder.Entity<SpecialFile>());
             new SpecialCommentConfiguration(modelBuilder.Entity<SpecialComment>());
             new SpecialViewConfiguration(modelBuilder.Entity<SpecialView>());
+            new SpecialLocationConfiguration(modelBuilder.Entity<SpecialLocation>());
 
             base.OnModelCreating(modelBuilder);
         }

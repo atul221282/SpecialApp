@@ -147,6 +147,26 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -601,6 +621,37 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpecialLocation",
+                columns: table => new
+                {
+                    SpecialId = table.Column<int>(nullable: false),
+                    LocationId = table.Column<int>(nullable: false),
+                    AddressId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialLocation", x => new { x.SpecialId, x.LocationId });
+                    table.ForeignKey(
+                        name: "FK_SpecialLocation_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialLocation_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialLocation_Special_SpecialId",
+                        column: x => x.SpecialId,
+                        principalTable: "Special",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpecialView",
                 columns: table => new
                 {
@@ -753,6 +804,16 @@ namespace SpecialApp.Context.Migrations
                 column: "FileDataId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SpecialLocation_AddressId",
+                table: "SpecialLocation",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialLocation_LocationId",
+                table: "SpecialLocation",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SpecialView_ViewedById",
                 table: "SpecialView",
                 column: "ViewedById");
@@ -797,6 +858,9 @@ namespace SpecialApp.Context.Migrations
                 name: "SpecialFile");
 
             migrationBuilder.DropTable(
+                name: "SpecialLocation");
+
+            migrationBuilder.DropTable(
                 name: "SpecialView");
 
             migrationBuilder.DropTable(
@@ -804,6 +868,9 @@ namespace SpecialApp.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "FileData");
+
+            migrationBuilder.DropTable(
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Special");

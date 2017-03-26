@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170324135305_init")]
+    [Migration("20170326100023_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -505,6 +505,41 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("FileData");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Location", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longitude");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Location");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.SpecialAppUsers", b =>
                 {
                     b.Property<string>("Id")
@@ -731,6 +766,23 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("SpecialFile");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialLocation", b =>
+                {
+                    b.Property<int>("SpecialId");
+
+                    b.Property<int>("LocationId");
+
+                    b.Property<int>("AddressId");
+
+                    b.HasKey("SpecialId", "LocationId");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("SpecialLocation");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
                 {
                     b.Property<int>("SpecialId");
@@ -889,7 +941,7 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("ParentCommentId");
 
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany()
+                        .WithMany("SpecialComments")
                         .HasForeignKey("SpecialId");
                 });
 
@@ -904,10 +956,28 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("SpecialId");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialLocation", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpecialApp.Entity.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
+                        .WithMany()
+                        .HasForeignKey("SpecialId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany()
+                        .WithMany("SpecialViews")
                         .HasForeignKey("SpecialId");
 
                     b.HasOne("SpecialApp.Entity.SpecialAppUsers", "ViewedBy")
