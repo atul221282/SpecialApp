@@ -7,6 +7,6 @@ namespace SpecialApp.Service.Special
 {
     public interface ISpecialService
     {
-        Task<IEnumerable<Entity.Specials.Special>> GetByLocation(double latitude, string longitude);
+        Task<IEnumerable<Entity.Specials.Special>> GetByLocation(double latitude, double longitude);
     }
 }

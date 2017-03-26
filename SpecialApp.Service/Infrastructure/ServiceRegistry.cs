@@ -9,7 +9,7 @@ namespace SpecialApp.Service.Infrastructure
         public ServiceRegistry()
         {
             IncludeRegistry<UOWRegistry>();
-            IncludeRegistry<RepositoryRegistry>();
+            //IncludeRegistry<RepositoryRegistry>();
             Scan(y =>
             {
                 y.TheCallingAssembly();

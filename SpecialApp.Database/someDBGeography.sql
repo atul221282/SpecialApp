@@ -19,21 +19,13 @@ WHERE @point.STBuffer(500).STIntersects(a.CentrePoint) = 1
 declare @lat decimal(9,6) = -34.809964
 ,@lon decimal(9,6) = 138.680274;
 declare @g geography  = geography::Point(@lat,@lon,4326)
---select Location.STDistance(@g);
-
-
- --select geography::STGeomFromText('POINT(-122.0 37.0)', 4326).STDistance(@g)
-
- select Id, L.Latitude, L.Longitude from
-
- [dbo].[Location] L
+ select Id, L.Latitude, L.Longitude from [dbo].[Location] L
  WHERE geography::Point(L.Latitude, L.Longitude, 4326).STDistance(geography::Point(@lat, @lon, 4326)) <=4000
- select getdate()
 
-INSERT INTO [dbo].[Location] ([AuditCreatedBy], [AuditCreatedDate], [AuditLastUpdatedBy], [AuditLastUpdatedDate], 
-[IsDeleted], [Latitude], [Longitude]) 
-	VALUES (N'system', N'3/26/2017 8:40:56 PM +10:30', N'system', N'3/26/2017 8:40:56 PM +10:30', 0, -34.809964, 138.680274)
+--INSERT INTO [dbo].[Location] ([AuditCreatedBy], [AuditCreatedDate], [AuditLastUpdatedBy], [AuditLastUpdatedDate], 
+--[IsDeleted], [Latitude], [Longitude]) 
+--	VALUES (N'system', N'3/26/2017 8:40:56 PM +10:30', N'system', N'3/26/2017 8:40:56 PM +10:30', 0, -34.809964, 138.680274)
 
-INSERT INTO [dbo].[Location] ([AuditCreatedBy], [AuditCreatedDate], [AuditLastUpdatedBy], [AuditLastUpdatedDate], 
-[IsDeleted], [Latitude], [Longitude]) 
-	VALUES (N'system', N'3/26/2017 8:40:56 PM +10:30', N'system', N'3/26/2017 8:40:56 PM +10:30', 0, -34.774642, 138.672661)
+--INSERT INTO [dbo].[Location] ([AuditCreatedBy], [AuditCreatedDate], [AuditLastUpdatedBy], [AuditLastUpdatedDate], 
+--[IsDeleted], [Latitude], [Longitude]) 
+--	VALUES (N'system', N'3/26/2017 8:40:56 PM +10:30', N'system', N'3/26/2017 8:40:56 PM +10:30', 0, -34.774642, 138.672661)

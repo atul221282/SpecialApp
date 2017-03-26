@@ -8,6 +8,6 @@ namespace SpecialApp.Repository.Repository
 {
     public interface ISpecialRepository
     {
-        Task<IEnumerable<Special>> GetByLocation(double latitude, string longitude);
+        Task<IEnumerable<Special>> GetByLocation(double latitude, double longitude);
     }
 }

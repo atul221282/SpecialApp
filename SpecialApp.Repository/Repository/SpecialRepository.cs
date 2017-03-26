@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpecialApp.Entity;
 using SpecialApp.Entity.Specials;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,22 @@ namespace SpecialApp.Repository.Repository
         {
             this.context = context;
         }
-        public async Task<IEnumerable<Special>> GetByLocation(double latitude, string longitude)
+        public async Task<IEnumerable<Special>> GetByLocation(double latitude, double longitude)
         {
-            return await DbSet.FromSql(@"SELECT S.* Special S 
+            //var param1 = new SqlParameter("lat", latitude);
+            //var param2 = new SqlParameter("lon", longitude);
+
+            var test = await context.Set<Location>()
+                .FromSql($"SELECT * from [dbo].[Location] L WHERE " +
+                $"geography::Point(L.Latitude, L.Longitude, 4326)" +
+                $".STDistance(geography::Point('{latitude}', '{longitude}', 4326)) <=4000").ToListAsync();
+
+            return await DbSet.FromSql($@"SELECT S.* FROM Special S 
                                          INNER JOIN SpecialLocation SL ON S.Id = SL.SpecialId
                                          INNER JOIN [dbo].[Location] L ON SL.LocationId = L.Id
-                                         WHERE 
-                        geography::Point(L.Latitude, L.Longitude, 4326).STDistance(geography::Point(@lat, @lon, 4326)) <=4000")
-                        .ToListAsync();
+                                         WHERE " +
+                        $"geography::Point(L.Latitude, L.Longitude, 4326)" +
+                $".STDistance(geography::Point('{latitude}', '{longitude}', 4326)) <=4000").ToListAsync();
         }
     }
 }

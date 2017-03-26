@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SpecialApp.Repository.Repository;
+using SpecialApp.UnitOfWork;
 
 namespace SpecialApp.Service.Special
 {
     public class SpecialService : ISpecialService
     {
-        private readonly Func<ISpecialRepository> repoFunc;
+        private readonly Func<ISpecialUOW> uowFunc;
 
-        public SpecialService(Func<ISpecialRepository> repoFunc)
+        public SpecialService(Func<ISpecialUOW> uowFunc)
         {
-            this.repoFunc = repoFunc;
+            this.uowFunc = uowFunc;
         }
-        public async Task<IEnumerable<Entity.Specials.Special>> GetByLocation(double latitude, string longitude)
+        public async Task<IEnumerable<Entity.Specials.Special>> GetByLocation(double latitude, double longitude)
         {
-            var repo = repoFunc();
-            return await repo.GetByLocation(latitude, longitude);
+            var uow = uowFunc();
+            return await uow.SpecialRepository.GetByLocation(latitude, longitude);
         }
     }
 }
