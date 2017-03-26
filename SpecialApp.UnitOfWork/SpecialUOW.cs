@@ -2,6 +2,7 @@
 using SpecialApp.Entity;
 using SpecialApp.Repository;
 using SpecialApp.Repository.Helpers;
+using SpecialApp.Repository.Repository;
 using System;
 using System.Threading.Tasks;
 
@@ -17,6 +18,15 @@ namespace SpecialApp.UnitOfWork
         }
 
         public IRepository<AddressType> AddressTypeRepository => new Repository<AddressType>(context());
+
+        public ISpecialRepository SpecialRepository
+        {
+            get
+            {
+                return new SpecialRepository(context());
+            }
+        }
+
 
         public async Task<int> CommitAsync()
         {
