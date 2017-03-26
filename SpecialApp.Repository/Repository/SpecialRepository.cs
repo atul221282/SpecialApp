@@ -17,7 +17,12 @@ namespace SpecialApp.Repository.Repository
         }
         public async Task<IEnumerable<Special>> GetByLocation(double latitude, string longitude)
         {
-            return new List<Special>();
+            return await DbSet.FromSql(@"SELECT S.* Special S 
+                                         INNER JOIN SpecialLocation SL ON S.Id = SL.SpecialId
+                                         INNER JOIN [dbo].[Location] L ON SL.LocationId = L.Id
+                                         WHERE 
+                        geography::Point(L.Latitude, L.Longitude, 4326).STDistance(geography::Point(@lat, @lon, 4326)) <=4000")
+                        .ToListAsync();
         }
     }
 }

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity.csproj" />
     <ProjectReference Include="..\SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj" />
   </ItemGroup>
 
