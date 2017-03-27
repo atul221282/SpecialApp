@@ -8,30 +8,19 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.UnitOfWork
 {
-    public class SpecialUOW : ISpecialUOW
+    public class SpecialUOW : BaseUOW, ISpecialUOW
     {
-        private readonly Func<SpecialContext> context;
+        private readonly SpecialContext context;
+        private ISpecialRepository _specialRepository;
 
-        public SpecialUOW(Func<SpecialContext> context)
+        public SpecialUOW(SpecialContext context) : base(context)
         {
             this.context = context;
         }
 
-        public IRepository<AddressType> AddressTypeRepository => new Repository<AddressType>(context());
+        public IRepository<AddressType> AddressTypeRepository => new Repository<AddressType>(context);
 
-        public ISpecialRepository SpecialRepository
-        {
-            get
-            {
-                return new SpecialRepository(context());
-            }
-        }
+        public ISpecialRepository SpecialRepository => _specialRepository = _specialRepository ?? new SpecialRepository(context);
 
-
-        public async Task<int> CommitAsync()
-        {
-            context().ApplyStateChange();
-            return await context().SaveChangesAsync();
-        }
     }
 }

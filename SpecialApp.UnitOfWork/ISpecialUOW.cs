@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.UnitOfWork
 {
-    public interface ISpecialUOW
+    public interface ISpecialUOW : IBaseUOW
     {
         IRepository<AddressType> AddressTypeRepository { get; }
 
         ISpecialRepository SpecialRepository { get; }
 
-        Task<int> CommitAsync();
     }
 }

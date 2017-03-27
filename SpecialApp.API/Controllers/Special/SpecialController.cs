@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SpecialApp.API.Controllers
+namespace SpecialApp.API.Controllers.Special
 {
     public class SpecialController : BaseApiController
     {
@@ -15,14 +15,16 @@ namespace SpecialApp.API.Controllers
         {
             this.serviceFunc = serviceFunc;
         }
-        public async Task<IActionResult> Get()
+
+        [HttpGet("{distance}")]
+        public async Task<IActionResult> Get(int distance)
         {
             try
             {
                 var service = serviceFunc();
-                return Ok(await service.GetByLocation(-34.809964, 138.680274));
+                return Ok(await service.GetByLocation(-34.809964, 138.680274, distance: distance));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex);
             }
