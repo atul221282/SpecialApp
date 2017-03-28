@@ -32,8 +32,9 @@ namespace SpecialApp.API
             // add mvc middleware
             services.AddMvc();
             // add ioc extension
-            var container = services.AddIocExtension();
+            services.AddSpecialAppCompression();
 
+            var container = services.AddIocExtension();
             return container.GetInstance<IServiceProvider>();
             //return ConfigureIoC(services);
         }
@@ -41,6 +42,7 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseResponseCompression();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseCors(APIGlobalConstants.CorsPolicy);
