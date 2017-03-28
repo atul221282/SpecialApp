@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpecialApp.Repository.Repository
+namespace SpecialApp.Repository.Repository.Specials
 {
     public interface ISpecialRepository
     {

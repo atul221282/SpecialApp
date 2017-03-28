@@ -1,10 +1,8 @@
-﻿using SpecialApp.Context;
+﻿using System;
+using SpecialApp.Context;
 using SpecialApp.Entity;
 using SpecialApp.Repository;
-using SpecialApp.Repository.Helpers;
-using SpecialApp.Repository.Repository;
-using System;
-using System.Threading.Tasks;
+using SpecialApp.Repository.Repository.Specials;
 
 namespace SpecialApp.UnitOfWork
 {
@@ -18,9 +16,12 @@ namespace SpecialApp.UnitOfWork
             this.context = context;
         }
 
-        public IRepository<AddressType> AddressTypeRepository => new Repository<AddressType>(context);
+        public ISpecialRepository SpecialRepository
+            => _specialRepository = _specialRepository ?? new SpecialRepository(context);
 
-        public ISpecialRepository SpecialRepository => _specialRepository = _specialRepository ?? new SpecialRepository(context);
-
+        public IRepository<T> GetRepository<T>() where T : class
+        {
+            return new Repository<T>(context);
+        }
     }
 }

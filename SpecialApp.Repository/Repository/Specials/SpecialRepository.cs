@@ -3,10 +3,9 @@ using SpecialApp.Entity;
 using SpecialApp.Entity.Specials;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace SpecialApp.Repository.Repository
+namespace SpecialApp.Repository.Repository.Specials
 {
     public class SpecialRepository : Repository<Special>, ISpecialRepository
     {
@@ -18,7 +17,7 @@ namespace SpecialApp.Repository.Repository
         }
         public async Task<IEnumerable<Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
-            return await DbSet.FromSql($@"SELECT S.* FROM Special S 
+            return await DbSet.FromSql($@" SELECT S.* FROM Special S 
                                          INNER JOIN SpecialLocation SL ON S.Id = SL.SpecialId
                                          INNER JOIN [dbo].[Location] L ON SL.LocationId = L.Id
                                          WHERE " +

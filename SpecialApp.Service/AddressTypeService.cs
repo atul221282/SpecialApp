@@ -28,13 +28,12 @@ namespace SpecialApp.Service
                 State = State.Added,
                 IsDeleted = false
             };
-
-            uowFunc().AddressTypeRepository.Add(addressType);
+            uowFunc().GetRepository<AddressType>().Add(addressType);
         }
 
         public async Task<AddressType> Get()
         {
-            return await uowFunc().AddressTypeRepository.GetAll().FirstOrDefaultAsync();
+            return await uowFunc().GetRepository<AddressType>().GetAll().FirstOrDefaultAsync();
         }
 
         public async Task<int> CommitAsync()
