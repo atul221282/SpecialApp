@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using SpecialApp.Entity.Options;
 using SpecialApp.Service.Special;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,12 @@ namespace SpecialApp.API.Controllers
     public class LocationController : BaseApiController
     {
         private readonly Func<ISpecialService> serviceFunc;
+        private readonly ConnectionStringsOptions options;
 
-        public LocationController(Func<ISpecialService> serviceFunc)
+        public LocationController(Func<ISpecialService> serviceFunc, IOptions<ConnectionStringsOptions> options)
         {
             this.serviceFunc = serviceFunc;
+            this.options = options.Value;
         }
         [HttpGet("{distance}")]
         public async Task<IActionResult> Get(int distance)

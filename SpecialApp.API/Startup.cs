@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SpecialApp.API.Helpers;
+using SpecialApp.Entity.Options;
 using System;
 
 namespace SpecialApp.API
@@ -29,6 +30,11 @@ namespace SpecialApp.API
             services.AddCorsExtension();
             // add identity and entity framework context to it
             services.AddContextAndIdentityExtension(Configuration);
+            // Adds services required for using options.
+            services.AddOptions();
+            // Configure with Microsoft.Extensions.Options.ConfigurationExtensions
+            // Binding the whole configuration should be rare, subsections are more typical.
+            services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
             // add mvc middleware
             services.AddMvc();
             // add ioc extension

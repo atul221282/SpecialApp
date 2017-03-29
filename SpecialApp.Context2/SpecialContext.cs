@@ -8,20 +8,24 @@ using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Specials;
 using SpecialApp.Entity;
 using System.Linq;
+using SpecialApp.Base;
+using Microsoft.Extensions.Options;
+using SpecialApp.Entity.Options;
 
 namespace SpecialApp.Context
 {
     public class SpecialContext : IdentityDbContext<SpecialAppUsers>
     {
-        public SpecialContext() : base()
+        private readonly IOptions<ConnectionStringsOptions> options;
+
+        public SpecialContext(IOptions<ConnectionStringsOptions> options) : base()
         {
+            this.options = options;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //TODO : Read it from options
-            optionsBuilder.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database = SpecialApp;Timeout=240; 
-                                            Trusted_Connection = True; ");
+            optionsBuilder.UseSqlServer(options.Value.DefaultConnection);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

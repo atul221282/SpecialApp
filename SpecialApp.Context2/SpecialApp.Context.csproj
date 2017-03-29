@@ -17,6 +17,7 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpecialApp.Base\SpecialApp.Base.csproj" />
     <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity.csproj" />
   </ItemGroup>
 
