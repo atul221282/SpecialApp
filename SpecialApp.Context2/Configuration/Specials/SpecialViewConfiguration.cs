@@ -10,7 +10,7 @@ namespace SpecialApp.Context.Configuration.Specials
 {
     public class SpecialViewConfiguration
     {
-        public SpecialViewConfiguration(EntityTypeBuilder<SpecialView> entityTypeBuilder)
+        public SpecialViewConfiguration(EntityTypeBuilder<SpecialViewed> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => new { x.SpecialId, x.ViewedById });
         }

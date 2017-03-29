@@ -50,7 +50,7 @@ namespace SpecialApp.Context
             new SpecialAddressConfiguration(modelBuilder.Entity<SpecialAddress>());
             new SpecialFileConfiguration(modelBuilder.Entity<SpecialFile>());
             new SpecialCommentConfiguration(modelBuilder.Entity<SpecialComment>());
-            new SpecialViewConfiguration(modelBuilder.Entity<SpecialView>());
+            new SpecialViewConfiguration(modelBuilder.Entity<SpecialViewed>());
             new SpecialLocationConfiguration(modelBuilder.Entity<SpecialLocation>());
 
             base.OnModelCreating(modelBuilder);
@@ -75,6 +75,6 @@ namespace SpecialApp.Context
         public virtual DbSet<SpecialAddress> SpecialAddress { get; set; }
         public virtual DbSet<SpecialFile> SpecialFile { get; set; }
         public virtual DbSet<SpecialComment> SpecialComment { get; set; }
-        public virtual DbSet<SpecialView> SpecialView { get; set; }
+        public virtual DbSet<SpecialViewed> SpecialView { get; set; }
     }
 }

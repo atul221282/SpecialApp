@@ -1,8 +1,6 @@
 ﻿using SpecialApp.Entity.Companies;
-using SpecialApp.Entity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SpecialApp.Entity.Specials
 {
@@ -29,15 +27,15 @@ namespace SpecialApp.Entity.Specials
         public string CreatedById { get; set; }
         public virtual SpecialAppUsers CreatedBy { get; set; }
 
-        public List<SpecialAddress> SpecialAddresses { get; set; }
+        public List<SpecialAddress> Addresses { get; set; }
 
-        public List<SpecialFile> SpecialFiles { get; set; }
+        public List<SpecialFile> Files { get; set; }
 
-        public List<SpecialComment> SpecialComments { get; set; }
+        public List<SpecialComment> Comments { get; set; }
 
-        public List<SpecialView> SpecialViews { get; set; }
+        public List<SpecialViewed> ViewedBy { get; set; }
 
-        //public List<CompanyFranchiseSpecialLocation> CompanyFranchiseSpecialLocations { get; set; }
+        public List<SpecialLocation> Locations { get; set; }
 
     }
 }

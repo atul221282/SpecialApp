@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpecialApp.Entity.Specials
 {
-    public class SpecialView
+    public class SpecialViewed
     {
         public int SpecialId { get; set; }
         public Special Special { get; set; }

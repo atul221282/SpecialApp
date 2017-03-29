@@ -32,8 +32,10 @@ namespace SpecialApp.Entity.Companies
         public virtual Company Company { get; set; }
 
         public List<CompanyFranchiseFollowedBy> CompanyFranchiseFollowedByUsers { get; set; }
+
         public List<CompanyFranchiseViewed> CompanyFranchiseViewed { get; set; }
 
         public List<Special> Specials { get; set; }
+
     }
 }

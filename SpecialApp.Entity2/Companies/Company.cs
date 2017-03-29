@@ -1,38 +1,19 @@
-﻿
-using SpecialApp.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SpecialApp.Entity.Companies
 {
     public class Company : BaseEntity
     {
-        /// <summary>
-        /// Gets or sets the CompanyName
-        /// </summary>
         public string CompanyName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the NumberOfEmployees.
-        /// </summary>
         public int? NumberOfEmployees { get; set; }
 
         public string Details { get; set; }
 
-        /// <summary>
-        /// Gets or sets the list of company franchise got
-        /// </summary>
         public List<CompanyFranchise> CompanyFranchises { get; set; }
 
-        /// <summary>
-        /// Gets or sets the list of address company got
-        /// </summary>
         public List<CompanyAddress> CompanyAddresses { get; set; }
 
-        /// <summary>
-        /// Gets or sets the list of Company followed by users
-        /// </summary>
         public List<CompanyFollowedBy> CompanyFollowedBy { get; set; }
     }
 }
