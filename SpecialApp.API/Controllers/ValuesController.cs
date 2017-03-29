@@ -40,9 +40,9 @@ namespace SpecialApp.API.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(new { data = $"{tempServiceFunc().Get()} {id}" });
+            return Ok(new { data = $"{(await tempServiceFunc().Get()).Description} {id}" });
         }
 
         // POST api/values

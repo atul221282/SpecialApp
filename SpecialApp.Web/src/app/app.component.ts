@@ -32,5 +32,12 @@ export class AppComponent {
             err => {
                 console.log(err);
             });
+        this.apiClientService.get<any>('location/4000').subscribe(
+            location => {
+                console.info(location);
+            },
+            err => {
+                console.log(err);
+            });
     }
 }
