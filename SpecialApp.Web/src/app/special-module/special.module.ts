@@ -1,16 +1,16 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent, ApiClientService } from './';
-
+import { SpecialService, ListComponent } from './';
 @NgModule({
     imports: [
 
     ],
     declarations: [
-        LoadingSpinnerComponent
+        ListComponent
     ],
     providers: [
-        ApiClientService
-    ]
+        SpecialService
+    ],
+    bootstrap: [ListComponent]
 })
-export class CoreModule { }
+export class SpecialModule { }

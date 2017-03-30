@@ -79,6 +79,6 @@ namespace SpecialApp.Context
         public virtual DbSet<SpecialAddress> SpecialAddress { get; set; }
         public virtual DbSet<SpecialFile> SpecialFile { get; set; }
         public virtual DbSet<SpecialComment> SpecialComment { get; set; }
-        public virtual DbSet<SpecialViewed> SpecialView { get; set; }
+        public virtual DbSet<SpecialViewed> SpecialViewed { get; set; }
     }
 }
