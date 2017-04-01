@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
-import { CoreModule } from './';
+import { CoreModule, AccountModule, AppRoutingModule} from './';
 
 @NgModule({
     declarations: [
@@ -17,7 +17,9 @@ import { CoreModule } from './';
         HttpModule,
         MaterialModule,
         FlexLayoutModule,
-        CoreModule
+        AccountModule,
+        CoreModule,
+        AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]
