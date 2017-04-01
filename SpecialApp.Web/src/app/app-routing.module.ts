@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/characters' },
-    { path: 'specials', loadChildren: './app/special-module/special.module#SpecialModule' },
+    { path: 'special', loadChildren: 'app/special-module/special.module#SpecialModule' },
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];
 
