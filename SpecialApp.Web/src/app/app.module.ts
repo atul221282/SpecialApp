@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
-import { CoreModule, AccountModule, AppRoutingModule} from './';
+import { CoreModule, AppRoutingModule, routableComponents } from './';
+import { AccountModule } from './account-module/account.module';
+import { SpecialModule } from './special-module/special.module';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent, routableComponents
     ],
     imports: [
         BrowserModule,
@@ -17,8 +19,9 @@ import { CoreModule, AccountModule, AppRoutingModule} from './';
         HttpModule,
         MaterialModule,
         FlexLayoutModule,
-        AccountModule,
         CoreModule,
+        AccountModule,
+        SpecialModule,
         AppRoutingModule
     ],
     providers: [],

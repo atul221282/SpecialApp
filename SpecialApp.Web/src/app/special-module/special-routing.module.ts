@@ -2,18 +2,16 @@
 import { Routes, RouterModule } from '@angular/router';
 //import { AccountComponent, LoginComponent, ForgotPasswordComponent } from './';
 
-import { AccountComponent } from './account.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './password/forgot-password.component';
+import { SpecialComponent } from './special.component';
+import {ListComponent } from './list/list.component';
 
 const routes: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: '/characters' },
     {
-        path: 'characters',
-        component: AccountComponent,
+        path: 'specials',
+        component: SpecialComponent,
         children: [
-            { path: '', component: LoginComponent },
-            { path: ':id', component: ForgotPasswordComponent },
+            { path: '', component: ListComponent }
         ]
     }
 ];
@@ -23,12 +21,11 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class AccountRouterModule { }
+export class SpecialRouterModule { }
 
 export const routedComponents = [
-    AccountComponent,
-    LoginComponent,
-    ForgotPasswordComponent
+    SpecialComponent,
+    ListComponent
 ];
 
 /*

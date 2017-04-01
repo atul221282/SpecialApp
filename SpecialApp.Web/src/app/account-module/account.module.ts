@@ -6,8 +6,7 @@ import { AccountRouterModule, routedComponents } from './account-routing.module'
 
 @NgModule({
     imports: [CommonModule, FormsModule, AccountRouterModule],
-    declarations: [routedComponents],
-    providers: [],
+    declarations: [routedComponents]
 })
 export class AccountModule { }
 

@@ -1,9 +1,12 @@
 ﻿import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PageNotFoundComponent } from './page-not-found.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/characters' }
+    { path: '', pathMatch: 'full', redirectTo: '/characters' },
+    { path: 'specials', loadChildren: './app/special-module/special.module#SpecialModule' },
+    { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];
 
 @NgModule({
@@ -12,7 +15,7 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routableComponents = [];
+export const routableComponents = [PageNotFoundComponent];
 
 
 /*
