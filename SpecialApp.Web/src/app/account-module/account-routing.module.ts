@@ -9,11 +9,11 @@ import { ForgotPasswordComponent } from './password/forgot-password.component';
 const routes: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: '/characters' },
     {
-        path: 'characters',
+        path: 'account',
         component: AccountComponent,
         children: [
-            { path: '', component: LoginComponent },
-            { path: ':id', component: ForgotPasswordComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'forgot-password', component: ForgotPasswordComponent },
         ]
     }
 ];

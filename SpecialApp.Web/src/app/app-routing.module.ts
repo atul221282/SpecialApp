@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/characters' },
+    { path: '', pathMatch: 'full', redirectTo: '/account/login' },
     { path: 'special', loadChildren: 'app/special-module/special.module#SpecialModule' },
     //{ path: 'special', pathMatch: 'full', redirectTo: '/special' },
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent },

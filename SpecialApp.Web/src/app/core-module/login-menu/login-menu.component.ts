@@ -1,5 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/';
+import { Router } from '@angular/router'
+
 
 @Component({
     selector: 'core-login-menu',
@@ -10,12 +12,16 @@ export class LoginMenuComponent implements OnInit {
 
     menuItems: Array<MenuItem>;
 
-    constructor() { }
+    constructor(private router:Router) { }
 
     ngOnInit() {
         this.menuItems = new Array<MenuItem>();
-        this.menuItems.push({ class: "fa-briefcase", text: "Register Company" });
-        this.menuItems.push({ class: "fa-user-circle", text: "Register" });
+        this.menuItems.push({ class: "fa-briefcase", text: "Register Company", href: "/account/login" });
+        this.menuItems.push({ class: "fa-user-circle", text: "Register", href: "/special" });
+    }
+
+    navigate(href: string) {
+        this.router.navigate([href]);
     }
 }
 

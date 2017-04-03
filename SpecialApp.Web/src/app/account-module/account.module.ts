@@ -1,11 +1,22 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountRouterModule, routedComponents } from './account-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AccountRouterModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FlexLayoutModule,
+        AccountRouterModule
+    ],
     declarations: [routedComponents]
 })
 export class AccountModule { }
