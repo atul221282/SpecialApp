@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent } from './';
+import { LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent, MdInputComponent } from './';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -13,11 +13,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     declarations: [
         LoadingSpinnerComponent,
         LoginMenuComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        MdInputComponent
     ],
     exports: [
         LoadingSpinnerComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        MdInputComponent
     ],
     providers: [
         ApiClientService

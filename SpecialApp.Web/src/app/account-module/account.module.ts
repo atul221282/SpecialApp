@@ -5,7 +5,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountRouterModule, routedComponents } from './account-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CoreModule } from '../core-module/core.module';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         BrowserAnimationsModule,
         MaterialModule,
         FlexLayoutModule,
-        AccountRouterModule
+        AccountRouterModule,
+        CoreModule
     ],
     declarations: [routedComponents]
 })
