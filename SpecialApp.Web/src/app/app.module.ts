@@ -8,9 +8,6 @@ import { AppComponent } from './app.component';
 import { CoreModule, AppRoutingModule, routableComponents } from './';
 import { AccountModule } from './account-module/account.module';
 
-
-//import { SpecialModule } from './special-module/special.module';
-
 @NgModule({
     declarations: [
         AppComponent, routableComponents

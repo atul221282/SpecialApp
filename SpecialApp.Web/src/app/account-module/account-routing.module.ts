@@ -5,6 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './password/forgot-password.component';
+import { RegisterCustomerComponent } from './register-customer/register-customer.component';
+
+//import { AccountComponent, LoginComponent, ForgotPasswordComponent, RegisterCustomerComponent } from './';
 
 const routes: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: '/characters' },
@@ -14,6 +17,7 @@ const routes: Routes = [
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'forgot-password', component: ForgotPasswordComponent },
+            { path: 'add-customer', component: RegisterCustomerComponent },
         ]
     }
 ];
@@ -28,7 +32,8 @@ export class AccountRouterModule { }
 export const routedComponents = [
     AccountComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    RegisterCustomerComponent
 ];
 
 /*

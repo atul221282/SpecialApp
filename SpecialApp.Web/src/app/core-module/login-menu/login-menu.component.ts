@@ -17,7 +17,7 @@ export class LoginMenuComponent implements OnInit {
     ngOnInit() {
         this.menuItems = new Array<MenuItem>();
         this.menuItems.push({ class: "fa-briefcase", text: "Register Company", href: "account/login" });
-        this.menuItems.push({ class: "fa-user-circle", text: "Register", href: "special" });
+        this.menuItems.push({ class: "fa-user-circle", text: "Register", href: "account/add-customer" });
         this.menuItems.push({ class: "fa-key", text: "Forgot Password", href: "account/forgot-password" });
         //forgot-password
     }
