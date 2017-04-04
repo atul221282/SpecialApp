@@ -2,20 +2,30 @@
 <div class="container">
   <div fxLayout="row" fxLayoutAlign="start center" class="content">
 
-    <div fxFlex="100%" fxFlex.gt-sm="60%" fxFlexOffset.gt-sm="20%">
+    <div fxFlex="100%" fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
 
       <md-card>
         <md-card-title>Login</md-card-title>
         <md-card-content>
           <div fxLayout.gt-xs="row" fxLayout="column">
+            <div fxFlex="100">
+              <md-input-container fxFlexFill>
+                <input mdInput placeholder="Email">
+              </md-input-container>
+            </div>
+          </div>
 
-            <md-input-container fxFlex.gt-sm="50%">
-              <input mdInput placeholder="Favorite food" value="Sushi">
-            </md-input-container>
-            <md-input-container fxFlex.gt-sm="50%">
-              <input mdInput placeholder="Favorite food" value="Sushi">
-            </md-input-container>
-            
+          <div fxLayout.gt-xs="row" fxLayout="column">
+            <div fxFlex="100" fxFlex.gt-xs="50">
+              <md-input-container fxFlexFill>
+                <input mdInput placeholder="First name">
+              </md-input-container>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="50">
+              <md-input-container fxFlexFill>
+                <input mdInput placeholder="Surname">
+              </md-input-container>
+            </div>
           </div>
 
         </md-card-content>
