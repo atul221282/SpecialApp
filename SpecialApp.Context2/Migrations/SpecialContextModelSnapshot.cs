@@ -123,6 +123,48 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Account.Users", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<DateTimeOffset?>("DOB");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<string>("LastName");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("SpecialAppUsersId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecialAppUsersId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Address", b =>
                 {
                     b.Property<int?>("Id")
@@ -782,7 +824,7 @@ namespace SpecialApp.Context.Migrations
                     b.ToTable("SpecialLocation");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialViewed", b =>
                 {
                     b.Property<int>("SpecialId");
 
@@ -794,7 +836,7 @@ namespace SpecialApp.Context.Migrations
 
                     b.HasIndex("ViewedById");
 
-                    b.ToTable("SpecialView");
+                    b.ToTable("SpecialViewed");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -827,6 +869,13 @@ namespace SpecialApp.Context.Migrations
                     b.HasOne("SpecialApp.Entity.SpecialAppUsers")
                         .WithMany("Roles")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Account.Users", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "SpecialAppUsers")
+                        .WithMany()
+                        .HasForeignKey("SpecialAppUsersId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Address", b =>
@@ -925,7 +974,7 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("AddressId");
 
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany("SpecialAddresses")
+                        .WithMany("Addresses")
                         .HasForeignKey("SpecialId");
                 });
 
@@ -940,7 +989,7 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("ParentCommentId");
 
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany("SpecialComments")
+                        .WithMany("Comments")
                         .HasForeignKey("SpecialId");
                 });
 
@@ -951,7 +1000,7 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("FileDataId");
 
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany("SpecialFiles")
+                        .WithMany("Files")
                         .HasForeignKey("SpecialId");
                 });
 
@@ -959,24 +1008,21 @@ namespace SpecialApp.Context.Migrations
                 {
                     b.HasOne("SpecialApp.Entity.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("SpecialApp.Entity.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LocationId");
 
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany()
-                        .HasForeignKey("SpecialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Locations")
+                        .HasForeignKey("SpecialId");
                 });
 
-            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialView", b =>
+            modelBuilder.Entity("SpecialApp.Entity.Specials.SpecialViewed", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Specials.Special", "Special")
-                        .WithMany("SpecialViews")
+                        .WithMany("ViewedBy")
                         .HasForeignKey("SpecialId");
 
                     b.HasOne("SpecialApp.Entity.SpecialAppUsers", "ViewedBy")

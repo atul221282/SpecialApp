@@ -11,6 +11,8 @@ using System.Linq;
 using SpecialApp.Base;
 using Microsoft.Extensions.Options;
 using SpecialApp.Entity.Options;
+using SpecialApp.Entity.Account;
+using SpecialApp.Context.Configuration.Account;
 
 namespace SpecialApp.Context
 {
@@ -34,6 +36,8 @@ namespace SpecialApp.Context
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            new UsersConfiguration(modelBuilder.Entity<Users>());
 
             new LocationConfiguration(modelBuilder.Entity<Location>());
             new FileDataConfiguration(modelBuilder.Entity<FileData>());
@@ -59,6 +63,8 @@ namespace SpecialApp.Context
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public virtual DbSet<Users> Users { get; set; }
 
         public virtual DbSet<FileData> FileData { get; set; }
         public virtual DbSet<Country> Country { get; set; }
