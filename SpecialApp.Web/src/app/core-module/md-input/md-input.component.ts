@@ -7,12 +7,18 @@
 export class MdInputComponent implements OnInit {
     @Input() spInput: string;
     @Input() spPlaceholder: string;
+    @Input() spRequired: boolean;
+
 
     @Output() spInputChange: EventEmitter<string> = new EventEmitter()
 
     constructor() { }
 
     ngOnInit() {
+        if (!this.spRequired)
+            this.spRequired = false;
+        else
+            this.spRequired = true;
     }
 
     onChange($event: string) {

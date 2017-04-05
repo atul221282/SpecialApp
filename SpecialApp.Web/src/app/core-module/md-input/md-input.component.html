@@ -1,4 +1,5 @@
 ﻿<md-input-container fxFlexFill>
-  <input mdInput [placeholder]="spPlaceholder" [ngModel]="spInput" (ngModelChange)="onChange($event)">
+  <input mdInput [placeholder]="spPlaceholder" [ngModel]="spInput" (ngModelChange)="onChange($event)"
+         [required]="spRequired === true">
 </md-input-container>
 

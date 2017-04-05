@@ -7,26 +7,30 @@
       <md-card>
         <md-card-title>Login</md-card-title>
         <md-card-content>
-          
+
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex="100">
-              <form-input [spInput]="emailAddress" [spPlaceholder]="'Email Address'"
-                          (spInputChange)="emailAddress=$event"></form-input>
+            <div fxFlex>
+              <form-input [spInput]="user.EmailAddress" [spPlaceholder]="'Email Address'"
+                          (spInputChange)="user.EmailAddress=$event"></form-input>
             </div>
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex="100" fxFlex.gt-xs="50">
-              <form-input [spInput]="emailAddress" [spPlaceholder]="'Email Address'"
-                          (spInputChange)="emailAddress=$event"></form-input>
+              <form-input [spInput]="user.FirstName" [spPlaceholder]="'FirstName'" [spRequired]="'true'"
+                          (spInputChange)="user.FirstName=$event"></form-input>
             </div>
 
             <div fxFlex="100" fxFlex.gt-xs="50">
-              <form-input [spInput]="emailAddress" [spPlaceholder]="'Username'"
-                          (spInputChange)="emailAddress=$event"></form-input>
-              <form-input></form-input>
+              <form-input [spInput]="user.LastName" [spPlaceholder]="'LastName'"
+                          (spInputChange)="user.LastName=$event"></form-input>
             </div>
+          </div>
 
+          <div fxLayout.gt-xs="row" fxLayout="column">
+            <div fxFlex>
+              <button fxFlexFill md-raised-button color="primary" (click)="submit(user)">Register</button>
+            </div>
           </div>
 
         </md-card-content>
