@@ -10,19 +10,19 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex>
-              <form-input [spInput]="user.EmailAddress" [spPlaceholder]="'Email Address'"
+              <form-input [spText]="user.EmailAddress" [spPlaceholder]="'Email Address'"
                           (spInputChange)="user.EmailAddress=$event"></form-input>
             </div>
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex="100" fxFlex.gt-xs="50">
-              <form-input [spInput]="user.FirstName" [spPlaceholder]="'FirstName'" [spRequired]="'true'"
+              <form-input [spText]="user.FirstName" [spPlaceholder]="'FirstName'" [spRequired]="'true'"
                           (spInputChange)="user.FirstName=$event"></form-input>
             </div>
 
             <div fxFlex="100" fxFlex.gt-xs="50">
-              <form-input [spInput]="user.LastName" [spPlaceholder]="'LastName'"
+              <form-input [spText]="user.LastName" [spPlaceholder]="'LastName'"
                           (spInputChange)="user.LastName=$event"></form-input>
             </div>
           </div>

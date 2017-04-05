@@ -5,7 +5,7 @@
     styleUrls: ['./md-input.component.css']
 })
 export class MdInputComponent implements OnInit {
-    @Input() spInput: string;
+    @Input() spText: string;
     @Input() spPlaceholder: string;
     @Input() spRequired: boolean;
 
