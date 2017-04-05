@@ -1,3 +1,4 @@
 ﻿<md-input-container fxFlexFill>
-  <input mdInput placeholder="First name">
+  <input mdInput [placeholder]="spPlaceholder" [ngModel]="spInput" (ngModelChange)="onChange($event)">
 </md-input-container>
+

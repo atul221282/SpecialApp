@@ -6,10 +6,10 @@
     styleUrls: ['./register-customer.component.scss']
 })
 export class RegisterCustomerComponent implements OnInit {
-
+    emailAddress: string;
     constructor() { }
 
     ngOnInit() {
+        this.emailAddress = 'atul';
     }
-
 }

@@ -1,14 +1,17 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent, MdInputComponent } from './';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent, MdInputComponent } from './';
+
 
 @NgModule({
     imports: [
         CommonModule,
         MaterialModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        FormsModule
     ],
     declarations: [
         LoadingSpinnerComponent,
