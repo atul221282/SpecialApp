@@ -20,12 +20,12 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex fxFlex.gt-xs="50">
-              <form-control-input property="FirstName" [form]="registerForm"
+              <form-control-input property="FirstName" [form]="registerForm" [validationMessages]="firstName"
                                   spPlaceholder="First Name"></form-control-input>
             </div>
 
             <div fxFlex fxFlex.gt-xs="50">
-              <form-control-input property="LastName" [form]="registerForm"
+              <form-control-input property="LastName" [form]="registerForm" [validationMessages]="lastName"
                                   spPlaceholder="Surname"></form-control-input>
             </div>
           </div>

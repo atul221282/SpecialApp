@@ -12,15 +12,26 @@ export class RegisterCustomerComponent implements OnInit {
     public emailErrors = {
         required: "Email address is required",
         minlength: "Emaill address can't be less than 5 characters",
-        maxlength:"Emaill address can't be greater than 3 characters"
+        maxlength: "Emaill address can't be greater than 50 characters",
+        email: "Invalid email"
+    }
+    public firstName = {
+        required: "First name is required"
+    }
+    public lastName = {
+        required: "Surname is required"
     }
 
     constructor(private _fb: FormBuilder) { }
     ngOnInit() {
         this.registerForm = this._fb.group({
-            EmailAddress: [{ value: 'atul', disabled: false }, [Validators.required, Validators.minLength(5), Validators.maxLength(3)]],
-            FirstName: '',
-            LastName: ''
+            EmailAddress: [{ value: 'atul', disabled: false }, [
+                Validators.required,
+                Validators.minLength(5),
+                Validators.maxLength(50),
+            ]],
+            FirstName: ['', Validators.required],
+            LastName: ['', Validators.required]
         });
     }
 
