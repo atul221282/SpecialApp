@@ -1,7 +1,7 @@
 ﻿<md-input-container fxFlexFill [formGroup]="form">
   <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired" />
-  <md-hint *ngIf="control.errors && control.errors.required" [ngStyle]="{'color': 'red'}" align="start">
-    {{property}} Required 
+  <md-hint *ngIf="errorMessages" [ngStyle]="{'color': 'red'}" align="start">
+    {{errorMessages}} 
   </md-hint>
-</md-input-container>
+  </md-input-container>
 

@@ -13,7 +13,7 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex>
-              <form-control-input property="EmailAddress" [form]="registerForm"
+              <form-control-input property="EmailAddress" [form]="registerForm" [validationMessages]="emailErrors"
                                   spPlaceholder="Email Address"></form-control-input>
             </div>
           </div>
@@ -26,7 +26,7 @@
 
             <div fxFlex fxFlex.gt-xs="50">
               <form-control-input property="LastName" [form]="registerForm"
-                                  spPlaceholder="Surname" [spRequired]="1===1"></form-control-input>
+                                  spPlaceholder="Surname"></form-control-input>
             </div>
           </div>
 

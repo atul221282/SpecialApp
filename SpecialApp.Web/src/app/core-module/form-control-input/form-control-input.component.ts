@@ -13,11 +13,22 @@ export class FormControlInputComponent implements OnInit {
     @Input() property: string;
     @Input() spPlaceholder: string;
     @Input() spRequired: boolean;
+    @Input() validationMessages: any;
+
     control: AbstractControl;
+    errorMessages: string;
     constructor() { }
 
     ngOnInit() {
         this.control = this.form.get(this.property);
+        this.control.valueChanges.subscribe(value => this.setMessage(this.control));
     }
 
+    setMessage(c: AbstractControl): void {
+        if (!this.validationMessages) return;
+        this.errorMessages = '';
+        if ((c.touched || c.dirty) && c.errors) {
+            this.errorMessages = Object.keys(c.errors).map(key => this.validationMessages[key]).join(', ');
+        }
+    }
 }
