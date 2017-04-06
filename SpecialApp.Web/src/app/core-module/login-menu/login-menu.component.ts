@@ -12,12 +12,12 @@ export class LoginMenuComponent implements OnInit {
 
     menuItems: Array<MenuItem>;
 
-    constructor(private router:Router) { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
         this.menuItems = new Array<MenuItem>();
         this.menuItems.push({ class: "fa-briefcase", text: "Register Company", href: "account/login" });
-        this.menuItems.push({ class: "fa-user-circle", text: "Register", href: "account/add-customer" });
+        this.menuItems.push({ class: "fa-user", text: "Register User", href: "account/add-customer" });
         this.menuItems.push({ class: "fa-key", text: "Forgot Password", href: "account/forgot-password" });
         //forgot-password
     }
