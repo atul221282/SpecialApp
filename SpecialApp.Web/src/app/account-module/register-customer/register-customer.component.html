@@ -1,6 +1,6 @@
 ﻿<!--http://www.dzurico.com/angular-flex-layout/-->
 <!--<div [formGroup]="registerForm">
-  
+
 </div>-->
 <div class="container">
   <div fxLayout="row" fxLayoutAlign="start center" class="content">
@@ -12,21 +12,41 @@
         <md-card-content>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex>
+            <div fxFlex fxFlex.gt-xs="50">
               <form-control-input property="EmailAddress" [form]="registerForm" [validationMessages]="emailErrors"
                                   spPlaceholder="Email Address"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="50">
+              <form-control-input property="UserName" [form]="registerForm" [validationMessages]="emailErrors"
+                                  spPlaceholder="User Name"></form-control-input>
+            </div>
+          </div>
+
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+            <div fxFlex fxFlex.gt-xs="50">
+              <form-control-input property="Password" [form]="registerForm.get('passwordGroup')"
+                                  [validationMessages]="passwordMessage" spPlaceholder="Password"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="50">
+              <form-control-input property="ConfirmPassword" [form]="registerForm.get('passwordGroup')"
+                                  [validationMessages]="confirmPasswordMessage" spPlaceholder="Confirm Password"></form-control-input>
             </div>
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex fxFlex.gt-xs="50">
+            <div fxFlex fxFlex.gt-xs="33">
               <form-control-input property="FirstName" [form]="registerForm" [validationMessages]="firstName"
                                   spPlaceholder="First Name"></form-control-input>
             </div>
 
-            <div fxFlex fxFlex.gt-xs="50">
+            <div fxFlex fxFlex.gt-xs="33">
               <form-control-input property="LastName" [form]="registerForm" [validationMessages]="lastName"
                                   spPlaceholder="Surname"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33">
+              <form-control-input property="PhoneNumber" [form]="registerForm" [validationMessages]="lastName"
+                                  spPlaceholder="Phone Number"></form-control-input>
             </div>
           </div>
 

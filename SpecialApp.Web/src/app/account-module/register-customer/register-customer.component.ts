@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
     selector: 'account-register-customer',
@@ -22,20 +22,58 @@ export class RegisterCustomerComponent implements OnInit {
         required: "Surname is required"
     }
 
+    public passwordMessage = {
+        required: 'Password is required'
+    };
+    public confirmPasswordMessage = {
+        required: 'Confirm password is required',
+        match: 'Password do not match'
+    };
+
+    public
+
+    public pwdGroup: AbstractControl;
+    public confirmPasswordError: string;
+
     constructor(private _fb: FormBuilder) { }
+
     ngOnInit() {
+        this.pwdGroup = this._fb.group({
+            Password: ['', Validators.required],
+            ConfirmPassword: ['', Validators.required],
+        }, { validator: passwordMatcher });
+
         this.registerForm = this._fb.group({
-            EmailAddress: [{ value: 'atul', disabled: false }, [
+            EmailAddress: [{ value: '', disabled: false }, [
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(50),
             ]],
             FirstName: ['', Validators.required],
-            LastName: ['', Validators.required]
+            LastName: ['', Validators.required],
+            UserName: '',
+            passwordGroup: this._fb.group({
+                Password: ['', Validators.required],
+                ConfirmPassword: ['', Validators.required],
+            }, { validator: passwordMatcher }),
+            PhoneNumber: ''
         });
+        //this.pwdGroup.valueChanges.subscribe(value => this.onPwdGroupChange(this.pwdGroup))
     }
-
+    
     submit(data: any) {
         alert(JSON.stringify(this.registerForm.getRawValue()));
     }
+}
+
+function passwordMatcher(c: AbstractControl) {
+    let pwdCtrl = c.get('Password');
+    let confirmPwdCtrl = c.get('ConfirmPassword');
+
+    if (pwdCtrl.pristine || confirmPwdCtrl.pristine)
+        return null;
+    if (pwdCtrl.value === confirmPwdCtrl.value) {
+        return null;
+    }
+    return { 'match': true };
 }
