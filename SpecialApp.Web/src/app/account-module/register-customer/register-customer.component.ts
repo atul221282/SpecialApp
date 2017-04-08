@@ -40,9 +40,9 @@ export class RegisterCustomerComponent implements OnInit {
 
     ngOnInit() {
         this.foods = [
-            { value: 'steak-0', viewValue: 'Steak' },
-            { value: 'pizza-1', viewValue: 'Pizza' },
-            { value: 'tacos-2', viewValue: 'Tacos' }
+            { value: 1, viewValue: 'Steak' },
+            { value: 2, viewValue: 'Pizza' },
+            { value: 3, viewValue: 'Tacos' }
         ];
 
         this.pwdGroup = this._fb.group({
@@ -63,6 +63,7 @@ export class RegisterCustomerComponent implements OnInit {
                 Password: ['', Validators.required],
                 ConfirmPassword: ['', Validators.required],
             }, { validator: passwordMatcher }),
+            FoodType: [null],
             PhoneNumber: ''
         });
         //this.pwdGroup.valueChanges.subscribe(value => this.onPwdGroupChange(this.pwdGroup))

@@ -14,7 +14,6 @@ export class FormControlInputComponent implements OnInit, OnChanges {
     @Input() spPlaceholder: string;
     @Input() spRequired: boolean;
     @Input() validationMessages: any;
-    @Input() parentErrorMessage: string;
 
     control: AbstractControl;
     errorMessages: string;
