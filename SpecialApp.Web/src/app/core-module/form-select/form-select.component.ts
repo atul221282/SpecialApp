@@ -8,12 +8,12 @@
 export class FormSelectComponent implements OnInit {
     @Input() list: Array<any>;
     @Input() spTextField: string;
+    @Input() spValueField: string;
+
+    selectedValue: string;
     constructor() { }
 
     ngOnInit() {
     }
-    getText(data: any) {
-        let text = data[this.spTextField];
-        return text;
-    }
+    
 }

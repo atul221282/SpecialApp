@@ -1,4 +1,4 @@
-﻿<md-select placeholder="Favorite food" name="food"  class="md-select-placeholder">
-  <md-option *ngFor="let item of list" [innerHTML]="item[spTextField]">
+﻿<md-select placeholder="Favorite food" name="food"  class="md-select-placeholder" [(ngModel)]="selectedValue">
+  <md-option *ngFor="let item of list" [innerHTML]="item[spTextField]" [value]="item[spValueField]">
   </md-option>
 </md-select>
