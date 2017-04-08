@@ -30,15 +30,15 @@ export class RegisterCustomerComponent implements OnInit {
         match: 'Password do not match'
     };
 
-    public foods: Array<any>;
-
     public pwdGroup: AbstractControl;
     public confirmPasswordError: string;
+    public foods: Array<any>;
 
     constructor(private _fb: FormBuilder) { }
 
-    ngOnInit() {
 
+
+    ngOnInit() {
         this.foods = [
             { value: 'steak-0', viewValue: 'Steak' },
             { value: 'pizza-1', viewValue: 'Pizza' },
@@ -67,7 +67,7 @@ export class RegisterCustomerComponent implements OnInit {
         });
         //this.pwdGroup.valueChanges.subscribe(value => this.onPwdGroupChange(this.pwdGroup))
     }
-    
+
     submit(data: any) {
         alert(JSON.stringify(this.registerForm.getRawValue()));
     }
