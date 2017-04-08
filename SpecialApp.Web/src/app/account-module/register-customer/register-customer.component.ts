@@ -30,7 +30,7 @@ export class RegisterCustomerComponent implements OnInit {
         match: 'Password do not match'
     };
 
-    public
+    public foods: Array<any>;
 
     public pwdGroup: AbstractControl;
     public confirmPasswordError: string;
@@ -38,6 +38,13 @@ export class RegisterCustomerComponent implements OnInit {
     constructor(private _fb: FormBuilder) { }
 
     ngOnInit() {
+
+        this.foods = [
+            { value: 'steak-0', viewValue: 'Steak' },
+            { value: 'pizza-1', viewValue: 'Pizza' },
+            { value: 'tacos-2', viewValue: 'Tacos' }
+        ];
+
         this.pwdGroup = this._fb.group({
             Password: ['', Validators.required],
             ConfirmPassword: ['', Validators.required],
@@ -50,7 +57,7 @@ export class RegisterCustomerComponent implements OnInit {
                 Validators.maxLength(50),
             ]],
             FirstName: ['', Validators.required],
-            LastName: ['', Validators.required],
+            LastName: [''],
             UserName: '',
             passwordGroup: this._fb.group({
                 Password: ['', Validators.required],

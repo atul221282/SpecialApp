@@ -12,13 +12,16 @@
         <md-card-content>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex fxFlex.gt-xs="50">
+            <div fxFlex fxFlex.gt-xs="33">
               <form-control-input property="EmailAddress" [form]="registerForm" [validationMessages]="emailErrors"
                                   spPlaceholder="Email Address"></form-control-input>
             </div>
-            <div fxFlex fxFlex.gt-xs="50">
+            <div fxFlex fxFlex.gt-xs="33">
               <form-control-input property="UserName" [form]="registerForm" [validationMessages]="emailErrors"
                                   spPlaceholder="User Name"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33">
+              <form-select></form-select>
             </div>
           </div>
 
