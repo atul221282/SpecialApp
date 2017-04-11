@@ -37,12 +37,15 @@ export class FormSelectComponent implements OnInit {
     }
 
     checkControl(c: AbstractControl) {
-        debugger;
+        if (!c.value || c.value === null) {
+            return;
+        }
         if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
             let control = this.parentControl;
             control.markAsDirty();
             control.markAsTouched();
             control.setValue(null);
+            c.setValue(null);
         }
     }
 
