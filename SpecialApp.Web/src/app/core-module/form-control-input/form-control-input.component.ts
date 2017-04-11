@@ -22,13 +22,13 @@ export class FormControlInputComponent implements OnInit, OnChanges {
     ngOnInit() {
         
         this.control = this.form.get(this.property);
-        this.control.valueChanges.subscribe(value => this.setMessage(this.control, this.form));
+        this.control.valueChanges.subscribe(value => this.setMessage(this.control));
         this.form.valueChanges.subscribe(value => this.setFormMessage(this.form));
     }
     ngOnChanges(data: any) {
     }
 
-    setMessage(c: AbstractControl, formGroup: FormGroup): void {
+    setMessage(c: AbstractControl): void {
         if (!this.validationMessages) return;
         
         this.errorMessages = '';
