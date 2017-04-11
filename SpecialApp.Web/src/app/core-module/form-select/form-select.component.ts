@@ -13,6 +13,7 @@ export class FormSelectComponent implements OnInit, OnChanges {
     @Input() property: string;
     @Input() validationMessages: any;
 
+    //listData: Array<any>;
     parentControl: AbstractControl;
     control: AbstractControl;
     errorMessages: string;
@@ -33,7 +34,10 @@ export class FormSelectComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        this.parentControl = this.form.get(this.property);
+        //this.parentControl = this.form.get(this.property);
+        this.filteredStates = this.control.valueChanges
+            .startWith(null)
+            .map(name => this.filterStates(name));
     }
 
     filterStates(val: string) {

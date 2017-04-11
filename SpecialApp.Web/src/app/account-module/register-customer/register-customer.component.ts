@@ -42,12 +42,14 @@ export class RegisterCustomerComponent implements OnInit {
     constructor(private _fb: FormBuilder, @Inject('Window') private window: Window) { }
 
     ngOnInit() {
-        
-        this.foods = [
-            { value: 1, viewValue: 'Steak' },
-            { value: 2, viewValue: 'Pizza' },
-            { value: 3, viewValue: 'Tacos' }
-        ];
+
+        setTimeout(() => {
+            this.foods = [
+                { value: 1, viewValue: 'Steak' },
+                { value: 2, viewValue: 'Pizza' },
+                { value: 3, viewValue: 'Tacos' }
+            ];
+        }, 3000)
 
         this.pwdGroup = this._fb.group({
             Password: ['', Validators.required],
