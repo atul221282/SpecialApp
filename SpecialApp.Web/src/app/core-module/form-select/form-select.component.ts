@@ -1,11 +1,11 @@
-﻿import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 @Component({
     selector: 'form-select',
     templateUrl: './form-select.component.html',
     styleUrls: ['./form-select.component.css']
 })
-export class FormSelectComponent implements OnInit {
+export class FormSelectComponent implements OnInit, OnChanges {
     @Input() list: Array<any>;
     @Input() spTextField: string;
     @Input() spValueField: string;
@@ -27,9 +27,13 @@ export class FormSelectComponent implements OnInit {
         this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
-        this.control.valueChanges.subscribe(value => this.checkControl(this.control));
 
-        this.parentControl.valueChanges.subscribe(value => this.setForm());
+        this.control.valueChanges.subscribe(value => this.checkControl(this.control));
+        this.parentControl.valueChanges.subscribe(value => this.setForm(value));
+    }
+
+    ngOnChanges() {
+        this.parentControl = this.form.get(this.property);
     }
 
     filterStates(val: string) {
@@ -49,7 +53,9 @@ export class FormSelectComponent implements OnInit {
         }
     }
 
-    setForm() {
+    setForm(value: number) {
+        if (value === null)
+            this.control.setValue(null);
         this.setMessage(this.parentControl);
     }
 

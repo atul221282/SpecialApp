@@ -75,6 +75,10 @@ export class RegisterCustomerComponent implements OnInit {
     submit(data: any) {
         alert(JSON.stringify(this.registerForm.getRawValue()));
     }
+
+    cancel() {
+        this.registerForm.reset();
+    }
 }
 
 function passwordMatcher(c: AbstractControl) {

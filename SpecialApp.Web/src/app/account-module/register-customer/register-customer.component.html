@@ -20,13 +20,11 @@
                                   spPlaceholder="User Name"></form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33">
-              {{registerForm.get('FoodType').value | json}}
               <form-select [list]="foods" spTextField="viewValue" spValueField="value" [validationMessages]="foodTypeMessage"
                            property="FoodType" [form]="registerForm"></form-select>
 
             </div>
           </div>
-
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex fxFlex.gt-xs="50">
@@ -61,7 +59,6 @@
             </div>
             <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
               <button md-raised-button fxFlexFill
-                      [ngClass]="{'margin-top-5':window.innerWidth<600}"
                       color="accent" (click)="cancel(user)">
                 Cancel
               </button>
