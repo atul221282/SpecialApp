@@ -22,8 +22,8 @@
             <div fxFlex fxFlex.gt-xs="33">
               {{registerForm.get('FoodType').value | json}}
               <form-select [list]="foods" spTextField="viewValue" spValueField="value" [validationMessages]="foodTypeMessage"
-                            property="FoodType" [form]="registerForm"></form-select>
-          
+                           property="FoodType" [form]="registerForm"></form-select>
+
             </div>
           </div>
 
@@ -56,11 +56,17 @@
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex>
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
               <button fxFlexFill md-raised-button color="primary" (click)="submit(user)">Register</button>
             </div>
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button md-raised-button fxFlexFill
+                      [ngClass]="{'margin-top-5':window.innerWidth<600}"
+                      color="accent" (click)="cancel(user)">
+                Cancel
+              </button>
+            </div>
           </div>
-
         </md-card-content>
       </md-card>
 

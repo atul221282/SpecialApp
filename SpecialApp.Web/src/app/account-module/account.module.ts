@@ -19,6 +19,7 @@ import { CoreModule } from '../core-module/core.module';
         AccountRouterModule,
         CoreModule
     ],
+    providers: [{ provide: 'Window', useValue: window }],
     declarations: [routedComponents]
 })
 export class AccountModule { }

@@ -1,5 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+
 
 @Component({
     selector: 'account-register-customer',
@@ -38,11 +39,10 @@ export class RegisterCustomerComponent implements OnInit {
     public confirmPasswordError: string;
     public foods: Array<any>;
 
-    constructor(private _fb: FormBuilder) { }
-
-
+    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window) { }
 
     ngOnInit() {
+        
         this.foods = [
             { value: 1, viewValue: 'Steak' },
             { value: 2, viewValue: 'Pizza' },
