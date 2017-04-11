@@ -22,10 +22,9 @@
             </div>
             <div fxFlex fxFlex.gt-xs="33">
               {{registerForm.get('FoodType').value | json}}
-              <form-select [list]="foods" spTextField="viewValue" spValueField="value"
+              <form-select [list]="foods" spTextField="viewValue" spValueField="value" [validationMessages]="foodTypeMessage"
                             property="FoodType" [form]="registerForm"></form-select>
-              <!--<form-select [list]="foods" spTextField="viewValue" spValueField="value"
-                           property="FoodType" [form]="registerForm"></form-select>-->
+          
             </div>
           </div>
 

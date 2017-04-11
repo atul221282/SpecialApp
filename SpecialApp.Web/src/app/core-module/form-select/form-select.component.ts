@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 @Component({
     selector: 'form-select',
     templateUrl: './form-select.component.html',
@@ -11,36 +11,75 @@ export class FormSelectComponent implements OnInit {
     @Input() spValueField: string;
     @Input() form: FormGroup;
     @Input() property: string;
+    @Input() validationMessages: any;
 
-    stateCtrl: FormControl;
+    parentControl: AbstractControl;
+    control: AbstractControl;
+    errorMessages: string;
     filteredStates: any;
 
     constructor() {
-        this.stateCtrl = new FormControl();
+        this.control = new FormControl();
     }
 
     ngOnInit() {
-        this.filteredStates = this.stateCtrl.valueChanges
+        this.parentControl = this.form.get(this.property);
+        this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
-        this.stateCtrl.valueChanges.subscribe(value => this.setForm(this.stateCtrl, this.form));
+        this.control.valueChanges.subscribe(value => this.checkControl(this.control));
+
+        this.parentControl.valueChanges.subscribe(value => this.setForm());
     }
 
     filterStates(val: string) {
         return this.list;
     }
 
-    setForm(c: FormControl, form: FormGroup) {
-        this.form.get(this.property).setValue(null);
-        if (c.value && c.value !== null) {
-            if (c.value[this.spValueField] && c.value[this.spValueField] !== null) {
-                this.form.get(this.property).setValue(c.value.value);
-            }
+    checkControl(c: AbstractControl) {
+        debugger;
+        if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
+            let control = this.parentControl;
+            control.markAsDirty();
+            control.markAsTouched();
+            control.setValue(null);
         }
+    }
+
+    setForm() {
+        this.setMessage(this.parentControl);
+    }
+
+    setMessage(c: AbstractControl): void {
+        if (!this.validationMessages) return;
+
+        this.errorMessages = '';
+
+        if ((c.touched || c.dirty) && c.errors) {
+            this.errorMessages = Object.keys(c.errors).map(key => this.validationMessages[key]).join(', ');
+        }
+    }
+
+    setFormMessage(formGroup: FormGroup) {
+        if (!this.validationMessages) return;
+        //if child got an error keep that and return
+        if (formGroup.get(this.property).errors)
+            return;
+
+        this.errorMessages = '';
+
+        if ((formGroup.touched || formGroup.dirty) && formGroup.errors) {
+            this.errorMessages = Object.keys(formGroup.errors).map(key => this.validationMessages[key]).join(', ');
+        }
+
     }
 
     displayFn(data: any) {
         return data ? data[this.spTextField] : data;
+    }
+
+    selected(data: any) {
+        this.parentControl.setValue(data[this.spValueField]);
     }
 
 }
