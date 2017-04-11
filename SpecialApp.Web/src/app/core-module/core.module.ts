@@ -5,7 +5,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent,
-    MdInputComponent, FormControlInputComponent, FormSelectComponent
+    MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent
 } from './';
 
 @NgModule({
@@ -17,6 +17,7 @@ import {
         FormsModule
     ],
     declarations: [
+        FormDateComponent,
         FormSelectComponent,
         FormControlInputComponent,
         LoadingSpinnerComponent,
@@ -25,6 +26,7 @@ import {
         MdInputComponent
     ],
     exports: [
+        FormDateComponent,
         FormSelectComponent,
         FormControlInputComponent,
         LoadingSpinnerComponent,

@@ -4,5 +4,6 @@ export * from './login-menu/login-menu.component';
 export * from './md-input/md-input.component';
 export * from './form-control-input/form-control-input.component';
 export * from './form-select/form-select.component';
+export * from './form-date/form-date.component';
 export * from './api-client.service';
 export * from './core.module';

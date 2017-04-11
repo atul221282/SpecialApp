@@ -34,7 +34,6 @@ export class FormSelectComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        //this.parentControl = this.form.get(this.property);
         this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
