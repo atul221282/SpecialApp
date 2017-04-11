@@ -1,6 +1,5 @@
 ﻿<!--http://www.dzurico.com/angular-flex-layout/-->
 <!--<div [formGroup]="registerForm">
-
 </div>-->
 <div class="container">
   <div fxLayout="row" fxLayoutAlign="start center" class="content">
@@ -22,10 +21,9 @@
             </div>
             <div fxFlex fxFlex.gt-xs="33">
               {{registerForm.get('FoodType').value | json}}
-              <form-select [list]="foods" spTextField="viewValue" spValueField="value"
-                            property="FoodType" [form]="registerForm"></form-select>
-              <!--<form-select [list]="foods" spTextField="viewValue" spValueField="value"
-                           property="FoodType" [form]="registerForm"></form-select>-->
+              <form-select [list]="foods" spTextField="viewValue" spValueField="value" [validationMessages]="foodTypeMessage"
+                           property="FoodType" [form]="registerForm"></form-select>
+
             </div>
           </div>
 

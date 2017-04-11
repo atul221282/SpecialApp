@@ -25,6 +25,10 @@ export class RegisterCustomerComponent implements OnInit {
     public passwordMessage = {
         required: 'Password is required'
     };
+
+    public foodTypeMessage = {
+        required: 'Food type is required'
+    };
     public confirmPasswordMessage = {
         required: 'Confirm password is required',
         match: 'Password do not match'
@@ -63,10 +67,9 @@ export class RegisterCustomerComponent implements OnInit {
                 Password: ['', Validators.required],
                 ConfirmPassword: ['', Validators.required],
             }, { validator: passwordMatcher }),
-            FoodType: [null],
+            FoodType: [null, Validators.required],
             PhoneNumber: ''
         });
-        //this.pwdGroup.valueChanges.subscribe(value => this.onPwdGroupChange(this.pwdGroup))
     }
 
     submit(data: any) {

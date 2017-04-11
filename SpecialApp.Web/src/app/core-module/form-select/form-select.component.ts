@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 @Component({
     selector: 'form-select',
     templateUrl: './form-select.component.html',
@@ -11,57 +11,78 @@ export class FormSelectComponent implements OnInit {
     @Input() spValueField: string;
     @Input() form: FormGroup;
     @Input() property: string;
+    @Input() validationMessages: any;
 
-    //selectedValue: string;
-    //constructor() { }
-
-    //ngOnInit() {
-    //}
-
-    stateCtrl: FormControl;
-    idControl: FormControl;
+    parentControl: AbstractControl;
+    control: AbstractControl;
+    errorMessages: string;
     filteredStates: any;
-    stateValue: string;
 
     constructor() {
-        this.stateCtrl = new FormControl();
-        this.idControl = new FormControl();
-        
+        this.control = new FormControl();
     }
+
     ngOnInit() {
-        this.stateValue = undefined;
-        this.filteredStates = this.stateCtrl.valueChanges
+        this.parentControl = this.form.get(this.property);
+        this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
-        this.stateCtrl.valueChanges.subscribe(value => this.setForm(this.stateCtrl, this.form));
+        this.control.valueChanges.subscribe(value => this.checkControl(this.control));
+
+        this.parentControl.valueChanges.subscribe(value => this.setForm());
     }
 
     filterStates(val: string) {
-
-        var lis= val ? this.list.filter(s => new RegExp(`^${val}`, 'gi').test(s[this.spTextField]))
-            : this.list;
-
-        return lis;
+        return this.list;
     }
-    getValue(c: FormControl) {
+
+    checkControl(c: AbstractControl) {
+        if (!c.value || c.value === null) {
+            return;
+        }
+        if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
+            let control = this.parentControl;
+            control.markAsDirty();
+            control.markAsTouched();
+            control.setValue(null);
+            c.setValue(null);
+        }
+    }
+
+    setForm() {
+        this.setMessage(this.parentControl);
+    }
+
+    setMessage(c: AbstractControl): void {
+        if (!this.validationMessages) return;
+
+        this.errorMessages = '';
+
+        if ((c.touched || c.dirty) && c.errors) {
+            this.errorMessages = Object.keys(c.errors).map(key => this.validationMessages[key]).join(', ');
+        }
+    }
+
+    setFormMessage(formGroup: FormGroup) {
+        if (!this.validationMessages) return;
+        //if child got an error keep that and return
+        if (formGroup.get(this.property).errors)
+            return;
+
+        this.errorMessages = '';
+
+        if ((formGroup.touched || formGroup.dirty) && formGroup.errors) {
+            this.errorMessages = Object.keys(formGroup.errors).map(key => this.validationMessages[key]).join(', ');
+        }
 
     }
-    setForm(c: FormControl, form: FormGroup) {
-        if (c.value && c.value !== null) {
-            if (c.value[this.spValueField] && c.value[this.spValueField] !== null) {
-                this.stateValue = c.value[this.spTextField];
-                this.form.get(this.property).setValue(c.value.value);
-            }
-            else {
-                this.form.get(this.property).setValue(null);
-                this.stateValue = "";
-            }
-        }
-        else {
-            this.stateValue = "";
-            this.form.get(this.property).setValue(null);
-        }
-        
+
+    displayFn(data: any) {
+        return data ? data[this.spTextField] : data;
+    }
+
+    selected(data: any) {
+        this.parentControl.setValue(data[this.spValueField]);
     }
 
 }
