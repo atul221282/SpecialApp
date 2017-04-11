@@ -9,14 +9,13 @@
   </md-hint>
 </div>-->
 <md-input-container fxFlexFill>
-  <input mdInput fxFlexFill placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl" [value]="stateValue">
+  <input mdInput fxFlexFill placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
   <md-hint [ngStyle]="{'color': 'red'}" align="start">
-    {{stateValue | json}}
   </md-hint>
 </md-input-container>
 
-<md-autocomplete fxFlexFill #auto="mdAutocomplete">
-  <md-option *ngFor="let state of filteredStates | async" [value]="state">
+<md-autocomplete fxFlexFill #auto="mdAutocomplete" [displayWith]="displayFn.bind(this)">
+  <md-option *ngFor="let state of filteredStates | async" [value]="state" >
     {{ state[spTextField] }}
   </md-option>
 
