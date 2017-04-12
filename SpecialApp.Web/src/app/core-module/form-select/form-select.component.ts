@@ -18,19 +18,21 @@ export class FormSelectComponent implements OnInit, OnChanges {
     control: AbstractControl;
     errorMessages: string;
     filteredStates: any;
-
+    tooltipPosition: string;
+    debounceTime: number = 2000;
     constructor() {
         this.control = new FormControl();
     }
 
     ngOnInit() {
+        this.tooltipPosition = 'after';
         this.parentControl = this.form.get(this.property);
         this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
 
-        this.control.valueChanges.subscribe(value => this.checkControl(this.control));
-        this.parentControl.valueChanges.subscribe(value => this.setForm(value));
+        this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.checkControl(this.control));
+        this.parentControl.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setForm(value));
     }
 
     ngOnChanges() {

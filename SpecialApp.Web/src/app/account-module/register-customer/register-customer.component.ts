@@ -37,7 +37,7 @@ export class RegisterCustomerComponent implements OnInit {
 
     public dobMessage = {
         required: 'DOB is required',
-        maxlength: 'Invalid DOB',
+        maxlength: 'Length can\'t be greater than 10',
         pattern:'Invalid DOB fromat'
     };
 

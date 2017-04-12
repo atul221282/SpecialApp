@@ -9,9 +9,8 @@
 </div>-->
 <md-input-container fxFlexFill>
   <input mdInput fxFlexFill placeholder="State" [mdAutocomplete]="auto" [formControl]="control">
-  <md-hint *ngIf="errorMessages" [ngStyle]="{'color': 'red'}" align="start">
-    {{errorMessages}}
-  </md-hint>
+  <i md-suffix class="fa fa-exclamation-triangle" style="color:red;" *ngIf="errorMessages"
+     aria-hidden="true" [mdTooltip]="errorMessages" [mdTooltipPosition]="tooltipPosition"></i>
 </md-input-container>
 
 <md-autocomplete fxFlexFill #auto="mdAutocomplete" [displayWith]="displayFn.bind(this)">

@@ -17,12 +17,15 @@ export class FormControlInputComponent implements OnInit {
 
     control: AbstractControl;
     errorMessages: string;
+    tooltipPosition: string;
+    debounceTime: number = 2000;
     constructor() { }
 
     ngOnInit() {
+        this.tooltipPosition = "after";
         this.control = this.form.get(this.property);
-        this.control.valueChanges.subscribe(value => this.setMessage(this.control));
-        this.form.valueChanges.subscribe(value => this.setFormMessage(this.form));
+        this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setMessage(this.control));
+        this.form.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setFormMessage(this.form));
     }
 
     setMessage(c: AbstractControl): void {

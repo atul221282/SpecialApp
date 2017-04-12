@@ -1,8 +1,13 @@
 ﻿<md-input-container fxFlexFill [formGroup]="form">
-  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired"  
+  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired"
          (focus)="OnFocus()" (focusout)="OnFocusOut()" />
-  <md-hint *ngIf="errorMessages" [ngStyle]="{'color': 'red'}" align="start">
-    {{errorMessages}}
+
+  <i md-suffix class="fa fa-exclamation-triangle" style="color:red;" *ngIf="errorMessages && errorMessages.length > 30"
+     aria-hidden="true" [mdTooltip]="errorMessages" [mdTooltipPosition]="tooltipPosition"></i>
+
+  <md-hint *ngIf="errorMessages && errorMessages.length <= 30" [ngStyle]="{'color': 'red'}" align="start">
+    <span [innerHtml]="errorMessages"></span>&nbsp;&nbsp;
   </md-hint>
+
 </md-input-container>
 
