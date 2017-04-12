@@ -1,3 +1,8 @@
-﻿<p>
-  form-date works!
-</p>
+﻿<md-input-container fxFlexFill [formGroup]="form">
+  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired"  
+         (focus)="OnFocus()" (focusout)="OnFocusOut()" />
+  <md-hint *ngIf="errorMessages" [ngStyle]="{'color': 'red'}" align="start">
+    {{errorMessages}}
+  </md-hint>
+</md-input-container>
+

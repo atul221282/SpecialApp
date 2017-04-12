@@ -52,9 +52,17 @@
                                   spPlaceholder="Phone Number"></form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33">
-              <form-date></form-date>
+
             </div>
           </div>
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+            <div fxFlex fxFlex.gt-xs="25">
+              <form-date property="DateOfBirth" [form]="registerForm" [validationMessages]="dobMessage"
+                         spPlaceholder="DOB dd/mm/yyyy"></form-date>
+            </div>
+          </div>
+
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
