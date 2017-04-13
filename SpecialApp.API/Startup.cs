@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SpecialApp.API.Helpers;
+using SpecialApp.Base;
 using SpecialApp.Entity.Options;
+using StructureMap;
 using System;
 
 namespace SpecialApp.API
@@ -28,6 +30,11 @@ namespace SpecialApp.API
         {
             // add cors middle ware
             services.AddCorsExtension();
+
+            var container = SpecialObjectFactory.Container;
+
+            container.PreLoadContainer(Configuration);
+
             // add identity and entity framework context to it
             services.AddContextAndIdentityExtension(Configuration);
             // Adds services required for using options.
@@ -37,10 +44,10 @@ namespace SpecialApp.API
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
             // add mvc middleware
             services.AddMvc();
-            // add ioc extension
-            services.AddSpecialAppCompression();
+            //// add ioc extension
+            //services.AddSpecialAppCompression();
 
-            var container = services.AddIocExtension();
+            services.AddIocExtension(container);
             return container.GetInstance<IServiceProvider>();
             //return ConfigureIoC(services);
         }
@@ -48,7 +55,7 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseResponseCompression();
+            //app.UseResponseCompression();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseCors(APIGlobalConstants.CorsPolicy);

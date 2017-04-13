@@ -24,6 +24,7 @@ namespace SpecialApp.API.Controllers
             this.busEx = busEx;
         }
 
+        [HttpGet(Name ="GetAuth")]
         // GET: api/Auth
         public async Task<IActionResult> Get()
         {

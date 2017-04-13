@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using SpecialApp.Entity;
 using SpecialApp.Service.Infrastructure;
 using StructureMap;
 using System;
+using SpecialApp.API.Infrastructure;
 
 namespace SpecialApp.API.Helpers
 {
@@ -42,12 +44,13 @@ namespace SpecialApp.API.Helpers
                 .AddDefaultTokenProviders();
         }
 
-        public static Container AddIocExtension(this IServiceCollection services)
+        public static Container AddIocExtension(this IServiceCollection services, Container container)
         {
-            Func<IContainer> container = (() => SpecialObjectFactory.Container);
+            //Func<IContainer> container = (() => SpecialObjectFactory.Container);
 
-            container().Configure(config =>
+            container.Configure(config =>
             {
+                config.AddRegistry(new ControllerRegistry(services, container));
                 config.Scan((y) =>
                 {
                     y.TheCallingAssembly();
@@ -59,7 +62,7 @@ namespace SpecialApp.API.Helpers
             });
             // Populate the container using the service collection
             //return container.GetInstance<IServiceProvider>();
-            return container() as Container;
+            return container;
         }
 
         public static void AddSpecialAppCompression(this IServiceCollection services)
@@ -68,5 +71,15 @@ namespace SpecialApp.API.Helpers
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
             services.AddResponseCompression();
         }
+
+        public static void PreLoadContainer(this Container container, IConfigurationRoot config)
+        {
+            container.Configure(scan =>
+            {
+                scan.ForSingletonOf<IConfigurationRoot>().Use(config);
+                scan.For<IHttpContextAccessor>().Use<HttpContextAccessor>().ContainerScoped();
+            });
+        }
+        
     }
 }
