@@ -10,6 +10,6 @@ namespace SpecialApp.Entity.Account
         public string LastName { get; set; }
         public SpecialAppUsers SpecialAppUsers { get; set; }
         public string SpecialAppUsersId { get; set; }
-        public ICollection<UsersAddress> UsersAddresses { get; set; }
+        //public ICollection<AccountUsersAddress> AccountUsersAddress { get; set; }
     }
 }
