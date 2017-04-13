@@ -13,21 +13,44 @@ namespace SpecialApp.API.Controllers
     [AllowAnonymous]
     public class UserAccountController : BaseApiController
     {
-        //private readonly UserManager<SpecialAppUsers> userManager;
+        private readonly UserManager<SpecialAppUsers> userManager;
 
-        public UserAccountController()
+        public UserAccountController(UserManager<SpecialAppUsers> userManager)
         {
-            //this.userManager = userManager;
+            this.userManager = userManager;
         }
         // GET: api/UserAccount
-        [HttpGet(Name ="GetUserAccount")]
-        public IEnumerable<string> Get()
+        [HttpGet(Name = "GetUserAccount")]
+        public async Task<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+            var result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
+
+            var user = new SpecialAppUsers
+            {
+                Email = "bsharma2422@gmail.com",
+                UserName = "bsharma2422@gmail.com"
+            };
+
+            var user2 = new SpecialAppUsers
+            {
+                Email = "atul221282@gmail.com",
+                UserName = "atul221282@gmail.com"
+            };
+
+            if (result == null)
+                await userManager.CreateAsync(user, "Cloudn@9");
+            if (result2 == null)
+                await userManager.CreateAsync(user2, "Cloudn@9");
+
+            result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+            result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
+
+            return new string[] { result.Email, result2.Email };
         }
 
         // GET: api/UserAccount/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetUserAccountById")]
         public string Get(int id)
         {
             return "value";

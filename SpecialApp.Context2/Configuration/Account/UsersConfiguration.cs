@@ -13,7 +13,7 @@ namespace SpecialApp.Context.Configuration.Account
         public UsersConfiguration(EntityTypeBuilder<Users> entityTypeBuilder) : base(entityTypeBuilder)
         {
             entityTypeBuilder.Property(x => x.SpecialAppUsersId).IsRequired();
-            entityTypeBuilder.HasIndex(x => new { x.SpecialAppUsersId, x.Id }).IsUnique();
+            entityTypeBuilder.HasIndex(x => x.SpecialAppUsersId).IsUnique();
         }
     }
 }

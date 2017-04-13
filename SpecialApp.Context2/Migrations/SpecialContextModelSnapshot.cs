@@ -160,7 +160,7 @@ namespace SpecialApp.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecialAppUsersId", "Id")
+                    b.HasIndex("SpecialAppUsersId")
                         .IsUnique();
 
                     b.ToTable("Users");

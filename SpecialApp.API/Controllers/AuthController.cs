@@ -34,7 +34,7 @@ namespace SpecialApp.API.Controllers
         }
 
         // GET: api/Auth/5
-        [HttpGet("{email}", Name = "Get")]
+        [HttpGet("{email}", Name = "GetAuthByName")]
         public async Task<IActionResult> Get(string email)
         {
             try

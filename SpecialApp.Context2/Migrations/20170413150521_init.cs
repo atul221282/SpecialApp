@@ -755,9 +755,9 @@ namespace SpecialApp.Context.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_SpecialAppUsersId_Id",
+                name: "IX_Users_SpecialAppUsersId",
                 table: "Users",
-                columns: new[] { "SpecialAppUsersId", "Id" },
+                column: "SpecialAppUsersId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

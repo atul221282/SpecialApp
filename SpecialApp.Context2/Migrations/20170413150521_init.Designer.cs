@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170413131743_init")]
+    [Migration("20170413150521_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,7 +161,7 @@ namespace SpecialApp.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecialAppUsersId", "Id")
+                    b.HasIndex("SpecialAppUsersId")
                         .IsUnique();
 
                     b.ToTable("Users");
