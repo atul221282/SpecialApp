@@ -29,7 +29,7 @@ namespace SpecialApp.Context.Tests
         public void AddUsersTests()
         {
             var data = context.Users.ToList();
-            
+
             Assert.IsNotNull(data);
         }
     }

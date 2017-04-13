@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SpecialApp.Entity;
 using SpecialApp.Entity.Account;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SpecialApp.Context.Configuration.Account
         public UsersConfiguration(EntityTypeBuilder<Users> entityTypeBuilder) : base(entityTypeBuilder)
         {
             entityTypeBuilder.Property(x => x.SpecialAppUsersId).IsRequired();
+            entityTypeBuilder.HasIndex(x => new { x.SpecialAppUsersId, x.Id }).IsUnique();
         }
     }
 }

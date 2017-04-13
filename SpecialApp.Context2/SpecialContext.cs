@@ -38,7 +38,7 @@ namespace SpecialApp.Context
             }
 
             new UsersConfiguration(modelBuilder.Entity<Users>());
-
+            new UsersAddressConfiguration(modelBuilder.Entity<UsersAddress>());
             new LocationConfiguration(modelBuilder.Entity<Location>());
             new FileDataConfiguration(modelBuilder.Entity<FileData>());
             new AddressConfiguration(modelBuilder.Entity<Address>());
@@ -65,6 +65,7 @@ namespace SpecialApp.Context
         }
 
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UsersAddress> UsersAddress { get; set; }
 
         public virtual DbSet<FileData> FileData { get; set; }
         public virtual DbSet<Country> Country { get; set; }
