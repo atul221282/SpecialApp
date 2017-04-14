@@ -78,7 +78,6 @@ export class RegisterCustomerComponent implements OnInit {
                 Password: ['', Validators.required],
                 ConfirmPassword: ['', Validators.required],
             }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') }),
-            FoodType: [null, Validators.required],
             PhoneNumber: ['', Validators.required],
             DateOfBirth: ['', [
                 Validators.required,

@@ -25,7 +25,7 @@ export class FormSelectComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.tooltipPosition = 'above';
+        this.tooltipPosition = 'before';
         this.parentControl = this.form.get(this.property);
         this.filteredStates = this.control.valueChanges
             .startWith(null)
