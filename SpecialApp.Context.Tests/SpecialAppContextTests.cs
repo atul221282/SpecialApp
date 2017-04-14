@@ -30,7 +30,7 @@ namespace SpecialApp.Context.Tests
         public void AddUsersTests()
         {
             var data = context.Users.ToList();
-
+            
             var user = new Users
             {
                 AuditCreatedBy = "system",
@@ -59,7 +59,7 @@ namespace SpecialApp.Context.Tests
                 IsDeleted = false,
             };
 
-            var data2 = context.Set<SpecialAppUsers>().First();
+            var allUsers = context.Set<SpecialAppUsers>().ToList();
 
             //context.Users.Add(user);
             //context.SaveChanges();
@@ -67,7 +67,7 @@ namespace SpecialApp.Context.Tests
             //context.Users.Add(user2);
             //context.SaveChanges();
 
-            Assert.IsNotNull(data2);
+            Assert.IsNotNull(allUsers);
         }
 
         private class DateTimeOffeset
