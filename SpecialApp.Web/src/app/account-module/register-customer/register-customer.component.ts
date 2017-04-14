@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-
+import { EmailValidator } from '../../core-module/';
 
 @Component({
     selector: 'account-register-customer',
@@ -14,7 +14,7 @@ export class RegisterCustomerComponent implements OnInit {
         required: "Email address is required",
         minlength: "Emaill address can't be less than 5 characters",
         maxlength: "Emaill address can't be greater than 50 characters",
-        email: "Invalid email"
+        invalidEmail: "Invalid email"
     }
     public firstName = {
         required: "First name is required"
@@ -38,7 +38,7 @@ export class RegisterCustomerComponent implements OnInit {
     public dobMessage = {
         required: 'DOB is required',
         maxlength: 'Length can\'t be greater than 10',
-        pattern:'Invalid DOB fromat'
+        pattern: 'Invalid DOB fromat'
     };
 
     public confirmPasswordMessage = {
@@ -72,6 +72,7 @@ export class RegisterCustomerComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(50),
+                EmailValidator.validateEmail,
             ]],
             FirstName: ['', Validators.required],
             LastName: [''],

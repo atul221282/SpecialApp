@@ -7,3 +7,4 @@ export * from './form-select/form-select.component';
 export * from './form-date/form-date.component';
 export * from './api-client.service';
 export * from './core.module';
+export * from './validators/email-validator';
