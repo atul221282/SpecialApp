@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../core-module/';
+import { EmailValidator, DateValidator } from '../../core-module/';
 
 @Component({
     selector: 'account-register-customer',
@@ -12,9 +12,9 @@ export class RegisterCustomerComponent implements OnInit {
 
     public emailErrors = {
         required: "Email address is required",
-        minlength: "Emaill address can't be less than 5 characters",
-        maxlength: "Emaill address can't be greater than 50 characters",
-        invalidEmail: EmailValidator.invalidEmail
+        minlength: EmailValidator.minlengthMessage,
+        maxlength: EmailValidator.maxlengthMessage,
+        invalidEmail: EmailValidator.invalidEmailMessage
     }
     public firstName = {
         required: "First name is required"
@@ -37,8 +37,7 @@ export class RegisterCustomerComponent implements OnInit {
 
     public dobMessage = {
         required: 'DOB is required',
-        maxlength: 'Length can\'t be greater than 10',
-        pattern: 'Invalid DOB fromat'
+        invalidDate: DateValidator.invalidDateMessage
     };
 
     public confirmPasswordMessage = {
@@ -83,8 +82,8 @@ export class RegisterCustomerComponent implements OnInit {
             PhoneNumber: ['', Validators.required],
             DateOfBirth: ['', [
                 Validators.required,
-                Validators.maxLength(10),
-                Validators.pattern(/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/)]]
+                DateValidator.validate
+            ]]
         });
     }
 
@@ -97,14 +96,3 @@ export class RegisterCustomerComponent implements OnInit {
     }
 }
 
-function passwordMatcher(c: AbstractControl) {
-    let pwdCtrl = c.get('Password');
-    let confirmPwdCtrl = c.get('ConfirmPassword');
-
-    if (pwdCtrl.pristine || confirmPwdCtrl.pristine)
-        return null;
-    if (pwdCtrl.value === confirmPwdCtrl.value) {
-        return null;
-    }
-    return { 'match': true };
-}

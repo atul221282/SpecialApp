@@ -8,3 +8,4 @@ export * from './form-date/form-date.component';
 export * from './api-client.service';
 export * from './core.module';
 export * from './validators/email-validator';
+export * from './validators/date-validator';
