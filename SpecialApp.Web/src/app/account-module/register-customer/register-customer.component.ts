@@ -14,7 +14,7 @@ export class RegisterCustomerComponent implements OnInit {
         required: "Email address is required",
         minlength: "Emaill address can't be less than 5 characters",
         maxlength: "Emaill address can't be greater than 50 characters",
-        invalidEmail: "Invalid email"
+        invalidEmail: EmailValidator.invalidEmail
     }
     public firstName = {
         required: "First name is required"
@@ -70,8 +70,6 @@ export class RegisterCustomerComponent implements OnInit {
         this.registerForm = this._fb.group({
             EmailAddress: [{ value: '', disabled: false }, [
                 Validators.required,
-                Validators.minLength(5),
-                Validators.maxLength(50),
                 EmailValidator.validateEmail,
             ]],
             FirstName: ['', Validators.required],
