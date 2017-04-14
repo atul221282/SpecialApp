@@ -1,12 +1,12 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountRouterModule, routedComponents } from './account-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../core-module/core.module';
-
+import { AuthService } from './auth.service';
 
 @NgModule({
     imports: [
@@ -19,7 +19,7 @@ import { CoreModule } from '../core-module/core.module';
         AccountRouterModule,
         CoreModule
     ],
-    providers: [{ provide: 'Window', useValue: window }],
+    providers: [{ provide: 'Window', useValue: window }, AuthService],
     declarations: [routedComponents]
 })
 export class AccountModule { }

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using SpecialApp.Entity.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity;
@@ -10,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SpecialApp.API.Controllers
 {
-    [AllowAnonymous]
     public class UserAccountController : BaseApiController
     {
         private readonly UserManager<SpecialAppUsers> userManager;
@@ -70,8 +67,9 @@ namespace SpecialApp.API.Controllers
 
         // POST: api/UserAccount
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody] RegisterCustomer model)
         {
+            var data = model;
         }
 
         // PUT: api/UserAccount/5

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers
 {
-    [ExceptionHandlerFilter]
+    
     public class ValuesController : BaseApiController
     {
         private readonly Func<IAddressTypeService> tempServiceFunc;

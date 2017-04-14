@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator, DateValidator, ConfirmPasswordValidator } from '../../core-module/';
+import { AuthService } from '../auth.service';
+import {IRegisterCustomer } from '../../model/account-models';
 
 @Component({
     selector: 'account-register-customer',
@@ -8,6 +10,7 @@ import { EmailValidator, DateValidator, ConfirmPasswordValidator } from '../../c
     styleUrls: ['./register-customer.component.scss']
 })
 export class RegisterCustomerComponent implements OnInit {
+
     public registerForm: FormGroup;
 
     public emailErrors = {
@@ -49,18 +52,10 @@ export class RegisterCustomerComponent implements OnInit {
     public confirmPasswordError: string;
     public foods: Array<any>;
 
-    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window) { }
+    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window, private authService: AuthService) { }
 
     ngOnInit() {
-
-        setTimeout(() => {
-            this.foods = [
-                { value: 1, viewValue: 'Steak' },
-                { value: 2, viewValue: 'Pizza' },
-                { value: 3, viewValue: 'Tacos' }
-            ];
-        }, 3000)
-
+        this.authService.getModel();
         this.pwdGroup = this._fb.group({
             Password: ['', Validators.required],
             ConfirmPassword: ['', Validators.required],
@@ -87,7 +82,8 @@ export class RegisterCustomerComponent implements OnInit {
     }
 
     submit(data: any) {
-        alert(JSON.stringify(this.registerForm.getRawValue()));
+        let model = this.registerForm.getRawValue();
+        this.authService.createUser(model as IRegisterCustomer, model.passwordGroup.Password);
     }
 
     cancel() {

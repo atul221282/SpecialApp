@@ -14,9 +14,14 @@ export class ApiClientService {
     get<T>(url: string, options?: RequestOptionsArgs): Observable<T> {
         return this.http.get(`${this.apiUrl}${url}`)
             .map((res: Response) => {
-                debugger;
                 return res.json() as T;
             })
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    post<T>(url: string, data: any, options?: RequestOptionsArgs): Observable<T> {
+        return this.http.post(`${this.apiUrl}${url}`, data).map(res => {
+            return res.json() as T;
+        }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 }
