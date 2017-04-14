@@ -19,7 +19,7 @@ export class FormDateComponent implements OnInit {
     errorMessages: string;
     modelValue: string;
     tooltipPosition: string;
-    debounceTime: number = 2000;
+    debounceTime: number = 1000;
     constructor() { }
 
     ngOnInit() {

@@ -19,7 +19,7 @@ export class FormSelectComponent implements OnInit, OnChanges {
     errorMessages: string;
     filteredStates: any;
     tooltipPosition: string;
-    debounceTime: number = 2000;
+    debounceTime: number = 0;
     constructor() {
         this.control = new FormControl();
     }

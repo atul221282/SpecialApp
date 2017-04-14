@@ -18,7 +18,7 @@ export class FormControlInputComponent implements OnInit {
     control: AbstractControl;
     errorMessages: string;
     tooltipPosition: string;
-    debounceTime: number = 2000;
+    debounceTime: number = 1000;
     constructor() { }
 
     ngOnInit() {
