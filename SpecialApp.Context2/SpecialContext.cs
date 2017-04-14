@@ -64,6 +64,8 @@ namespace SpecialApp.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        #region "DBSet"
+
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UsersAddress> UsersAddress { get; set; }
 
@@ -87,5 +89,7 @@ namespace SpecialApp.Context
         public virtual DbSet<SpecialFile> SpecialFile { get; set; }
         public virtual DbSet<SpecialComment> SpecialComment { get; set; }
         public virtual DbSet<SpecialViewed> SpecialViewed { get; set; }
+
+        #endregion
     }
 }

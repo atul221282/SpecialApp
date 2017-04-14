@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using SpecialApp.Entity;
 using SpecialApp.Entity.Account;
 using SpecialApp.Entity.Options;
+using System;
 using System.Linq;
 
 namespace SpecialApp.Context.Tests
@@ -29,9 +31,9 @@ namespace SpecialApp.Context.Tests
         [TestMethod]
         public void AddUsersTests()
         {
-            var data = context.Users.ToList();
-            
-            var user = new Users
+            var users = context.Users.Include(x => x.SpecialAppUsers).ThenInclude(x=>x.Claims);
+            var user = users.Where(x => x.SpecialAppUsers.Email == "atul221282@gmail.com").FirstOrDefault();
+            user = new Users
             {
                 AuditCreatedBy = "system",
                 AuditCreatedDate = System.DateTimeOffset.Now,
@@ -48,9 +50,9 @@ namespace SpecialApp.Context.Tests
             var user2 = new Users
             {
                 AuditCreatedBy = "system",
-                AuditCreatedDate = System.DateTimeOffset.Now,
+                AuditCreatedDate = DateTimeOffset.Now,
                 AuditLastUpdatedBy = "system",
-                AuditLastUpdatedDate = System.DateTimeOffset.Now,
+                AuditLastUpdatedDate = DateTimeOffset.Now,
                 DOB = System.DateTimeOffset.Now.AddYears(33),
                 FirstName = "Bhanu",
                 LastName = "Sharma",
@@ -68,10 +70,6 @@ namespace SpecialApp.Context.Tests
             //context.SaveChanges();
 
             Assert.IsNotNull(allUsers);
-        }
-
-        private class DateTimeOffeset
-        {
         }
     }
 }
