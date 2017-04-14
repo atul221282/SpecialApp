@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { EmailValidator, DateValidator } from '../../core-module/';
+import { EmailValidator, DateValidator, ConfirmPasswordValidator } from '../../core-module/';
 
 @Component({
     selector: 'account-register-customer',
@@ -42,7 +42,7 @@ export class RegisterCustomerComponent implements OnInit {
 
     public confirmPasswordMessage = {
         required: 'Confirm password is required',
-        match: 'Password do not match'
+        match: ConfirmPasswordValidator.confirmPasswordMessage('Password and confirm password do not match')
     };
 
     public pwdGroup: AbstractControl;
@@ -64,7 +64,7 @@ export class RegisterCustomerComponent implements OnInit {
         this.pwdGroup = this._fb.group({
             Password: ['', Validators.required],
             ConfirmPassword: ['', Validators.required],
-        }, { validator: passwordMatcher });
+        }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') });
 
         this.registerForm = this._fb.group({
             EmailAddress: [{ value: '', disabled: false }, [
@@ -77,7 +77,7 @@ export class RegisterCustomerComponent implements OnInit {
             passwordGroup: this._fb.group({
                 Password: ['', Validators.required],
                 ConfirmPassword: ['', Validators.required],
-            }, { validator: passwordMatcher }),
+            }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') }),
             FoodType: [null, Validators.required],
             PhoneNumber: ['', Validators.required],
             DateOfBirth: ['', [
@@ -95,4 +95,3 @@ export class RegisterCustomerComponent implements OnInit {
         this.registerForm.reset();
     }
 }
-

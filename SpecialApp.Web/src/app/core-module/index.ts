@@ -9,3 +9,4 @@ export * from './api-client.service';
 export * from './core.module';
 export * from './validators/email-validator';
 export * from './validators/date-validator';
+export * from './validators/confirm-password-validator';

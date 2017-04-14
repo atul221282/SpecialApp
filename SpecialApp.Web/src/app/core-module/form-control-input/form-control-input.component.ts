@@ -22,7 +22,7 @@ export class FormControlInputComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.tooltipPosition = "after";
+        this.tooltipPosition = "above";
         this.control = this.form.get(this.property);
         this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setMessage(this.control));
         this.form.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setFormMessage(this.form));
