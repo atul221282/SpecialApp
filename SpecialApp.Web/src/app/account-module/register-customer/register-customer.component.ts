@@ -55,7 +55,6 @@ export class RegisterCustomerComponent implements OnInit {
     constructor(private _fb: FormBuilder, @Inject('Window') private window: Window, private authService: AuthService) { }
 
     ngOnInit() {
-        this.authService.getModel();
         this.pwdGroup = this._fb.group({
             Password: ['', Validators.required],
             ConfirmPassword: ['', Validators.required],
@@ -73,7 +72,7 @@ export class RegisterCustomerComponent implements OnInit {
                 Password: ['', Validators.required],
                 ConfirmPassword: ['', Validators.required],
             }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') }),
-            PhoneNumber: ['', Validators.required],
+            PhoneNumber: [''],
             DateOfBirth: ['', [
                 Validators.required,
                 DateValidator.validate
@@ -82,6 +81,7 @@ export class RegisterCustomerComponent implements OnInit {
     }
 
     submit(data: any) {
+        
         let model = this.registerForm.getRawValue();
         this.authService.createUser(model as IRegisterCustomer, model.passwordGroup.Password);
     }

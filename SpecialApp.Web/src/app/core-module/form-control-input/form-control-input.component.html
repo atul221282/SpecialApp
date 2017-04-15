@@ -1,5 +1,6 @@
 ﻿<md-input-container fxFlexFill [formGroup]="form">
-  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired" />
+  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" 
+         [required]="spRequired" [type]="spType"/>
 
   <i md-suffix class="fa fa-exclamation-triangle" style="color:red;" *ngIf="errorMessages && errorMessages.length > 40"
      aria-hidden="true" [mdTooltip]="errorMessages" [mdTooltipPosition]="tooltipPosition" md-delay="3000"></i>

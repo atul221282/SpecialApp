@@ -14,6 +14,7 @@ export class FormControlInputComponent implements OnInit {
     @Input() spPlaceholder: string;
     @Input() spRequired: boolean;
     @Input() validationMessages: any;
+    @Input() spType: string;
 
     control: AbstractControl;
     errorMessages: string;
@@ -22,6 +23,8 @@ export class FormControlInputComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+        if (!this.spType)
+            this.spType = "text";
         this.tooltipPosition = "before";
         this.control = this.form.get(this.property);
         this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setMessage(this.control));

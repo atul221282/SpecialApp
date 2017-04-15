@@ -67,9 +67,10 @@ namespace SpecialApp.API.Controllers
 
         // POST: api/UserAccount
         [HttpPost]
-        public void Post([FromBody] RegisterCustomer model)
+        public IActionResult Post([FromBody] RegisterCustomer model)
         {
             var data = model;
+            return Ok(model);
         }
 
         // PUT: api/UserAccount/5

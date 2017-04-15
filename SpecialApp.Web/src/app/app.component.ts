@@ -7,20 +7,7 @@ import { ApiClientService } from './core-module/api-client.service';
 })
 export class AppComponent {
     constructor(private apiClientService: ApiClientService) {
-        //this.getValues();
-        this.getValue()
     }
-
-    getValue() {
-        this.apiClientService.get<string[]>('values/1').subscribe(
-            comments => {
-                console.dir(comments);
-            },
-            err => {
-                console.log(err);
-            });
-    }
-
 }
 
 //import { Component } from '@angular/core';

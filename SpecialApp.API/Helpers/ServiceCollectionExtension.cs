@@ -25,7 +25,7 @@ namespace SpecialApp.API.Helpers
                 options.AddPolicy(APIGlobalConstants.CorsPolicy, builder =>
                 {
                     builder.AllowAnyMethod();
-                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
                     builder.AllowAnyOrigin();
                     builder.Build();
                 });
