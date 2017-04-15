@@ -5,57 +5,65 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using SpecialApp.Context;
+using SpecialApp.Entity.Account;
 
 namespace SpecialApp.API.Controllers
 {
     public class UserAccountController : BaseApiController
     {
-        private readonly UserManager<SpecialAppUsers> userManager;
+        private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
+        private readonly Func<SpecialContext> ctxFunc;
 
-        public UserAccountController(UserManager<SpecialAppUsers> userManager)
+        public UserAccountController(Func<UserManager<SpecialAppUsers>> userManagerFunc, Func<SpecialContext> ctxFunc)
         {
-            this.userManager = userManager;
+            this.userManagerFunc = userManagerFunc;
+            this.ctxFunc = ctxFunc;
         }
         // GET: api/UserAccount
         [HttpGet(Name = "GetUserAccount")]
         public async Task<IEnumerable<string>> Get()
         {
-            var result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
-            var result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
-
-            var user = new SpecialAppUsers
+            using (var userManager = userManagerFunc())
             {
-                Email = "bsharma2422@gmail.com",
-                UserName = "bsharma2422@gmail.com",
-                PhoneNumber = "0433277470"
-            };
+                var result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+                var result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
 
-            var user2 = new SpecialAppUsers
-            {
-                Email = "atul221282@gmail.com",
-                UserName = "atul221282@gmail.com",
-                PhoneNumber = "0430499210"
-            };
+                var user = new SpecialAppUsers
+                {
+                    Email = "bsharma2422@gmail.com",
+                    UserName = "bsharma2422@gmail.com",
+                    PhoneNumber = "0433277470"
+                };
 
-            if (result == null)
-                await userManager.CreateAsync(user, "Cloudn@9");
-            else
-            {
-                result.PhoneNumber = user.PhoneNumber;
-                await userManager.UpdateAsync(result);
+                var user2 = new SpecialAppUsers
+                {
+                    Email = "atul221282@gmail.com",
+                    UserName = "atul221282@gmail.com",
+                    PhoneNumber = "0430499210"
+                };
+
+                if (result == null)
+                    await userManager.CreateAsync(user, "Cloudn@9");
+                else
+                {
+                    result.PhoneNumber = user.PhoneNumber;
+                    await userManager.UpdateAsync(result);
+                }
+                if (result2 == null)
+                    await userManager.CreateAsync(user2, "Cloudn@9");
+                else
+                {
+                    result2.PhoneNumber = user2.PhoneNumber;
+                    await userManager.UpdateAsync(result2);
+                }
+
+                result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+                result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
+
+                return new string[] { $"{result.Email}-{result.PhoneNumber}", $"{result2.Email}-{result2.PhoneNumber}" };
             }
-            if (result2 == null)
-                await userManager.CreateAsync(user2, "Cloudn@9");
-            else
-            {
-                result2.PhoneNumber = user2.PhoneNumber;
-                await userManager.UpdateAsync(result2);
-            }
-
-            result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
-            result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
-
-            return new string[] { $"{result.Email}-{result.PhoneNumber}", $"{result2.Email}-{result2.PhoneNumber}" };
         }
 
         // GET: api/UserAccount/5
@@ -67,10 +75,38 @@ namespace SpecialApp.API.Controllers
 
         // POST: api/UserAccount
         [HttpPost]
-        public IActionResult Post([FromBody] RegisterCustomer model)
+        public async Task<IActionResult> Post([FromBody] RegisterCustomer model)
         {
-            var data = model;
-            return Ok(model);
+            using (var userManager = userManagerFunc())
+            using (var ctx = ctxFunc())
+            {
+                var result2= await userManager.CreateAsync(new SpecialAppUsers
+                {
+                    Email = model.EmailAddress,
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
+                }, model.Password);
+
+                var result = await userManager.FindByEmailAsync(model.EmailAddress);
+
+                ctx.Users.Add(new Users
+                {
+                    DOB = model.DateOfBirth,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    State = State.Added,
+                    AuditCreatedBy = "system",
+                    AuditCreatedDate = DateTimeOffset.Now,
+                    AuditLastUpdatedBy = "system",
+                    AuditLastUpdatedDate = DateTimeOffset.Now,
+                    IsDeleted = false,
+                    SpecialAppUsersId = result.Id
+                });
+
+                ctx.SaveChanges();
+                
+                return Ok(model);
+            }
         }
 
         // PUT: api/UserAccount/5
