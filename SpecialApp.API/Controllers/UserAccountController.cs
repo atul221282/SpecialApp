@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System;
 using SpecialApp.Context;
 using SpecialApp.Entity.Account;
+using System.Linq;
 
 namespace SpecialApp.API.Controllers
 {
@@ -80,16 +81,18 @@ namespace SpecialApp.API.Controllers
             using (var userManager = userManagerFunc())
             using (var ctx = ctxFunc())
             {
-                var result2= await userManager.CreateAsync(new SpecialAppUsers
-                {
-                    Email = model.EmailAddress,
-                    UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber,
-                }, model.Password);
-
                 var result = await userManager.FindByEmailAsync(model.EmailAddress);
-
-                ctx.Users.Add(new Users
+                if (result == null)
+                {
+                    var result2 = await userManager.CreateAsync(new SpecialAppUsers
+                    {
+                        Email = model.EmailAddress,
+                        UserName = model.UserName,
+                        PhoneNumber = model.PhoneNumber,
+                    }, model.Password);
+                }
+                result = await userManager.FindByEmailAsync(model.EmailAddress);
+                var user = new Users
                 {
                     DOB = model.DateOfBirth,
                     FirstName = model.FirstName,
@@ -101,10 +104,18 @@ namespace SpecialApp.API.Controllers
                     AuditLastUpdatedDate = DateTimeOffset.Now,
                     IsDeleted = false,
                     SpecialAppUsersId = result.Id
-                });
+                };
+                if (result == null)
+                    ctx.Users.Add(user);
+                else
+                {
+                    user = ctx.Users.Where(x => x.SpecialAppUsersId == result.Id).FirstOrDefault();
+                    user.DOB = model.DateOfBirth;
+                    ctx.Update(user);
+                }
 
                 ctx.SaveChanges();
-                
+
                 return Ok(model);
             }
         }

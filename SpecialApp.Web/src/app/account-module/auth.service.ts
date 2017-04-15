@@ -8,8 +8,9 @@ export class AuthService {
     constructor(private apiClient: ApiClientService) { }
 
     createUser(model: IRegisterCustomer, password: string) {
+
         model = <IRegisterCustomer>{
-            DateOfBirth: model.DateOfBirth,
+            DateOfBirth: new Date(model.DateOfBirth.toString()),
             EmailAddress: model.EmailAddress,
             FirstName: model.FirstName,
             LastName: model.LastName,
@@ -17,6 +18,7 @@ export class AuthService {
             PhoneNumber: model.PhoneNumber,
             UserName: model.UserName
         };
+        debugger;
         let data = this.apiClient.post("UserAccount", model).subscribe();
     }
 
