@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using SpecialApp.API.Helpers;
 using SpecialApp.Base;
 using SpecialApp.Entity.Options;
@@ -42,8 +43,18 @@ namespace SpecialApp.API
             // Configure with Microsoft.Extensions.Options.ConfigurationExtensions
             // Binding the whole configuration should be rare, subsections are more typical.
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
+
             // add mvc middleware
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(opt =>
+            {
+                var resolver = opt.SerializerSettings.ContractResolver;
+                opt.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
+                if (resolver != null)
+                {
+                    var res = resolver as DefaultContractResolver;
+                    res.NamingStrategy = null;  // <<!-- this removes the camelcasing
+                }
+            });
             //// add ioc extension
             //services.AddSpecialAppCompression();
 

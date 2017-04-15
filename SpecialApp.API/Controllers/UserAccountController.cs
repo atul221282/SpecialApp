@@ -4,11 +4,11 @@ using SpecialApp.Entity.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity;
-using Microsoft.AspNetCore.Authorization;
 using System;
 using SpecialApp.Context;
 using SpecialApp.Entity.Account;
 using System.Linq;
+using SpecialApp.Context.Services;
 
 namespace SpecialApp.API.Controllers
 {
@@ -16,11 +16,14 @@ namespace SpecialApp.API.Controllers
     {
         private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
         private readonly Func<SpecialContext> ctxFunc;
+        private readonly Func<IUserManagerService> serviceFunc;
 
-        public UserAccountController(Func<UserManager<SpecialAppUsers>> userManagerFunc, Func<SpecialContext> ctxFunc)
+        public UserAccountController(Func<UserManager<SpecialAppUsers>> userManagerFunc,
+            Func<SpecialContext> ctxFunc, Func<IUserManagerService> serviceFunc)
         {
             this.userManagerFunc = userManagerFunc;
             this.ctxFunc = ctxFunc;
+            this.serviceFunc = serviceFunc;
         }
         // GET: api/UserAccount
         [HttpGet(Name = "GetUserAccount")]
@@ -78,6 +81,7 @@ namespace SpecialApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RegisterCustomer model)
         {
+            model.DateOfBirth = model.DateOfBirth.Value.ToLocalTime();
             using (var userManager = userManagerFunc())
             using (var ctx = ctxFunc())
             {
@@ -103,7 +107,7 @@ namespace SpecialApp.API.Controllers
                     AuditLastUpdatedBy = "system",
                     AuditLastUpdatedDate = DateTimeOffset.Now,
                     IsDeleted = false,
-                    SpecialAppUsersId = result.Id
+                    SpecialAppUsersId = null//result.Id
                 };
                 if (result == null)
                     ctx.Users.Add(user);

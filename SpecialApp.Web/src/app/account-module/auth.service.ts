@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { IRegisterCustomer } from '../model/account-models';
 import { ApiClientService } from '../core-module/api-client.service';
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthService {
@@ -8,9 +9,9 @@ export class AuthService {
     constructor(private apiClient: ApiClientService) { }
 
     createUser(model: IRegisterCustomer, password: string) {
-
+        let mom = moment(model.DateOfBirth);
         model = <IRegisterCustomer>{
-            DateOfBirth: new Date(model.DateOfBirth.toString()),
+            DateOfBirth: new Date(mom.format('DD/MM/YYYY')),
             EmailAddress: model.EmailAddress,
             FirstName: model.FirstName,
             LastName: model.LastName,
@@ -18,7 +19,6 @@ export class AuthService {
             PhoneNumber: model.PhoneNumber,
             UserName: model.UserName
         };
-        debugger;
         let data = this.apiClient.post("UserAccount", model).subscribe();
     }
 
