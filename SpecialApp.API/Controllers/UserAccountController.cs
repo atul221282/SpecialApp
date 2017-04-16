@@ -18,10 +18,8 @@ namespace SpecialApp.API.Controllers
         private readonly Func<SpecialContext> ctxFunc;
         private readonly Func<IUserManagerService> serviceFunc;
         
-        public UserAccountController(Func<UserManager<SpecialAppUsers>> userManagerFunc,
-            Func<SpecialContext> ctxFunc, Func<IUserManagerService> serviceFunc)
+        public UserAccountController(Func<SpecialContext> ctxFunc, Func<IUserManagerService> serviceFunc)
         {
-            this.userManagerFunc = userManagerFunc;
             this.ctxFunc = ctxFunc;
             this.serviceFunc = serviceFunc;
         }
@@ -97,6 +95,7 @@ namespace SpecialApp.API.Controllers
                     }, model.Password);
                 }
                 result = await userManager.FindByEmailAsync(model.EmailAddress);
+
                 var user = new Users
                 {
                     DOB = model.DateOfBirth,
@@ -110,6 +109,7 @@ namespace SpecialApp.API.Controllers
                     IsDeleted = false,
                     SpecialAppUsersId = null//result.Id
                 };
+
                 if (result == null)
                     ctx.Users.Add(user);
                 else

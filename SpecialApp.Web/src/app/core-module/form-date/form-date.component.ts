@@ -60,7 +60,7 @@ export class FormDateComponent implements OnInit {
     }
 
     OnFocusOut() {
-        this.spPlaceholder = "DOB dd/mm/yyyy";
+        this.spPlaceholder = "DOB mm/dd/yyyy";
     }
 
     OnBlur() {
