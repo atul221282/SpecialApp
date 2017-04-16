@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
+import * as moment from 'moment';
 
 @Component({
     selector: 'form-date',
@@ -15,6 +16,10 @@ export class FormDateComponent implements OnInit {
     @Input() spRequired: boolean;
     @Input() validationMessages: any;
 
+    get parentControl(): FormControl {
+        return this.form.get(this.property) as FormControl;
+    }
+
     control: AbstractControl;
     errorMessages: string;
     modelValue: string;
@@ -24,14 +29,18 @@ export class FormDateComponent implements OnInit {
 
     ngOnInit() {
         this.tooltipPosition = "before";
-        this.control = this.form.get(this.property);
-        this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setMessage(this.control));
+        this.control = new FormControl();
+        let dd = moment(this.form.get(this.property).value).format('MM/DD/YYYY');
+        this.control.setValue(dd);
+
+        this.control.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setMessage(this.parentControl));
+
         this.form.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setFormMessage(this.form));
     }
 
     setMessage(c: AbstractControl): void {
         this.setDateValue(c);
-
+        
         if (!this.validationMessages) return;
         this.errorMessages = '';
         if ((c.touched || c.dirty) && c.errors) {
@@ -40,8 +49,13 @@ export class FormDateComponent implements OnInit {
     }
 
     private setDateValue(c: AbstractControl) {
+        c.markAsDirty();
+        c.markAsTouched();
+
         if (!c.value || c.value === null || c.value === '')
             return;
+        
+        c.setValue(new Date(this.control.value));
     }
 
     setFormMessage(formGroup: FormGroup) {
@@ -63,8 +77,4 @@ export class FormDateComponent implements OnInit {
         this.spPlaceholder = "DOB mm/dd/yyyy";
     }
 
-    OnBlur() {
-        let ff = this.control.value;
-        debugger;
-    }
 }

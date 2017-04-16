@@ -9,9 +9,8 @@ export class AuthService {
     constructor(private apiClient: ApiClientService) { }
 
     createUser(model: IRegisterCustomer, password: string) {
-        let mom = moment(model.DateOfBirth);
         model = <IRegisterCustomer>{
-            DateOfBirth: new Date(mom.format('DD/MM/YYYY')),
+            DateOfBirth: model.DateOfBirth,
             EmailAddress: model.EmailAddress,
             FirstName: model.FirstName,
             LastName: model.LastName,

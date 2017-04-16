@@ -1,6 +1,6 @@
-﻿<md-input-container fxFlexFill [formGroup]="form">
-  <input mdInput [formControlName]="property" [placeholder]="spPlaceholder" [required]="spRequired"
-         (focus)="OnFocus()" (focusout)="OnFocusOut()" />
+﻿<md-input-container fxFlexFill>
+  <input mdInput [formControl]="control" [placeholder]="spPlaceholder" [required]="spRequired"
+         (focus)="OnFocus()" (focusout)="OnFocusOut()"/>
 
   <i md-suffix class="fa fa-exclamation-triangle" style="color:red;" *ngIf="errorMessages && errorMessages.length > 30"
      aria-hidden="true" [mdTooltip]="errorMessages" [mdTooltipPosition]="tooltipPosition"></i>

@@ -2,7 +2,7 @@
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator, DateValidator, ConfirmPasswordValidator } from '../../core-module/';
 import { AuthService } from '../auth.service';
-import {IRegisterCustomer } from '../../model/account-models';
+import { IRegisterCustomer } from '../../model/account-models';
 
 @Component({
     selector: 'account-register-customer',
@@ -73,7 +73,7 @@ export class RegisterCustomerComponent implements OnInit {
                 ConfirmPassword: ['', Validators.required],
             }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') }),
             PhoneNumber: [''],
-            DateOfBirth: ['', [
+            DateOfBirth: [new Date('12/22/1982'), [
                 Validators.required,
                 DateValidator.validate
             ]]
@@ -81,7 +81,6 @@ export class RegisterCustomerComponent implements OnInit {
     }
 
     submit(data: any) {
-        
         let model = this.registerForm.getRawValue();
         this.authService.createUser(model as IRegisterCustomer, model.passwordGroup.Password);
     }
