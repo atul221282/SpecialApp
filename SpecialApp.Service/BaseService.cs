@@ -7,18 +7,9 @@ namespace SpecialApp.Service
 {
     public abstract class BaseService : IBaseService
     {
-        private IBaseUOW _uow;
-        private readonly Func<IBaseUOW> uow;
+        private IBaseUOW uow;
 
-        public IBaseUOW Uow
-        {
-            get
-            {
-                return _uow = _uow ?? uow();
-            }
-        }
-
-        protected BaseService(Func<IBaseUOW> uow)
+        protected BaseService(IBaseUOW uow)
         {
             this.uow = uow;
         }

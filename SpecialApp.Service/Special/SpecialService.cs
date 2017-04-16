@@ -19,7 +19,7 @@ namespace SpecialApp.Service.Special
                 return _uow = _uow ?? uowFunc();
             }
         }
-        public SpecialService(Func<ISpecialUOW> uowFunc) : base(uowFunc)
+        public SpecialService(Func<ISpecialUOW> uowFunc) : base(uowFunc())
         {
             this.uowFunc = uowFunc;
         }
