@@ -7,7 +7,6 @@ namespace SpecialApp.UnitOfWork.Infrastructure
     {
         public UOWRegistry()
         {
-            IncludeRegistry<ContextRegistry>();
             Scan(y =>
             {
                 y.TheCallingAssembly();

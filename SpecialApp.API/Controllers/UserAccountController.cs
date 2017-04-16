@@ -17,7 +17,7 @@ namespace SpecialApp.API.Controllers
         private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
         private readonly Func<SpecialContext> ctxFunc;
         private readonly Func<IUserManagerService> serviceFunc;
-
+        
         public UserAccountController(Func<UserManager<SpecialAppUsers>> userManagerFunc,
             Func<SpecialContext> ctxFunc, Func<IUserManagerService> serviceFunc)
         {
@@ -29,7 +29,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet(Name = "GetUserAccount")]
         public async Task<IEnumerable<string>> Get()
         {
-            using (var userManager = userManagerFunc())
+            using (var userManager = serviceFunc())
             {
                 var result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
                 var result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
@@ -55,6 +55,7 @@ namespace SpecialApp.API.Controllers
                     result.PhoneNumber = user.PhoneNumber;
                     await userManager.UpdateAsync(result);
                 }
+
                 if (result2 == null)
                     await userManager.CreateAsync(user2, "Cloudn@9");
                 else
@@ -82,7 +83,7 @@ namespace SpecialApp.API.Controllers
         public async Task<IActionResult> Post([FromBody] RegisterCustomer model)
         {
             model.DateOfBirth = model.DateOfBirth.Value.ToLocalTime();
-            using (var userManager = userManagerFunc())
+            using (var userManager = serviceFunc())
             using (var ctx = ctxFunc())
             {
                 var result = await userManager.FindByEmailAsync(model.EmailAddress);

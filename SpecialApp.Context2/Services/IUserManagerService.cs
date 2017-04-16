@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.Context.Services
 {
-    public interface IUserManagerService
+    public interface IUserManagerService : IDisposable
     {
-        Task<IdentityResult> CreateUser(SpecialAppUsers users, string password);
+        Task<IdentityResult> CreateAsync(SpecialAppUsers users, string password);
+
+        Task<SpecialAppUsers> FindByEmailAsync(string emailAddress);
+
+        Task<IdentityResult> UpdateAsync(SpecialAppUsers users);
     }
 }

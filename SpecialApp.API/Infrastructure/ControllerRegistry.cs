@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using StructureMap;
 using SpecialApp.Entity;
+using SpecialApp.Context.Infrastructure;
 
 namespace SpecialApp.API.Infrastructure
 {

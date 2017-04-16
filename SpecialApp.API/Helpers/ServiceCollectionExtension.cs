@@ -13,6 +13,7 @@ using SpecialApp.Service.Infrastructure;
 using StructureMap;
 using System;
 using SpecialApp.API.Infrastructure;
+using SpecialApp.Context.Infrastructure;
 
 namespace SpecialApp.API.Helpers
 {
@@ -56,9 +57,10 @@ namespace SpecialApp.API.Helpers
                     y.TheCallingAssembly();
                     y.WithDefaultConventions();
                 });
+                config.Populate(services);
                 config.AddRegistry<BaseRegistry>();
                 config.AddRegistry<ServiceRegistry>();
-                config.Populate(services);
+                config.AddRegistry(new ContextRegistry(services));
             });
             // Populate the container using the service collection
             //return container.GetInstance<IServiceProvider>();
