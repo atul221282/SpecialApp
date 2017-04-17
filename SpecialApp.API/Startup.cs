@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using SpecialApp.API.Helpers;
 using SpecialApp.Base;
+using SpecialApp.Context;
+using SpecialApp.Entity;
 using SpecialApp.Entity.Options;
 using StructureMap;
 using System;

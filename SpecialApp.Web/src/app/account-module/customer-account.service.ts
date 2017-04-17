@@ -20,7 +20,7 @@ export class CustomerAccountService {
             PhoneNumber: model.PhoneNumber,
             UserName: model.UserName
         };
-        let data = this.apiClient.post(`${this.baseurl}CustomerAccont`, model).subscribe();
+        let data = this.apiClient.post(`${this.baseurl}CustomerAccount`, model).subscribe();
     }
 
     getModel() {

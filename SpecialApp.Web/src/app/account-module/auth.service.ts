@@ -8,6 +8,6 @@ export class AuthService {
   constructor(private apiService:ApiClientService) { }
 
   login(model: ILoginModel) {
-      this.apiService.post(`${this.baseUrl}/Auth`, model).subscribe();
+      return this.apiService.post(`${this.baseUrl}/Auth`, model).subscribe();
   }
 }

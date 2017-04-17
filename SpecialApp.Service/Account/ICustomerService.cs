@@ -14,5 +14,9 @@ namespace SpecialApp.Service.Account
         Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync();
 
         Task<IdentityResult> DeleteAsync(string email);
+
+        Task<SpecialAppUsers> FindByEmailAsync(string email);
+
+        Task<IdentityResult> UpdateAsync(SpecialAppUsers user);
     }
 }
