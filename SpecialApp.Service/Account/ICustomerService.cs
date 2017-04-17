@@ -1,4 +1,5 @@
-﻿using SpecialApp.Entity;
+﻿using Microsoft.AspNetCore.Identity;
+using SpecialApp.Entity;
 using SpecialApp.Entity.Account;
 using SpecialApp.Entity.Model;
 using System;
@@ -13,5 +14,7 @@ namespace SpecialApp.Service.Account
         Task<Users> CreateAsync(RegisterCustomer model);
 
         Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync();
+
+        Task<IdentityResult> DeleteAsync(string email);
     }
 }

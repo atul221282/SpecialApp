@@ -14,5 +14,7 @@ namespace SpecialApp.Context.Services
         Task<SpecialAppUsers> FindByEmailAsync(string emailAddress);
 
         Task<IdentityResult> UpdateAsync(SpecialAppUsers users);
+
+        Task<IdentityResult> DeleteAsync(SpecialAppUsers users);
     }
 }

@@ -11,6 +11,7 @@ using SpecialApp.Base;
 using SpecialApp.Entity;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace SpecialApp.Service.Account
 {
@@ -36,6 +37,11 @@ namespace SpecialApp.Service.Account
             this.uow = uow;
         }
 
+        /// <summary>
+        /// Create new SpecialAppUsers and users if user with same email doesnot exists
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Users> CreateAsync(RegisterCustomer model)
         {
             IRepository<Users> repo = null;
@@ -126,5 +132,26 @@ namespace SpecialApp.Service.Account
                 return new Tuple<SpecialAppUsers, SpecialAppUsers>(result, result2);
             }
         }
+
+        public async Task<IdentityResult> DeleteAsync(string email)
+        {
+            var service = serviceFunc();
+            var specialAppUsers = await service.FindByEmailAsync(email);
+            if(specialAppUsers==null)
+                busEx.Add("SpecialAppUsers", $"No user found for {email}");
+
+            busEx.ThrowIfErrors();
+            var repo = Uow.GetRepository<Users>();
+            var users = await repo.GetAll().FirstOrDefaultAsync(x => x.SpecialAppUsersId == specialAppUsers.Id);
+
+            if (users == null)
+                busEx.Add("Users", $"No user found for {email}");
+
+            busEx.ThrowIfErrors();
+
+            await repo.Delete(users);
+            return await service.DeleteAsync(specialAppUsers);
+        }
+
     }
 }

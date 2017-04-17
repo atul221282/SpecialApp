@@ -41,5 +41,12 @@ namespace SpecialApp.Repository
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Update(T entity);
+
+        /// <summary>
+        /// Delete the specified entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task Delete(T entity);
     }
 }

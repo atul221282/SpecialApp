@@ -21,6 +21,11 @@ namespace SpecialApp.Service
             return await _uow.BeginTransaction();
         }
 
+        public async  Task CommitAsync()
+        {
+            await _uow.CommitAsync();
+        }
+
         public void Dispose()
         {
             _uow?.Dispose();

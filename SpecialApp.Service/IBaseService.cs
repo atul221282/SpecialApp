@@ -7,5 +7,7 @@ namespace SpecialApp.Service
     public interface IBaseService : IDisposable
     {
         Task<IDbContextTransaction> BeginTransaction();
+
+        Task CommitAsync();
     }
 }

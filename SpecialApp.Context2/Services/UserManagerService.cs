@@ -45,6 +45,11 @@ namespace SpecialApp.Context.Services
             return await UserManager.FindByEmailAsync(emailAddress);
         }
 
+        public async Task<IdentityResult> DeleteAsync(SpecialAppUsers users)
+        {
+            return await UserManager.DeleteAsync(users);
+        }
+
         public async Task<IdentityResult> UpdateAsync(SpecialAppUsers users)
         {
             return await UserManager.UpdateAsync(users);

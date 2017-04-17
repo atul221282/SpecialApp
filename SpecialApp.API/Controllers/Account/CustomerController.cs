@@ -67,12 +67,21 @@ namespace SpecialApp.API.Controllers.Account
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{email}")]
+        public async Task Delete(string email)
         {
+            using (var custService = custServiceFunc())
+            {
+                var scope = await custService.BeginTransaction();
+                await custService.DeleteAsync(email);
+                await custService.CommitAsync();
+                scope.Commit();
+            }
         }
+
     }
 }
