@@ -10,6 +10,7 @@ using SpecialApp.Context.Services;
 using SpecialApp.Base;
 using SpecialApp.Entity;
 using Microsoft.EntityFrameworkCore;
+using SpecialApp.Entity.Helpers;
 
 namespace SpecialApp.Service.Account
 {
@@ -45,9 +46,7 @@ namespace SpecialApp.Service.Account
                 var result = await service.FindByEmailAsync(model.EmailAddress);
 
                 if (result != null)
-                {
                     busEx.Add("SpecialAppUsers", "User with same email address already exists");
-                }
 
                 busEx.ThrowIfErrors();
 
@@ -63,19 +62,15 @@ namespace SpecialApp.Service.Account
                 if (createdResult.Succeeded)
                 {
                     repo = Uow.GetRepository<Users>();
-                    repo.Add(new Users
+                    var users = new Users
                     {
-                        AuditCreatedBy = "system",
-                        AuditCreatedDate = DateTimeOffset.Now,
-                        AuditLastUpdatedBy = "system",
-                        AuditLastUpdatedDate = DateTimeOffset.Now,
                         DOB = model.DateOfBirth,
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         SpecialAppUsersId = newUser.Id,
-                        State = State.Added,
-                        IsDeleted = false
-                    });
+                        State = State.Added
+                    };
+                    repo.Add(users.SetDefaults(loggedInUser: string.Empty));
                 }
 
                 await Uow.CommitAsync();

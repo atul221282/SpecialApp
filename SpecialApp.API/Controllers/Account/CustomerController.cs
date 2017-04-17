@@ -14,9 +14,9 @@ using SpecialApp.Repository;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Service.Account;
 
-namespace SpecialApp.API.Controllers
+namespace SpecialApp.API.Controllers.Account
 {
-    public class UserAccountController : BaseApiController
+    public class UserAccountController : BaseAccountApiController
     {
         private readonly Lazy<ISpecialUOW> uowFunc;
         private readonly Func<IUserManagerService> serviceFunc;

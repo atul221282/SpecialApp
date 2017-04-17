@@ -6,8 +6,10 @@ import * as moment from 'moment';
 @Injectable()
 export class AuthService {
 
-    constructor(private apiClient: ApiClientService) { }
+    public baseurl: string = "account/";
 
+    constructor(private apiClient: ApiClientService) { }
+    
     createUser(model: IRegisterCustomer, password: string) {
         model = <IRegisterCustomer>{
             DateOfBirth: model.DateOfBirth,
@@ -18,7 +20,7 @@ export class AuthService {
             PhoneNumber: model.PhoneNumber,
             UserName: model.UserName
         };
-        let data = this.apiClient.post("UserAccount", model).subscribe();
+        let data = this.apiClient.post(`${this.baseurl}UserAccount`, model).subscribe();
     }
 
     getModel() {
