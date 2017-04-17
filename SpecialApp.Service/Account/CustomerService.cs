@@ -34,6 +34,7 @@ namespace SpecialApp.Service.Account
             this.busEx = busEx;
             this.uow = uow;
         }
+
         public async Task<Users> CreateAsync(RegisterCustomer model)
         {
             IRepository<Users> repo = null;
@@ -84,6 +85,50 @@ namespace SpecialApp.Service.Account
                 scope.Commit();
 
                 return addedUsers;
+            }
+        }
+
+        public async Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync()
+        {
+            using (var userManager = serviceFunc())
+            {
+                var result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+                var result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
+
+                var user = new SpecialAppUsers
+                {
+                    Email = "bsharma2422@gmail.com",
+                    UserName = "bsharma2422@gmail.com",
+                    PhoneNumber = "0433277470"
+                };
+
+                var user2 = new SpecialAppUsers
+                {
+                    Email = "atul221282@gmail.com",
+                    UserName = "atul221282@gmail.com",
+                    PhoneNumber = "0430499210"
+                };
+
+                if (result == null)
+                    await userManager.CreateAsync(user, "Cloudn@9");
+                else
+                {
+                    result.PhoneNumber = user.PhoneNumber;
+                    await userManager.UpdateAsync(result);
+                }
+
+                if (result2 == null)
+                    await userManager.CreateAsync(user2, "Cloudn@9");
+                else
+                {
+                    result2.PhoneNumber = user2.PhoneNumber;
+                    await userManager.UpdateAsync(result2);
+                }
+
+                result = await userManager.FindByEmailAsync("bsharma2422@gmail.com");
+                result2 = await userManager.FindByEmailAsync("atul221282@gmail.com");
+
+                return new Tuple<SpecialAppUsers, SpecialAppUsers>(result, result2);
             }
         }
     }
