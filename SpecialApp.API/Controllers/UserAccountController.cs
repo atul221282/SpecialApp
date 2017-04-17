@@ -9,19 +9,30 @@ using SpecialApp.Context;
 using SpecialApp.Entity.Account;
 using System.Linq;
 using SpecialApp.Context.Services;
+using SpecialApp.UnitOfWork;
+using SpecialApp.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpecialApp.API.Controllers
 {
     public class UserAccountController : BaseApiController
     {
-        private readonly Func<UserManager<SpecialAppUsers>> userManagerFunc;
-        private readonly Func<SpecialContext> ctxFunc;
+        private readonly Lazy<ISpecialUOW> uowFunc;
         private readonly Func<IUserManagerService> serviceFunc;
-        
-        public UserAccountController(Func<SpecialContext> ctxFunc, Func<IUserManagerService> serviceFunc)
+
+        private ISpecialUOW _uow;
+        public ISpecialUOW Uow
         {
-            this.ctxFunc = ctxFunc;
+            get
+            {
+                return _uow = _uow ?? uowFunc.Value;
+            }
+        }
+
+        public UserAccountController(Lazy<ISpecialUOW> uowFunc, Func<IUserManagerService> serviceFunc)
+        {
             this.serviceFunc = serviceFunc;
+            this.uowFunc = uowFunc;
         }
         // GET: api/UserAccount
         [HttpGet(Name = "GetUserAccount")]
@@ -80,48 +91,50 @@ namespace SpecialApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RegisterCustomer model)
         {
-            model.DateOfBirth = model.DateOfBirth.Value.ToLocalTime();
-            using (var userManager = serviceFunc())
-            using (var ctx = ctxFunc())
+            IRepository<Users> repo = null;
+            using (var service = serviceFunc())
+            using (Uow)
             {
-                var result = await userManager.FindByEmailAsync(model.EmailAddress);
-                if (result == null)
+                var scope = await Uow.BeginTransaction();
+                var result = await service.FindByEmailAsync(model.EmailAddress);
+
+                if (result != null)
+                    return StatusCode(500);
+
+                var createdResult = await service.CreateAsync(new SpecialAppUsers
                 {
-                    var result2 = await userManager.CreateAsync(new SpecialAppUsers
+                    Email = model.EmailAddress,
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber
+                }, password: model.Password);
+
+                var newUser = await service.FindByEmailAsync(model.EmailAddress);
+
+                if (createdResult.Succeeded)
+                {
+                    repo = Uow.GetRepository<Users>();
+                    repo.Add(new Users
                     {
-                        Email = model.EmailAddress,
-                        UserName = model.UserName,
-                        PhoneNumber = model.PhoneNumber,
-                    }, model.Password);
-                }
-                result = await userManager.FindByEmailAsync(model.EmailAddress);
-
-                var user = new Users
-                {
-                    DOB = model.DateOfBirth,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    State = State.Added,
-                    AuditCreatedBy = "system",
-                    AuditCreatedDate = DateTimeOffset.Now,
-                    AuditLastUpdatedBy = "system",
-                    AuditLastUpdatedDate = DateTimeOffset.Now,
-                    IsDeleted = false,
-                    SpecialAppUsersId = null//result.Id
-                };
-
-                if (result == null)
-                    ctx.Users.Add(user);
-                else
-                {
-                    user = ctx.Users.Where(x => x.SpecialAppUsersId == result.Id).FirstOrDefault();
-                    user.DOB = model.DateOfBirth;
-                    ctx.Update(user);
+                        AuditCreatedBy = "system",
+                        AuditCreatedDate = DateTimeOffset.Now,
+                        AuditLastUpdatedBy = "system",
+                        AuditLastUpdatedDate = DateTimeOffset.Now,
+                        DOB = model.DateOfBirth,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        SpecialAppUsersId = newUser.Id,
+                        State = State.Added,
+                        IsDeleted = false
+                    });
                 }
 
-                ctx.SaveChanges();
+                await Uow.CommitAsync();
 
-                return Ok(model);
+                var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
+
+                scope.Commit();
+
+                return Ok(addedUsers);
             }
         }
 

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using SpecialApp.Repository.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SpecialApp.UnitOfWork
@@ -20,6 +18,15 @@ namespace SpecialApp.UnitOfWork
         {
             context.ApplyStateChange();
             return await context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Start transaction on context
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IDbContextTransaction> BeginTransaction()
+        {
+            return await context.Database.BeginTransactionAsync();
         }
 
         public void Dispose()

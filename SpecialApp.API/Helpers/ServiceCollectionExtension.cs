@@ -52,15 +52,16 @@ namespace SpecialApp.API.Helpers
             container.Configure(config =>
             {
                 config.AddRegistry(new ControllerRegistry(services, container));
+                config.AddRegistry<BaseRegistry>();
+                config.AddRegistry<ServiceAppRegistry>();
+                config.AddRegistry(new ContextRegistry(services));
                 config.Scan((y) =>
                 {
                     y.TheCallingAssembly();
                     y.WithDefaultConventions();
                 });
                 config.Populate(services);
-                config.AddRegistry<BaseRegistry>();
-                config.AddRegistry<ServiceRegistry>();
-                config.AddRegistry(new ContextRegistry(services));
+                
             });
             // Populate the container using the service collection
             //return container.GetInstance<IServiceProvider>();

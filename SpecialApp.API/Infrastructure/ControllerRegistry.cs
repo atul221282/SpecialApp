@@ -17,33 +17,5 @@ namespace SpecialApp.API.Infrastructure
                 scan.With(new ControllerConvention());
             });
         }
-
-        private SignInManager<SpecialAppUsers> GetSignInManager(IServiceCollection services)
-        {
-            try
-            {
-                var service = services.BuildServiceProvider();
-                var instance = service.GetService<SignInManager<SpecialAppUsers>>();
-                return instance;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        private UserManager<SpecialAppUsers> GetUserManager(IServiceCollection services)
-        {
-            try
-            {
-                var service = services.BuildServiceProvider();
-                var instance = service.GetService<UserManager<SpecialAppUsers>>();
-                return instance;
-            }
-            catch
-            {
-                throw;
-            }
-        }
     }
 }

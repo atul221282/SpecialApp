@@ -7,16 +7,16 @@ namespace SpecialApp.Service
 {
     public abstract class BaseService : IBaseService
     {
-        private IBaseUOW uow;
-
+        private IBaseUOW _uow;
+        
         protected BaseService(IBaseUOW uow)
         {
-            this.uow = uow;
+            this._uow = uow;
         }
 
         public void Dispose()
         {
-            Uow.Dispose();
+            _uow?.Dispose();
         }
     }
 }

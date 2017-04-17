@@ -31,7 +31,7 @@ namespace SpecialApp.Context.Services
         public async Task<IdentityResult> CreateAsync(SpecialAppUsers users, string password)
         {
             var result = await UserManager.FindByEmailAsync(users.Email);
-            if (result == null)
+            if (result != null)
             {
                 var busex = busExFunc();
                 busex.Add("EmailAddress", "Email address already exists");

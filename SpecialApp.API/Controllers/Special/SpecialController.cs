@@ -22,11 +22,12 @@ namespace SpecialApp.API.Controllers.Special
             try
             {
                 var service = serviceFunc();
-                return Ok(await service.GetByLocation(-34.809964, 138.680274, distance: distance));
+                var data = await service.GetByLocation(-34.809964, 138.680274, distance: distance);
+                return Ok(data);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                throw;
             }
         }
     }
