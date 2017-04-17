@@ -12,6 +12,7 @@ using SpecialApp.Context.Services;
 using SpecialApp.UnitOfWork;
 using SpecialApp.Repository;
 using Microsoft.EntityFrameworkCore;
+using SpecialApp.Service.Account;
 
 namespace SpecialApp.API.Controllers
 {
@@ -19,7 +20,7 @@ namespace SpecialApp.API.Controllers
     {
         private readonly Lazy<ISpecialUOW> uowFunc;
         private readonly Func<IUserManagerService> serviceFunc;
-
+        private readonly Func<ICustomerService> custServiceFunc;
         private ISpecialUOW _uow;
         public ISpecialUOW Uow
         {
@@ -29,10 +30,10 @@ namespace SpecialApp.API.Controllers
             }
         }
 
-        public UserAccountController(Lazy<ISpecialUOW> uowFunc, Func<IUserManagerService> serviceFunc)
+        public UserAccountController(Func<ICustomerService> custServiceFunc, Func<IUserManagerService> serviceFunc)
         {
             this.serviceFunc = serviceFunc;
-            this.uowFunc = uowFunc;
+            this.custServiceFunc = custServiceFunc;
         }
         // GET: api/UserAccount
         [HttpGet(Name = "GetUserAccount")]
@@ -91,50 +92,9 @@ namespace SpecialApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RegisterCustomer model)
         {
-            IRepository<Users> repo = null;
-            using (var service = serviceFunc())
-            using (Uow)
+            using (var custService = custServiceFunc())
             {
-                var scope = await Uow.BeginTransaction();
-                var result = await service.FindByEmailAsync(model.EmailAddress);
-
-                if (result != null)
-                    return StatusCode(500);
-
-                var createdResult = await service.CreateAsync(new SpecialAppUsers
-                {
-                    Email = model.EmailAddress,
-                    UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber
-                }, password: model.Password);
-
-                var newUser = await service.FindByEmailAsync(model.EmailAddress);
-
-                if (createdResult.Succeeded)
-                {
-                    repo = Uow.GetRepository<Users>();
-                    repo.Add(new Users
-                    {
-                        AuditCreatedBy = "system",
-                        AuditCreatedDate = DateTimeOffset.Now,
-                        AuditLastUpdatedBy = "system",
-                        AuditLastUpdatedDate = DateTimeOffset.Now,
-                        DOB = model.DateOfBirth,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        SpecialAppUsersId = newUser.Id,
-                        State = State.Added,
-                        IsDeleted = false
-                    });
-                }
-
-                await Uow.CommitAsync();
-
-                var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
-
-                scope.Commit();
-
-                return Ok(addedUsers);
+                return Ok(await custService.CreateAsync(model));
             }
         }
 

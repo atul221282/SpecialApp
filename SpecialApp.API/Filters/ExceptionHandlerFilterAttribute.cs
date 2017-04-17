@@ -16,7 +16,7 @@ namespace SpecialApp.API.Filters
                 context.Result = new JsonResult(exception)
                 {
                     StatusCode = 500,
-                    Value = new { Data = busEx.GetErrors() }
+                    Value = new { Errors = busEx.GetErrors() }
                 };
             }
             else
@@ -24,7 +24,7 @@ namespace SpecialApp.API.Filters
                 context.Result = new JsonResult(exception)
                 {
                     StatusCode = 500,
-                    Value = new { Data = exception.Message }
+                    Value = new { Errors = exception.Message }
                 };
             }
             context.ExceptionHandled = true;

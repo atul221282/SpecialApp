@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
 
 namespace SpecialApp.Service
 {
@@ -12,6 +14,11 @@ namespace SpecialApp.Service
         protected BaseService(IBaseUOW uow)
         {
             this._uow = uow;
+        }
+
+        public async Task<IDbContextTransaction> BeginTransaction()
+        {
+            return await _uow.BeginTransaction();
         }
 
         public void Dispose()
