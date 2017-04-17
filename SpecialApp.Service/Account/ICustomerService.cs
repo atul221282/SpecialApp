@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity;
 using SpecialApp.Entity.Account;
-using SpecialApp.Entity.Model;
+using SpecialApp.Entity.Model.Account;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Service.Account

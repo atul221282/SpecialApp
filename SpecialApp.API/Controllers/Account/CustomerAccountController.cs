@@ -13,10 +13,11 @@ using SpecialApp.UnitOfWork;
 using SpecialApp.Repository;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Service.Account;
+using SpecialApp.Entity.Model.Account;
 
 namespace SpecialApp.API.Controllers.Account
 {
-    public class UserAccountController : BaseAccountApiController
+    public class CustomerAccountController : BaseAccountApiController
     {
         private readonly Lazy<ISpecialUOW> uowFunc;
         private readonly Func<IUserManagerService> serviceFunc;
@@ -30,7 +31,7 @@ namespace SpecialApp.API.Controllers.Account
             }
         }
 
-        public UserAccountController(Func<ICustomerService> custServiceFunc, Func<IUserManagerService> serviceFunc)
+        public CustomerAccountController(Func<ICustomerService> custServiceFunc, Func<IUserManagerService> serviceFunc)
         {
             this.serviceFunc = serviceFunc;
             this.custServiceFunc = custServiceFunc;

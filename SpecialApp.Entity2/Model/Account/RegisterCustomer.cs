@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpecialApp.Entity.Model
+namespace SpecialApp.Entity.Model.Account
 {
     public class RegisterCustomer
     {

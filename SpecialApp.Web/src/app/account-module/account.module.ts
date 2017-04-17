@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountRouterModule, routedComponents } from './account-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../core-module/core.module';
+import { CustomerAccountService } from './customer-account.service';
 import { AuthService } from './auth.service';
 
 @NgModule({
@@ -19,7 +20,7 @@ import { AuthService } from './auth.service';
         AccountRouterModule,
         CoreModule
     ],
-    providers: [{ provide: 'Window', useValue: window }, AuthService],
+    providers: [{ provide: 'Window', useValue: window }, CustomerAccountService, AuthService],
     declarations: [routedComponents]
 })
 export class AccountModule { }

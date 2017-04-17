@@ -8,4 +8,10 @@
     PhoneNumber: string;
 }
 
-export { IRegisterCustomer };
+interface ILoginModel {
+    EmailAddress: string;
+    Password: string;
+    RememberMe: boolean;
+}
+
+export { IRegisterCustomer, ILoginModel };

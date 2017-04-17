@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator, DateValidator, ConfirmPasswordValidator } from '../../core-module/';
-import { AuthService } from '../auth.service';
+import { CustomerAccountService } from '../customer-account.service';
 import { IRegisterCustomer } from '../../model/account-models';
 
 @Component({
@@ -52,7 +52,7 @@ export class RegisterCustomerComponent implements OnInit {
     public confirmPasswordError: string;
     public foods: Array<any>;
 
-    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window, private authService: AuthService) { }
+    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window, private customerAccount: CustomerAccountService) { }
 
     ngOnInit() {
         this.pwdGroup = this._fb.group({
@@ -82,7 +82,7 @@ export class RegisterCustomerComponent implements OnInit {
 
     submit(data: any) {
         let model = this.registerForm.getRawValue();
-        this.authService.createUser(model as IRegisterCustomer, model.passwordGroup.Password);
+        this.customerAccount.createUser(model as IRegisterCustomer, model.passwordGroup.Password);
     }
 
     cancel() {

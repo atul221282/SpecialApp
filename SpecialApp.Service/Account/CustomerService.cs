@@ -12,6 +12,7 @@ using SpecialApp.Entity;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
+using SpecialApp.Entity.Model.Account;
 
 namespace SpecialApp.Service.Account
 {
@@ -77,16 +78,17 @@ namespace SpecialApp.Service.Account
                         State = State.Added
                     };
                     repo.Add(users.SetDefaults(loggedInUser: string.Empty));
+
+                    await Uow.CommitAsync();
+
+                    var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
+
+                    scope.Commit();
+
+                    return addedUsers;
                 }
-
-                await Uow.CommitAsync();
-
-                var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
-
-                scope.Commit();
-
-                return addedUsers;
             }
+            return null;
         }
 
         public async Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync()
@@ -137,7 +139,7 @@ namespace SpecialApp.Service.Account
         {
             var service = serviceFunc();
             var specialAppUsers = await service.FindByEmailAsync(email);
-            if(specialAppUsers==null)
+            if (specialAppUsers == null)
                 busEx.Add("SpecialAppUsers", $"No user found for {email}");
 
             busEx.ThrowIfErrors();
