@@ -1,13 +1,14 @@
 ﻿import { Injectable } from '@angular/core';
-import { ApiClientService } from '../core-module/api-client.service';
-import {ILoginModel } from '../model/account-models';
+import { ApiClientService, StorageService } from '../core-module/index';
+import { ILoginModel } from '../model/account-models';
 
 @Injectable()
 export class AuthService {
     public baseUrl: string = "/account";
-  constructor(private apiService:ApiClientService) { }
+    constructor(private apiService: ApiClientService, private storageService: StorageService) { }
 
-  login(model: ILoginModel) {
-      return this.apiService.post(`${this.baseUrl}/Auth`, model).subscribe();
-  }
+    login(model: ILoginModel) {
+        return this.apiService.post(`${this.baseUrl}/Auth`, model)
+            .subscribe(response=>this.storageService.setItem("access-token",response));
+    }
 }

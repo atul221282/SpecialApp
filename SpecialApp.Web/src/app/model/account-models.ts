@@ -14,4 +14,10 @@ interface ILoginModel {
     RememberMe: boolean;
 }
 
-export { IRegisterCustomer, ILoginModel };
+interface IToken {
+    token: string;
+    expiration: Date;
+    expires_in: Date;
+}
+
+export { IRegisterCustomer, ILoginModel, IToken };

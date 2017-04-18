@@ -1,11 +1,16 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Injector } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { StorageService } from './storage.service';
+import { IToken } from '../model/account-models';
 
 @Injectable()
 export class ApiClientService {
     apiUrl: string = "http://localhost:54187/api/";
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http,
+        private storageService: StorageService
+    ) { }
 
     test(message: string) {
         alert(`Message is ${message}`);
@@ -19,8 +24,25 @@ export class ApiClientService {
     }
 
     post<T>(url: string, data: any, options?: RequestOptionsArgs): Observable<T> {
-        return this.http.post(`${this.apiUrl}${url}`, data).map(res => {
+
+        let headers = new Headers({
+            'Authorization': this.getToken()
+        });
+
+        if (!options || options !== null)
+            options = new RequestOptions({ headers: headers });
+
+        return this.http.post(`${this.apiUrl}${url}`, data, options).map(res => {
             return res.json() as T;
         }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    private getToken(): string {
+        let token = this.storageService.getItem<IToken>('access-token');
+
+        if (token && token !== null)
+            return `bearer ${token.token}`;
+
+        return undefined;
     }
 }

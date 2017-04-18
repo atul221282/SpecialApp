@@ -6,6 +6,7 @@ export * from './form-control-input/form-control-input.component';
 export * from './form-select/form-select.component';
 export * from './form-date/form-date.component';
 export * from './api-client.service';
+export * from './storage.service';
 export * from './core.module';
 export * from './validators/email-validator';
 export * from './validators/date-validator';
