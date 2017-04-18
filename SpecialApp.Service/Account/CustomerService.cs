@@ -79,6 +79,7 @@ namespace SpecialApp.Service.Account
             if (createdResult.Succeeded)
             {
                 repo = Uow.GetRepository<Users>();
+
                 var users = new Users
                 {
                     DOB = model.DateOfBirth,
@@ -87,6 +88,7 @@ namespace SpecialApp.Service.Account
                     SpecialAppUsersId = newUser.Id,
                     State = State.Added
                 };
+
                 repo.Add(users.SetDefaults(loggedInUser: string.Empty));
 
                 await Uow.CommitAsync();

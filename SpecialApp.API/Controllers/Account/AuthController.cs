@@ -63,46 +63,49 @@ namespace SpecialApp.API.Controllers.Account
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginModel model)
         {
-            bool isValidLogin = false;
-            SpecialAppUsers user;
-            try
+            using (CustomerService)
             {
-                user = await CustomerService.FindByEmailAsync(model.EmailAddress);
-                if (user == null)
+                bool isValidLogin = false;
+                SpecialAppUsers user;
+                try
                 {
-                    return StatusCode(500);
-                }
-                var result = Hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
-
-                if (result == PasswordVerificationResult.Success)
-                {
-                    isValidLogin = true;
-                }
-                else
-                {
-                    if (result == PasswordVerificationResult.SuccessRehashNeeded)
+                    user = await CustomerService.FindByEmailAsync(model.EmailAddress);
+                    if (user == null)
                     {
-                        user.PasswordHash = Hasher.HashPassword(user, model.Password);
-                        await CustomerService.UpdateAsync(user);
+                        return StatusCode(500);
+                    }
+                    var result = Hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
+
+                    if (result == PasswordVerificationResult.Success)
+                    {
                         isValidLogin = true;
                     }
+                    else
+                    {
+                        if (result == PasswordVerificationResult.SuccessRehashNeeded)
+                        {
+                            user.PasswordHash = Hasher.HashPassword(user, model.Password);
+                            await CustomerService.UpdateAsync(user);
+                            isValidLogin = true;
+                        }
+                    }
                 }
-            }
-            catch
-            {
+                catch
+                {
+                    return BadRequest("Failed to login");
+                }
+                if (isValidLogin)
+                {
+                    JwtSecurityToken token = CreateToken(null, user, model.RememberMe);
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = token.ValidTo,
+                        expires_in = SetExpiry(model.RememberMe)
+                    });
+                }
                 return BadRequest("Failed to login");
             }
-            if (isValidLogin)
-            {
-                JwtSecurityToken token = CreateToken(null, user, model.RememberMe);
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
-                    expires_in = SetExpiry(model.RememberMe)
-                });
-            }
-            return BadRequest("Failed to login");
         }
 
         // PUT: api/Auth/5
