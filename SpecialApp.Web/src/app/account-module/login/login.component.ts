@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { EmailValidator } from '../../core-module/';
 import { ILoginModel } from '../../model/account-models';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'account-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
         required: 'Password is required'
     };
 
-    constructor(private _fb: FormBuilder, private authService: AuthService) { }
+    constructor(private _fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         this.loginForm = this._fb.group({
@@ -37,8 +38,10 @@ export class LoginComponent implements OnInit {
     }
 
     submit() {
-        this.loginForm.getRawValue();
-        this.authService.login(this.loginForm.getRawValue());
+        this.authService.login(this.loginForm.getRawValue())
+            .subscribe(res => {
+                this.router.navigate(['/special']);
+            });
     }
 
     cancel() {

@@ -26,18 +26,18 @@ export class ApiClientService {
     post<T>(url: string, data: any, options?: RequestOptionsArgs): Observable<T> {
 
         let headers = new Headers({
-            'Authorization': this.getToken()
+            'Authorization': this.accessToken
         });
 
         if (!options || options !== null)
             options = new RequestOptions({ headers: headers });
 
-        return this.http.post(`${this.apiUrl}${url}`, data, options).map(res => {
+        return this.http.post(`${this.apiUrl}${url}`, data, options).map((res: Response) => {
             return res.json() as T;
         }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    private getToken(): string {
+    get accessToken(): string {
         let token = this.storageService.getItem<IToken>('access-token');
 
         if (token && token !== null)

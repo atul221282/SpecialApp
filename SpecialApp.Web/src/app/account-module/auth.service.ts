@@ -1,6 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { ApiClientService, StorageService } from '../core-module/index';
-import { ILoginModel } from '../model/account-models';
+import { ILoginModel, IToken } from '../model/account-models';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
 
 @Injectable()
 export class AuthService {
@@ -9,6 +12,11 @@ export class AuthService {
 
     login(model: ILoginModel) {
         return this.apiService.post(`${this.baseUrl}/Auth`, model)
-            .subscribe(response=>this.storageService.setItem("access-token",response));
+            .catch(this.handleError);
+    }
+
+    private handleError(error: Response) {
+        let msg = `Error status code ${error.status} at ${error.url}`;
+        return Observable.throw(msg);
     }
 }
