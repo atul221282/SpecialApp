@@ -72,7 +72,7 @@ namespace SpecialApp.API.Controllers.Account
                     user = await CustomerService.FindByEmailAsync(model.EmailAddress);
                     if (user == null)
                     {
-                        return StatusCode(500);
+                        return BadRequest("Failed to login");
                     }
                     var result = Hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
 

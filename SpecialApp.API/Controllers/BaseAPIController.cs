@@ -11,5 +11,14 @@ namespace SpecialApp.API.Controllers
     [EnableCors(APIGlobalConstants.CorsPolicy)]
     public abstract class BaseApiController : Controller
     {
+        public virtual ObjectResult StatusCode(string message)
+        {
+            return StatusCode(500, new { Error = message });
+        }
+
+        public virtual BadRequestObjectResult BadRequest(string message)
+        {
+            return BadRequest(new { Error = message });
+        }
     }
 }

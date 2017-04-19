@@ -34,7 +34,22 @@ export class ApiClientService {
 
         return this.http.post(`${this.apiUrl}${url}`, data, options).map((res: Response) => {
             return res.json() as T;
-        }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        }).catch(this.handleError);
+    }
+
+    private handleError(error: Response | any) {
+        // In a real world app, you might use a remote logging infrastructure
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+            return Observable.throw({ status: error.status, data: error.json() });
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable.throw({ status: error.status, data: errMsg });
     }
 
     get accessToken(): string {

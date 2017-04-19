@@ -2,6 +2,8 @@
 import { IRegisterCustomer } from '../model/account-models';
 import { ApiClientService } from '../core-module/api-client.service';
 import * as moment from 'moment';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CustomerAccountService {
@@ -9,7 +11,7 @@ export class CustomerAccountService {
     public baseurl: string = "account/";
 
     constructor(private apiClient: ApiClientService) { }
-    
+
     createUser(model: IRegisterCustomer, password: string) {
         model = <IRegisterCustomer>{
             DateOfBirth: model.DateOfBirth,
@@ -20,9 +22,14 @@ export class CustomerAccountService {
             PhoneNumber: model.PhoneNumber,
             UserName: model.UserName
         };
-        let data = this.apiClient.post(`${this.baseurl}CustomerAccount`, model).subscribe();
+        return this.apiClient.post(`${this.baseurl}CustomerAccount`, model)
+            .catch(this.handleError);
     }
 
+    private handleError(error: Response, er: any) {
+        let msg = `Error status code ${error.status} at ${error.url}`;
+        return Observable.throw(msg);
+    }
     getModel() {
         let data: string;
         this.apiClient.get("UserAccount/1").subscribe();
