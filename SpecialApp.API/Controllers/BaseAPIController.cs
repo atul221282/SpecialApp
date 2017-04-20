@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
 using SpecialApp.API.Helpers;
+using System.Collections.Generic;
 
 namespace SpecialApp.API.Controllers
 {
@@ -11,14 +12,15 @@ namespace SpecialApp.API.Controllers
     [EnableCors(APIGlobalConstants.CorsPolicy)]
     public abstract class BaseApiController : Controller
     {
-        public virtual ObjectResult StatusCode(string message)
+        protected virtual object SetError(string message)
         {
-            return StatusCode(500, new { Error = message });
-        }
-
-        public virtual BadRequestObjectResult BadRequest(string message)
-        {
-            return BadRequest(new { Error = message });
+            return new
+            {
+                Errors = new Dictionary<string, string>
+                {
+                    ["Error"] = message
+                }
+            };
         }
     }
 }

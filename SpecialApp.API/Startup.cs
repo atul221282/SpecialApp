@@ -47,6 +47,8 @@ namespace SpecialApp.API
             // Binding the whole configuration should be rare, subsections are more typical.
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
 
+            services.AddSpecialChallenge();
+
             // add mvc middleware
             services.AddMvc().AddJsonOptions(opt =>
             {

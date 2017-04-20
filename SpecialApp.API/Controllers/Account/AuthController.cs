@@ -72,7 +72,7 @@ namespace SpecialApp.API.Controllers.Account
                     user = await CustomerService.FindByEmailAsync(model.EmailAddress);
                     if (user == null)
                     {
-                        return BadRequest("Failed to login");
+                        return StatusCode(401,SetError("Failed to login"));
                     }
                     var result = Hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
 
@@ -92,7 +92,7 @@ namespace SpecialApp.API.Controllers.Account
                 }
                 catch
                 {
-                    return BadRequest("Failed to login");
+                    return BadRequest(SetError("Failed to login"));
                 }
                 if (isValidLogin)
                 {
@@ -104,7 +104,7 @@ namespace SpecialApp.API.Controllers.Account
                         expires_in = SetExpiry(model.RememberMe)
                     });
                 }
-                return BadRequest("Failed to login");
+                return StatusCode(401, SetError("Failed to login"));
             }
         }
 
@@ -144,6 +144,7 @@ namespace SpecialApp.API.Controllers.Account
             );
             return token;
         }
+
         private static DateTime SetExpiry(bool rememberMe)
         {
 #if DEBUG
@@ -152,6 +153,5 @@ namespace SpecialApp.API.Controllers.Account
             return rememberMe ? DateTime.UtcNow.AddDays(15) : DateTime.UtcNow.AddDays(1);
 #endif
         }
-
     }
 }

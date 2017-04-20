@@ -14,6 +14,8 @@ using StructureMap;
 using System;
 using SpecialApp.API.Infrastructure;
 using SpecialApp.Context.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace SpecialApp.API.Helpers
 {
@@ -61,7 +63,7 @@ namespace SpecialApp.API.Helpers
                     y.WithDefaultConventions();
                 });
                 config.Populate(services);
-                
+
             });
             // Populate the container using the service collection
             //return container.GetInstance<IServiceProvider>();
@@ -83,6 +85,34 @@ namespace SpecialApp.API.Helpers
                 scan.For<IHttpContextAccessor>().Use<HttpContextAccessor>().ContainerScoped();
             });
         }
-        
+
+        public static void AddSpecialChallenge(this IServiceCollection services)
+        {
+            services.Configure<IdentityOptions>(config =>
+            {
+                config.Cookies.ApplicationCookie.Events =
+                  new CookieAuthenticationEvents()
+                  {
+                      OnRedirectToLogin = (ctx) =>
+                      {
+                          if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                          {
+                              ctx.Response.StatusCode = 401;
+                          }
+
+                          return Task.CompletedTask;
+                      },
+                      OnRedirectToAccessDenied = (ctx) =>
+                      {
+                          if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                          {
+                              ctx.Response.StatusCode = 403;
+                          }
+
+                          return Task.CompletedTask;
+                      }
+                  };
+            });
+        }
     }
 }
