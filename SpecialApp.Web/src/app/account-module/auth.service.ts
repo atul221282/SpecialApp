@@ -16,7 +16,6 @@ export class AuthService {
     }
 
     private handleError(error: Response) {
-        debugger;
         let msg = `Error status code ${error.status} at ${error.url}`;
         return Observable.throw(error);
     }

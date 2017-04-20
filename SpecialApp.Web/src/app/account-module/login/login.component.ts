@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
             .subscribe(res => {
                 this.router.navigate(['/special']);
             }, (error) => {
-                debugger;
+                alert(JSON.stringify(error.data));
             });
     }
 

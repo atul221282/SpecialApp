@@ -85,7 +85,7 @@ export class RegisterCustomerComponent implements OnInit {
 
     ngOnDestroy() {
         this.submitCall.unsubscribe();
-        debugger;
+        
     }
 
     cancel() {
