@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     };
 
     constructor(private _fb: FormBuilder, private authService: AuthService,
-        private router: Router, private mainCoreService:MainCoreService) { }
+        private router: Router, private mainCoreService: MainCoreService) { }
 
     ngOnInit() {
         this.loginForm = this._fb.group({
@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.submitCall.unsubscribe();
+        if (this.submitCall)
+            this.submitCall.unsubscribe();
     }
 
     cancel() {

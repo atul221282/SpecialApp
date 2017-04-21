@@ -10,6 +10,12 @@ export class StorageService {
     }
 
     getItem<T>(key: string): T {
-        return JSON.parse(localStorage.getItem(key)) as T;
+        if (localStorage.getItem(key) !== null)
+            return JSON.parse(localStorage.getItem(key)) as T;
+        return null;
+    }
+
+    removeItem(key: string) {
+        localStorage.removeItem(key);
     }
 }

@@ -6,6 +6,10 @@ import { MainConstantService } from './main-constant.service';
 @Injectable()
 export class MainCoreService {
 
+    get hasLoggedIn(): boolean {
+        return this.StorageService.getItem(this.MainConstantService.variables.access_token) !== null;
+    }
+
     constructor(
         public StorageService: StorageService,
         public ApiClientService: ApiClientService,

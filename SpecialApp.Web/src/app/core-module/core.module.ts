@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CoreUserMenuComponent } from './core-user-menu/core-user-menu.component';
 import {
     LoadingSpinnerComponent, ToolbarComponent, LoginMenuComponent,
     MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent,
@@ -27,7 +28,8 @@ import { MainCoreService } from './main-core.service';
         LoadingSpinnerComponent,
         LoginMenuComponent,
         ToolbarComponent,
-        MdInputComponent
+        MdInputComponent,
+        CoreUserMenuComponent
     ],
     exports: [
         FormDateComponent,
@@ -35,7 +37,8 @@ import { MainCoreService } from './main-core.service';
         FormControlInputComponent,
         LoadingSpinnerComponent,
         ToolbarComponent,
-        MdInputComponent
+        MdInputComponent,
+        CoreUserMenuComponent
     ],
     providers: [
         StorageService,

@@ -1,0 +1,7 @@
+﻿<i class="fa fa-ellipsis-h on-hover" aria-hidden="true" [mdMenuTriggerFor]="menu"></i>
+<md-menu #menu="mdMenu">
+  <button md-menu-item *ngFor="let item of menuItems" (click)="navigate(item.href)">
+    <md-icon style="margin-top:6px;" class="fa" [ngClass]="item.class"></md-icon>
+    <span [innerHTML]="item.text"></span>
+  </button>
+</md-menu>

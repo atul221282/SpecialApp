@@ -1,5 +1,7 @@
 ﻿<md-toolbar color="primary">
   <!-- This fills the remaining space of the current row -->
   <span fxFlex></span>
-  <core-login-menu></core-login-menu>
+
+  <core-login-menu *ngIf="mainCoreService.hasLoggedIn===false"></core-login-menu>
+  <core-user-menu *ngIf="mainCoreService.hasLoggedIn===true"></core-user-menu>
 </md-toolbar>
