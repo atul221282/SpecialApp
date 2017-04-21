@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { ApiClientService, StorageService } from '../core-module/index';
+import { MainCoreService } from '../core-module/main-core.service';
 import { ILoginModel, IToken } from '../model/account-models';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -8,10 +8,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
     public baseUrl: string = "/account";
-    constructor(private apiService: ApiClientService, private storageService: StorageService) { }
+    constructor(private mainCoreService: MainCoreService) { }
 
     login(model: ILoginModel) {
-        return this.apiService.post(`${this.baseUrl}/Auth`, model)
+        return this.mainCoreService.ApiClientService.post(`${this.baseUrl}/Auth`, model)
+            .map(res => {
+                this.mainCoreService.StorageService.setItem("access_token", res);
+                return res;
+            })
             .catch(this.handleError);
     }
 

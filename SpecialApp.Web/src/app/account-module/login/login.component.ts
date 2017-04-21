@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
     submit() {
         this.submitCall = this.authService.login(this.loginForm.getRawValue())
             .subscribe(res => {
-                this.mainCoreService.StorageService.setItem("access_token", res);
                 this.router.navigate(['/special']);
             }, (error) => {
                 alert(JSON.stringify(error.data));
