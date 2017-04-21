@@ -5,6 +5,8 @@ import { ILoginModel } from '../../model/account-models';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
+import { IToken } from '../../model/';
+import { MainCoreService } from '../../core-module/main-core.service';
 
 @Component({
     selector: 'account-login',
@@ -27,7 +29,8 @@ export class LoginComponent implements OnInit {
         required: 'Password is required'
     };
 
-    constructor(private _fb: FormBuilder, private authService: AuthService, private router: Router) { }
+    constructor(private _fb: FormBuilder, private authService: AuthService,
+        private router: Router, private mainCoreService:MainCoreService) { }
 
     ngOnInit() {
         this.loginForm = this._fb.group({
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
     submit() {
         this.submitCall = this.authService.login(this.loginForm.getRawValue())
             .subscribe(res => {
+                this.mainCoreService.StorageService.setItem("access_token", res);
                 this.router.navigate(['/special']);
             }, (error) => {
                 alert(JSON.stringify(error.data));

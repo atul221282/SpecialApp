@@ -4,9 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    LoadingSpinnerComponent, ApiClientService, ToolbarComponent, LoginMenuComponent,
-    MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent, StorageService
+    LoadingSpinnerComponent, ToolbarComponent, LoginMenuComponent,
+    MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent,
+    ApiClientService,
+    StorageService
 } from './';
+import { MainCoreService } from './main-core.service';
 
 @NgModule({
     imports: [
@@ -35,7 +38,8 @@ import {
     ],
     providers: [
         StorageService,
-        ApiClientService
+        ApiClientService,
+        MainCoreService
     ]
 })
 export class CoreModule { }
