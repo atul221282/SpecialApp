@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/';
 import { Router } from '@angular/router'
-import { LoginMenuService } from '../login-menu.service';
 
 @Component({
     selector: 'core-login-menu',
