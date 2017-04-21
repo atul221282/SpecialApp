@@ -13,7 +13,10 @@ export class AuthService {
     login(model: ILoginModel) {
         return this.mainCoreService.ApiClientService.post(`${this.baseUrl}/Auth`, model)
             .map(res => {
-                this.mainCoreService.StorageService.setItem("access_token", res);
+                debugger;
+                this.mainCoreService.StorageService.setItem(
+                    this.mainCoreService.MainConstantService.variables.access_token,
+                    res);
                 return res;
             })
             .catch(this.handleError);

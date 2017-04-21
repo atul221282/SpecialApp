@@ -9,6 +9,7 @@ import {
     ApiClientService,
     StorageService
 } from './';
+import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MainCoreService } from './main-core.service';
     providers: [
         StorageService,
         ApiClientService,
+        MainConstantService,
         MainCoreService
     ]
 })
