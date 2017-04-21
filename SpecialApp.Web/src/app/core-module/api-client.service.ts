@@ -2,6 +2,7 @@
 import { Http, Response, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from './storage.service';
+import { MainConstantService } from './main-constant.service';
 import { IToken } from '../model/account-models';
 
 @Injectable()
@@ -9,7 +10,8 @@ export class ApiClientService {
     apiUrl: string = "http://localhost:54187/api/";
     constructor(
         private http: Http,
-        private storageService: StorageService
+        private storageService: StorageService,
+        private mainConstantService: MainConstantService
     ) { }
 
     test(message: string) {
@@ -53,7 +55,7 @@ export class ApiClientService {
     }
 
     get accessToken(): string {
-        let token = this.storageService.getItem<IToken>('access-token');
+        let token = this.storageService.getItem<IToken>(this.mainConstantService.variables.access_token);
 
         if (token && token !== null)
             return `bearer ${token.token}`;
