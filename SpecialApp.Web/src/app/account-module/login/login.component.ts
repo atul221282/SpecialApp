@@ -3,11 +3,13 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { EmailValidator } from '../../core-module/';
 import { ILoginModel } from '../../model/account-models';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { IToken } from '../../model/';
 import { MainCoreService } from '../../core-module/main-core.service';
+import {AutoUnsubscribe } from '../../core-module/auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
     selector: 'account-login',
     templateUrl: './login.component.html',
@@ -16,7 +18,10 @@ import { MainCoreService } from '../../core-module/main-core.service';
 export class LoginComponent implements OnInit {
 
     public loginForm: FormGroup;
-    public submitCall: Subscription;
+    public submitWatcher: Subscription;
+    public routeParamsWatcher: Subscription;
+
+    returnUrl: string;
 
     public emailErrors = {
         required: "Email address is required",
@@ -29,9 +34,17 @@ export class LoginComponent implements OnInit {
     };
 
     constructor(private _fb: FormBuilder, private authService: AuthService,
-        private router: Router, private mainCoreService: MainCoreService) { }
+        private router: Router, private mainCoreService: MainCoreService,
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
+        this.routeParamsWatcher = this.route
+            .queryParams
+            .subscribe(params => {
+                this.returnUrl = params['returnUrl'];
+            });
+
         this.loginForm = this._fb.group({
             EmailAddress: [{ value: 'atul221282@gmail.com', disabled: false }, [
                 Validators.required,
@@ -42,17 +55,20 @@ export class LoginComponent implements OnInit {
     }
 
     submit() {
-        this.submitCall = this.authService.login(this.loginForm.getRawValue())
+        this.submitWatcher = this.authService.login(this.loginForm.getRawValue())
             .subscribe(res => {
-                this.router.navigate(['/special']);
+                if (this.returnUrl) {
+                    this.router.navigate([this.returnUrl]);
+                }
+                else {
+                    this.router.navigate(['/special']);
+                }
             }, (error) => {
                 alert(JSON.stringify(error.data));
             });
     }
 
     ngOnDestroy() {
-        if (this.submitCall)
-            this.submitCall.unsubscribe();
     }
 
     cancel() {

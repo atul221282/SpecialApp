@@ -2,7 +2,9 @@
 import { Routes, RouterModule } from '@angular/router';
 import { CanActivateSpecialGuard } from './guard/can-activate-special-guard';
 import { SpecialComponent } from './special.component';
-import { ListComponent } from './list/list.component';
+import { SpecialListComponent } from './special-list/special-list.component';
+import { SpecialEditComponent } from './special-edit/special-edit.component';
+import { SpecialAddComponent } from './special-add/special-add.component';
 
 const routes: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: '/characters' },
@@ -11,7 +13,9 @@ const routes: Routes = [
         component: SpecialComponent,
         canActivate: [CanActivateSpecialGuard],
         children: [
-            { path: '', component: ListComponent }
+            { path: '', component: SpecialListComponent },
+            { path: 'add', component: SpecialAddComponent },
+            { path: 'detail/:id', component: SpecialListComponent }
         ]
     }
 ];
@@ -25,7 +29,8 @@ export class SpecialRouterModule { }
 
 export const routedComponents = [
     SpecialComponent,
-    ListComponent
+    SpecialAddComponent,
+    SpecialListComponent
 ];
 
 /*

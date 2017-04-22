@@ -21,7 +21,7 @@ export class CanActivateSpecialGuard {
         if (this.mainCoreService.hasLoggedIn === true) {
             return true;
         }
-        this.router.navigate(['/account/login'], { queryParams: { redirectTo: state.url } });
+        this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }
 

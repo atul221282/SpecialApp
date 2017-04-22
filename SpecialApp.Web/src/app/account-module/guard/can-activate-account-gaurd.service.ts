@@ -19,7 +19,7 @@ export class CanActivateAccountGaurdService implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.mainCoreService.hasLoggedIn === true) {
-            this.router.navigate(['/special'], { queryParams: { redirectTo: state.url } });
+            this.router.navigate(['/special'], { queryParams: { returnUrl: state.url } });
             return false;
         }
         return true;
