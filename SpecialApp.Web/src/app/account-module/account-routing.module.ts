@@ -7,13 +7,13 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './password/forgot-password.component';
 import { RegisterCustomerComponent } from './register-customer/register-customer.component';
 
-//import { AccountComponent, LoginComponent, ForgotPasswordComponent, RegisterCustomerComponent } from './';
+import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
 
 const routes: Routes = [
-    // { path: '', pathMatch: 'full', redirectTo: '/characters' },
     {
         path: 'account',
         component: AccountComponent,
+        canActivate: [CanActivateAccountGaurdService],
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'forgot-password', component: ForgotPasswordComponent },

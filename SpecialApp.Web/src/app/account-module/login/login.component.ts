@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
         maxlength: EmailValidator.maxlengthMessage,
         invalidEmail: EmailValidator.invalidEmailMessage
     }
-
     public passwordErrors = {
         required: 'Password is required'
     };

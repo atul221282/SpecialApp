@@ -1,15 +1,15 @@
 ﻿import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-//import { AccountComponent, LoginComponent, ForgotPasswordComponent } from './';
-
+import { CanActivateSpecialGuard } from './guard/can-activate-special-guard';
 import { SpecialComponent } from './special.component';
-import {ListComponent } from './list/list.component';
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: '/characters' },
     {
         path: '',
         component: SpecialComponent,
+        canActivate: [CanActivateSpecialGuard],
         children: [
             { path: '', component: ListComponent }
         ]

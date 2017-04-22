@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../core-module/core.module';
 import { CustomerAccountService } from './customer-account.service';
 import { AuthService } from './auth.service';
+import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { AuthService } from './auth.service';
         AccountRouterModule,
         CoreModule
     ],
-    providers: [{ provide: 'Window', useValue: window }, CustomerAccountService, AuthService],
+    providers: [CanActivateAccountGaurdService,
+        { provide: 'Window', useValue: window }, CustomerAccountService, AuthService],
     declarations: [routedComponents]
 })
 export class AccountModule { }

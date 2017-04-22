@@ -1,29 +1,14 @@
-﻿//import { NgModule } from '@angular/core';
-//import { CommonModule } from '@angular/common';
-//import { SpecialService, ListComponent } from './';
-//@NgModule({
-//    imports: [
-
-//    ],
-//    declarations: [
-//        ListComponent
-//    ],
-//    providers: [
-//        SpecialService
-//    ],
-//    bootstrap: [ListComponent]
-//})
-//export class SpecialModule { }
-
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SpecialRouterModule, routedComponents } from './special-routing.module';
+import { CanActivateSpecialGuard } from './guard/can-activate-special-guard';
 
 @NgModule({
     imports: [CommonModule, FormsModule, SpecialRouterModule],
-    declarations: [routedComponents]
+    declarations: [routedComponents],
+    providers: [CanActivateSpecialGuard]
 })
 export class SpecialModule { }
 
