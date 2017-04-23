@@ -1,43 +1,22 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ApiClientService } from './core-module/api-client.service';
+import { Router, NavigationEnd} from '@angular/router';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-    constructor(private apiClientService: ApiClientService) {
+export class AppComponent implements OnInit {
+    constructor(private apiClientService: ApiClientService, private router: Router) {
+        this.router.events.subscribe((val) => {
+            if (val && val instanceof NavigationEnd) {
+                console.info(val.url);
+                localStorage.setItem('previousRoute', val.url);
+            }
+        });
+    }
+
+    ngOnInit() {
+       
     }
 }
-
-//import { Component } from '@angular/core';
-//import { ApiClientService } from './';
-
-//@Component({
-//    selector: 'app-root',
-//    templateUrl: './app.component.html',
-//    styleUrls: ['./app.component.css']
-//})
-//export class AppComponent {
-//    title = 'app works!';
-
-
-
-
-//    getValue() {
-//        this.apiClientService.get<string>('values/1').subscribe(
-//            comments => {
-//                console.info(comments);
-//            },
-//            err => {
-//                console.log(err);
-//            });
-//        this.apiClientService.get<any>('location/4000').subscribe(
-//            location => {
-//                console.info(location);
-//            },
-//            err => {
-//                console.log(err);
-//            });
-//    }
-//}

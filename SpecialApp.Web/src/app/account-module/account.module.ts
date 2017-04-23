@@ -9,6 +9,7 @@ import { CoreModule } from '../core-module/core.module';
 import { CustomerAccountService } from './customer-account.service';
 import { AuthService } from './auth.service';
 import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
+//
 
 @NgModule({
     imports: [

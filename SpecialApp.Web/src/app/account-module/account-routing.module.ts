@@ -6,7 +6,6 @@ import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './password/forgot-password.component';
 import { RegisterCustomerComponent } from './register-customer/register-customer.component';
-
 import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
 
 const routes: Routes = [

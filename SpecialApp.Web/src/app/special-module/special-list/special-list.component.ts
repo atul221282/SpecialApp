@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-special-list',
-  templateUrl: './special-list.component.html',
-  styleUrls: ['./special-list.component.css']
+    selector: 'special-list',
+    templateUrl: './special-list.component.html',
+    styleUrls: ['./special-list.component.css']
 })
-export class SpecialListComponent implements OnInit {
+export class SpecialListComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    ngOnDestroy() {
+    }
 }

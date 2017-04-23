@@ -10,7 +10,7 @@ import {
 import { MainCoreService } from '../../core-module/main-core.service';
 
 @Injectable()
-export class CanActivateSpecialGuard {
+export class CanActivateSpecialGuard implements CanActivate {
 
     constructor(
         private mainCoreService: MainCoreService,
@@ -24,5 +24,4 @@ export class CanActivateSpecialGuard {
         this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }
-
 }
