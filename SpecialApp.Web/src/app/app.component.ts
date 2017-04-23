@@ -10,8 +10,11 @@ import { MainCoreService } from './core-module/main-core.service';
 })
 
 export class AppComponent {
-    constructor(private apiClientService: ApiClientService, private router: Router,
-        private mainCoreService: MainCoreService) {
+    constructor(
+        private apiClientService: ApiClientService,
+        private router: Router,
+        private mainCoreService: MainCoreService
+    ) {
         this.router.events.subscribe((val) => {
             if (val && val instanceof NavigationEnd) {
                 console.info(val.url);
