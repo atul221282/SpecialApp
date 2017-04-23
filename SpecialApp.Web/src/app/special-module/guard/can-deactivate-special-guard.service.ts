@@ -20,7 +20,6 @@ export class CanDeactivateSpecialGuardService implements CanDeactivate<SpecialAd
         currentState: RouterStateSnapshot,
         nextState: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        //localStorage.setItem('previousRoute', this.router.url);
         return true;
     }
 }

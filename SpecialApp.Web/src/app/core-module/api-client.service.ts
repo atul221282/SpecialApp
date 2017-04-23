@@ -55,7 +55,7 @@ export class ApiClientService {
     }
 
     get accessToken(): string {
-        let token = this.storageService.getItem<IToken>(this.mainConstantService.variables.access_token);
+        let token = this.storageService.getItem<IToken>(this.mainConstantService.commonVariable.access_token);
 
         if (token && token !== null)
             return `bearer ${token.token}`;

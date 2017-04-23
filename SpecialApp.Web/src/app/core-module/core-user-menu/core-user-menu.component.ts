@@ -25,7 +25,7 @@ export class CoreUserMenuComponent implements OnInit {
         switch (href) {
             case 'logout':
                 {
-                    this.mainCoreService.StorageService.removeItem(this.mainCoreService.MainConstantService.variables.access_token);
+                    this.mainCoreService.StorageService.removeItem(this.mainCoreService.MainConstantService.commonVariable.access_token);
                     this.router.navigate(['account/login']);
                     break;
                 }

@@ -7,7 +7,7 @@ import { MainConstantService } from './main-constant.service';
 export class MainCoreService {
 
     get hasLoggedIn(): boolean {
-        return this.StorageService.getItem(this.MainConstantService.variables.access_token) !== null;
+        return this.StorageService.getItem(this.MainConstantService.commonVariable.access_token) !== null;
     }
 
     constructor(

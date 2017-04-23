@@ -14,7 +14,7 @@ export class AuthService {
         return this.mainCoreService.ApiClientService.post(`${this.baseUrl}/Auth`, model)
             .map(res => {
                 this.mainCoreService.StorageService.setItem(
-                    this.mainCoreService.MainConstantService.variables.access_token,
+                    this.mainCoreService.MainConstantService.commonVariable.access_token,
                     res);
                 return res;
             })

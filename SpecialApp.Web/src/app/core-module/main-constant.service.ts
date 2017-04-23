@@ -3,8 +3,9 @@
 @Injectable()
 export class MainConstantService {
 
-    variables = {
-        access_token: "access_token"
+    commonVariable = {
+        access_token: "access_token",
+        previous_url: "previousUrl"
     }
     constructor() {
 
