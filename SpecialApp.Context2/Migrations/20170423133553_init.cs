@@ -545,6 +545,38 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanyFranchiseUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
+                    AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
+                    CompanyFranchiseId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    UsersId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyFranchiseUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompanyFranchiseUsers_CompanyFranchise_CompanyFranchiseId",
+                        column: x => x.CompanyFranchiseId,
+                        principalTable: "CompanyFranchise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CompanyFranchiseUsers_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanyFranchiseViewed",
                 columns: table => new
                 {
@@ -843,6 +875,17 @@ namespace SpecialApp.Context.Migrations
                 column: "CompanyFranchiseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompanyFranchiseUsers_CompanyFranchiseId",
+                table: "CompanyFranchiseUsers",
+                column: "CompanyFranchiseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyFranchiseUsers_UsersId",
+                table: "CompanyFranchiseUsers",
+                column: "UsersId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyFranchiseViewed_CompanyFranchiseId",
                 table: "CompanyFranchiseViewed",
                 column: "CompanyFranchiseId");
@@ -953,6 +996,9 @@ namespace SpecialApp.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanyFranchiseFollowedBy");
+
+            migrationBuilder.DropTable(
+                name: "CompanyFranchiseUsers");
 
             migrationBuilder.DropTable(
                 name: "CompanyFranchiseViewed");

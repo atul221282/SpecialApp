@@ -15,5 +15,7 @@ namespace SpecialApp.Entity.Companies
         public List<CompanyAddress> CompanyAddresses { get; set; }
 
         public List<CompanyFollowedBy> CompanyFollowedBy { get; set; }
+
+        public List<CompanyUsers> CompanyUsers { get; set; }
     }
 }

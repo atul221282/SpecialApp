@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170423131924_init")]
+    [Migration("20170423133553_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -451,6 +451,46 @@ namespace SpecialApp.Context.Migrations
                     b.HasIndex("CompanyFranchiseId");
 
                     b.ToTable("CompanyFranchiseFollowedBy");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseUsers", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuditCreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditCreatedDate")
+                        .IsRequired();
+
+                    b.Property<string>("AuditLastUpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTimeOffset?>("AuditLastUpdatedDate")
+                        .IsRequired();
+
+                    b.Property<int>("CompanyFranchiseId");
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UsersId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyFranchiseId");
+
+                    b.HasIndex("UsersId")
+                        .IsUnique();
+
+                    b.ToTable("CompanyFranchiseUsers");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseViewed", b =>
@@ -1007,6 +1047,17 @@ namespace SpecialApp.Context.Migrations
                         .HasForeignKey("SpecialAppUsersId");
                 });
 
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseUsers", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
+                        .WithMany("CompanyFranchiseUsers")
+                        .HasForeignKey("CompanyFranchiseId");
+
+                    b.HasOne("SpecialApp.Entity.Account.Users", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId");
+                });
+
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseViewed", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
@@ -1021,7 +1072,7 @@ namespace SpecialApp.Context.Migrations
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyUsers", b =>
                 {
                     b.HasOne("SpecialApp.Entity.Companies.Company", "Company")
-                        .WithMany()
+                        .WithMany("CompanyUsers")
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("SpecialApp.Entity.Account.Users", "Users")

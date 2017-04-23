@@ -54,6 +54,7 @@ namespace SpecialApp.Context
             new CompanyFranchiseFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFranchiseFollowedBy>());
             new CompanyFranchiseViewedConfiguration(modelBuilder.Entity<CompanyFranchiseViewed>());
             new CompanyUsersConfiguration(modelBuilder.Entity<CompanyUsers>());
+            new CompanyFranchiseUsersConfiguration(modelBuilder.Entity<CompanyFranchiseUsers>());
 
             new SpecialCategoryConfiguration(modelBuilder.Entity<SpecialCategory>());
             new SpecialConfiguration(modelBuilder.Entity<Special>());
@@ -80,7 +81,8 @@ namespace SpecialApp.Context
         public virtual DbSet<CompanyAddress> CompanyAddress { get; set; }
         public virtual DbSet<CompanyFollowedBy> CompanyFollowedByUsers { get; set; }
         public virtual DbSet<CompanyUsers> CompanyUsers { get; set; }
-
+        public virtual DbSet<CompanyFranchiseUsers> CompanyFranchiseUsers { get; set; }
+        
         public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
         public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
         public virtual DbSet<CompanyFranchiseFollowedBy> CompanyFranchiseFollowedBy { get; set; }

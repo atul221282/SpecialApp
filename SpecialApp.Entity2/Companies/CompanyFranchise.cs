@@ -37,5 +37,7 @@ namespace SpecialApp.Entity.Companies
 
         public List<Special> Specials { get; set; }
 
+        public List<CompanyFranchiseUsers> CompanyFranchiseUsers { get; set; }
+
     }
 }
