@@ -32,6 +32,7 @@ namespace SpecialApp.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //This is required as we got circular reference in fwe entities
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
@@ -52,6 +53,7 @@ namespace SpecialApp.Context
             new CompanyFranchiseConfiguration(modelBuilder.Entity<CompanyFranchise>());
             new CompanyFranchiseFollowedByUsersConfiguration(modelBuilder.Entity<CompanyFranchiseFollowedBy>());
             new CompanyFranchiseViewedConfiguration(modelBuilder.Entity<CompanyFranchiseViewed>());
+            new CompanyUsersConfiguration(modelBuilder.Entity<CompanyUsers>());
 
             new SpecialCategoryConfiguration(modelBuilder.Entity<SpecialCategory>());
             new SpecialConfiguration(modelBuilder.Entity<Special>());
@@ -77,6 +79,7 @@ namespace SpecialApp.Context
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<CompanyAddress> CompanyAddress { get; set; }
         public virtual DbSet<CompanyFollowedBy> CompanyFollowedByUsers { get; set; }
+        public virtual DbSet<CompanyUsers> CompanyUsers { get; set; }
 
         public virtual DbSet<CompanyFranchise> CompanyFranchise { get; set; }
         public virtual DbSet<CompanyFranchiseCategory> CompanyFranchiseCategory { get; set; }
