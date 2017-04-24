@@ -6,10 +6,11 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 
-import { MainCoreService } from '../../core-module/main-core.service';
+import { MainCoreService } from '../main-core.service';
 
 @Injectable()
-export class CanActivateAccountGaurdService implements CanActivate {
+export class CanActivateUnAuthGuardService {
+
     constructor(
         private mainCoreService: MainCoreService,
         private router: Router

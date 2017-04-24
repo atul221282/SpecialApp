@@ -6,13 +6,13 @@ import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './password/forgot-password.component';
 import { RegisterCustomerComponent } from './register-customer/register-customer.component';
-import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
+import { CanActivateUnAuthGuardService } from '../core-module/guard/can-activate-unauth-guard.service';
 
 const routes: Routes = [
     {
         path: 'account',
         component: AccountComponent,
-        canActivate: [CanActivateAccountGaurdService],
+        canActivate: [CanActivateUnAuthGuardService],
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'forgot-password', component: ForgotPasswordComponent },

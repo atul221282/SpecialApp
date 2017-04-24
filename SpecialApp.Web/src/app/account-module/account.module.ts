@@ -6,10 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountRouterModule, routedComponents } from './account-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../core-module/core.module';
+
 import { CustomerAccountService } from './customer-account.service';
 import { AuthService } from './auth.service';
-import { CanActivateAccountGaurdService } from './guard/can-activate-account-gaurd.service';
-//
 
 @NgModule({
     imports: [
@@ -22,8 +21,7 @@ import { CanActivateAccountGaurdService } from './guard/can-activate-account-gau
         AccountRouterModule,
         CoreModule
     ],
-    providers: [CanActivateAccountGaurdService,
-        { provide: 'Window', useValue: window }, CustomerAccountService, AuthService],
+    providers: [{ provide: 'Window', useValue: window }, CustomerAccountService, AuthService],
     declarations: [routedComponents]
 })
 export class AccountModule { }

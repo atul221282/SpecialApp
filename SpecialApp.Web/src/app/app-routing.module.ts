@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/account/login' },
     { path: 'special', loadChildren: 'app/special-module/special.module#SpecialModule' },
+    { path: 'franchise', loadChildren: 'app/franchise-module/franchise.module#FranchiseModule' },
     //{ path: 'special', pathMatch: 'full', redirectTo: '/special' },
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];

@@ -12,6 +12,7 @@ import {
 } from './';
 import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
+import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import { MainCoreService } from './main-core.service';
         CoreUserMenuComponent
     ],
     providers: [
+        CanActivateUnAuthGuardService,
         StorageService,
         ApiClientService,
         MainConstantService,
