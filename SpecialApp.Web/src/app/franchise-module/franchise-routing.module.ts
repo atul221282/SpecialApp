@@ -10,7 +10,9 @@ const routes: Routes = [
         path: '',
         component: FranchiseComponent,
         children: [
-            { path: 'register', component: RegisterFranchiseComponent, canActivate: [CanActivateUnAuthGuardService] },
+            {
+                path: 'register', component: RegisterFranchiseComponent, canActivate: [CanActivateUnAuthGuardService]
+            },
         ]
     }
 ];

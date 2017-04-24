@@ -49,4 +49,5 @@ import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard
         MainCoreService
     ]
 })
+
 export class CoreModule { }
