@@ -521,6 +521,30 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanyFranchiseAddress",
+                columns: table => new
+                {
+                    AddressId = table.Column<int>(nullable: false),
+                    CompanyFranchiseId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyFranchiseAddress", x => new { x.AddressId, x.CompanyFranchiseId });
+                    table.ForeignKey(
+                        name: "FK_CompanyFranchiseAddress_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CompanyFranchiseAddress_CompanyFranchise_CompanyFranchiseId",
+                        column: x => x.CompanyFranchiseId,
+                        principalTable: "CompanyFranchise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanyFranchiseFollowedBy",
                 columns: table => new
                 {
@@ -870,6 +894,11 @@ namespace SpecialApp.Context.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompanyFranchiseAddress_CompanyFranchiseId",
+                table: "CompanyFranchiseAddress",
+                column: "CompanyFranchiseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyFranchiseFollowedBy_CompanyFranchiseId",
                 table: "CompanyFranchiseFollowedBy",
                 column: "CompanyFranchiseId");
@@ -993,6 +1022,9 @@ namespace SpecialApp.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanyFollowedByUsers");
+
+            migrationBuilder.DropTable(
+                name: "CompanyFranchiseAddress");
 
             migrationBuilder.DropTable(
                 name: "CompanyFranchiseFollowedBy");

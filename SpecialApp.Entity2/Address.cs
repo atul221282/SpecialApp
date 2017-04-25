@@ -25,7 +25,6 @@
         /// <summary>
         /// Gets or sets the Country
         /// </summary>
-
         public virtual Country Country
         {
             get { return _country; }
@@ -35,7 +34,6 @@
         /// <summary>
         /// Gets or sets the State
         /// </summary>
-
         public string AddressState
         {
             get { return _addresState; }
@@ -45,7 +43,6 @@
         /// <summary>
         /// Gets or sets the PostalCode
         /// </summary>
-
         public string PostalCode
         {
             get { return _postalCode; }
@@ -55,7 +52,6 @@
         /// <summary>
         /// Gets or sets the province
         /// </summary>
-
         public string Province
         {
             get { return _province; }
@@ -65,7 +61,6 @@
         /// <summary>
         /// Gets or sets the address line 2
         /// </summary>
-
         public string AddressLine2
         {
             get { return _addressLine2; }
@@ -75,7 +70,6 @@
         /// <summary>
         /// Gets or sets the address line 1
         /// </summary>
-
         public string AddressLine1
         {
             get { return _addressLine1; }
@@ -85,7 +79,6 @@
         /// <summary>
         /// Gets or sets City
         /// </summary>
-
         public string City
         {
             get { return _city; }
@@ -95,13 +88,11 @@
         /// <summary>
         /// Gets or sets the suburb
         /// </summary>
-
         public string Suburb
         {
             get { return _suburb; }
             set { _suburb = value; }
         }
-
 
         public int AddressTypeId
         {
@@ -109,13 +100,10 @@
             set { _addressTypeId = value; }
         }
 
-
-
         public virtual AddressType AddressType
         {
             get { return _addressType; }
             set { _addressType = value; }
         }
-
     }
 }

@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170423133553_init")]
+    [Migration("20170425094244_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -401,6 +401,19 @@ namespace SpecialApp.Context.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("CompanyFranchise");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseAddress", b =>
+                {
+                    b.Property<int>("AddressId");
+
+                    b.Property<int>("CompanyFranchiseId");
+
+                    b.HasKey("AddressId", "CompanyFranchiseId");
+
+                    b.HasIndex("CompanyFranchiseId");
+
+                    b.ToTable("CompanyFranchiseAddress");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseCategory", b =>
@@ -1034,6 +1047,17 @@ namespace SpecialApp.Context.Migrations
                     b.HasOne("SpecialApp.Entity.SpecialAppUsers", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
+                });
+
+            modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseAddress", b =>
+                {
+                    b.HasOne("SpecialApp.Entity.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("SpecialApp.Entity.Companies.CompanyFranchise", "CompanyFranchise")
+                        .WithMany("CompanyFranchiseAddresses")
+                        .HasForeignKey("CompanyFranchiseId");
                 });
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchiseFollowedBy", b =>
