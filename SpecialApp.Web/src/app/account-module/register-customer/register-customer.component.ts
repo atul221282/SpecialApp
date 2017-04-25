@@ -5,7 +5,7 @@ import { CustomerAccountService } from '../customer-account.service';
 import { IRegisterCustomer } from '../../model/account-models';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-
+import { FormGroupService } from '../../core-module/form-group/form-group.service';
 @Component({
     selector: 'account-register-customer',
     templateUrl: './register-customer.component.html',
@@ -50,13 +50,12 @@ export class RegisterCustomerComponent implements OnInit {
     public foods: Array<any>;
     public submitCall: Subscription;
     constructor(private _fb: FormBuilder, @Inject('Window') private window: Window,
-        private customerAccount: CustomerAccountService, private router: Router) { }
+        private customerAccount: CustomerAccountService, private router: Router,
+        private formGroupService: FormGroupService) { }
 
     ngOnInit() {
-        this.pwdGroup = this._fb.group({
-            Password: ['Cloudno9!', Validators.required],
-            ConfirmPassword: ['Cloudno9!', Validators.required],
-        }, { validator: ConfirmPasswordValidator.passwordMatcher('Password', 'ConfirmPassword') });
+        
+        this.pwdGroup = this.formGroupService.confirmPassword.getFormGroup();
 
         this.registerForm = this._fb.group({
             EmailAddress: [{ value: 'atul221282@gmail.com', disabled: false }, [

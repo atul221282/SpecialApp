@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../core-module/';
+import { FormGroupService } from '../../core-module/form-group/form-group.service';
 
 @Component({
     selector: 'register-franchise',
@@ -14,13 +15,26 @@ export class RegisterFranchiseComponent implements OnInit {
         required: "Franchise name is required"
     }
 
-    constructor(private _fb: FormBuilder) { }
+    constructor(
+        private _fb: FormBuilder,
+        private formGroupService: FormGroupService
+    ) {
+        
+    }
 
     ngOnInit() {
+        this.formGroupService.addressGroup.isStateRequired = false;
+
         this.registerFranchiseForm = this._fb.group({
-            Name: [{ value: 'Woolies', disabled: false }, [
+            CompanyId: [{ value: null, disabled: false }, [
                 Validators.required
-            ]]
+            ]],
+            AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
+            IsConfirmed: [{ value: false }, Validators.required],
+            CanGetCustomerDetails: [{ value: false }, Validators.required],
+            CanContactCustomers: [{ value: false }, Validators.required],
+            CanSellOnline: [{ value: false }, Validators.required],
+            CompanyFranchiseCategoryId: [{ value: null }, Validators.required],
         });
     }
 

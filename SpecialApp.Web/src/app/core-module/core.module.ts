@@ -13,7 +13,9 @@ import {
 import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
 import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
-
+import { FormGroupService } from './form-group/form-group.service';
+import { AddressGroupService } from './form-group/address-group.service';
+import { ConfirmPasswordService} from './form-group/confirm-password.service';
 @NgModule({
     imports: [
         CommonModule,
@@ -42,7 +44,10 @@ import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard
         CoreUserMenuComponent
     ],
     providers: [
+        ConfirmPasswordService,
+        AddressGroupService,
         CanActivateUnAuthGuardService,
+        FormGroupService,
         StorageService,
         ApiClientService,
         MainConstantService,

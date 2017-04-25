@@ -9,31 +9,17 @@
           <div fxLayout.gt-xs="row" fxLayout="column">
 
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+              <form-control-input property="AddressState" [form]="registerFranchiseForm.get('AddressGroup')"
+                                   spPlaceholder="State" [spRequired]="formGroupService.addressGroup.isStateRequired"
+                                  [validationMessages]="formGroupService.addressGroup.AddressStateError">
+              </form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
-            </div>
-          </div>
-
-          <div fxLayout.gt-xs="row" fxLayout="column">
-
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
           </div>
@@ -41,15 +27,31 @@
           <div fxLayout.gt-xs="row" fxLayout="column">
 
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Name" [form]="registerFranchiseForm" [validationMessages]="name"
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
+                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+            </div>
+          </div>
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
+                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
+                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
           </div>

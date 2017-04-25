@@ -4,6 +4,7 @@ using SpecialApp.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SpecialApp.Entity.Account;
 
 namespace SpecialApp.Entity.Companies
 {
@@ -25,8 +26,8 @@ namespace SpecialApp.Entity.Companies
         public int CompanyFranchiseCategoryId { get; set; }
         public virtual CompanyFranchiseCategory CompanyFranchiseCategory { get; set; }
 
-        public string CreatedById { get; set; }
-        public virtual SpecialAppUsers CreatedBy { get; set; }
+        public int CreatedById { get; set; }
+        public Users CreatedBy { get; set; }
 
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
