@@ -16,7 +16,7 @@ interface IBaseEntity {
     AuditCreatedDate?: Date;
     AuditLastUpdatedDate?: Date;
     IsDeleted?: boolean;
-    State: number;
+    State?: number;
     RowVersion: Array<number>;
 }
 

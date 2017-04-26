@@ -1,5 +1,7 @@
-﻿import { Component, OnInit, Input, OnChanges } from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import * as _ from 'lodash';
+
 @Component({
     selector: 'form-select',
     templateUrl: './form-select.component.html',
@@ -35,10 +37,15 @@ export class FormSelectComponent implements OnInit, OnChanges {
         this.parentControl.valueChanges.debounceTime(this.debounceTime).subscribe(value => this.setForm(value));
     }
 
-    ngOnChanges() {
+    ngOnChanges(changes: SimpleChanges) {
         this.filteredStates = this.control.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
+
+        if (changes['list'] && changes['list'].currentValue && this.parentControl && this.parentControl.value) {
+            this.control.setValue(_.find(this.list, ['Id',this.parentControl.value]))
+            
+        }
     }
 
     filterStates(val: string) {
@@ -59,8 +66,14 @@ export class FormSelectComponent implements OnInit, OnChanges {
     }
 
     setForm(value: number) {
-        if (value === null)
+        if (value === null) {
             this.control.setValue(null);
+        }
+        else {
+            if (this.list) {
+                this.control.setValue(_.find(this.list, [this.spValueField, this.parentControl.value]));
+            }
+        }
         this.setMessage(this.parentControl);
     }
 

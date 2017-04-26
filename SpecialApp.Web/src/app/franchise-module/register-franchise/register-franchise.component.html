@@ -19,16 +19,17 @@
               </form-control-input>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+              <form-control-input property="PostCode" [form]="registerFranchiseForm.get('AddressGroup')"
+                                  spPlaceholder="Postcode" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
+                                  [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
             </div>
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+              <form-select [list]="AddressTypes" spTextField="Description" spValueField="Id" 
+                           [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-select>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"

@@ -3,9 +3,12 @@ import { FranchiseRouterModule, routedComponents } from './franchise-routing.mod
 import { CoreModule } from '../core-module/core.module';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
     imports: [
+        CommonModule,
         FranchiseRouterModule,
         FlexLayoutModule,
         MaterialModule,

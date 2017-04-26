@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { EmailValidator } from '../../core-module/';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
+
 @Component({
     selector: 'register-franchise',
     templateUrl: './register-franchise.component.html',
@@ -14,15 +15,23 @@ export class RegisterFranchiseComponent implements OnInit {
     name = {
         required: "Franchise name is required"
     }
-
+    AddressTypes: Array<any>;
     constructor(
         private _fb: FormBuilder,
         private formGroupService: FormGroupService
     ) {
-        
+
     }
 
     ngOnInit() {
+        setTimeout(() => {
+            this.AddressTypes = [
+                { Id: 1, Description: "Home", RowVersion: null },
+                { Id: 2, Description: "Postal", RowVersion: null },
+                { Id: 3, Description: "Office", RowVersion: null }
+            ];
+        }, 3000)
+
         this.formGroupService.addressGroup.isStateRequired = true;
 
         this.registerFranchiseForm = this._fb.group({
@@ -36,6 +45,11 @@ export class RegisterFranchiseComponent implements OnInit {
             CanSellOnline: [{ value: false }, Validators.required],
             CompanyFranchiseCategoryId: [{ value: null }, Validators.required],
         });
+
+        setTimeout(() => {
+            this.registerFranchiseForm.patchValue({ AddressGroup: { AddressState: 'SA', PostCode: '5092', AddressTypeId: 3 } });
+        }, 2000);
+
     }
 
 }
