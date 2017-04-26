@@ -5,7 +5,7 @@ import { CustomerAccountService } from '../customer-account.service';
 import { IRegisterCustomer } from '../../model/account-models';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { FormGroupService } from '../../core-module/form-group/form-group.service';
+import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 @Component({
     selector: 'account-register-customer',
     templateUrl: './register-customer.component.html',

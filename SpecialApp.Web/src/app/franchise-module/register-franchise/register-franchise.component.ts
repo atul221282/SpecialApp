@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../core-module/';
-import { FormGroupService } from '../../core-module/form-group/form-group.service';
+import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
 @Component({
     selector: 'register-franchise',
@@ -23,7 +23,7 @@ export class RegisterFranchiseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.formGroupService.addressGroup.isStateRequired = false;
+        this.formGroupService.addressGroup.isStateRequired = true;
 
         this.registerFranchiseForm = this._fb.group({
             CompanyId: [{ value: null, disabled: false }, [
