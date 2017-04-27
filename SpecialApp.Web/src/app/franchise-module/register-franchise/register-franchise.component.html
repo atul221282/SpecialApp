@@ -30,14 +30,17 @@
               <!--<form-select [list]="AddressTypes" spTextField="Description" spValueField="Id"
                            [validationMessages]="formGroupService.addressGroup.AddressTypeError"
                            property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-select>-->
-              <core-address-list spTextField="Description" spValueField="Id" property="AddressTypeId"
-                                 [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                                 [form]="registerFranchiseForm.get('AddressGroup')">
-              </core-address-list>
+              <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
+                         spPlaceholder="Address Type"
+                         [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                         [form]="registerFranchiseForm.get('AddressGroup')" lpName="AddressType">
+              </core-list>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+              <core-list spTextField="Description" spValueField="Id" property="CompanyFranchiseCategoryId"
+                         [validationMessages]="companyFranchiseCategoryError" spPlaceholder="Category"
+                         [form]="registerFranchiseForm" lpName="CompanyFranchiseCategory">
+              </core-list>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
@@ -45,19 +48,15 @@
             </div>
           </div>
 
-          <div fxLayout.gt-xs="row" fxLayout="column">
-
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+          <div fxLayout.gt-sm="row" fxLayout="column" [formGroup]="registerFranchiseForm">
+            <div fxFlex fxFlex.gt-sm="33" class="padding-5" >
+              <md-checkbox formControlName="CanContactCustomers">Can be contacted</md-checkbox>
             </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+            <div fxFlex fxFlex.gt-sm="33" class="padding-5">
+              <md-checkbox formControlName="CanSellOnline">Can sell online</md-checkbox>
             </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+            <div fxFlex fxFlex.gt-sm="33" class="padding-5">
+              <md-checkbox formControlName="CanGetCustomerDetails">Can get customer details</md-checkbox>
             </div>
           </div>
 

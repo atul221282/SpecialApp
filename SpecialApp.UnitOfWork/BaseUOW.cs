@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using SpecialApp.Repository;
 using SpecialApp.Repository.Helpers;
 using System.Threading.Tasks;
 
@@ -18,6 +19,11 @@ namespace SpecialApp.UnitOfWork
         {
             context.ApplyStateChange();
             return await context.SaveChangesAsync();
+        }
+
+        public IRepository<T> GetRepository<T>() where T : class
+        {
+            return new Repository<T>(context);
         }
 
         /// <summary>

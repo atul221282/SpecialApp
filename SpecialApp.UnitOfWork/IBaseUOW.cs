@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using SpecialApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,7 @@ namespace SpecialApp.UnitOfWork
         Task<int> CommitAsync();
 
         Task<IDbContextTransaction> BeginTransaction();
+
+        IRepository<T> GetRepository<T>() where T : class;
     }
 }

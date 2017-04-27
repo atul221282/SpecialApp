@@ -65,4 +65,8 @@
   <ItemGroup>
     <RefactorLog Include="SpecialApp.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CompanyFranchiseCategory.sql" />
+    <None Include="AddressType.sql" />
+  </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ export class FormSelectComponent implements OnInit, OnChanges {
     @Input() spValueField: string;
     @Input() form: FormGroup;
     @Input() property: string;
+    @Input() spPlaceholder: string;
+    
     @Input() validationMessages: any;
 
     //listData: Array<any>;
@@ -27,6 +29,9 @@ export class FormSelectComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        if (!this.spPlaceholder || this.spPlaceholder === null)
+            this.spPlaceholder = this.property;
+
         this.tooltipPosition = 'before';
         this.parentControl = this.form.get(this.property);
         this.filteredStates = this.control.valueChanges

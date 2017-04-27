@@ -8,6 +8,6 @@ namespace SpecialApp.UnitOfWork
     {
         ISpecialRepository SpecialRepository { get; }
 
-        IRepository<T> GetRepository<T>() where T : class;
+        
     }
 }

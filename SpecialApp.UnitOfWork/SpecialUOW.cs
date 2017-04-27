@@ -19,9 +19,5 @@ namespace SpecialApp.UnitOfWork
         public ISpecialRepository SpecialRepository
             => _specialRepository = _specialRepository ?? new SpecialRepository(context);
 
-        public IRepository<T> GetRepository<T>() where T : class
-        {
-            return new Repository<T>(context);
-        }
     }
 }

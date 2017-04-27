@@ -9,7 +9,7 @@
 </div>-->
 <md-input-container fxFlexFill>
   
-  <input mdInput fxFlexFill placeholder="State" [mdAutocomplete]="auto" [formControl]="control">
+  <input mdInput fxFlexFill [placeholder]="spPlaceholder"  [mdAutocomplete]="auto" [formControl]="control">
   <i md-suffix class="fa fa-exclamation-triangle" style="color:red;" *ngIf="errorMessages"
      aria-hidden="true" [mdTooltip]="errorMessages" [mdTooltipPosition]="tooltipPosition"></i>
 </md-input-container>

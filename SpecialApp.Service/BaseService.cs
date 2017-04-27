@@ -9,8 +9,8 @@ namespace SpecialApp.Service
 {
     public abstract class BaseService : IBaseService
     {
-        private IBaseUOW _uow;
-        
+        protected readonly IBaseUOW _uow;
+
         protected BaseService(IBaseUOW uow)
         {
             this._uow = uow;
@@ -21,7 +21,7 @@ namespace SpecialApp.Service
             return await _uow.BeginTransaction();
         }
 
-        public async  Task CommitAsync()
+        public async Task CommitAsync()
         {
             await _uow.CommitAsync();
         }

@@ -1,1 +1,0 @@
-﻿export * from './address-list/address-list.component';

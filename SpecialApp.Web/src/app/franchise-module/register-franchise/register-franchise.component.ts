@@ -15,6 +15,9 @@ export class RegisterFranchiseComponent implements OnInit {
     name = {
         required: "Franchise name is required"
     }
+    companyFranchiseCategoryError = {
+        required: "CompanyFranchiseCategory is required"
+    }
     AddressTypes: Array<any>;
     constructor(
         private _fb: FormBuilder,
@@ -24,32 +27,19 @@ export class RegisterFranchiseComponent implements OnInit {
     }
 
     ngOnInit() {
-        setTimeout(() => {
-            this.AddressTypes = [
-                { Id: 1, Description: "Home", RowVersion: null },
-                { Id: 2, Description: "Postal", RowVersion: null },
-                { Id: 3, Description: "Office", RowVersion: null }
-            ];
-        }, 3000)
-
         this.formGroupService.addressGroup.isStateRequired = true;
 
         this.registerFranchiseForm = this._fb.group({
             CompanyId: [{ value: null, disabled: false }, [
                 Validators.required
             ]],
+            CompanyFranchiseCategoryId: [null, Validators.required],
             AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
             IsConfirmed: [{ value: false }, Validators.required],
-            CanGetCustomerDetails: [{ value: false }, Validators.required],
-            CanContactCustomers: [{ value: false }, Validators.required],
-            CanSellOnline: [{ value: false }, Validators.required],
-            CompanyFranchiseCategoryId: [{ value: null }, Validators.required],
+            CanGetCustomerDetails: [false, Validators.required],
+            CanContactCustomers: [false, Validators.required],
+            CanSellOnline: [false, Validators.required],
         });
-
-        setTimeout(() => {
-            this.registerFranchiseForm.patchValue({ AddressGroup: { AddressState: 'SA', PostCode: '5092', AddressTypeId: 3 } });
-        }, 2000);
-
     }
 
 }

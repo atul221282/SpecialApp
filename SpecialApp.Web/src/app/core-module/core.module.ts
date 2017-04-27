@@ -8,13 +8,13 @@ import {
     LoadingSpinnerComponent, ToolbarComponent, LoginMenuComponent,
     MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent,
     ApiClientService,
-    StorageService
+    StorageService,
+    CoreListComponent
 } from './';
 import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
 import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
 import { FormControlModule } from '../form-control-module/form-control.module';
-import { AddressListComponent } from './select-input/';
 
 @NgModule({
     imports: [
@@ -34,7 +34,7 @@ import { AddressListComponent } from './select-input/';
         ToolbarComponent,
         MdInputComponent,
         CoreUserMenuComponent,
-        AddressListComponent,
+        CoreListComponent,
     ],
     exports: [
         FormDateComponent,
@@ -44,7 +44,7 @@ import { AddressListComponent } from './select-input/';
         ToolbarComponent,
         MdInputComponent,
         CoreUserMenuComponent,
-        AddressListComponent
+        CoreListComponent
     ],
     providers: [
         CanActivateUnAuthGuardService,
