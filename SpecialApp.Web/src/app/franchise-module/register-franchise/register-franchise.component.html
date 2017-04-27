@@ -14,7 +14,7 @@
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <form-control-input property="AddressState" [form]="registerFranchiseForm.get('AddressGroup')"
-                                   spPlaceholder="State" [spRequired]="formGroupService.addressGroup.isStateRequired"
+                                  spPlaceholder="State" [spRequired]="formGroupService.addressGroup.isStateRequired"
                                   [validationMessages]="formGroupService.addressGroup.AddressStateError">
               </form-control-input>
             </div>
@@ -27,9 +27,13 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-select [list]="AddressTypes" spTextField="Description" spValueField="Id" 
+              <!--<form-select [list]="AddressTypes" spTextField="Description" spValueField="Id"
                            [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-select>
+                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-select>-->
+              <core-address-list spTextField="Description" spValueField="Id" property="AddressTypeId"
+                                 [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                                 [form]="registerFranchiseForm.get('AddressGroup')">
+              </core-address-list>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"

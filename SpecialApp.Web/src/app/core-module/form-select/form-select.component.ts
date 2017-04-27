@@ -44,7 +44,6 @@ export class FormSelectComponent implements OnInit, OnChanges {
 
         if (changes['list'] && changes['list'].currentValue && this.parentControl && this.parentControl.value) {
             this.control.setValue(_.find(this.list, ['Id',this.parentControl.value]))
-            
         }
     }
 
