@@ -4,15 +4,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { FranchiseComponent } from './franchise/franchise.component';
 import { RegisterFranchiseComponent } from './register-franchise/register-franchise.component';
 import { CanActivateUnAuthGuardService } from '../core-module/guard/can-activate-unauth-guard.service';
-
+import { AddBusinessComponent } from './add-business/add-business.component';
 const routes: Routes = [
     {
         path: '',
         component: FranchiseComponent,
         children: [
-            {
-                path: 'register', component: RegisterFranchiseComponent, canActivate: [CanActivateUnAuthGuardService]
-            },
+            { path: 'register', component: RegisterFranchiseComponent, canActivate: [CanActivateUnAuthGuardService] }
+            //{
+            //    path: 'add', component: AddBusinessComponent, canActivate: [CanActivateUnAuthGuardService],
+            //    children: [
+            //        { path: 'user', component: RegisterFranchiseComponent }
+            //    ]
+            //}
         ]
     }
 ];
@@ -26,7 +30,8 @@ export class FranchiseRouterModule { }
 
 export const routedComponents = [
     FranchiseComponent,
-    RegisterFranchiseComponent
+    RegisterFranchiseComponent,
+    AddBusinessComponent
 ];
 
 /*

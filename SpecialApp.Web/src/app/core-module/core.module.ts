@@ -7,10 +7,9 @@ import { CoreUserMenuComponent } from './core-user-menu/core-user-menu.component
 import {
     LoadingSpinnerComponent, ToolbarComponent, LoginMenuComponent,
     MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent,
-    ApiClientService,
-    StorageService,
-    CoreListComponent
+    ApiClientService, StorageService, CoreListComponent
 } from './';
+import {FlexInputDirective } from './flex-form-input/flex-input.directive';
 import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
 import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
@@ -35,6 +34,7 @@ import { FormControlModule } from '../form-control-module/form-control.module';
         MdInputComponent,
         CoreUserMenuComponent,
         CoreListComponent,
+        FlexInputDirective
     ],
     exports: [
         FormDateComponent,
@@ -44,7 +44,8 @@ import { FormControlModule } from '../form-control-module/form-control.module';
         ToolbarComponent,
         MdInputComponent,
         CoreUserMenuComponent,
-        CoreListComponent
+        CoreListComponent,
+        FlexInputDirective
     ],
     providers: [
         CanActivateUnAuthGuardService,

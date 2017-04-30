@@ -19,6 +19,7 @@ export class RegisterFranchiseComponent implements OnInit {
         required: "CompanyFranchiseCategory is required"
     }
     AddressTypes: Array<any>;
+    myFlex = `fxFlex fxFlex.gt-sm="15"`;
     constructor(
         private _fb: FormBuilder,
         private formGroupService: FormGroupService

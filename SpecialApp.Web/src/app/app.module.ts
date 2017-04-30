@@ -10,7 +10,6 @@ import { AccountModule } from './account-module/account.module';
 
 
 
-
 @NgModule({
     declarations: [
         AppComponent, routableComponents

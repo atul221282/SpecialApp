@@ -1,0 +1,21 @@
+﻿<div class="container">
+  <div fxLayout="row" fxLayoutAlign="start center" class="content">
+
+    <div fxFlex="100%" fxFlex.gt-xs="90" fxFlexOffset.gt-xs="5">
+      <md-card>
+        <md-card-title>
+          <nav md-tab-nav-bar>
+            <a md-tab-link
+               *ngFor="let link of navLinks"
+               routerLinkActive #rla="routerLinkActive">
+              {{link.label}}
+            </a>
+          </nav>
+        </md-card-title>
+        <md-card-content>
+          <router-outlet></router-outlet>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>
