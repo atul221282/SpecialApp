@@ -7,7 +7,7 @@ import * as _ from 'lodash';
     templateUrl: './form-autocomplete.component.html',
     styleUrls: ['./form-autocomplete.component.css']
 })
-export class FormSelectComponent implements OnInit, OnChanges {
+export class FormAutoCompleteComponent implements OnInit, OnChanges {
     @Input() list: Array<any>;
     @Input() spTextField: string;
     @Input() spValueField: string;

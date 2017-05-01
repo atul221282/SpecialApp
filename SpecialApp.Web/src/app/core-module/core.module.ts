@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreUserMenuComponent } from './core-user-menu/core-user-menu.component';
 import {
     LoadingSpinnerComponent, ToolbarComponent, LoginMenuComponent,
-    MdInputComponent, FormControlInputComponent, FormSelectComponent, FormDateComponent,
+    MdInputComponent, FormControlInputComponent, FormAutoCompleteComponent, FormDateComponent,
     ApiClientService, StorageService, CoreListComponent
 } from './';
 import {FlexInputDirective } from './flex-form-input/flex-input.directive';
@@ -14,6 +14,7 @@ import { MainConstantService } from './main-constant.service';
 import { MainCoreService } from './main-core.service';
 import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
 import { FormControlModule } from '../form-control-module/form-control.module';
+import {FormSelectComponent } from './form-select/form-select.component';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { FormControlModule } from '../form-control-module/form-control.module';
     declarations: [
         FormDateComponent,
         FormSelectComponent,
+        FormAutoCompleteComponent,
         FormControlInputComponent,
         LoadingSpinnerComponent,
         LoginMenuComponent,
@@ -39,6 +41,7 @@ import { FormControlModule } from '../form-control-module/form-control.module';
     exports: [
         FormDateComponent,
         FormSelectComponent,
+        FormAutoCompleteComponent,
         FormControlInputComponent,
         LoadingSpinnerComponent,
         ToolbarComponent,

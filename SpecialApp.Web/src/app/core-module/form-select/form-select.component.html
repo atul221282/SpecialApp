@@ -1,0 +1,5 @@
+﻿<div [formGroup]="form">
+  <md-select fxFlexFill [placeholder]="spPlaceholder" [formControlName]="property">
+    <md-option *ngFor="let obj of list" [value]="obj[spValueField]">{{ obj[spTextField] }}</md-option>
+  </md-select>
+</div>

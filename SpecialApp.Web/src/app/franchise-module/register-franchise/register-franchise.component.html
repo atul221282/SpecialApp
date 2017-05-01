@@ -26,7 +26,7 @@
           </div>
 
           <div fxLayout.gt-xs="row" fxLayout="column">
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
               <!--<form-autocomplete [list]="AddressTypes" spTextField="Description" spValueField="Id"
                            [validationMessages]="formGroupService.addressGroup.AddressTypeError"
                            property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-autocomplete>-->
@@ -36,13 +36,13 @@
                          [form]="registerFranchiseForm.get('AddressGroup')" lpName="AddressType">
               </core-list>
             </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
               <core-list spTextField="Description" spValueField="Id" property="CompanyFranchiseCategoryId"
                          [validationMessages]="companyFranchiseCategoryError" spPlaceholder="Category"
                          [form]="registerFranchiseForm" lpName="CompanyFranchiseCategory">
               </core-list>
             </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
               <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
                                   spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>

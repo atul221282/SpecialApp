@@ -13,4 +13,5 @@ export * from './validators/email-validator';
 export * from './validators/date-validator';
 export * from './validators/confirm-password-validator';
 export * from './flex-form-input/flex-input.directive';
+export * from './form-select/form-select.component';
 

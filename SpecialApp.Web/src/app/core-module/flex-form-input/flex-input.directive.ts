@@ -14,7 +14,7 @@ export class FlexInputDirective implements OnInit {
     ngOnInit() {
         
         this.renderer.setElementClass(this.el.nativeElement, "padding-5", true);
-        this.renderer.setElementStyle(this.el.nativeElement, "line-height", "50px");
+        this.renderer.setElementStyle(this.el.nativeElement, "line-height", "43px");
         this.renderer.setElementStyle(this.el.nativeElement, "vertical-align", "middle");
     }
 }
