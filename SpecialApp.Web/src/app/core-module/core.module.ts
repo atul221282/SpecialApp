@@ -15,7 +15,7 @@ import { MainCoreService } from './main-core.service';
 import { CanActivateUnAuthGuardService } from './guard/can-activate-unauth-guard.service';
 import { FormControlModule } from '../form-control-module/form-control.module';
 import {FormSelectComponent } from './form-select/form-select.component';
-
+import { CoreAutocompleteComponent} from './core-autocomplete/core-autocomplete.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -36,6 +36,7 @@ import {FormSelectComponent } from './form-select/form-select.component';
         MdInputComponent,
         CoreUserMenuComponent,
         CoreListComponent,
+        CoreAutocompleteComponent,
         FlexInputDirective
     ],
     exports: [
@@ -48,6 +49,7 @@ import {FormSelectComponent } from './form-select/form-select.component';
         MdInputComponent,
         CoreUserMenuComponent,
         CoreListComponent,
+        CoreAutocompleteComponent,
         FlexInputDirective
     ],
     providers: [

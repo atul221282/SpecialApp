@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { EmailValidator } from '../../core-module/';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
-
 @Component({
     selector: 'register-franchise',
     templateUrl: './register-franchise.component.html',
@@ -18,17 +17,21 @@ export class RegisterFranchiseComponent implements OnInit {
     companyFranchiseCategoryError = {
         required: "CompanyFranchiseCategory is required"
     }
-    AddressTypes: Array<any>;
-    myFlex = `fxFlex fxFlex.gt-sm="15"`;
+
+    AddressType = "AddressType2";
+
     constructor(
         private _fb: FormBuilder,
         private formGroupService: FormGroupService
     ) {
-
     }
 
     ngOnInit() {
         this.formGroupService.addressGroup.isStateRequired = true;
+
+        setTimeout(() => {
+            this.AddressType = "AddressType";
+        }, 9999)
 
         this.registerFranchiseForm = this._fb.group({
             CompanyId: [{ value: null, disabled: false }, [
@@ -36,11 +39,18 @@ export class RegisterFranchiseComponent implements OnInit {
             ]],
             CompanyFranchiseCategoryId: [null, Validators.required],
             AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
-            IsConfirmed: [{ value: false }, Validators.required],
+            IsConfirmed: [false, Validators.required],
             CanGetCustomerDetails: [false, Validators.required],
             CanContactCustomers: [false, Validators.required],
             CanSellOnline: [false, Validators.required],
         });
     }
 
+    submit() {
+        console.log(this.registerFranchiseForm.getRawValue());
+    }
+
+    cancel() {
+        this.registerFranchiseForm.reset();
+    }
 }

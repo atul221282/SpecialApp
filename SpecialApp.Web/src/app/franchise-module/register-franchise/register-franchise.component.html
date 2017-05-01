@@ -9,8 +9,11 @@
           <div fxLayout.gt-xs="row" fxLayout="column">
 
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Name" spRequired="true"></form-control-input>
+              <core-autocomplete spTextField="Description" spValueField="Id" property="CompanyId"
+                         spPlaceholder="Select Company"
+                         [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                         [form]="registerFranchiseForm" [lpName]="AddressType">
+              </core-autocomplete>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <form-control-input property="AddressState" [form]="registerFranchiseForm.get('AddressGroup')"
@@ -27,9 +30,6 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <!--<form-autocomplete [list]="AddressTypes" spTextField="Description" spValueField="Id"
-                           [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-autocomplete>-->
               <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
                          spPlaceholder="Address Type"
                          [validationMessages]="formGroupService.addressGroup.AddressTypeError"
@@ -41,10 +41,6 @@
                          [validationMessages]="companyFranchiseCategoryError" spPlaceholder="Category"
                          [form]="registerFranchiseForm" lpName="CompanyFranchiseCategory">
               </core-list>
-            </div>
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
             </div>
           </div>
 
@@ -61,7 +57,22 @@
               <md-checkbox formControlName="CanGetCustomerDetails" style="margin-top:15px;">Can get customer details</md-checkbox>
             </div>
           </div>
+          <div fxLayout.gt-xs="row" fxLayout="column">
 
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button fxFlexFill md-raised-button color="primary" (click)="submit()"
+                      [disabled]="(registerFranchiseForm.dirty && registerFranchiseForm.invalid) || registerFranchiseForm.pristine">
+                Register
+              </button>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button md-raised-button fxFlexFill
+                      (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
         </md-card-content>
       </md-card>
     </div>
