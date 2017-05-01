@@ -3,9 +3,9 @@ import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'form-select',
-    templateUrl: './form-select.component.html',
-    styleUrls: ['./form-select.component.css']
+    selector: 'form-autocomplete',
+    templateUrl: './form-autocomplete.component.html',
+    styleUrls: ['./form-autocomplete.component.css']
 })
 export class FormSelectComponent implements OnInit, OnChanges {
     @Input() list: Array<any>;

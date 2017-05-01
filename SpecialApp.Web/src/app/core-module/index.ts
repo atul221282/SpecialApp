@@ -3,7 +3,7 @@ export * from './toolbar/toolbar.component';
 export * from './login-menu/login-menu.component';
 export * from './md-input/md-input.component';
 export * from './form-control-input/form-control-input.component';
-export * from './form-select/form-select.component';
+export * from './form-autocomplete/form-autocomplete.component';
 export * from './form-date/form-date.component';
 export * from './core-list/core-list.component';
 export * from './api-client.service';

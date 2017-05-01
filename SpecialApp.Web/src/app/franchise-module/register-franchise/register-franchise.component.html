@@ -27,9 +27,9 @@
 
           <div fxLayout.gt-xs="row" fxLayout="column">
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <!--<form-select [list]="AddressTypes" spTextField="Description" spValueField="Id"
+              <!--<form-autocomplete [list]="AddressTypes" spTextField="Description" spValueField="Id"
                            [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-select>-->
+                           property="AddressTypeId" [form]="registerFranchiseForm.get('AddressGroup')"></form-autocomplete>-->
               <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
                          spPlaceholder="Address Type"
                          [validationMessages]="formGroupService.addressGroup.AddressTypeError"
@@ -50,24 +50,16 @@
 
           <div fxLayout.gt-sm="row" fxLayout="column" [formGroup]="registerFranchiseForm">
             <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <form-control-input property="CompanyId" [form]="registerFranchiseForm" [validationMessages]="name"
-                                  spPlaceholder="Franchise Name" spRequired="true"></form-control-input>
+              <md-checkbox fxFlexFill formControlName="CanContactCustomers">Can be contacted</md-checkbox>
             </div>
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <md-checkbox fxFlexFill formControlName="CanContactCustomers" style="margin-top:5px;">Can be contacted</md-checkbox>
-            </div>
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <md-select placeholder="State" fxFlexFill>
-                <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
-              </md-select>
-            </div>
-
-            <!--<div fxFlex fxFlex.gt-sm="20" style="padding-top:18px !important;">
+            
+            <div coreFlexInput fxFlex fxFlex.gt-sm="33">
               <md-checkbox formControlName="CanSellOnline" style="margin-top:5px;">Can sell online</md-checkbox>
             </div>
-            <div fxFlex fxFlex.gt-sm="20" style="padding-top:18px !important;">
+
+            <div coreFlexInput fxFlex fxFlex.gt-sm="33">
               <md-checkbox formControlName="CanGetCustomerDetails" style="margin-top:15px;">Can get customer details</md-checkbox>
-            </div>-->
+            </div>
           </div>
 
         </md-card-content>
