@@ -18,7 +18,7 @@ export class RegisterFranchiseComponent implements OnInit {
         required: "CompanyFranchiseCategory is required"
     }
 
-    AddressType = "AddressType2";
+    AddressType = "AddressType";
 
     constructor(
         private _fb: FormBuilder,
@@ -28,10 +28,6 @@ export class RegisterFranchiseComponent implements OnInit {
 
     ngOnInit() {
         this.formGroupService.addressGroup.isStateRequired = true;
-
-        setTimeout(() => {
-            this.AddressType = "AddressType";
-        }, 9999)
 
         this.registerFranchiseForm = this._fb.group({
             CompanyId: [{ value: null, disabled: false }, [
