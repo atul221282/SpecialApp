@@ -14,7 +14,7 @@ export class FormAutoCompleteComponent implements OnInit, OnChanges {
     @Input() form: FormGroup;
     @Input() property: string;
     @Input() spPlaceholder: string;
-    
+
     @Input() validationMessages: any;
 
     //listData: Array<any>;
@@ -48,36 +48,52 @@ export class FormAutoCompleteComponent implements OnInit, OnChanges {
             .map(name => this.filterStates(name));
 
         if (changes['list'] && changes['list'].currentValue && this.parentControl && this.parentControl.value) {
-            this.control.setValue(_.find(this.list, ['Id',this.parentControl.value]))
+            this.control.setValue(_.find(this.list, ['Id', this.parentControl.value]))
         }
     }
 
     filterStates(val: string) {
-        return this.list;
+        if (!this.list) {
+            return this.list;
+        }
+        if (this.control.value && this.control.value !== null && this.control.value !== "") {
+            return this.list.filter((x) => {
+                if (_.isObject(this.control.value) === false) {
+                    return x[this.spTextField].toLocaleLowerCase().startsWith(this.control.value.toLocaleLowerCase());
+                }
+                else {
+                    return x[this.spTextField].toLocaleLowerCase().startsWith(this.control.value[this.spTextField].toLocaleLowerCase());
+                }
+            });
+        }
+        else {
+            return this.list;
+        }
+
     }
 
     checkControl(c: AbstractControl) {
         if (!c.value || c.value === null) {
             return;
         }
-        if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
-            let control = this.parentControl;
-            control.markAsDirty();
-            control.markAsTouched();
-            control.setValue(null);
-            c.setValue(null);
-        }
+        //if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
+        //    let control = this.parentControl;
+        //    control.markAsDirty();
+        //    control.markAsTouched();
+        //    control.setValue(null);
+        //    c.setValue(null);
+        //}
     }
 
     setForm(value: number) {
-        if (value === null) {
-            this.control.setValue(null);
-        }
-        else {
-            if (this.list) {
-                this.control.setValue(_.find(this.list, [this.spValueField, this.parentControl.value]));
-            }
-        }
+        //if (value === null) {
+        //    this.control.setValue(null);
+        //}
+        //else {
+        //    if (this.list) {
+        //        this.control.setValue(_.find(this.list, [this.spValueField, this.parentControl.value])[this.spTextField]);
+        //    }
+        //}
         this.setMessage(this.parentControl);
     }
 
