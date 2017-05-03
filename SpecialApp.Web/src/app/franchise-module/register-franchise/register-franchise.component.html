@@ -4,15 +4,21 @@
     <div fxFlex="100%" fxFlex.gt-xs="90" fxFlexOffset.gt-xs="5">
 
       <md-card>
-        <md-card-title>Create Franchise</md-card-title>
+        <md-card-title>
+          <span>Create Franchise</span>
+          <button style="float:right;" md-raised-button color="primary" (click)="AddCompany()">
+            Add Company
+          </button>
+        </md-card-title>
+
         <md-card-content>
           <div fxLayout.gt-xs="row" fxLayout="column">
 
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
               <core-autocomplete spTextField="Description" spValueField="Id" property="CompanyId"
-                         spPlaceholder="Select Company"
-                         [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                         [form]="registerFranchiseForm" [lpName]="AddressType">
+                                 spPlaceholder="Select Company"
+                                 [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                                 [form]="registerFranchiseForm" [lpName]="AddressType">
               </core-autocomplete>
             </div>
             <div fxFlex fxFlex.gt-xs="33" class="padding-5">
@@ -48,7 +54,7 @@
             <div coreFlexInput fxFlex fxFlex.gt-xs="33">
               <md-checkbox fxFlexFill formControlName="CanContactCustomers">Can be contacted</md-checkbox>
             </div>
-            
+
             <div coreFlexInput fxFlex fxFlex.gt-sm="33">
               <md-checkbox formControlName="CanSellOnline" style="margin-top:5px;">Can sell online</md-checkbox>
             </div>

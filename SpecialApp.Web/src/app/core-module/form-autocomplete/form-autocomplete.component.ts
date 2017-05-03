@@ -77,11 +77,6 @@ export class FormAutoCompleteComponent implements OnInit, OnChanges {
             return;
         }
         if (!c.value[this.spValueField] || c.value[this.spValueField] === null) {
-        //    let control = this.parentControl;
-        //    control.markAsDirty();
-        //    control.markAsTouched();
-        //    control.setValue(null);
-        //    c.setValue(null);
             this.parentControl.setValue(null);
             this.parentControl.markAsDirty();
             this.parentControl.markAsTouched();
