@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
 @Component({
     selector: 'app-company-register',
@@ -17,6 +18,7 @@ export class CompanyRegisterComponent implements OnInit {
     }
     constructor(
         private _fb: FormBuilder,
+        private formGroupService: FormGroupService
     ) { }
 
     ngOnInit() {
@@ -31,7 +33,8 @@ export class CompanyRegisterComponent implements OnInit {
             ]],
             Details: [{ value: '', disabled: false }, [
                 Validators.required
-            ]]
+            ]],
+            AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
         });
     }
 
