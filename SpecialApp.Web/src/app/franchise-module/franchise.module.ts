@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
         CoreModule
     ],
-    providers: [{ provide: 'Window', useValue: window }],
+    providers: [],
     declarations: [routedComponents]
 })
 export class FranchiseModule { }

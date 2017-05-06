@@ -2,6 +2,7 @@
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../core-module/';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'register-franchise',
@@ -22,7 +23,8 @@ export class RegisterFranchiseComponent implements OnInit {
 
     constructor(
         private _fb: FormBuilder,
-        private formGroupService: FormGroupService
+        private formGroupService: FormGroupService,
+        private router: Router
     ) {
     }
 
@@ -48,5 +50,9 @@ export class RegisterFranchiseComponent implements OnInit {
 
     cancel() {
         this.registerFranchiseForm.reset();
+    }
+
+    AddCompany() {
+        this.router.navigate(['company/create']);
     }
 }

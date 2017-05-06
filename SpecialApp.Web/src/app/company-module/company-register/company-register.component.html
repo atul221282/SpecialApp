@@ -1,0 +1,54 @@
+﻿<div class="container">
+  <div fxLayout="row" fxLayoutAlign="start center" class="content">
+
+    <div fxFlex="100%" fxFlex.gt-xs="90" fxFlexOffset.gt-xs="5">
+
+      <md-card>
+        <md-card-title>
+          <span>Create Company</span>
+
+        </md-card-title>
+
+        <md-card-content>
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="CompanyName" [form]="createCompany"
+                                  spPlaceholder="Company Name" spRequired="{{1===1}}"
+                                  [validationMessages]="companyNameErrors">
+              </form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="NumberOfEmployees" [form]="createCompany"
+                                  spPlaceholder="Number Of Employees">
+              </form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="Details" [form]="createCompany"
+                                  spPlaceholder="Details" spRequired="{{1==1}}"
+                                  [validationMessages]="detailsErrors"></form-control-input>
+            </div>
+          </div>
+          <div fxLayout.gt-xs="row" fxLayout="column">
+
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button fxFlexFill md-raised-button color="primary" (click)="submit()"
+                      [disabled]="(createCompany.dirty && createCompany.invalid) || createCompany.pristine">
+                Register
+              </button>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button md-raised-button fxFlexFill
+                      (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
+
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>

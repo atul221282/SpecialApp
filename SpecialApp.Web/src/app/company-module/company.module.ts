@@ -1,22 +1,22 @@
 ﻿import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompanyRouterModule, routedComponents } from './company-routing.module';
+import { CoreModule } from '../core-module/core.module';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from '../core-module/core.module';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
+        CompanyRouterModule,
+        FlexLayoutModule,
+        MaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        MaterialModule,
-        FlexLayoutModule,
-        BrowserAnimationsModule,
         CoreModule
     ],
-    declarations: []
+    providers: [],
+    declarations: [routedComponents]
 })
 export class CompanyModule { }

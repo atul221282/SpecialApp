@@ -49,7 +49,7 @@ export class RegisterCustomerComponent implements OnInit {
     public confirmPasswordError: string;
     public foods: Array<any>;
     public submitCall: Subscription;
-    constructor(private _fb: FormBuilder, @Inject('Window') private window: Window,
+    constructor(private _fb: FormBuilder, 
         private customerAccount: CustomerAccountService, private router: Router,
         private formGroupService: FormGroupService) { }
 
