@@ -10,6 +10,27 @@
         </md-card-title>
 
         <md-card-content>
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="CompanyName" [form]="createCompanyForm"
+                                  spPlaceholder="Company Name" spRequired="{{1===1}}"
+                                  [validationMessages]="companyNameErrors">
+              </form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="NumberOfEmployees" [form]="createCompanyForm"
+                                  spPlaceholder="Number Of Employees">
+              </form-control-input>
+            </div>
+            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+              <form-control-input property="Details" [form]="createCompanyForm"
+                                  spPlaceholder="Details" spRequired="{{1==1}}"
+                                  [validationMessages]="detailsErrors"></form-control-input>
+            </div>
+          </div>
+
           <div [formGroup]="createCompanyForm">
 
             <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">

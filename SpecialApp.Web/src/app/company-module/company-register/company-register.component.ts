@@ -28,8 +28,8 @@ export class CompanyRegisterComponent implements OnInit {
             NumberOfEmployees: [{
                 value: null
                 , disabled: false
-            }, [
-            ]],
+            }, []
+            ],
             Details: [{ value: '', disabled: false }, [
                 Validators.required
             ]],
@@ -41,7 +41,6 @@ export class CompanyRegisterComponent implements OnInit {
     }
 
     buildAddress(): FormGroup {
-        
         return this.formGroupService.addressGroup.getAddressGroup;
     }
 }
