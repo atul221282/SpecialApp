@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
 @Component({
@@ -9,20 +9,19 @@ import { FormGroupService } from '../../form-control-module/form-group/form-grou
 })
 
 export class CompanyRegisterComponent implements OnInit {
-    createCompany: FormGroup;
-    companyNameErrors = {
-        required: "Company name is required"
+    createCompanyForm: FormGroup;
+
+    get addresses(): FormArray {
+        return <FormArray>this.createCompanyForm.get('addresses');
     }
-    detailsErrors = {
-        required: "Company Details are required"
-    }
+
     constructor(
-        private _fb: FormBuilder,
+        private fb: FormBuilder,
         private formGroupService: FormGroupService
     ) { }
 
     ngOnInit() {
-        this.createCompany = this._fb.group({
+        this.createCompanyForm = this.fb.group({
             CompanyName: [{ value: '', disabled: false }, [
                 Validators.required
             ]],
@@ -34,15 +33,15 @@ export class CompanyRegisterComponent implements OnInit {
             Details: [{ value: '', disabled: false }, [
                 Validators.required
             ]],
-            AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
+            addresses: this.fb.array([
+                this.buildAddress()
+            ])
         });
+
     }
 
-    submit() {
-        alert(JSON.stringify(this.createCompany.getRawValue()));
-    }
-
-    cancel() {
-        this.createCompany.reset();
+    buildAddress(): FormGroup {
+        
+        return this.formGroupService.addressGroup.getAddressGroup;
     }
 }

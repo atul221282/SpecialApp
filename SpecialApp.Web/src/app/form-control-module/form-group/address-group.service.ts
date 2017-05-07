@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 
 @Injectable()
@@ -40,7 +40,7 @@ export class AddressGroupService {
         this.isStateRequired = required;
     }
 
-    getAddressGroup(): FormGroup {
+    get getAddressGroup(): FormGroup {
         return this._fb.group({
             AddressState: ['', this.isStateRequired === true ? Validators.required : undefined],
             PostCode: ['', this.isPostCodeRequired === true ? Validators.required : undefined],

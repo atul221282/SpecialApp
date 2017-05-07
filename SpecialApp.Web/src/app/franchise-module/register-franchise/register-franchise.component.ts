@@ -36,7 +36,7 @@ export class RegisterFranchiseComponent implements OnInit {
                 Validators.required
             ]],
             CompanyFranchiseCategoryId: [null, Validators.required],
-            AddressGroup: this.formGroupService.addressGroup.getAddressGroup(),
+            AddressGroup: this.formGroupService.addressGroup.getAddressGroup,
             IsConfirmed: [false, Validators.required],
             CanGetCustomerDetails: [false, Validators.required],
             CanContactCustomers: [false, Validators.required],

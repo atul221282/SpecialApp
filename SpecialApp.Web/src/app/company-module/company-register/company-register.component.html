@@ -10,63 +10,34 @@
         </md-card-title>
 
         <md-card-content>
+          <div [formGroup]="createCompanyForm">
 
-          <div fxLayout.gt-xs="row" fxLayout="column">
+            <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">
 
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="CompanyName" [form]="createCompany"
-                                  spPlaceholder="Company Name" spRequired="{{1===1}}"
-                                  [validationMessages]="companyNameErrors">
-              </form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="NumberOfEmployees" [form]="createCompany"
-                                  spPlaceholder="Number Of Employees">
-              </form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="Details" [form]="createCompany"
-                                  spPlaceholder="Details" spRequired="{{1==1}}"
-                                  [validationMessages]="detailsErrors"></form-control-input>
-            </div>
-          </div>
+              <div [formGroupName]="i" fxLayout.gt-xs="row" fxLayout="column">
 
-          <div fxLayout.gt-xs="row" fxLayout="column">
+                <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+                  <form-control-input property="AddressState" [form]="address"
+                                      spPlaceholder="State"
+                                      [spRequired]="formGroupService.addressGroup.isStateRequired"
+                                      [validationMessages]="formGroupService.addressGroup.AddressStateError">
+                  </form-control-input>
+                </div>
 
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
-                         spPlaceholder="Address Type"
-                         [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                         [form]="createCompany.get('AddressGroup')" lpName="AddressType">
-              </core-list>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="AddressState" [form]="createCompany.get('AddressGroup')"
-                                  spPlaceholder="State" [spRequired]="formGroupService.addressGroup.isStateRequired"
-                                  [validationMessages]="formGroupService.addressGroup.AddressStateError">
-              </form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="PostCode" [form]="createCompany.get('AddressGroup')" spType="number"
-                                  spPlaceholder="Postcode" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
-                                  [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
-            </div>
-          </div>
+                <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+                  <form-control-input property="PostCode" [form]="address" [spType]="number"
+                                      spPlaceholder="Postcode" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
+                                      [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
+                </div>
+                <div fxFlex fxFlex.gt-xs="33" class="padding-5" coreFlexInput>
+                  <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
+                             spPlaceholder="Address Type"
+                             [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                             [form]="address" lpName="AddressType">
+                  </core-list>
+                </div>
 
-          <div fxLayout.gt-xs="row" fxLayout="column">
-
-            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
-              <button fxFlexFill md-raised-button color="primary" (click)="submit()"
-                      [disabled]="(createCompany.dirty && createCompany.invalid) || createCompany.pristine">
-                Register
-              </button>
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
-              <button md-raised-button fxFlexFill
-                      (click)="cancel()">
-                Cancel
-              </button>
+              </div>
             </div>
           </div>
 
