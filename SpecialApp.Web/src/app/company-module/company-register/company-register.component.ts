@@ -2,6 +2,7 @@
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 
+
 @Component({
     selector: 'app-company-register',
     templateUrl: './company-register.component.html',
@@ -21,6 +22,10 @@ export class CompanyRegisterComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.initFormGroup();
+    }
+
+    private initFormGroup() {
         this.createCompanyForm = this.fb.group({
             CompanyName: [{ value: '', disabled: false }, [
                 Validators.required
@@ -37,11 +42,14 @@ export class CompanyRegisterComponent implements OnInit {
                 this.buildAddress()
             ])
         });
-
     }
 
     buildAddress(): FormGroup {
         return this.formGroupService.addressGroup.getAddressGroup;
+    }
+
+    addAddress(): void {
+        this.addresses.push(this.buildAddress());
     }
 
     submit() {
@@ -49,6 +57,7 @@ export class CompanyRegisterComponent implements OnInit {
     }
 
     cancel() {
+        this.initFormGroup();
         this.createCompanyForm.reset();
     }
 }

@@ -33,10 +33,13 @@
 
           <div [formGroup]="createCompanyForm">
 
-            <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">
-              <div style="text-align:right;">
+            <div  fxLayout="row" fxLayoutAlign="end center" class="padding-5">
+              <button   md-button color="primary" (click)="addAddress()">
+               <span class="fa fa-plus"></span>&nbsp;Address
+              </button>
+            </div>
 
-              </div>
+            <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">
 
               <div [formGroupName]="i" fxLayout.gt-xs="row" fxLayout="column">
 
@@ -60,10 +63,7 @@
                              [form]="address" lpName="AddressType">
                   </core-list>
                 </div>
-
               </div>
-
-
             </div>
           </div>
 
