@@ -16,7 +16,7 @@
         private AddressType _addressType;
         #endregion Private member
 
-        public int CounrtyId
+        public int CountryId
         {
             get { return _counrtyId; }
             set { _counrtyId = value; }

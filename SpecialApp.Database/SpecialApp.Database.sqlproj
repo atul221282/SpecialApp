@@ -68,5 +68,6 @@
   <ItemGroup>
     <None Include="CompanyFranchiseCategory.sql" />
     <None Include="AddressType.sql" />
+    <None Include="Country.sql" />
   </ItemGroup>
 </Project>

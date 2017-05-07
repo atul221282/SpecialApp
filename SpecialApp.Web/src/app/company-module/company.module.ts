@@ -5,6 +5,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompanyAccountService } from './company-account.service';
 
 @NgModule({
     imports: [
@@ -16,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
         CoreModule
     ],
-    providers: [],
+    providers: [CompanyAccountService],
     declarations: [routedComponents]
 })
 export class CompanyModule { }

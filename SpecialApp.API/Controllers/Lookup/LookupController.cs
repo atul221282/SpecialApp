@@ -29,6 +29,8 @@ namespace SpecialApp.API.Controllers
                         return Ok(await service.Get<AddressType>());
                     case "CompanyFranchiseCategory":
                         return Ok(await service.Get<CompanyFranchiseCategory>());
+                    case "Country":
+                        return Ok(await service.Get<Country>());
                     default:
                         return StatusCode(500, SetError("Invalid request"));
                 }

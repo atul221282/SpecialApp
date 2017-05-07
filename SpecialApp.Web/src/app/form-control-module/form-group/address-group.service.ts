@@ -15,6 +15,9 @@ export class AddressGroupService {
     isAddressTypeRequired: boolean = true;
     addressTypeRequiredError = `Address type ${this.required}`;
 
+    isCountryRequired: boolean = true;
+    countryRequiredError = `Country ${this.required}`;
+
     constructor(private _fb: FormBuilder) { }
 
     get AddressStateError() {
@@ -35,6 +38,12 @@ export class AddressGroupService {
         }
     }
 
+    get CountryError() {
+        return {
+            required: this.addressTypeRequiredError
+        }
+    }
+
     overrideAddressState(required: boolean, requiredError: string) {
         this.addressStateRequiredError = requiredError;
         this.isStateRequired = required;
@@ -43,8 +52,9 @@ export class AddressGroupService {
     get getAddressGroup(): FormGroup {
         return this._fb.group({
             AddressState: ['', this.isStateRequired === true ? Validators.required : undefined],
-            PostCode: ['', this.isPostCodeRequired === true ? Validators.required : undefined],
-            AddressTypeId: [null, this.isAddressTypeRequired === true ? Validators.required : undefined]
+            PostalCode: ['', this.isPostCodeRequired === true ? Validators.required : undefined],
+            AddressTypeId: [null, this.isAddressTypeRequired === true ? Validators.required : undefined],
+            CountryId: [null, this.isCountryRequired === true ? Validators.required : undefined],
         });
     }
 }

@@ -39,11 +39,11 @@
               </button>
             </div>
 
-            <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">
+            <div formArrayName="Addresses" *ngFor="let address of Addresses.controls; let i=index">
 
               <div [formGroupName]="i" fxLayout.gt-xs="row" fxLayout="column">
 
-                <div fxFlex fxFlex.gt-xs="33" class="padding-5">
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5">
                   <form-control-input property="AddressState" [form]="address"
                                       spPlaceholder="State"
                                       [spRequired]="formGroupService.addressGroup.isStateRequired"
@@ -51,16 +51,23 @@
                   </form-control-input>
                 </div>
 
-                <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-                  <form-control-input property="PostCode" [form]="address" [spType]="number"
-                                      spPlaceholder="Postcode" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5">
+                  <form-control-input property="PostalCode" [form]="address" [spType]="number"
+                                      spPlaceholder="Postal Code" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
                                       [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
                 </div>
-                <div fxFlex fxFlex.gt-xs="33" class="padding-5" coreFlexInput>
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5" coreFlexInput>
                   <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
                              spPlaceholder="Address Type"
                              [validationMessages]="formGroupService.addressGroup.AddressTypeError"
                              [form]="address" lpName="AddressType">
+                  </core-list>
+                </div>
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5" coreFlexInput>
+                  <core-list spTextField="Description" spValueField="Id" property="CountryId"
+                             spPlaceholder="Country"
+                             [validationMessages]="formGroupService.addressGroup.CountryError"
+                             [form]="address" lpName="Country">
                   </core-list>
                 </div>
               </div>

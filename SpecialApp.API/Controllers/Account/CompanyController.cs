@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Entity.Companies;
+using SpecialApp.Entity.Model.Account;
 using SpecialApp.Service.Account;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,13 @@ namespace SpecialApp.API.Controllers.Account
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Company company)
+        public async Task<IActionResult> Create([FromBody]CreateCompanyModel companyModel)
         {
             using (Service)
             {
-                Service.Add(company);
-                await Service.CommitAsync();
-                return Ok(company);
+                //Service.Add(company);
+                //await Service.CommitAsync();
+                return Ok(companyModel);
             }
         }
     }

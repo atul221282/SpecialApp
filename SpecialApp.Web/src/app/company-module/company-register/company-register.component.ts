@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
+import { CompanyAccountService } from '../company-account.service';
 
 
 @Component({
@@ -12,13 +13,14 @@ import { FormGroupService } from '../../form-control-module/form-group/form-grou
 export class CompanyRegisterComponent implements OnInit {
     createCompanyForm: FormGroup;
 
-    get addresses(): FormArray {
-        return <FormArray>this.createCompanyForm.get('addresses');
+    get Addresses(): FormArray {
+        return <FormArray>this.createCompanyForm.get('Addresses');
     }
 
     constructor(
         private fb: FormBuilder,
-        private formGroupService: FormGroupService
+        private formGroupService: FormGroupService,
+        private service: CompanyAccountService
     ) { }
 
     ngOnInit() {
@@ -38,7 +40,7 @@ export class CompanyRegisterComponent implements OnInit {
             Details: [{ value: '', disabled: false }, [
                 Validators.required
             ]],
-            addresses: this.fb.array([
+            Addresses: this.fb.array([
                 this.buildAddress()
             ])
         });
@@ -49,11 +51,17 @@ export class CompanyRegisterComponent implements OnInit {
     }
 
     addAddress(): void {
-        this.addresses.push(this.buildAddress());
+        this.Addresses.push(this.buildAddress());
     }
 
     submit() {
-        alert(JSON.stringify(this.createCompanyForm.getRawValue()));
+        //alert(JSON.stringify(this.createCompanyForm.getRawValue()));
+        this.service.createCompany(this.createCompanyForm.getRawValue())
+            .subscribe((response) => {
+                alert(response);
+            }, (error) => {
+                alert(error);
+            })
     }
 
     cancel() {

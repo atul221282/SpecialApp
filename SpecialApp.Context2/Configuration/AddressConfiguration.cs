@@ -11,7 +11,7 @@ namespace SpecialApp.Context.Configuration
         public AddressConfiguration(EntityTypeBuilder<Address> entityTypeBuilder):base(entityTypeBuilder)
         {
             this.entityTypeBuilder = entityTypeBuilder;
-            this.entityTypeBuilder.Property(x => x.CounrtyId).IsRequired();
+            this.entityTypeBuilder.Property(x => x.CountryId).IsRequired();
             this.entityTypeBuilder.Property(x => x.AddressLine1).HasMaxLength(150);
             this.entityTypeBuilder.Property(x => x.AddressLine2).HasMaxLength(250);
             this.entityTypeBuilder.Property(x => x.AddressState).HasMaxLength(150);
