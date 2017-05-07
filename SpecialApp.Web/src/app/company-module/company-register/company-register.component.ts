@@ -43,4 +43,12 @@ export class CompanyRegisterComponent implements OnInit {
     buildAddress(): FormGroup {
         return this.formGroupService.addressGroup.getAddressGroup;
     }
+
+    submit() {
+        alert(JSON.stringify(this.createCompanyForm.getRawValue()));
+    }
+
+    cancel() {
+        this.createCompanyForm.reset();
+    }
 }

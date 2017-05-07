@@ -34,6 +34,9 @@
           <div [formGroup]="createCompanyForm">
 
             <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i=index">
+              <div style="text-align:right;">
+
+              </div>
 
               <div [formGroupName]="i" fxLayout.gt-xs="row" fxLayout="column">
 
@@ -59,6 +62,25 @@
                 </div>
 
               </div>
+
+
+            </div>
+          </div>
+
+          <div fxLayout.gt-xs="row" fxLayout="column">
+
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button fxFlexFill md-raised-button color="primary" (click)="submit()"
+                      [disabled]="(createCompanyForm.dirty && createCompanyForm.invalid) || createCompanyForm.pristine">
+                Register
+              </button>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
+              <button md-raised-button fxFlexFill
+                      (click)="cancel()">
+                Cancel
+              </button>
             </div>
           </div>
 
