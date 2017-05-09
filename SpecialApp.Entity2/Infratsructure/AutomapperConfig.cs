@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SpecialApp.Entity.Infratsructure.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace SpecialApp.Entity.Infratsructure
         {
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.AddProfile<>
+                cfg.AddProfile<CreateCompanyModelProfile>();
             });
 
             var mapper = config.CreateMapper();

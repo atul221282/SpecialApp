@@ -6,6 +6,7 @@ namespace SpecialApp.Entity.Model.Account
 {
     public class CreateCompanyModel
     {
+        public int? ComapnyId { get; set; }
         public string CompanyName { get; set; }
         public int NumberOfEmployees { get; set; }
         public string Details { get; set; }
