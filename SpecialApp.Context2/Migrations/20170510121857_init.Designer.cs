@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170425094244_init")]
+    [Migration("20170510121857_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -213,9 +213,7 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("City")
                         .HasMaxLength(150);
 
-                    b.Property<int>("CounrtyId");
-
-                    b.Property<int?>("CountryId");
+                    b.Property<int>("CountryId");
 
                     b.Property<bool?>("IsDeleted")
                         .IsRequired();
@@ -379,7 +377,7 @@ namespace SpecialApp.Context.Migrations
                     b.Property<string>("ConfirmationToken")
                         .HasMaxLength(250);
 
-                    b.Property<string>("CreatedById");
+                    b.Property<int>("CreatedById");
 
                     b.Property<bool>("IsConfirmed");
 
@@ -1044,7 +1042,7 @@ namespace SpecialApp.Context.Migrations
                         .WithMany("CompanyFranchises")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("SpecialApp.Entity.SpecialAppUsers", "CreatedBy")
+                    b.HasOne("SpecialApp.Entity.Account.Users", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
                 });

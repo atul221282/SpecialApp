@@ -247,8 +247,7 @@ namespace SpecialApp.Context.Migrations
                     AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
                     AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
                     City = table.Column<string>(maxLength: 150, nullable: true),
-                    CounrtyId = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: true),
+                    CountryId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     PostalCode = table.Column<string>(maxLength: 10, nullable: false),
                     Province = table.Column<string>(maxLength: 150, nullable: true),
@@ -414,6 +413,30 @@ namespace SpecialApp.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UsersAddress",
+                columns: table => new
+                {
+                    AddressId = table.Column<int>(nullable: false),
+                    UsersId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersAddress", x => new { x.AddressId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_UsersAddress_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UsersAddress_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanyFranchise",
                 columns: table => new
                 {
@@ -430,7 +453,7 @@ namespace SpecialApp.Context.Migrations
                     CompanyFranchiseCategoryId = table.Column<int>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
                     ConfirmationToken = table.Column<string>(maxLength: 250, nullable: true),
-                    CreatedById = table.Column<string>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: false),
                     IsConfirmed = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
@@ -457,32 +480,8 @@ namespace SpecialApp.Context.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CompanyFranchise_AspNetUsers_CreatedById",
+                        name: "FK_CompanyFranchise_Users_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UsersAddress",
-                columns: table => new
-                {
-                    AddressId = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsersAddress", x => new { x.AddressId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_UsersAddress_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UsersAddress_Users_UsersId",
-                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1057,9 +1056,6 @@ namespace SpecialApp.Context.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "FileData");
 
             migrationBuilder.DropTable(
@@ -1084,13 +1080,16 @@ namespace SpecialApp.Context.Migrations
                 name: "Company");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "AddressType");
 
             migrationBuilder.DropTable(
                 name: "Country");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

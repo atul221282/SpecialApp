@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Model.Account;
+using System;
 using System.Linq;
 namespace SpecialApp.Entity.Infratsructure.Profiles
 {
@@ -12,19 +13,38 @@ namespace SpecialApp.Entity.Infratsructure.Profiles
                 .ForMember(x => x.Details, opt => opt.MapFrom(x => x.Details))
                 .ForMember(x => x.NumberOfEmployees, opt => opt.MapFrom(x => x.NumberOfEmployees))
                 .ForMember(x => x.CompanyName, opt => opt.MapFrom(x => x.CompanyName))
+                .ForMember(x => x.AuditLastUpdatedDate, opt => opt.ResolveUsing((y) =>
+                {
+                    return DateTimeOffset.UtcNow;
+                }))
+                .ForMember(x => x.AuditCreatedDate, opt => opt.ResolveUsing((y) =>
+                {
+                    return DateTimeOffset.UtcNow;
+                }))
+                .ForMember(x => x.IsDeleted, opt => opt.ResolveUsing((y) =>
+                {
+                    return false;
+                }))
                 .ForMember(x => x.CompanyAddresses, opt => opt.MapFrom(x => x.Addresses
                 .Select(y => new CompanyAddress
                 {
-                    Address = y,
-                    AddressId = y.Id.HasValue ? y.Id.Value : default(int),
-                    Company = new Company
+                    Address = new Address
                     {
-                        Id = x.ComapnyId,
-                        CompanyName = x.CompanyName,
-                        NumberOfEmployees = x.NumberOfEmployees,
-                        Details = x.Details
-                    }
-                })));
+                        AuditLastUpdatedBy = string.IsNullOrWhiteSpace(y.AuditLastUpdatedBy) ? "system" : y.AuditLastUpdatedBy,
+                        AuditCreatedBy = string.IsNullOrWhiteSpace(y.AuditCreatedBy) ? "system" : y.AuditCreatedBy,
+                        AuditCreatedDate = y.AuditCreatedDate.HasValue ? y.AuditCreatedDate : DateTimeOffset.UtcNow,
+                        AuditLastUpdatedDate = y.AuditLastUpdatedDate.HasValue ? y.AuditLastUpdatedDate : DateTimeOffset.UtcNow,
+                        State = y.Id.HasValue ? State.Modified : State.Added,
+                        AddressState = y.AddressState,
+                        PostalCode = y.PostalCode,
+                        AddressTypeId = y.AddressTypeId,
+                        CountryId = y.CountryId,
+                        IsDeleted = false
+                    },
+                    AddressId = y.Id.HasValue ? y.Id.Value : default(int),
+                    CompanyId = x.ComapnyId.HasValue ? x.ComapnyId.Value : default(int)
+                })))
+                .ForMember(x => x.State, opt => opt.MapFrom(x => x.State));
         }
     }
 }

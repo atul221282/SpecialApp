@@ -6,6 +6,7 @@ using SpecialApp.Entity.Companies;
 using System.Threading.Tasks;
 using AutoMapper;
 using SpecialApp.Entity.Model.Account;
+using System.Linq;
 
 namespace SpecialApp.Service.Account
 {
@@ -29,11 +30,13 @@ namespace SpecialApp.Service.Account
         {
             var company = mapper.Map<Company>(companyModel);
             company.State = Entity.State.Added;
+            company.AuditCreatedBy = "system";
+            company.AuditLastUpdatedBy = "system";
             var repo = _uow.GetRepository<Company>();
             var repoAddress = _uow.GetRepository<CompanyAddress>();
 
             repo.Add(company);
-            
+
             return company;
         }
     }

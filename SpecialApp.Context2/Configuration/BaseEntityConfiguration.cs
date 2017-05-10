@@ -10,6 +10,8 @@ namespace SpecialApp.Context.Configuration
         {
             entityTypeBuilder.HasKey(x => x.Id);
 
+            //entityTypeBuilder.Property(x => x.Id).ValueGeneratedOnAdd();
+
             entityTypeBuilder.Property(x => x.IsDeleted).IsRequired();
 
             entityTypeBuilder.Property(x => x.AuditLastUpdatedBy).HasMaxLength(100).IsRequired();

@@ -11,5 +11,6 @@ namespace SpecialApp.Entity.Model.Account
         public int NumberOfEmployees { get; set; }
         public string Details { get; set; }
         public List<Address> Addresses { get; set; }
+        public State State { get; set; }
     }
 }
