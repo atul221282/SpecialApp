@@ -25,4 +25,5 @@ interface IBaseCode extends IBaseEntity {
     Description: string;
 }
 
+
 export { IBaseEntity, IBaseCode, IAddress };

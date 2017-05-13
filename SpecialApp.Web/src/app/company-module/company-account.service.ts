@@ -1,8 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
-import {ApiClientService } from '../core-module/api-client.service';
+import { ApiClientService } from '../core-module/api-client.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import { ICreateCompanyModel } from '../model/';
 @Injectable()
 export class CompanyAccountService {
 
@@ -10,7 +10,7 @@ export class CompanyAccountService {
 
     constructor(private apiClient: ApiClientService) { }
 
-    createCompany(company:any) {
+    createCompany(company: ICreateCompanyModel) {
         return this.apiClient.post(`${this.baseurl}`, company)
             .catch(this.handleError);
     }
