@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '
 import { EmailValidator } from '../../core-module/';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 import { Router } from '@angular/router'
+import { FranchiseSpecialAccountService } from '../';
 
 @Component({
     selector: 'register-franchise',
@@ -30,7 +31,8 @@ export class RegisterFranchiseComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private formGroupService: FormGroupService,
-        private router: Router
+        private router: Router,
+        private _service: FranchiseSpecialAccountService
     ) {
     }
 
@@ -61,7 +63,7 @@ export class RegisterFranchiseComponent implements OnInit {
     }
 
     submit() {
-        console.log(this.registerFranchiseForm.getRawValue());
+        this._service.create(this.registerFranchiseForm.getRawValue());
     }
 
     cancel() {
