@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { EmailValidator } from '../../core-module/';
 import { FormGroupService } from '../../form-control-module/form-group/form-group.service';
 import { Router } from '@angular/router'
@@ -12,9 +12,15 @@ import { Router } from '@angular/router'
 export class RegisterFranchiseComponent implements OnInit {
 
     registerFranchiseForm: FormGroup;
+
+    get Addresses(): FormArray {
+        return <FormArray>this.registerFranchiseForm.get('Addresses');
+    }
+
     name = {
         required: "Franchise name is required"
     }
+
     companyFranchiseCategoryError = {
         required: "CompanyFranchiseCategory is required"
     }
@@ -36,12 +42,22 @@ export class RegisterFranchiseComponent implements OnInit {
                 Validators.required
             ]],
             CompanyFranchiseCategoryId: [null, Validators.required],
-            AddressGroup: this.formGroupService.addressGroup.getAddressGroup,
+            Addresses: this._fb.array([
+                this.buildAddress()
+            ]),
             IsConfirmed: [false, Validators.required],
             CanGetCustomerDetails: [false, Validators.required],
             CanContactCustomers: [false, Validators.required],
             CanSellOnline: [false, Validators.required],
         });
+    }
+
+    buildAddress(): FormGroup {
+        return this.formGroupService.addressGroup.getAddressGroup;
+    }
+
+    addAddress(): void {
+        this.Addresses.push(this.buildAddress());
     }
 
     submit() {

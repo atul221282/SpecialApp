@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity;
+using SpecialApp.Entity.Companies;
+using SpecialApp.Entity.Model;
 using SpecialApp.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,22 @@ namespace SpecialApp.Service
                 .GetAll()
                 .OrderBy(x => x.Description)
                 .ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<LookupModel>> Get()
+        {
+            var repo = _uow.GetRepository<Company>();
+            var result = await repo.GetAll()
+                .Select(x => new LookupModel
+                {
+                    Id = x.Id.Value,
+                    Code = x.CompanyName,
+                    Description = x.Details,
+                    RowVersion = x.RowVersion
+                })
+                .ToListAsync();
+
             return result;
         }
     }

@@ -12,6 +12,6 @@ namespace SpecialApp.Service.Account
 
         Company Add(CreateCompanyModel companyModel);
 
-        Task<IEnumerable<LookupModel>> Get()
+        Task<IEnumerable<LookupModel>> Get();
     }
 }

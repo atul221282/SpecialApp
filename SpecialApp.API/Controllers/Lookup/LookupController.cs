@@ -31,6 +31,8 @@ namespace SpecialApp.API.Controllers
                         return Ok(await service.Get<CompanyFranchiseCategory>());
                     case "Country":
                         return Ok(await service.Get<Country>());
+                    case "Company":
+                        return Ok(await service.Get());
                     default:
                         return StatusCode(500, SetError("Invalid request"));
                 }

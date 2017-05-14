@@ -13,36 +13,19 @@
 
         <md-card-content>
           <div fxLayout.gt-xs="row" fxLayout="column">
-
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <core-autocomplete spTextField="Description" spValueField="Id" property="CompanyId"
+            <div fxFlex fxFlex.gt-xs="50" class="padding-5">
+              <!--<core-autocomplete spTextField="Description" spValueField="Id" property="CompanyId"
                                  spPlaceholder="Select Company"
                                  [validationMessages]="formGroupService.addressGroup.AddressTypeError"
                                  [form]="registerFranchiseForm" [lpName]="AddressType">
+              </core-autocomplete>-->
+              <core-autocomplete spTextField="Description" spValueField="Id" property="CompanyId"
+                                 spPlaceholder="Select Company"
+                                 [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                                 [form]="registerFranchiseForm" lpName="Company">
               </core-autocomplete>
             </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="AddressState" [form]="registerFranchiseForm.get('AddressGroup')"
-                                  spPlaceholder="State" [spRequired]="formGroupService.addressGroup.isStateRequired"
-                                  [validationMessages]="formGroupService.addressGroup.AddressStateError">
-              </form-control-input>
-            </div>
-            <div fxFlex fxFlex.gt-xs="33" class="padding-5">
-              <form-control-input property="PostalCode" [form]="registerFranchiseForm.get('AddressGroup')"
-                                  spPlaceholder="Postcode" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
-                                  [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
-            </div>
-          </div>
-
-          <div fxLayout.gt-xs="row" fxLayout="column">
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
-              <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
-                         spPlaceholder="Address Type"
-                         [validationMessages]="formGroupService.addressGroup.AddressTypeError"
-                         [form]="registerFranchiseForm.get('AddressGroup')" lpName="AddressType">
-              </core-list>
-            </div>
-            <div coreFlexInput fxFlex fxFlex.gt-xs="33">
+            <div coreFlexInput fxFlex fxFlex.gt-xs="50">
               <core-list spTextField="Description" spValueField="Id" property="CompanyFranchiseCategoryId"
                          [validationMessages]="companyFranchiseCategoryError" spPlaceholder="Category"
                          [form]="registerFranchiseForm" lpName="CompanyFranchiseCategory">
@@ -50,7 +33,8 @@
             </div>
           </div>
 
-          <div fxLayout.gt-sm="row" fxLayout="column" [formGroup]="registerFranchiseForm">
+
+          <div fxLayout.gt-xs="row" fxLayout="column" [formGroup]="registerFranchiseForm">
             <div coreFlexInput fxFlex fxFlex.gt-xs="33">
               <md-checkbox fxFlexFill formControlName="CanContactCustomers">Can be contacted</md-checkbox>
             </div>
@@ -63,6 +47,51 @@
               <md-checkbox formControlName="CanGetCustomerDetails" style="margin-top:15px;">Can get customer details</md-checkbox>
             </div>
           </div>
+
+          <div [formGroup]="registerFranchiseForm">
+
+            <div fxLayout="row" fxLayoutAlign="end center" class="padding-5">
+              <button md-button color="primary" (click)="addAddress()">
+                <span class="fa fa-plus"></span>&nbsp;Address
+              </button>
+            </div>
+
+            <div formArrayName="Addresses" *ngFor="let address of Addresses.controls; let i=index">
+
+              <div [formGroupName]="i" fxLayout.gt-xs="row" fxLayout="column">
+
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5">
+                  <form-control-input property="AddressState" [form]="address"
+                                      spPlaceholder="State"
+                                      [spRequired]="formGroupService.addressGroup.isStateRequired"
+                                      [validationMessages]="formGroupService.addressGroup.AddressStateError">
+                  </form-control-input>
+                </div>
+
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5">
+                  <form-control-input property="PostalCode" [form]="address" [spType]="number"
+                                      spPlaceholder="Postal Code" [spRequired]="formGroupService.addressGroup.isPostCodeRequired"
+                                      [validationMessages]="formGroupService.addressGroup.PostCodeError"></form-control-input>
+                </div>
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5" coreFlexInput>
+                  <core-list spTextField="Description" spValueField="Id" property="AddressTypeId"
+                             spPlaceholder="Address Type"
+                             [validationMessages]="formGroupService.addressGroup.AddressTypeError"
+                             [form]="address" lpName="AddressType">
+                  </core-list>
+                </div>
+                <div fxFlex fxFlex.gt-xs="25" class="padding-5" coreFlexInput>
+                  <core-list spTextField="Description" spValueField="Id" property="CountryId"
+                             spPlaceholder="Country"
+                             [validationMessages]="formGroupService.addressGroup.CountryError"
+                             [form]="address" lpName="Country">
+                  </core-list>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
           <div fxLayout.gt-xs="row" fxLayout="column">
 
             <div fxFlex="100" fxFlex.gt-xs="50" [ngClass]="{'padding-5': true}">
@@ -79,6 +108,8 @@
               </button>
             </div>
           </div>
+
+
         </md-card-content>
       </md-card>
     </div>

@@ -31,7 +31,7 @@ namespace SpecialApp.API.Controllers.Account
             {
                 Service.Add(companyModel);
 
-                //await Service.CommitAsync();
+                await Service.CommitAsync();
 
                 return Ok(companyModel);
             }
