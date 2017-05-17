@@ -20,10 +20,16 @@ interface IBaseEntity {
     RowVersion: Array<number>;
 }
 
+const State = {
+    Unchanged: 0,
+    Added: 1,
+    Modified: 2,
+    Deleted: 3
+};
 interface IBaseCode extends IBaseEntity {
     Code: string;
     Description: string;
 }
 
 
-export { IBaseEntity, IBaseCode, IAddress };
+export { IBaseEntity, IBaseCode, IAddress, State };

@@ -13,5 +13,6 @@ namespace SpecialApp.Entity.Model.Account
         public int CompanyFranchiseCategoryId { get; set; }
         public int CompanyId { get; set; }
         public bool IsConfirmed { get; set; }
+        public State State { get; set; }
     }
 }

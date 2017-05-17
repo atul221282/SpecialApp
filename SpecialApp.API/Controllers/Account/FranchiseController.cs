@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Entity.Model.Account;
+using SpecialApp.Service.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,16 @@ namespace SpecialApp.API.Controllers.Account
 {
     public class FranchiseController : BaseAccountApiController
     {
+        private readonly Lazy<ICreateFranchiseService> lazyService;
+
+        public FranchiseController(Lazy<ICreateFranchiseService> lazyService)
+        {
+            this.lazyService = lazyService;
+        }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateFranchiseModel farnchiseModel)
         {
+            await lazyService.Value.Create(farnchiseModel);
             return Ok();
         }
     }

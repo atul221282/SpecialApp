@@ -29,11 +29,11 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (Service)
             {
-                Service.Add(companyModel);
+                var company =  Service.Add(companyModel);
 
                 await Service.CommitAsync();
 
-                return Ok(companyModel);
+                return Ok(company);
             }
         }
     }

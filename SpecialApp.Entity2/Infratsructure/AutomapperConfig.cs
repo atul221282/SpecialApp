@@ -13,6 +13,7 @@ namespace SpecialApp.Entity.Infratsructure
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CreateCompanyModelProfile>();
+                cfg.AddProfile<CreateFranchiseModelProfile>();
             });
 
             var mapper = config.CreateMapper();

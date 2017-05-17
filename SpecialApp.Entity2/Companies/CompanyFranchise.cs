@@ -20,9 +20,6 @@ namespace SpecialApp.Entity.Companies
 
         public string ConfirmationToken { get; set; }
 
-        public int AddressId { get; set; }
-        public virtual Address Address { get; set; }
-
         public int CompanyFranchiseCategoryId { get; set; }
         public virtual CompanyFranchiseCategory CompanyFranchiseCategory { get; set; }
 

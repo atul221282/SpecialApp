@@ -11,7 +11,7 @@ namespace SpecialApp.Context.Configuration.Companies
         public CompanyFranchiseConfiguration(EntityTypeBuilder<CompanyFranchise> entityTypeBuilder)
             : base(entityTypeBuilder)
         {
-            entityTypeBuilder.Property(x => x.AddressId).IsRequired();
+            //entityTypeBuilder.Property(x => x.AddressId).IsRequired();
             entityTypeBuilder.Property(x => x.CompanyFranchiseCategoryId).IsRequired();
             entityTypeBuilder.Property(x => x.ConfirmationToken).HasMaxLength(250);
             //entityTypeBuilder.Property(x => x.CreatedById).IsRequired();

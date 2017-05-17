@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.Service.Account
 {
-    public interface ICreateFranchiseService
+    public interface ICreateFranchiseService : IBaseService
     {
         Task Create(CreateFranchiseModel model);
     }

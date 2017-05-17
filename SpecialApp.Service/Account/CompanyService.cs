@@ -31,7 +31,6 @@ namespace SpecialApp.Service.Account
         public Company Add(CreateCompanyModel companyModel)
         {
             var company = mapper.Map<Company>(companyModel);
-            company.State = Entity.State.Added;
             company.AuditCreatedBy = "system";
             company.AuditLastUpdatedBy = "system";
             var repo = _uow.GetRepository<Company>();

@@ -347,8 +347,6 @@ namespace SpecialApp.Context.Migrations
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AddressId");
-
                     b.Property<string>("AuditCreatedBy")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -388,8 +386,6 @@ namespace SpecialApp.Context.Migrations
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("CompanyFranchiseCategoryId");
 
@@ -1029,10 +1025,6 @@ namespace SpecialApp.Context.Migrations
 
             modelBuilder.Entity("SpecialApp.Entity.Companies.CompanyFranchise", b =>
                 {
-                    b.HasOne("SpecialApp.Entity.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("SpecialApp.Entity.Companies.CompanyFranchiseCategory", "CompanyFranchiseCategory")
                         .WithMany()
                         .HasForeignKey("CompanyFranchiseCategoryId");

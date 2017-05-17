@@ -442,7 +442,6 @@ namespace SpecialApp.Context.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AddressId = table.Column<int>(nullable: false),
                     AuditCreatedBy = table.Column<string>(maxLength: 100, nullable: false),
                     AuditCreatedDate = table.Column<DateTimeOffset>(nullable: false),
                     AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
@@ -461,12 +460,6 @@ namespace SpecialApp.Context.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CompanyFranchise", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CompanyFranchise_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CompanyFranchise_CompanyFranchiseCategory_CompanyFranchiseCategoryId",
                         column: x => x.CompanyFranchiseCategoryId,
@@ -873,11 +866,6 @@ namespace SpecialApp.Context.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanyFranchise_AddressId",
-                table: "CompanyFranchise",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CompanyFranchise_CompanyFranchiseCategoryId",
                 table: "CompanyFranchise",
                 column: "CompanyFranchiseCategoryId");
@@ -1059,19 +1047,25 @@ namespace SpecialApp.Context.Migrations
                 name: "FileData");
 
             migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
                 name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Special");
 
             migrationBuilder.DropTable(
+                name: "AddressType");
+
+            migrationBuilder.DropTable(
+                name: "Country");
+
+            migrationBuilder.DropTable(
                 name: "CompanyFranchise");
 
             migrationBuilder.DropTable(
                 name: "SpecialCategory");
-
-            migrationBuilder.DropTable(
-                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "CompanyFranchiseCategory");
@@ -1081,12 +1075,6 @@ namespace SpecialApp.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "AddressType");
-
-            migrationBuilder.DropTable(
-                name: "Country");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
