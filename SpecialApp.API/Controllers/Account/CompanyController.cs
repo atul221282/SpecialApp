@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.Service.Account;
@@ -13,15 +14,17 @@ namespace SpecialApp.API.Controllers.Account
     {
         private readonly Lazy<ICompanyService> lazyService;
         private ICompanyService _service;
+        private readonly Lazy<IMapper> lazyMapper;
 
         public ICompanyService Service
         {
             get { return _service = _service ?? lazyService.Value; }
         }
 
-        public CompanyController(Lazy<ICompanyService> lazyService)
+        public CompanyController(Lazy<ICompanyService> lazyService, Lazy<IMapper> lazyMapper)
         {
             this.lazyService = lazyService;
+            this.lazyMapper = lazyMapper;
         }
 
         [HttpPost]

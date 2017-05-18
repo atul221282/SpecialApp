@@ -69,5 +69,8 @@
     <None Include="CompanyFranchiseCategory.sql" />
     <None Include="AddressType.sql" />
     <None Include="Country.sql" />
+    <None Include="Company.sql" />
+    <None Include="CompanyAddress.sql" />
+    <None Include="Address.sql" />
   </ItemGroup>
 </Project>
