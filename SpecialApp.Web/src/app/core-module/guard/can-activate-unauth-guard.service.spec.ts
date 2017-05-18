@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+﻿import { TestBed, inject } from '@angular/core/testing';
 
-import { CanActivateAuthGuardService } from './can-activate-auth-guard.service';
+import { CanActivateUnAuthGuardService } from './can-activate-unauth-guard.service';
 
-describe('CanActivateAuthGuardService', () => {
+describe('CanActivateUnAuthGuardService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CanActivateAuthGuardService]
+      providers: [CanActivateUnAuthGuardService]
     });
   });
 
-  it('should ...', inject([CanActivateAuthGuardService], (service: CanActivateAuthGuardService) => {
+  it('should ...', inject([CanActivateUnAuthGuardService], (service: CanActivateUnAuthGuardService) => {
     expect(service).toBeTruthy();
   }));
 });

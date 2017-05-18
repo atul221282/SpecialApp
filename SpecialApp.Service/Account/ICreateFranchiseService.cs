@@ -1,4 +1,5 @@
-﻿using SpecialApp.Entity.Model.Account;
+﻿using SpecialApp.Entity.Companies;
+using SpecialApp.Entity.Model.Account;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SpecialApp.Service.Account
 {
     public interface ICreateFranchiseService : IBaseService
     {
-        Task Create(CreateFranchiseModel model);
+        Task<CompanyFranchise> Create(CompanyFranchise model);
     }
 }

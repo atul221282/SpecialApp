@@ -20,9 +20,10 @@ namespace SpecialApp.Service.Account
             this.mapper = mapper;
         }
 
-        public async Task Create(CreateFranchiseModel model)
+        public async Task<CompanyFranchise> Create(CompanyFranchise companyFranchise)
         {
-            var entity = mapper.Map<CompanyFranchise>(model);
+            
+            return companyFranchise;
         }
     }
 }
