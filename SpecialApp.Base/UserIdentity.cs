@@ -28,11 +28,11 @@ namespace SpecialApp.Base
         {
             get
             {
-                return identity.IsAuthenticated;
+                return identity != null ? identity.IsAuthenticated : false;
             }
         }
 
-        public string GetEmail() => principal.Claims.FirstOrDefault()?.Value;
+        public string GetEmail() => principal?.Claims?.FirstOrDefault()?.Value;
 
     }
 }
