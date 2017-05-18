@@ -9,16 +9,19 @@ using SpecialApp.Entity.Model.Account;
 using System.Linq;
 using SpecialApp.Entity.Model;
 using Microsoft.EntityFrameworkCore;
+using SpecialApp.Base;
 
 namespace SpecialApp.Service.Account
 {
     public class CompanyService : BaseService, ICompanyService
     {
         private readonly IMapper mapper;
+        private readonly IUserIdentity identity;
 
-        public CompanyService(ISpecialUOW uow, IMapper mapper) : base(uow)
+        public CompanyService(ISpecialUOW uow, IMapper mapper, IUserIdentity identity) : base(uow)
         {
             this.mapper = mapper;
+            this.identity = identity;
         }
 
         public Company Add(Company company)
@@ -30,9 +33,9 @@ namespace SpecialApp.Service.Account
 
         public Company Add(CreateCompanyModel companyModel)
         {
-            var company = mapper.Map<Company>(companyModel);
-            company.AuditCreatedBy = "system";
-            company.AuditLastUpdatedBy = "system";
+            var company = mapper.Map<Company>(companyModel,
+                opts => opts.Items.Add("EmailAddress", identity.GetEmail() ?? "system"));
+
             var repo = _uow.GetRepository<Company>();
             var repoAddress = _uow.GetRepository<CompanyAddress>();
 

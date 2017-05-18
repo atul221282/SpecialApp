@@ -10,7 +10,6 @@ namespace SpecialApp.Entity.Infratsructure.Profiles
     {
         public CreateFranchiseModelProfile()
         {
-            string EmailAddress = null;
             CreateMap<CreateFranchiseModel, CompanyFranchise>()
                 .ForMember(d => d.AuditCreatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))
                 .ForMember(d => d.AuditLastUpdatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))

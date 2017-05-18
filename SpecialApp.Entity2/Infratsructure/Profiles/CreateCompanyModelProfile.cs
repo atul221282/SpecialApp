@@ -10,6 +10,10 @@ namespace SpecialApp.Entity.Infratsructure.Profiles
         public CreateCompanyModelProfile()
         {
             CreateMap<CreateCompanyModel, Company>()
+                .ForMember(d => d.AuditCreatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))
+                .ForMember(d => d.AuditLastUpdatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))
+                .ForMember(d => d.AuditCreatedDate, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
+                .ForMember(d => d.AuditLastUpdatedDate, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
                 .ForMember(x => x.Details, opt => opt.MapFrom(x => x.Details))
                 .ForMember(x => x.NumberOfEmployees, opt => opt.MapFrom(x => x.NumberOfEmployees))
                 .ForMember(x => x.CompanyName, opt => opt.MapFrom(x => x.CompanyName))
