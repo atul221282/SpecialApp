@@ -20,7 +20,7 @@ namespace SpecialApp.API.Controllers.Account
     public class CustomerAccountController : BaseAccountApiController
     {
         private readonly Lazy<ISpecialUOW> uowFunc;
-        private readonly Func<IUserManagerService> serviceFunc;
+        private readonly Func<IUserManagerService> userManagerServiceFunc;
         private readonly Func<ICustomerService> custServiceFunc;
         private ISpecialUOW _uow;
         public ISpecialUOW Uow
@@ -33,7 +33,7 @@ namespace SpecialApp.API.Controllers.Account
 
         public CustomerAccountController(Func<ICustomerService> custServiceFunc, Func<IUserManagerService> serviceFunc)
         {
-            this.serviceFunc = serviceFunc;
+            this.userManagerServiceFunc = serviceFunc;
             this.custServiceFunc = custServiceFunc;
         }
         // GET: api/UserAccount

@@ -19,17 +19,11 @@ namespace SpecialApp.Service.Account
     public class CustomerService : BaseService, ICustomerService
     {
         private readonly Func<IUserManagerService> serviceFunc;
-        private ISpecialUOW _uow;
+        private new ISpecialUOW _uow;
         private readonly IBusinessException busEx;
 
         private readonly Lazy<ISpecialUOW> uow;
-        public ISpecialUOW Uow
-        {
-            get
-            {
-                return _uow = _uow ?? uow.Value;
-            }
-        }
+        public ISpecialUOW Uow => _uow = _uow ?? uow.Value;
 
         private IUserManagerService _service;
 
@@ -41,7 +35,6 @@ namespace SpecialApp.Service.Account
             }
         }
 
-
         public CustomerService(Lazy<ISpecialUOW> uow, Func<IUserManagerService> serviceFunc,
             IBusinessException busEx) : base(uow.Value)
         {
@@ -50,11 +43,6 @@ namespace SpecialApp.Service.Account
             this.uow = uow;
         }
 
-        /// <summary>
-        /// Create new SpecialAppUsers and users if user with same email doesnot exists
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public async Task<Users> CreateAsync(RegisterCustomer model)
         {
             IRepository<Users> repo = null;
@@ -164,7 +152,7 @@ namespace SpecialApp.Service.Account
 
         public async Task<SpecialAppUsers> FindByEmailAsync(string email)
         {
-            if(string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
             {
                 busEx.Add("SpecialAppUsers", "Email is required to find the user");
             }
