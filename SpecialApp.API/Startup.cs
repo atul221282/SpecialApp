@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using NLog.Extensions.Logging;
 using SpecialApp.API.Helpers;
 using SpecialApp.Base;
 using SpecialApp.Context;
@@ -32,10 +38,14 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
             // add cors middle ware
             services.AddCorsExtension();
 
             var container = SpecialObjectFactory.Container;
+
+            
 
             container.PreLoadContainer(Configuration);
 
@@ -74,6 +84,7 @@ namespace SpecialApp.API
             //app.UseResponseCompression();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
             app.UseCors(APIGlobalConstants.CorsPolicy);
             app.UseIdentity();
             app.UseMvc();
