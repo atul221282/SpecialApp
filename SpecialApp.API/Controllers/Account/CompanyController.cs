@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using SpecialApp.API.Infrastructure;
+using SpecialApp.Entity;
 using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.Service.Account;
@@ -75,8 +76,9 @@ namespace SpecialApp.API.Controllers.Account
         [HttpPut("{id}", Name = "UpdateCompanyCollection")]
         public async Task<IActionResult> UpdateCompanyCollection(int id, [FromBody] List<CreateCompanyModel> models)
         {
-            var href = urlHelper.UrlHelper().Link("GetCompany", new { id = 1 });
-            return NoContent();
+            var href = urlHelper.UrlHelper.Link("GetCompany", new { id = 1 });
+            var data = Result<List<CreateCompanyModel>>.Ok(models, new List<HateoasLinks> { new HateoasLinks { href = href, rel = "get-full-company", method = "GET" } });
+            return Ok(data);
         }
     }
 }

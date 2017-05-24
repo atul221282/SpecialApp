@@ -38,14 +38,9 @@ namespace SpecialApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            // add cors middle ware
             services.AddCorsExtension();
 
             var container = SpecialObjectFactory.Container;
-
-            
 
             container.PreLoadContainer(Configuration);
 

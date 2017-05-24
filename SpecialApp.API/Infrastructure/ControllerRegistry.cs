@@ -20,6 +20,7 @@ namespace SpecialApp.API.Infrastructure
 
         public ControllerRegistry(IServiceCollection services, Container container)
         {
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             //var ff = container.GetInstance<IActionContextAccessor>();
             var mapper = AutomapperConfig.RegisterMapping();
             For<IMapper>().Use(mapper).Singleton();

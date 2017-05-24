@@ -9,7 +9,7 @@ namespace SpecialApp.API.Infrastructure
 {
     public interface IMyUrlHelper
     {
-        IUrlHelper UrlHelper();
+        IUrlHelper UrlHelper { get; }
     }
 
     public class MyUrlHelper : IMyUrlHelper
@@ -22,12 +22,6 @@ namespace SpecialApp.API.Infrastructure
         {
             this.urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
-        public IUrlHelper UrlHelper()
-        {
-            return urlHelper;
-        }
+        public IUrlHelper UrlHelper => urlHelper;
     }
-
-
-
 }
