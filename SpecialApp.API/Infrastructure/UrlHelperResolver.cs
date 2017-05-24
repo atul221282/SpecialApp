@@ -7,17 +7,17 @@ using System;
 
 namespace SpecialApp.API.Infrastructure
 {
-    public interface IMyUrlHelper
+    public interface IUrlHelperResolver
     {
         IUrlHelper UrlHelper { get; }
     }
 
-    public class MyUrlHelper : IMyUrlHelper
+    public class UrlHelperResolver : IUrlHelperResolver
     {
         private readonly Func<IHttpContextAccessor> fact;
         private readonly IUrlHelper urlHelper;
 
-        public MyUrlHelper(IUrlHelperFactory urlHelperFactory,
+        public UrlHelperResolver(IUrlHelperFactory urlHelperFactory,
                    IActionContextAccessor actionContextAccessor)
         {
             this.urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);

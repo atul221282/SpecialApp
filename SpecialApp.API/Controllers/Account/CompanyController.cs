@@ -22,18 +22,27 @@ namespace SpecialApp.API.Controllers.Account
         private readonly Lazy<ICompanyService> lazyService;
         private ICompanyService _service;
         private readonly Lazy<IMapper> lazyMapper;
-        private readonly IMyUrlHelper urlHelper;
+        private readonly Infrastructure.IUrlHelperResolver urlHelper;
         public ICompanyService Service
         {
             get { return _service = _service ?? lazyService.Value; }
         }
 
         public CompanyController(Lazy<ICompanyService> lazyService,
-            Lazy<IMapper> lazyMapper, IMyUrlHelper urlHelper)
+            Lazy<IMapper> lazyMapper, IUrlHelperResolver urlHelper)
         {
             this.lazyService = lazyService;
             this.lazyMapper = lazyMapper;
             this.urlHelper = urlHelper;
+        }
+
+        [HttpGet(Name = "GetCollection")]
+        public async Task<IActionResult> GetCollection()
+        {
+            using (Service)
+            {
+                return Ok(CreateLinks());
+            }
         }
 
         [HttpGet("{id}", Name = "GetCompany")]
@@ -41,12 +50,11 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (Service)
             {
-                return Ok();
+                return Ok(CreateLinks());
             }
         }
 
-        [AllowAnonymous]
-        [HttpPatch("{id}")]
+        [HttpPatch("{id}", Name = "PartiallyUpdateCompany")]
         public async Task<IActionResult> PartiallyUpdateCompany(int id, [FromBody]JsonPatchDocument<CreateCompanyModel> model)
         {
             var pp = new CreateCompanyModel { ComapnyId = id, CompanyName = "" };
@@ -54,8 +62,8 @@ namespace SpecialApp.API.Controllers.Account
             return NoContent();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateCompanyModel companyModel)
+        [HttpPost(Name = "CreateCompany")]
+        public async Task<IActionResult> CreateCompany([FromBody]CreateCompanyModel companyModel)
         {
             using (Service)
             {
@@ -76,9 +84,40 @@ namespace SpecialApp.API.Controllers.Account
         [HttpPut("{id}", Name = "UpdateCompanyCollection")]
         public async Task<IActionResult> UpdateCompanyCollection(int id, [FromBody] List<CreateCompanyModel> models)
         {
-            var href = urlHelper.UrlHelper.Link("GetCompany", new { id = 1 });
-            var data = Result<List<CreateCompanyModel>>.Ok(models, new List<HateoasLinks> { new HateoasLinks { href = href, rel = "get-full-company", method = "GET" } });
+            var data = Result<List<CreateCompanyModel>>.Ok(models,
+                CreateLinks());
             return Ok(data);
+        }
+
+        private List<HateoasLinks> CreateLinks()
+        {
+            return new List<HateoasLinks> {
+                 new HateoasLinks {
+                        href =  urlHelper.UrlHelper.Link("GetCollection",null),
+                        rel = "get-company-collection",
+                        method = "GET"
+                    },
+                    new HateoasLinks {
+                        href =  urlHelper.UrlHelper.Link("GetCompany", new { id = 1 }),
+                        rel = "get-full-company",
+                        method = "GET"
+                    },
+                    new HateoasLinks {
+                        href = urlHelper.UrlHelper.Link("CreateCompany",null),
+                        rel = "create-company",
+                        method = "POST"
+                    },
+                     new HateoasLinks {
+                        href = urlHelper.UrlHelper.Link("UpdateCompanyCollection",null),
+                        rel = "update-company",
+                        method = "PUT"
+                    },
+                      new HateoasLinks {
+                        href = urlHelper.UrlHelper.Link("PartiallyUpdateCompany",null),
+                        rel = "patch-company",
+                        method = "PATCH"
+                    }
+                };
         }
     }
 }

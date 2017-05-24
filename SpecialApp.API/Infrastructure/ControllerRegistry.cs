@@ -30,13 +30,5 @@ namespace SpecialApp.API.Infrastructure
                 scan.With(new ControllerConvention());
             });
         }
-
-        private UrlHelper GetK(IContext x)
-        {
-            var ff = x.GetInstance<IActionContextAccessor>();
-            return new UrlHelper(ff.ActionContext);
-        }
-        
-
     }
 }
