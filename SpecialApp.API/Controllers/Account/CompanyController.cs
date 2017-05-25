@@ -41,7 +41,11 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (Service)
             {
-                return Ok(CreateLinks());
+                var result = await Service.Get();
+
+                var data = Result<IEnumerable<CompanyModel>>.Ok(result, CreateLinks());
+
+                return Ok(data);
             }
         }
 
@@ -50,20 +54,26 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (Service)
             {
-                return Ok(CreateLinks());
+                var result = await Service.Get(id);
+
+                var data = Result<CompanyModel>.Ok(result, CreateLinks());
+
+                return Ok(result);
             }
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateCompany")]
-        public async Task<IActionResult> PartiallyUpdateCompany(int id, [FromBody]JsonPatchDocument<CreateCompanyModel> model)
+        public async Task<IActionResult> PartiallyUpdateCompany(int id, [FromBody]JsonPatchDocument<CompanyModel> model)
         {
-            var pp = new CreateCompanyModel { ComapnyId = id, CompanyName = "" };
+            var pp = new CompanyModel { ComapnyId = id, CompanyName = "" };
+
             model.ApplyTo(pp);
+
             return NoContent();
         }
 
         [HttpPost(Name = "CreateCompany")]
-        public async Task<IActionResult> CreateCompany([FromBody]CreateCompanyModel companyModel)
+        public async Task<IActionResult> CreateCompany([FromBody]CompanyModel companyModel)
         {
             using (Service)
             {
@@ -71,7 +81,9 @@ namespace SpecialApp.API.Controllers.Account
 
                 await Service.CommitAsync();
 
-                return CreatedAtRoute("GetCompany", new { id = company.Id }, company);
+                var data = Result<Entity.Companies.Company>.Ok(company, CreateLinks());
+
+                return CreatedAtRoute("GetCompany", new { id = company.Id }, data);
             }
         }
 
@@ -82,10 +94,10 @@ namespace SpecialApp.API.Controllers.Account
         //}
 
         [HttpPut("{id}", Name = "UpdateCompanyCollection")]
-        public async Task<IActionResult> UpdateCompanyCollection(int id, [FromBody] List<CreateCompanyModel> models)
+        public async Task<IActionResult> UpdateCompanyCollection(int id, [FromBody] List<CompanyModel> models)
         {
-            var data = Result<List<CreateCompanyModel>>.Ok(models,
-                CreateLinks());
+            var data = Result<List<CompanyModel>>.Ok(models, CreateLinks());
+
             return Ok(data);
         }
 
@@ -93,29 +105,29 @@ namespace SpecialApp.API.Controllers.Account
         {
             return new List<HateoasLinks> {
                  new HateoasLinks {
-                        href =  urlHelper.UrlHelper.Link("GetCollection",null),
-                        rel = "get-company-collection",
-                        method = "GET"
+                        Href =  urlHelper.UrlHelper.Link("GetCollection",null),
+                        Rel = "get-company-collection",
+                        Method = "GET"
                     },
                     new HateoasLinks {
-                        href =  urlHelper.UrlHelper.Link("GetCompany", new { id = 1 }),
-                        rel = "get-full-company",
-                        method = "GET"
+                        Href =  urlHelper.UrlHelper.Link("GetCompany", new { id = 1 }),
+                        Rel = "get-full-company",
+                        Method = "GET"
                     },
                     new HateoasLinks {
-                        href = urlHelper.UrlHelper.Link("CreateCompany",null),
-                        rel = "create-company",
-                        method = "POST"
+                        Href = urlHelper.UrlHelper.Link("CreateCompany",null),
+                        Rel = "create-company",
+                        Method = "POST"
                     },
                      new HateoasLinks {
-                        href = urlHelper.UrlHelper.Link("UpdateCompanyCollection",null),
-                        rel = "update-company",
-                        method = "PUT"
+                        Href = urlHelper.UrlHelper.Link("UpdateCompanyCollection",null),
+                        Rel = "update-company",
+                        Method = "PUT"
                     },
                       new HateoasLinks {
-                        href = urlHelper.UrlHelper.Link("PartiallyUpdateCompany",null),
-                        rel = "patch-company",
-                        method = "PATCH"
+                        Href = urlHelper.UrlHelper.Link("PartiallyUpdateCompany",null),
+                        Rel = "patch-company",
+                        Method = "PATCH"
                     }
                 };
         }

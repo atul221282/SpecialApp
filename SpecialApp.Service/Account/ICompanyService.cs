@@ -8,10 +8,14 @@ namespace SpecialApp.Service.Account
 {
     public interface ICompanyService : IBaseService
     {
+        Task<IEnumerable<CompanyModel>> Get();
+
         Company Add(Company company);
 
-        Company Add(CreateCompanyModel companyModel);
+        Task<CompanyModel> Get(int id);
 
-        Task<IEnumerable<LookupModel>> Get();
+        Company Add(CompanyModel companyModel);
+
+        Task<IEnumerable<LookupModel>> GetLookup();
     }
 }

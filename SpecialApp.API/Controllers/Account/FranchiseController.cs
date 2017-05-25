@@ -25,7 +25,7 @@ namespace SpecialApp.API.Controllers.Account
             this.userIdentity = userIdentity;
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateFranchiseModel farnchiseModel)
+        public async Task<IActionResult> Create([FromBody]FranchiseModel farnchiseModel)
         {
             var cFranchise = lazyMapper.Value.Map<CompanyFranchise>(farnchiseModel,
                 ctx => ctx.Items.Add("EmailAddress", userIdentity.Value.GetEmail() ?? "system"));

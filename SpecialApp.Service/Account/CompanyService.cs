@@ -10,6 +10,7 @@ using System.Linq;
 using SpecialApp.Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Base;
+using AutoMapper.QueryableExtensions;
 
 namespace SpecialApp.Service.Account
 {
@@ -27,25 +28,46 @@ namespace SpecialApp.Service.Account
         public Company Add(Company company)
         {
             var repo = _uow.GetRepository<Company>();
+
             repo.Add(company);
+
             return company;
         }
 
-        public Company Add(CreateCompanyModel companyModel)
+        public Company Add(CompanyModel companyModel)
         {
             var company = mapper.Map<Company>(companyModel,
                 opts => opts.Items.Add("EmailAddress", identity.GetEmail() ?? "system"));
 
             var repo = _uow.GetRepository<Company>();
-            var repoAddress = _uow.GetRepository<CompanyAddress>();
 
             repo.Add(company);
+
             return company;
         }
 
-        public async Task<IEnumerable<LookupModel>> Get()
+        public async Task<IEnumerable<CompanyModel>> Get()
         {
             var repo = _uow.GetRepository<Company>();
+
+            var result = await repo.GetAll().ProjectTo<CompanyModel>().ToListAsync();
+
+            return result.AsEnumerable();
+        }
+
+        public async Task<CompanyModel> Get(int id)
+        {
+            var repo = _uow.GetRepository<Company>();
+
+            var result = await repo.GetAll().Where(x => x.Id == id).ProjectTo<CompanyModel>().FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<LookupModel>> GetLookup()
+        {
+            var repo = _uow.GetRepository<Company>();
+
             var result = await repo.GetAll()
                 .Select(x => new LookupModel
                 {

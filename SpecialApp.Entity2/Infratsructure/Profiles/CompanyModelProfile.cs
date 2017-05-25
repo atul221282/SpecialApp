@@ -3,20 +3,26 @@ using SpecialApp.Entity.Companies;
 using SpecialApp.Entity.Model.Account;
 using System;
 using System.Linq;
-
 namespace SpecialApp.Entity.Infratsructure.Profiles
 {
-    public class CreateFranchiseModelProfile : Profile
+    public class CompanyModelProfile : Profile
     {
-        public CreateFranchiseModelProfile()
+        public CompanyModelProfile()
         {
-            CreateMap<CreateFranchiseModel, CompanyFranchise>()
+            CreateMap<CompanyModel, Company>()
                 .ForMember(d => d.AuditCreatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))
                 .ForMember(d => d.AuditLastUpdatedBy, opt => opt.ResolveUsing((cfm, cf, st, rContext) => rContext.Items["EmailAddress"]))
                 .ForMember(d => d.AuditCreatedDate, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
                 .ForMember(d => d.AuditLastUpdatedDate, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
-                .ForMember(x => x.CompanyFranchiseAddresses, opt => opt.MapFrom(c => c.Addresses
-                .Select(y => new CompanyFranchiseAddress
+                .ForMember(x => x.Details, opt => opt.MapFrom(x => x.Details))
+                .ForMember(x => x.NumberOfEmployees, opt => opt.MapFrom(x => x.NumberOfEmployees))
+                .ForMember(x => x.CompanyName, opt => opt.MapFrom(x => x.CompanyName))
+                .ForMember(x => x.IsDeleted, opt => opt.ResolveUsing((y) =>
+                {
+                    return false;
+                }))
+                .ForMember(x => x.CompanyAddresses, opt => opt.MapFrom(x => x.Addresses
+                .Select(y => new CompanyAddress
                 {
                     Address = new Address
                     {
@@ -32,9 +38,13 @@ namespace SpecialApp.Entity.Infratsructure.Profiles
                         IsDeleted = false
                     },
                     AddressId = y.Id.HasValue ? y.Id.Value : default(int),
-                    CompanyFranchise = new CompanyFranchise { Id = c.Id },
-                    CompanyFranchiseId = c.Id
-                })));
+                    CompanyId = x.ComapnyId.HasValue ? x.ComapnyId.Value : default(int)
+                })))
+                .ForMember(x => x.State, opt => opt.MapFrom(x => x.State))
+                .ReverseMap()
+                .ForMember(x => x.Addresses, opt => opt.MapFrom(x => x.CompanyAddresses.Select(y => y.Address)))
+                .ForMember(x => x.ComapnyId, opt => opt.MapFrom(y => y.Id))
+                .ForMember(x => x.NumberOfEmployees, opt => opt.MapFrom(y => y.NumberOfEmployees ?? 0));
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpecialApp.Entity.Model.Account
 {
-    public class CreateCompanyModel
+    public class CompanyModel
     {
         public int? ComapnyId { get; set; }
         public string CompanyName { get; set; }

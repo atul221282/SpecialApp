@@ -30,7 +30,7 @@ namespace SpecialApp.API.Controllers.Company
         {
             using (Service)
             {
-                var result = await Service.Get();
+                var result = await Service.GetLookup();
                 return Ok(result);
             }
         }

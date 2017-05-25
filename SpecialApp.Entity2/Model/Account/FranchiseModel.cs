@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpecialApp.Entity.Model.Account
 {
-    public class CreateFranchiseModel
+    public class FranchiseModel
     {
         public List<Address> Addresses { get; set; }
         public bool CanContactCustomers { get; set; }

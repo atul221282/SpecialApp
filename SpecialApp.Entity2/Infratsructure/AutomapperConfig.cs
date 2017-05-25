@@ -10,15 +10,13 @@ namespace SpecialApp.Entity.Infratsructure
     {
         public static IMapper RegisterMapping()
         {
-            var config = new MapperConfiguration(cfg =>
+            Mapper.Initialize((cfg) =>
             {
-                cfg.AddProfile<CreateCompanyModelProfile>();
-                cfg.AddProfile<CreateFranchiseModelProfile>();
+                cfg.AddProfile<CompanyModelProfile>();
+                cfg.AddProfile<FranchiseModelProfile>();
             });
-
-            var mapper = config.CreateMapper();
-
-            return mapper;
+            
+            return Mapper.Configuration.CreateMapper();
         }
     }
 }
