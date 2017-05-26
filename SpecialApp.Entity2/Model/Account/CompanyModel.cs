@@ -12,5 +12,6 @@ namespace SpecialApp.Entity.Model.Account
         public string Details { get; set; }
         public List<Address> Addresses { get; set; }
         public State State { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

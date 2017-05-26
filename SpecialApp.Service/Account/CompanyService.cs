@@ -1,7 +1,5 @@
 ﻿using SpecialApp.UnitOfWork;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using SpecialApp.Entity.Companies;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,6 +9,8 @@ using SpecialApp.Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Base;
 using AutoMapper.QueryableExtensions;
+using SpecialApp.Entity.Composer.Company;
+using SpecialApp.Entity.Composer;
 
 namespace SpecialApp.Service.Account
 {
@@ -50,18 +50,26 @@ namespace SpecialApp.Service.Account
         {
             var repo = _uow.GetRepository<Company>();
 
-            var result = await repo.GetAll().ProjectTo<CompanyModel>().ToListAsync();
+            var data = await repo.GetAll().ToListAsync();
 
-            return result.AsEnumerable();
+            var result = new ActiveEntity<Company>(data).GetActive();
+
+            var test = result.WithMinimum(x => x.NumberOfEmployees.Value);
+
+            var test2 = result.Min(x => x.NumberOfEmployees.Value);
+
+            return mapper.Map<IEnumerable<CompanyModel>>(result);
         }
 
         public async Task<CompanyModel> Get(int id)
         {
             var repo = _uow.GetRepository<Company>();
 
-            var result = await repo.GetAll().Where(x => x.Id == id).ProjectTo<CompanyModel>().FirstOrDefaultAsync();
+            var data = await repo.GetAll().Where(x => x.Id == id).ToListAsync();
 
-            return result;
+            var result = new ActiveEntity<Company>(data).GetActive().FirstOrDefault();
+
+            return mapper.Map<CompanyModel>(result);
         }
 
         public async Task<IEnumerable<LookupModel>> GetLookup()

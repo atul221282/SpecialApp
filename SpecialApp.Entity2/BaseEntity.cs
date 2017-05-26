@@ -2,7 +2,7 @@
 
 namespace SpecialApp.Entity
 {
-    public abstract class BaseEntity : IObjectWithState
+    public abstract class BaseEntity : IBaseEntity
     {
         public int? Id { get; set; }
         public string AuditCreatedBy { get; set; }

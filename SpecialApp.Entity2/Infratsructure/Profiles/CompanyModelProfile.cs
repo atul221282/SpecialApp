@@ -43,6 +43,7 @@ namespace SpecialApp.Entity.Infratsructure.Profiles
                 .ForMember(x => x.State, opt => opt.MapFrom(x => x.State))
                 .ReverseMap()
                 .ForMember(x => x.Addresses, opt => opt.MapFrom(x => x.CompanyAddresses.Select(y => y.Address)))
+                .ForMember(x => x.IsDeleted, opt => opt.MapFrom(x => x.IsDeleted ?? false))
                 .ForMember(x => x.ComapnyId, opt => opt.MapFrom(y => y.Id))
                 .ForMember(x => x.NumberOfEmployees, opt => opt.MapFrom(y => y.NumberOfEmployees ?? 0));
         }
