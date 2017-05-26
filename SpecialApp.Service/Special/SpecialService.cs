@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SpecialApp.Entity;
-using SpecialApp.Repository.Repository;
+using SP = SpecialApp.Entity.Specials;
 using SpecialApp.UnitOfWork;
+using SpecialApp.Entity.Composer;
 
 namespace SpecialApp.Service.Special
 {
@@ -11,7 +12,7 @@ namespace SpecialApp.Service.Special
     {
         private readonly Func<ISpecialUOW> uowFunc;
 
-        private ISpecialUOW _uow;
+        private new ISpecialUOW _uow;
         public ISpecialUOW Uow
         {
             get
@@ -23,14 +24,22 @@ namespace SpecialApp.Service.Special
         {
             this.uowFunc = uowFunc;
         }
-        public async Task<IEnumerable<Entity.Specials.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
-            return await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance);
+            var result = new ActiveEntity<SP.Special>(
+                await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance))
+                .GetActive();
+
+            return result;
         }
 
         public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
-            return await Uow.SpecialRepository.GetLocation(latitude, longitude, distance: distance);
+            var result = new ActiveEntity<Location>(await Uow.SpecialRepository
+                .GetLocation(latitude, longitude, distance: distance))
+                .GetActive();
+
+            return result;
         }
     }
 }

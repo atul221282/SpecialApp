@@ -8,8 +8,6 @@ using System.Linq;
 using SpecialApp.Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Base;
-using AutoMapper.QueryableExtensions;
-using SpecialApp.Entity.Composer.Company;
 using SpecialApp.Entity.Composer;
 
 namespace SpecialApp.Service.Account

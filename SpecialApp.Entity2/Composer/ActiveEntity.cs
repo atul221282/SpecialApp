@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SpecialApp.Entity.CommonContract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace SpecialApp.Entity.Composer
 {
-    public class ActiveEntity<T> where T : IBaseEntity
+    public class ActiveEntity<T> where T : IActiveEntity
     {
 
         private IEnumerable<T> Entities { get; }
