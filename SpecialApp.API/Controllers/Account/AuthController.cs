@@ -68,8 +68,8 @@ namespace SpecialApp.API.Controllers.Account
         }
 
         // POST: api/Auth
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]LoginModel model)
+        [HttpPost(Name = "AuthLogin")]
+        public async Task<IActionResult> Login([FromBody]LoginModel model)
         {
             using (CustomerService)
             {
@@ -80,8 +80,10 @@ namespace SpecialApp.API.Controllers.Account
 
                     appUser = await gAppUser.ResolveUser(Hasher, model.Password);
 
-                    return StatusCode(() => 
-                    gAppUser.SetStatus(SetAPIResponse(appUser, model.RememberMe), tokenService()));
+                    return StatusCode(() => gAppUser.SetStatus((ser) =>
+                    {
+                        return appUser.ErrorMessage(SetAPIResponse(appUser, model.RememberMe), tokenService());
+                    }, tokenService()));
                 }
                 catch
                 {

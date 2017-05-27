@@ -23,7 +23,7 @@ namespace SpecialApp.Service.Account
 
     public class ResolvedUser : IResolvedUser
     {
-        private readonly IAppUsers userResultType;
+        private IAppUsers userResultType { get; set; }
         private readonly IUserManagerService usrMngService;
 
         public ResolvedUser()
@@ -46,19 +46,20 @@ namespace SpecialApp.Service.Account
             if (userResultType is UnauthorisedUser || userResultType is AnonymousUser)
                 return userResultType;
 
-            var user = (SpecialAppUsers)userResultType;
+            var user = userResultType;
 
-            var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+            var result = hasher.VerifyHashedPassword((SpecialAppUsers)user, user.PasswordHash, password);
 
             if (result == PasswordVerificationResult.Failed)
             {
+                userResultType = UnauthorisedUser.Instance;
                 return UnauthorisedUser.Instance;
             }
 
             if (result == PasswordVerificationResult.SuccessRehashNeeded)
             {
-                user.PasswordHash = hasher.HashPassword(user, password);
-                await usrMngService.UpdateAsync(user);
+                user.PasswordHash = hasher.HashPassword((SpecialAppUsers)user, password);
+                await usrMngService.UpdateAsync((SpecialAppUsers)user);
             }
 
             return userResultType;
