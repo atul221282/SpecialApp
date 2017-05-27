@@ -6,6 +6,7 @@ using SpecialApp.API.Filters;
 using SpecialApp.Base;
 using SpecialApp.Entity;
 using SpecialApp.Entity.Model.Account;
+using SpecialApp.Service;
 using SpecialApp.Service.Account;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -23,6 +24,8 @@ namespace SpecialApp.API.Controllers.Account
         private readonly Func<IPasswordHasher<SpecialAppUsers>> hasher;
 
         private ICustomerService _customerService;
+        private readonly Func<ITokenService> tokenService;
+
         public ICustomerService CustomerService
         {
             get
@@ -39,10 +42,12 @@ namespace SpecialApp.API.Controllers.Account
             }
         }
 
-        public AuthController(Func<ICustomerService> customerServiceFunc, Func<IPasswordHasher<SpecialAppUsers>> hasher)
+        public AuthController(Func<ICustomerService> customerServiceFunc,
+            Func<IPasswordHasher<SpecialAppUsers>> hasher, Func<ITokenService> tokenService)
         {
             this.customerServiceFunc = customerServiceFunc;
             this.hasher = hasher;
+            this.tokenService = tokenService;
         }
 
         [HttpGet(Name = "GetAuth")]
@@ -72,25 +77,24 @@ namespace SpecialApp.API.Controllers.Account
 
                     appUser = await gAppUser.ResolveUserStatus(Hasher, model.Password);
 
-                    if (appUser is UnauthorisedUser)
-                        return StatusCode(401,  SetError("Failed to login"));
-
-                    if(appUser is AnonymousUser)
-                        return StatusCode(403, SetError("Failed to login"));
+                    if (appUser is UnauthorisedUser || appUser is AnonymousUser)
+                        return StatusCode(appUser.StatusCode, SetError("Failed to login"));
                 }
                 catch
                 {
                     return BadRequest(SetError("Failed to login"));
                 }
 
-                JwtSecurityToken token = CreateToken(null, appUser, model.RememberMe);
+                var tokenData = tokenService().GenerateToken(null, appUser, model.RememberMe);
 
-                return Ok(new
+                var response = new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
-                    expires_in = SetExpiry(model.RememberMe)
-                });
+                    token = tokenData.GetTokenString(),
+                    expiration = tokenData.GetExpiry(),
+                    expires_in = tokenData.GetExpiry()
+                };
+
+                return Ok(response);
             }
         }
 
@@ -104,40 +108,6 @@ namespace SpecialApp.API.Controllers.Account
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
-
-        private static JwtSecurityToken CreateToken(IConfigurationRoot config, IAppUsers user, bool rememberMe = false)
-        {
-            var claims = new[]
-            {
-                //keep this sub at top this order is required. This sets the current user when getting instance of context
-                new Claim(JwtRegisteredClaimNames.Sub,user.Email),
-            };
-
-            //var userClaims = await userMgr.GetClaimsAsync(user);
-            //if (userClaims.Count > 0)
-            //    claims.Union(userClaims);
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("AWESOMEKEYS!@#$%123456"));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: "https://specialapp.com",
-                audience: "https://specialapp.com",
-                claims: claims,
-                expires: SetExpiry(rememberMe),
-                signingCredentials: creds
-            );
-            return token;
-        }
-
-        private static DateTime SetExpiry(bool rememberMe)
-        {
-#if DEBUG
-            return DateTime.UtcNow.AddHours(5);
-#else
-            return rememberMe ? DateTime.UtcNow.AddDays(15) : DateTime.UtcNow.AddDays(1);
-#endif
         }
     }
 }

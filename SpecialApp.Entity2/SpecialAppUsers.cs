@@ -14,6 +14,7 @@ namespace SpecialApp.Entity
                 return new AnonymousUser();
             return this;
         }
+        public int StatusCode => 200;
     }
 
     public class AnonymousUser : IdentityUser, IAppUsers
@@ -26,7 +27,7 @@ namespace SpecialApp.Entity
             this.UserName = "";
             this.PasswordHash = "";
         }
-
+        public int StatusCode => 403;
         public IAppUsers Resolve()
         {
             return new AnonymousUser();
@@ -44,6 +45,8 @@ namespace SpecialApp.Entity
             this.PasswordHash = "";
         }
 
+        public int StatusCode => 401;
+
         public IAppUsers Resolve()
         {
             return new UnauthorisedUser();
@@ -57,6 +60,7 @@ namespace SpecialApp.Entity
         string UserName { get; set; }
         string Email { get; set; }
         string PasswordHash { get; set; }
+        int StatusCode { get; }
         IAppUsers Resolve();
     }
 }
