@@ -21,6 +21,7 @@ namespace SpecialApp.Service.Account
         private readonly Func<IUserManagerService> serviceFunc;
         private new ISpecialUOW _uow;
         private readonly IBusinessException busEx;
+        public IAppUsers userResultType { get; private set; }
 
         private readonly Lazy<ISpecialUOW> uow;
         public ISpecialUOW Uow => _uow = _uow ?? uow.Value;
@@ -156,8 +157,49 @@ namespace SpecialApp.Service.Account
             {
                 busEx.Add("SpecialAppUsers", "Email is required to find the user");
             }
+
             busEx.ThrowIfErrors();
+
             return await Service.FindByEmailAsync(email);
+        }
+
+        public async Task<ICustomerService> GetUser(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                busEx.Add("SpecialAppUsers", "Email is required to find the user");
+            }
+
+            busEx.ThrowIfErrors();
+
+            var result = await Service.GetUser(email);
+
+            this.userResultType = result;
+
+            return this;
+        }
+
+        public async Task<IAppUsers> ResolveUserStatus(IPasswordHasher<SpecialAppUsers> hasher, string password)
+        {
+            if (userResultType is UnauthorisedUser || userResultType is AnonymousUser)
+                return userResultType;
+
+            var user = (SpecialAppUsers)userResultType;
+
+            var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return new UnauthorisedUser();
+            }
+
+            if (result == PasswordVerificationResult.SuccessRehashNeeded)
+            {
+                user.PasswordHash = hasher.HashPassword(user, password);
+                await UpdateAsync(user);
+            }
+
+            return userResultType;
         }
 
         public async Task<IdentityResult> UpdateAsync(SpecialAppUsers user)

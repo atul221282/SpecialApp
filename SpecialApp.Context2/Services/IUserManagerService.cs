@@ -16,5 +16,7 @@ namespace SpecialApp.Context.Services
         Task<IdentityResult> UpdateAsync(SpecialAppUsers users);
 
         Task<IdentityResult> DeleteAsync(SpecialAppUsers users);
+
+        Task<IAppUsers> GetUser(string email);
     }
 }

@@ -60,5 +60,11 @@ namespace SpecialApp.Context.Services
             UserManager.Dispose();
         }
 
+        public async Task<IAppUsers> GetUser(string email)
+        {
+            var result = (await UserManager.FindByEmailAsync(email));
+
+            return result?.Resolve() ?? new UnauthorisedUser();
+        }
     }
 }

@@ -18,5 +18,9 @@ namespace SpecialApp.Service.Account
         Task<SpecialAppUsers> FindByEmailAsync(string email);
 
         Task<IdentityResult> UpdateAsync(SpecialAppUsers user);
+
+        Task<ICustomerService> GetUser(string email);
+
+        Task<IAppUsers> ResolveUserStatus(IPasswordHasher<SpecialAppUsers> hasher, string password);
     }
 }

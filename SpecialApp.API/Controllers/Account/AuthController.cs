@@ -65,46 +65,32 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (CustomerService)
             {
-                bool isValidLogin = false;
-                SpecialAppUsers user;
+                IAppUsers appUser;
                 try
                 {
-                    user = await CustomerService.FindByEmailAsync(model.EmailAddress);
-                    if (user == null)
-                    {
-                        return StatusCode(401,SetError("Failed to login"));
-                    }
-                    var result = Hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
+                    var gAppUser = await CustomerService.GetUser(model.EmailAddress);
 
-                    if (result == PasswordVerificationResult.Success)
-                    {
-                        isValidLogin = true;
-                    }
-                    else
-                    {
-                        if (result == PasswordVerificationResult.SuccessRehashNeeded)
-                        {
-                            user.PasswordHash = Hasher.HashPassword(user, model.Password);
-                            await CustomerService.UpdateAsync(user);
-                            isValidLogin = true;
-                        }
-                    }
+                    appUser = await gAppUser.ResolveUserStatus(Hasher, model.Password);
+
+                    if (appUser is UnauthorisedUser)
+                        return StatusCode(401,  SetError("Failed to login"));
+
+                    if(appUser is AnonymousUser)
+                        return StatusCode(403, SetError("Failed to login"));
                 }
                 catch
                 {
                     return BadRequest(SetError("Failed to login"));
                 }
-                if (isValidLogin)
+
+                JwtSecurityToken token = CreateToken(null, appUser, model.RememberMe);
+
+                return Ok(new
                 {
-                    JwtSecurityToken token = CreateToken(null, user, model.RememberMe);
-                    return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo,
-                        expires_in = SetExpiry(model.RememberMe)
-                    });
-                }
-                return StatusCode(401, SetError("Failed to login"));
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo,
+                    expires_in = SetExpiry(model.RememberMe)
+                });
             }
         }
 
@@ -120,12 +106,12 @@ namespace SpecialApp.API.Controllers.Account
         {
         }
 
-        private static JwtSecurityToken CreateToken(IConfigurationRoot config, SpecialAppUsers user, bool rememberMe = false)
+        private static JwtSecurityToken CreateToken(IConfigurationRoot config, IAppUsers user, bool rememberMe = false)
         {
             var claims = new[]
             {
                 //keep this sub at top this order is required. This sets the current user when getting instance of context
-                new Claim(JwtRegisteredClaimNames.Sub,user.NormalizedEmail),
+                new Claim(JwtRegisteredClaimNames.Sub,user.Email),
             };
 
             //var userClaims = await userMgr.GetClaimsAsync(user);
