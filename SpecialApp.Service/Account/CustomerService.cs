@@ -167,6 +167,8 @@ namespace SpecialApp.Service.Account
             return new ResolvedUser(userResultType, Service);
         }
 
+
+
         public async Task<IdentityResult> UpdateAsync(SpecialAppUsers user)
         {
             if (user == null)

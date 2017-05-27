@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpecialApp.Entity.Model
 {
-    public class LookupModel : IActiveEntity
+    public class LookupModel : IActiveOnlyEntity
     {
         public string Code { get; set; }
         public string Description { get; set; }

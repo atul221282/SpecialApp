@@ -6,12 +6,12 @@ using System.Text;
 
 namespace SpecialApp.Entity.Composer
 {
-    public class ActiveEntity<T> where T : IActiveEntity
+    public class ActiveOnlyEntity<T> where T : IActiveOnlyEntity
     {
 
         private IEnumerable<T> Entities { get; }
 
-        public ActiveEntity(IEnumerable<T> entity)
+        public ActiveOnlyEntity(IEnumerable<T> entity)
         {
             this.Entities = entity;
         }

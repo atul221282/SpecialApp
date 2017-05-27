@@ -48,9 +48,7 @@ namespace SpecialApp.Service.Account
         {
             var repo = _uow.GetRepository<Company>();
 
-            var data = await repo.GetAll().ToListAsync();
-
-            var result = new ActiveEntity<Company>(data).GetActive();
+            var result = await repo.GetAllActive().ToListAsync();
 
             var test = result.WithMinimum(x => x.NumberOfEmployees.Value);
 
@@ -63,9 +61,9 @@ namespace SpecialApp.Service.Account
         {
             var repo = _uow.GetRepository<Company>();
 
-            var data = await repo.GetAll().Where(x => x.Id == id).ToListAsync();
+            var data = await repo.GetAllActive().Where(x => x.Id == id).ToListAsync();
 
-            var result = new ActiveEntity<Company>(data).GetActive().FirstOrDefault();
+            var result = data.FirstOrDefault();
 
             return mapper.Map<CompanyModel>(result);
         }

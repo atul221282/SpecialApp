@@ -26,7 +26,7 @@ namespace SpecialApp.Service.Special
         }
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
-            var result = new ActiveEntity<SP.Special>(
+            var result = new ActiveOnlyEntity<SP.Special>(
                 await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance))
                 .GetActive();
 
@@ -35,7 +35,7 @@ namespace SpecialApp.Service.Special
 
         public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
-            var result = new ActiveEntity<Location>(await Uow.SpecialRepository
+            var result = new ActiveOnlyEntity<Location>(await Uow.SpecialRepository
                 .GetLocation(latitude, longitude, distance: distance))
                 .GetActive();
 

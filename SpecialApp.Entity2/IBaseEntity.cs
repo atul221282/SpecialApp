@@ -3,7 +3,7 @@ using System;
 
 namespace SpecialApp.Entity
 {
-    public interface IBaseEntity : IObjectWithState, IActiveEntity
+    public interface IBaseEntity : IObjectWithState, IActiveOnlyEntity
     {
         int? Id { get; set; }
         string AuditCreatedBy { get; set; }

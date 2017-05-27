@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Repository
@@ -23,6 +24,13 @@ namespace SpecialApp.Repository
         public IQueryable<T> GetAll()
         {
             return this.DbSet;
+        }
+
+        public IQueryable<T> GetAllActive()
+        {
+            return this.DbSet.Where(x => 
+            x != null 
+            && !((bool)x.GetType().GetProperty("IsDeleted").GetValue(x)));
         }
 
         public virtual void Add(T entity)
