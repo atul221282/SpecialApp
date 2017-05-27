@@ -43,14 +43,15 @@ namespace SpecialApp.API.Controllers.Account
         }
 
         public AuthController(Func<ICustomerService> customerServiceFunc,
-            Func<IPasswordHasher<SpecialAppUsers>> hasher, Func<ITokenService> tokenService)
+            Func<IPasswordHasher<SpecialAppUsers>> hasher, Func<ITokenService> tokenService,
+            IResolvedUser sss)
         {
             this.customerServiceFunc = customerServiceFunc;
             this.hasher = hasher;
             this.tokenService = tokenService;
         }
 
-        [HttpGet(Name = "GetAuth")]
+        [HttpGet(Name = "GetAuthUsers")]
         // GET: api/Auth
         public async Task<IActionResult> Get()
         {
@@ -58,7 +59,7 @@ namespace SpecialApp.API.Controllers.Account
         }
 
         // GET: api/Auth/5
-        [HttpGet("{email}", Name = "GetAuthByName")]
+        [HttpGet("{email}", Name = "GetAuthUserByEmail")]
         public async Task<IActionResult> Get(string email)
         {
             return Ok();
@@ -75,7 +76,7 @@ namespace SpecialApp.API.Controllers.Account
                 {
                     var gAppUser = await CustomerService.GetUser(model.EmailAddress);
 
-                    appUser = await gAppUser.ResolveUserStatus(Hasher, model.Password);
+                    appUser = await gAppUser.ResolveUser(Hasher, model.Password);
 
                     if (appUser is UnauthorisedUser || appUser is AnonymousUser)
                         return StatusCode(appUser.StatusCode, SetError("Failed to login"));
@@ -96,18 +97,6 @@ namespace SpecialApp.API.Controllers.Account
 
                 return Ok(response);
             }
-        }
-
-        // PUT: api/Auth/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

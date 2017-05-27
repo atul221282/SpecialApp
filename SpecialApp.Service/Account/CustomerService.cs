@@ -151,19 +151,7 @@ namespace SpecialApp.Service.Account
             return await Service.DeleteAsync(specialAppUsers);
         }
 
-        public async Task<SpecialAppUsers> FindByEmailAsync(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-            {
-                busEx.Add("SpecialAppUsers", "Email is required to find the user");
-            }
-
-            busEx.ThrowIfErrors();
-
-            return await Service.FindByEmailAsync(email);
-        }
-
-        public async Task<ICustomerService> GetUser(string email)
+        public async Task<IResolvedUser> GetUser(string email)
         {
             if (string.IsNullOrEmpty(email))
             {
@@ -176,30 +164,7 @@ namespace SpecialApp.Service.Account
 
             this.userResultType = result;
 
-            return this;
-        }
-
-        public async Task<IAppUsers> ResolveUserStatus(IPasswordHasher<SpecialAppUsers> hasher, string password)
-        {
-            if (userResultType is UnauthorisedUser || userResultType is AnonymousUser)
-                return userResultType;
-
-            var user = (SpecialAppUsers)userResultType;
-
-            var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-
-            if (result == PasswordVerificationResult.Failed)
-            {
-                return new UnauthorisedUser();
-            }
-
-            if (result == PasswordVerificationResult.SuccessRehashNeeded)
-            {
-                user.PasswordHash = hasher.HashPassword(user, password);
-                await UpdateAsync(user);
-            }
-
-            return userResultType;
+            return new ResolvedUser(userResultType, Service);
         }
 
         public async Task<IdentityResult> UpdateAsync(SpecialAppUsers user)
