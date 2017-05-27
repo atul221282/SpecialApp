@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers.Account
 {
-    [ExceptionHandlerFilter]
+    
     public class AuthController : BaseAccountApiController
     {
         private readonly Func<ICustomerService> customerServiceFunc;
@@ -62,7 +62,9 @@ namespace SpecialApp.API.Controllers.Account
         [HttpGet("{email}", Name = "GetAuthUserByEmail")]
         public async Task<IActionResult> Get(string email)
         {
-            return Ok();
+            var result = await CustomerService.GetUser(email);
+
+            return Ok(result.ResolveUser());
         }
 
         // POST: api/Auth
