@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers.Account
 {
-    
+
     public class AuthController : BaseAccountApiController
     {
         private readonly Func<ICustomerService> customerServiceFunc;
@@ -80,25 +80,32 @@ namespace SpecialApp.API.Controllers.Account
 
                     appUser = await gAppUser.ResolveUser(Hasher, model.Password);
 
-                    if (appUser is UnauthorisedUser || appUser is AnonymousUser)
-                        return StatusCode(appUser.StatusCode, SetError("Failed to login"));
+                    return StatusCode(() => 
+                    gAppUser.SetStatus(SetAPIResponse(appUser, model.RememberMe), tokenService()));
                 }
                 catch
                 {
                     return BadRequest(SetError("Failed to login"));
                 }
-
-                var tokenData = tokenService().GenerateToken(null, appUser, model.RememberMe);
-
-                var response = new
-                {
-                    token = tokenData.GetTokenString(),
-                    expiration = tokenData.GetExpiry(),
-                    expires_in = tokenData.GetExpiry()
-                };
-
-                return Ok(response);
             }
+        }
+
+        private Func<ITokenService, object> SetAPIResponse(IAppUsers appUser, bool rememberMe)
+            => (serv) =>
+        {
+            var tokenData = serv.GenerateToken(null, appUser, rememberMe);
+            return new
+            {
+                token = tokenData.GetTokenString(),
+                expiration = tokenData.GetExpiry(),
+                expires_in = tokenData.GetExpiry()
+            };
+        };
+
+        private IActionResult StatusCode(Func<Tuple<int, object>> p)
+        {
+            var result = p();
+            return StatusCode(result.Item1, result.Item2);
         }
     }
 }

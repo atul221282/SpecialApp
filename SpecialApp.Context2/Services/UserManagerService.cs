@@ -64,7 +64,7 @@ namespace SpecialApp.Context.Services
         {
             var result = (await UserManager.FindByEmailAsync(email));
 
-            return result?.Resolve() ?? new UnauthorisedUser();
+            return result?.Resolve() ?? UnauthorisedUser.Instance;
         }
     }
 }

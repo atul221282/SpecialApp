@@ -18,6 +18,7 @@ namespace SpecialApp.Service.Account
         /// <returns></returns>
         Task<IAppUsers> ResolveUser(IPasswordHasher<SpecialAppUsers> hasher, string password);
 
+        Tuple<int, object> SetStatus(Func<ITokenService, object> p, ITokenService service);
     }
 
     public class ResolvedUser : IResolvedUser
@@ -27,11 +28,11 @@ namespace SpecialApp.Service.Account
 
         public ResolvedUser()
         {
-            this.userResultType = new UnauthorisedUser();
+            this.userResultType = UnauthorisedUser.Instance;
         }
         public ResolvedUser(IAppUsers userResultType, IUserManagerService usrMngService)
         {
-            this.userResultType = userResultType ?? new UnauthorisedUser();
+            this.userResultType = userResultType ?? UnauthorisedUser.Instance;
             this.usrMngService = usrMngService;
         }
 
@@ -51,7 +52,7 @@ namespace SpecialApp.Service.Account
 
             if (result == PasswordVerificationResult.Failed)
             {
-                return new UnauthorisedUser();
+                return UnauthorisedUser.Instance;
             }
 
             if (result == PasswordVerificationResult.SuccessRehashNeeded)
@@ -61,6 +62,11 @@ namespace SpecialApp.Service.Account
             }
 
             return userResultType;
+        }
+
+        public Tuple<int, object> SetStatus(Func<ITokenService, object> p, ITokenService service)
+        {
+            return Tuple.Create(this.userResultType.StatusCode, this.userResultType.ErrorMessage(p, service));
         }
     }
 }
