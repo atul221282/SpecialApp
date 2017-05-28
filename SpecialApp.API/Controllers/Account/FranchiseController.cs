@@ -24,6 +24,7 @@ namespace SpecialApp.API.Controllers.Account
             this.lazyMapper = lazyMapper;
             this.userIdentity = userIdentity;
         }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]FranchiseModel farnchiseModel)
         {
@@ -31,7 +32,7 @@ namespace SpecialApp.API.Controllers.Account
                 ctx => ctx.Items.Add("EmailAddress", userIdentity.Value.GetEmail() ?? "system"));
 
             //opt => opt.Items["CurrentUserName"] = User.Identity.Name
-            var companyFranchise = await lazyService.Value.Create(cFranchise);
+            var companyFranchise = await Task.Factory.StartNew(() => lazyService.Value.Create(cFranchise));
 
             return Ok(companyFranchise);
         }

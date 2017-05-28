@@ -20,9 +20,12 @@ namespace SpecialApp.Service.Account
             this.mapper = mapper;
         }
 
-        public async Task<CompanyFranchise> Create(CompanyFranchise companyFranchise)
+        public CompanyFranchise Create(CompanyFranchise companyFranchise)
         {
-            
+            var repo = uow.GetRepository<CompanyFranchise>();
+
+            repo.Add(companyFranchise);
+
             return companyFranchise;
         }
     }

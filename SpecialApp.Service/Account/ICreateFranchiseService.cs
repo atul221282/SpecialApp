@@ -9,6 +9,6 @@ namespace SpecialApp.Service.Account
 {
     public interface ICreateFranchiseService : IBaseService
     {
-        Task<CompanyFranchise> Create(CompanyFranchise model);
+        CompanyFranchise Create(CompanyFranchise model);
     }
 }
