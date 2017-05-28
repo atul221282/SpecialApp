@@ -29,8 +29,10 @@ namespace SpecialApp.API.Controllers.Account
         {
             var cFranchise = lazyMapper.Value.Map<CompanyFranchise>(farnchiseModel,
                 ctx => ctx.Items.Add("EmailAddress", userIdentity.Value.GetEmail() ?? "system"));
+
             //opt => opt.Items["CurrentUserName"] = User.Identity.Name
             var companyFranchise = await lazyService.Value.Create(cFranchise);
+
             return Ok(companyFranchise);
         }
     }

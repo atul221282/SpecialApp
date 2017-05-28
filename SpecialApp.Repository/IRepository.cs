@@ -20,7 +20,7 @@ namespace SpecialApp.Repository
         /// Gets record where IsDeleted is false
         /// </summary>
         /// <returns></returns>
-        IQueryable<T> GetAllActive();
+        IQueryable<T> GetAllActive(string deletedKey = "IsDeleted");
 
         /// <summary>
         /// Gets all including.

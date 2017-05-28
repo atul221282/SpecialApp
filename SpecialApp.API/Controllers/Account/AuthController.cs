@@ -87,7 +87,7 @@ namespace SpecialApp.API.Controllers.Account
                 }
                 catch
                 {
-                    return BadRequest(SetError("Failed to login"));
+                    return StatusCode(() => Tuple.Create(500, SetError("Failed to login")));
                 }
             }
         }

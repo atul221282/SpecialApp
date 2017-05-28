@@ -16,9 +16,9 @@ namespace SpecialApp.Entity
             return this;
         }
 
-        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> p, TIn value)
+        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> getResponse, TIn value)
         {
-            return p(value);
+            return getResponse(value);
         }
 
         public int StatusCode => 200;
@@ -46,7 +46,7 @@ namespace SpecialApp.Entity
         }
         public int StatusCode => 403;
 
-        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> p, TIn value)
+        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> getResponse, TIn value)
         {
             return new
             {
@@ -85,7 +85,7 @@ namespace SpecialApp.Entity
         }
         public int StatusCode => 401;
 
-        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> p, TIn value)
+        public object ErrorMessage<TIn, TOut>(Func<TIn, TOut> getResponse, TIn value)
         {
             return new
             {
@@ -111,6 +111,6 @@ namespace SpecialApp.Entity
         string PasswordHash { get; set; }
         int StatusCode { get; }
         IAppUsers Resolve();
-        object ErrorMessage<TIn, TOut>(Func<TIn, TOut> p, TIn value);
+        object ErrorMessage<TIn, TOut>(Func<TIn, TOut> getResponse, TIn value);
     }
 }

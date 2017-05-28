@@ -26,11 +26,11 @@ namespace SpecialApp.Repository
             return this.DbSet;
         }
 
-        public IQueryable<T> GetAllActive()
+        public IQueryable<T> GetAllActive(string deletedKey = "IsDeleted")
         {
-            return this.DbSet.Where(x => 
-            x != null 
-            && !((bool)x.GetType().GetProperty("IsDeleted").GetValue(x)));
+            return this.DbSet.Where(x =>
+            x != null
+            && !((bool)x.GetType().GetProperty(deletedKey).GetValue(x)));
         }
 
         public virtual void Add(T entity)

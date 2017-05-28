@@ -43,6 +43,7 @@ namespace SpecialApp.API.Controllers.Account
             using (var custService = custServiceFunc())
             {
                 var result = await custService.CreateTestAsync();
+
                 return new string[] { result.Item1.Email, result.Item2.Email };
             }
         }
@@ -78,8 +79,11 @@ namespace SpecialApp.API.Controllers.Account
             using (var custService = custServiceFunc())
             {
                 var scope = await custService.BeginTransaction();
+
                 await custService.DeleteAsync(email);
+
                 await custService.CommitAsync();
+
                 scope.Commit();
             }
         }

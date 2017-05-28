@@ -9,6 +9,7 @@ using SpecialApp.Entity.Model;
 using Microsoft.EntityFrameworkCore;
 using SpecialApp.Base;
 using SpecialApp.Entity.Composer;
+using AutoMapper.QueryableExtensions;
 
 namespace SpecialApp.Service.Account
 {
@@ -37,35 +38,32 @@ namespace SpecialApp.Service.Account
             var company = mapper.Map<Company>(companyModel,
                 opts => opts.Items.Add("EmailAddress", identity.GetEmail() ?? "system"));
 
-            var repo = _uow.GetRepository<Company>();
-
-            repo.Add(company);
-
-            return company;
+            return Add(company);
         }
 
         public async Task<IEnumerable<CompanyModel>> Get()
         {
             var repo = _uow.GetRepository<Company>();
 
-            var result = await repo.GetAllActive().ToListAsync();
+            var result = await repo.GetAllActive()
+                .ProjectTo<CompanyModel>()
+                .ToListAsync();
 
-            var test = result.WithMinimum(x => x.NumberOfEmployees.Value);
+            //var test = result.WithMinimum(x => x.NumberOfEmployees.Value);
 
-            var test2 = result.Min(x => x.NumberOfEmployees.Value);
-
-            return mapper.Map<IEnumerable<CompanyModel>>(result);
+            return result;
         }
 
         public async Task<CompanyModel> Get(int id)
         {
             var repo = _uow.GetRepository<Company>();
 
-            var data = await repo.GetAllActive().Where(x => x.Id == id).ToListAsync();
+            var data = await repo.GetAllActive()
+                .Where(x => x.Id == id)
+                .ProjectTo<CompanyModel>()
+                .FirstOrDefaultAsync();
 
-            var result = data.FirstOrDefault();
-
-            return mapper.Map<CompanyModel>(result);
+            return data;
         }
 
         public async Task<IEnumerable<LookupModel>> GetLookup()

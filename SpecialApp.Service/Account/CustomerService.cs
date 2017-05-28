@@ -134,40 +134,31 @@ namespace SpecialApp.Service.Account
 
         public async Task<IdentityResult> DeleteAsync(string email)
         {
-            var specialAppUsers = await Service.FindByEmailAsync(email);
-            if (specialAppUsers == null)
-                busEx.Add("SpecialAppUsers", $"No user found for {email}");
+            var resolveUser = await GetUser(email);
 
-            busEx.ThrowIfErrors();
-            var repo = Uow.GetRepository<Users>();
-            var users = await repo.GetAll().FirstOrDefaultAsync(x => x.SpecialAppUsersId == specialAppUsers.Id);
+            var specialAppUsers = await resolveUser.DeleteUsers(email, busEx);
 
-            if (users == null)
-                busEx.Add("Users", $"No user found for {email}");
-
-            busEx.ThrowIfErrors();
-
-            await repo.Delete(users);
-            return await Service.DeleteAsync(specialAppUsers);
+            return specialAppUsers;
         }
 
         public async Task<IResolvedUser> GetUser(string email)
         {
             if (string.IsNullOrEmpty(email))
-            {
                 busEx.Add("SpecialAppUsers", "Email is required to find the user");
-            }
 
             busEx.ThrowIfErrors();
 
             var result = await Service.GetUser(email);
 
-            this.userResultType = result;
+            userResultType = result;
 
-            return new ResolvedUser(userResultType, Service);
+            return GetResolveUser();
         }
 
-
+        private ResolvedUser GetResolveUser()
+        {
+            return new ResolvedUser(userResultType, Service, Uow);
+        }
 
         public async Task<IdentityResult> UpdateAsync(SpecialAppUsers user)
         {
