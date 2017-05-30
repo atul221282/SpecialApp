@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 
@@ -12,21 +14,21 @@ namespace SpecialApp.Base
         /// <summary>
         /// Converts object to sql param and if it is null then add dbnull value
         /// </summary>
-        /// <param name="value">Object value</param>
-        /// <param name="name">Name of sql parameter</param>
+        /// <param name = "value" > Object value</param>
+        /// <param name = "name" > Name of sql parameter</param>
         /// <returns></returns>
-        //public static SqlParameter ToSqlParam(this object value, string name)
-        //{
-        //    SqlParameter result = new SqlParameter()
-        //    {
-        //        ParameterName = name
-        //    };
-        //    if (value == null)
-        //        result.Value = DBNull.Value;
-        //    else
-        //        result.Value = value;
-        //    return result;
-        //}
+        public static SqlParameter ToSqlParam(this object value, string name)
+        {
+            SqlParameter result = new SqlParameter()
+            {
+                ParameterName = name
+            };
+            if (value == null)
+                result.Value = DBNull.Value;
+            else
+                result.Value = value;
+            return result;
+        }
 
         public static bool IsNull<T>(this T value)
         {
@@ -48,25 +50,23 @@ namespace SpecialApp.Base
             return !IsNullOrDefault(value);
         }
 
-        //public static PropertyBuilder<T> IsOptional<T>(this PropertyBuilder<T> value)
-        //{
-        //    value.IsRequired(required: false);
-        //    return value;
-        //}
+        public static PropertyBuilder<T> IsOptional<T>(this PropertyBuilder<T> value)
+        {
+            value.IsRequired(required: false);
+            return value;
+        }
 
-        ///// <summary>
-        ///// This is just to avoid the generated <b>HasColumnType</b>, via entity framework tool, which is not required in ef core
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="value"></param>
-        ///// <param name="name"></param>
-        ///// <returns></returns>
-        //public static PropertyBuilder<T> HasColumnTypeOverride<T>(this PropertyBuilder<T> value, string name)
-        //{
-        //    return value;
-        //}
-
-
+        /// <summary>
+        /// This is just to avoid the generated <b>HasColumnType</b>, via entity framework tool, which is not required in ef core
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static PropertyBuilder<T> HasColumnTypeOverride<T>(this PropertyBuilder<T> value, string name)
+        {
+            return value;
+        }
 
         public static byte[] ToByteArray(this Stream stream)
         {
