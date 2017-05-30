@@ -30,5 +30,14 @@ namespace SpecialApp.Base
         {
             return sequence.Where(x => x.IsDeleted == false);
         }
+        //sequence.Aggregate((T)null, (best, current) =>
+        //best == null || criterion(current).CompareTo(criterion(best)) < 0 ? current : best);
+
+        public static IEnumerable<U> FindDuplicates<T, U>(this IEnumerable<T> list, Func<T, U> keySelector)
+        {
+            return list.GroupBy(keySelector)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key).ToList();
+        }
     }
 }

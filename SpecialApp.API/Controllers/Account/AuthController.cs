@@ -55,7 +55,7 @@ namespace SpecialApp.API.Controllers.Account
         // GET: api/Auth
         public async Task<IActionResult> Get()
         {
-            return Ok();
+            return Ok(await Task.FromResult(1));
         }
 
         // GET: api/Auth/5
