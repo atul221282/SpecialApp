@@ -5,6 +5,7 @@ using SpecialApp.Entity;
 using SP = SpecialApp.Entity.Specials;
 using SpecialApp.UnitOfWork;
 using SpecialApp.Entity.Composer;
+using SpecialApp.Base;
 
 namespace SpecialApp.Service.Special
 {

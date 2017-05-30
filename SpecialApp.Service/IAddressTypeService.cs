@@ -7,7 +7,7 @@ namespace SpecialApp.Service
     {
         void Add();
 
-        Task<AddressType> Get();
+        Task<IAddressType> Get();
 
         Task<int> CommitAsync();
     }

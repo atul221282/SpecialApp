@@ -1,6 +1,9 @@
-﻿using System;
+﻿using SpecialApp.Entity.CommonContract;
+using System;
 using System.Collections.Generic;
+
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SpecialApp.Base
 {
@@ -13,7 +16,19 @@ namespace SpecialApp.Base
                 (best, cur) => best == null || cur.Item2.CompareTo(best.Item2) < 0 ? cur : best)
             .Item1;
 
-        //sequence.Aggregate((T)null, (best, current) =>
-        //best == null || criterion(current).CompareTo(criterion(best)) < 0 ? current : best);
+        public static TOut Do<TOut, T>(this IEnumerable<T> sequence, Func<T, TOut> action) where TOut : new()
+        {
+            foreach (T seq in sequence)
+            {
+                var ts = action(seq);
+                return ts;
+            }
+            return new TOut();
+        }
+
+        public static IQueryable<T> GetActive<T>(this IQueryable<T> sequence) where T : IActiveOnlyEntity
+        {
+            return sequence.Where(x => x.IsDeleted == false);
+        }
     }
 }

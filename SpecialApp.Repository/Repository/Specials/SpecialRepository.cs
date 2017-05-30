@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpecialApp.Base;
 using SpecialApp.Entity;
 using SpecialApp.Entity.Specials;
 using System;
@@ -22,7 +23,7 @@ namespace SpecialApp.Repository.Repository.Specials
                                          INNER JOIN [dbo].[Location] L ON SL.LocationId = L.Id
                                          WHERE " +
                         $"geography::Point(L.Latitude, L.Longitude, 4326)" +
-                $".STDistance(geography::Point('{latitude}', '{longitude}', 4326)) <=4000").ToListAsync();
+                $".STDistance(geography::Point('{latitude}', '{longitude}', 4326)) <=4000").GetActive().ToListAsync();
         }
 
         public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
@@ -30,7 +31,7 @@ namespace SpecialApp.Repository.Repository.Specials
             var test = await context.Set<Location>()
                .FromSql($"SELECT * from [dbo].[Location] L WHERE " +
                $"geography::Point(L.Latitude, L.Longitude, 4326).STDistance(geography::Point(@p0, @p1, 4326)) <=@p2",
-               latitude, longitude, distance).ToListAsync();
+               latitude, longitude, distance).GetActive().ToListAsync();
 
             return test;
         }

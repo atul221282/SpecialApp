@@ -45,7 +45,7 @@ namespace SpecialApp.Service.Account
         {
             var repo = _uow.GetRepository<Company>();
 
-            var result = await repo.GetAllActive()
+            var result = await repo.GetAll().GetActive()
                 .ProjectTo<CompanyModel>()
                 .ToListAsync();
 
@@ -58,7 +58,7 @@ namespace SpecialApp.Service.Account
         {
             var repo = _uow.GetRepository<Company>();
 
-            var data = await repo.GetAllActive()
+            var data = await repo.GetAll().GetActive()
                 .Where(x => x.Id == id)
                 .ProjectTo<CompanyModel>()
                 .FirstOrDefaultAsync();

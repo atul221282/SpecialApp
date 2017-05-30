@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpecialApp.Base;
 using SpecialApp.Entity;
 using SpecialApp.UnitOfWork;
 using System;
@@ -31,9 +32,9 @@ namespace SpecialApp.Service
             uowFunc().GetRepository<AddressType>().Add(addressType);
         }
 
-        public async Task<AddressType> Get()
+        public async Task<IAddressType> Get()
         {
-            return await uowFunc().GetRepository<AddressType>().GetAll().FirstOrDefaultAsync();
+            return await uowFunc().GetRepository<AddressType>().GetAll().GetActive().FirstOrDefaultAsync();
         }
 
         public async Task<int> CommitAsync()

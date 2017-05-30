@@ -52,6 +52,9 @@ namespace SpecialApp.Service.Account
 
         public async Task<IAppUsers> ResolveUser(IPasswordHasher<SpecialAppUsers> hasher, string password)
         {
+            var ggg = DbSetss(() => hasher.HashPassword(new SpecialAppUsers { Id = "12121SSS" }, "11212"));
+            var ggf = DbSetss(() => 1);
+
             if (userResultType is UnauthorisedUser || userResultType is AnonymousUser)
                 return userResultType;
 
@@ -75,6 +78,11 @@ namespace SpecialApp.Service.Account
             return userResultType;
         }
 
+        private T DbSetss<T>(Func<T> f)
+        {
+            return f();
+        }
+
         /// <summary>
         /// This method must be wrapped under transaction
         /// </summary>
@@ -90,7 +98,7 @@ namespace SpecialApp.Service.Account
 
             var repo = uow.GetRepository<Users>();
 
-            var users = await repo.GetAllActive().FirstOrDefaultAsync(x => x.SpecialAppUsersId == userResultType.Id);
+            var users = await repo.GetAll().GetActive().FirstOrDefaultAsync(x => x.SpecialAppUsersId == userResultType.Id);
 
             if (users == null)
                 busEx.Add("Users", $"No user found for {email}");

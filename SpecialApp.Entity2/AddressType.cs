@@ -1,6 +1,11 @@
 ﻿namespace SpecialApp.Entity
 {
-    public class AddressType : BaseCode
+    public class AddressType : BaseCode, IAddressType
     {
+    }
+
+    public interface IAddressType : IBaseCode
+    {
+
     }
 }

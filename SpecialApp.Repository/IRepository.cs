@@ -17,12 +17,6 @@ namespace SpecialApp.Repository
         IQueryable<T> GetAll();
 
         /// <summary>
-        /// Gets record where IsDeleted is false
-        /// </summary>
-        /// <returns></returns>
-        IQueryable<T> GetAllActive(string deletedKey = "IsDeleted");
-
-        /// <summary>
         /// Gets all including.
         /// </summary>
         /// <param name="includedProperties">The included properties.</param>

@@ -27,7 +27,6 @@ namespace SpecialApp.Service.Account
         public ISpecialUOW Uow => _uow = _uow ?? uow.Value;
 
         private IUserManagerService _service;
-
         public IUserManagerService Service
         {
             get
@@ -144,7 +143,9 @@ namespace SpecialApp.Service.Account
         public async Task<IResolvedUser> GetUser(string email)
         {
             if (string.IsNullOrEmpty(email))
+            {
                 busEx.Add("SpecialAppUsers", "Email is required to find the user");
+            }
 
             busEx.ThrowIfErrors();
 
