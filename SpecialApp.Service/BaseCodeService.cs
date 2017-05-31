@@ -13,33 +13,29 @@ namespace SpecialApp.Service
 {
     public class BaseCodeService : BaseService, IBaseCodeService
     {
+        private readonly Dictionary<string, Func<Task<IEnumerable<IBaseCode>>>> BaseCodeTables =
+            new Dictionary<string, Func<Task<IEnumerable<IBaseCode>>>>();
+
         public BaseCodeService(ISpecialUOW uow) : base(uow)
         {
-
+            this.BaseCodeTables.Add("AddressType", Get<AddressType>);
+            this.BaseCodeTables.Add("CompanyFranchiseCategory", Get<CompanyFranchiseCategory>);
+            this.BaseCodeTables.Add("Country", Get<Country>);
+            this.BaseCodeTables.Add("Company", Get<Company>);
         }
 
-        public async Task<IEnumerable<T>> Get<T>() where T : BaseCode
+        public async Task<IEnumerable<IBaseCode>> GetByDictionary(string key)
+        {
+            var result = (await BaseCodeTables[key].Invoke());
+            return result;
+        }
+
+        private async Task<IEnumerable<IBaseCode>> Get<T>() where T : BaseCode
         {
             var result = await _uow.GetRepository<T>()
                 .GetAll()
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return result;
-        }
-
-        public async Task<IEnumerable<LookupModel>> Get()
-        {
-            var repo = _uow.GetRepository<Company>();
-            var result = await repo.GetAll()
-                .Select(x => new LookupModel
-                {
-                    Id = x.Id.Value,
-                    Code = x.CompanyName,
-                    Description = x.Details,
-                    RowVersion = x.RowVersion
-                })
-                .ToListAsync();
-
             return result;
         }
     }

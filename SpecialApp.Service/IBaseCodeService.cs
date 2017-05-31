@@ -7,8 +7,6 @@ namespace SpecialApp.Service
 {
     public interface IBaseCodeService : IBaseService
     {
-        Task<IEnumerable<T>> Get<T>() where T : BaseCode;
-
-        Task<IEnumerable<LookupModel>> Get();
+        Task<IEnumerable<IBaseCode>> GetByDictionary(string key);
     }
 }

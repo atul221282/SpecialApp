@@ -67,7 +67,7 @@ namespace SpecialApp.Service.Account
             if (createdResult.Succeeded)
             {
                 repo = Uow.GetRepository<Users>();
-
+                
                 var users = new Users
                 {
                     DOB = model.DateOfBirth,

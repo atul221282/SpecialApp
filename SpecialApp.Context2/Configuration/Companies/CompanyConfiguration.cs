@@ -12,6 +12,9 @@ namespace SpecialApp.Context.Configuration.Companies
             : base(entityTypeBuilder)
         {
             entityTypeBuilder.Property(x => x.CompanyName).IsRequired().HasMaxLength(150);
+
+            entityTypeBuilder.Ignore(x => x.Code);
+            entityTypeBuilder.Ignore(x => x.Description);
         }
     }
 }
