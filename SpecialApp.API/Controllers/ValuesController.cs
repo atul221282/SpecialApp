@@ -21,7 +21,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            AddressType at = null;
+            IAddressType at = null;
             try
             {
                 at = await tempServiceFunc().Get();

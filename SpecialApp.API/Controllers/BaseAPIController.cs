@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpecialApp.API.Filters;
 using SpecialApp.API.Helpers;
+using System;
 using System.Collections.Generic;
 
 namespace SpecialApp.API.Controllers
@@ -21,6 +23,22 @@ namespace SpecialApp.API.Controllers
                     ["Error"] = message
                 }
             };
+        }
+
+        /// <summary>
+        /// Create file response with proper header
+        /// </summary>
+        /// <param name="data">File byte array</param>
+        /// <param name="contentType">By default it is application/pdf</param>
+        /// <param name="nameWithExtension">file name</param>
+        /// <returns></returns>
+        protected virtual FileContentResult SendFile(byte[] data, string contentType = "", string nameWithExtension = "")
+        {
+            byte[] doc = data;
+            string mimeType = "application/pdf" ?? contentType;
+            string name = nameWithExtension ?? Guid.NewGuid().ToString();
+            Response.Headers.Append("Content-Disposition", $"inline; filename={name}");
+            return File(data, mimeType, nameWithExtension);
         }
     }
 }

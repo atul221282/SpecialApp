@@ -22,7 +22,6 @@ namespace SpecialApp.Repository.Repository.Specials
                                          INNER JOIN SpecialLocation SL ON S.Id = SL.SpecialId
                                          INNER JOIN [dbo].[Location] L ON SL.LocationId = L.Id
                                          WHERE " +
-                        $"geography::Point(L.Latitude, L.Longitude, 4326)" +
                 $".STDistance(geography::Point('{latitude}', '{longitude}', 4326)) <=4000").GetActive().ToListAsync();
         }
 

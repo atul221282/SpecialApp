@@ -22,8 +22,9 @@ namespace SpecialApp.API.Controllers.Special
             try
             {
                 var service = serviceFunc();
-                var data = await service.GetByLocation(-34.809964, 138.680274, distance: distance);
-                return Ok(data);
+                var data = await service.GetLocations(-34.809964, 138.680274, distance: distance);
+                var listData =(await data.WithAddress()).Resolve();
+                return Ok(listData);
             }
             catch (Exception ex)
             {

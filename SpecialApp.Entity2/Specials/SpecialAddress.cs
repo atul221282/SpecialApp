@@ -1,11 +1,12 @@
 ﻿using SpecialApp.Entity;
+using SpecialApp.Entity.CommonContract;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SpecialApp.Entity.Specials
 {
-    public class SpecialAddress
+    public class SpecialAddress 
     {
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
@@ -15,5 +16,6 @@ namespace SpecialApp.Entity.Specials
 
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
+
     }
 }

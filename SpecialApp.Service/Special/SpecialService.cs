@@ -42,5 +42,14 @@ namespace SpecialApp.Service.Special
 
             return result;
         }
+
+        public async Task<ISpecialAddressHelper> GetLocations(double latitude, double longitude, int distance = 4000)
+        {
+            var result = new ActiveOnlyEntity<SP.Special>(
+                await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance))
+                .GetActive();
+
+            return new SpecialAddressHelper(Uow, result); ;
+        }
     }
 }

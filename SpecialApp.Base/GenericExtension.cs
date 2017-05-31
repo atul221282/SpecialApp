@@ -30,10 +30,7 @@ namespace SpecialApp.Base
             return result;
         }
 
-        public static bool IsNull<T>(this T value)
-        {
-            return ReferenceEquals(null, value);
-        }
+        public static bool IsNull<T>(this T value) => ReferenceEquals(null, value);
 
         public static bool IsNullOrDefault<T>(this T value)
         {
@@ -45,10 +42,8 @@ namespace SpecialApp.Base
             return result;
         }
 
-        public static bool IsNotNullOrDefault<T>(this T value)
-        {
-            return !IsNullOrDefault(value);
-        }
+        public static bool IsNotNullOrDefault<T>(this T value) => !IsNullOrDefault(value);
+
 
         public static PropertyBuilder<T> IsOptional<T>(this PropertyBuilder<T> value)
         {
@@ -63,10 +58,7 @@ namespace SpecialApp.Base
         /// <param name="value"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static PropertyBuilder<T> HasColumnTypeOverride<T>(this PropertyBuilder<T> value, string name)
-        {
-            return value;
-        }
+        public static PropertyBuilder<T> HasColumnTypeOverride<T>(this PropertyBuilder<T> value, string name) => value;
 
         public static byte[] ToByteArray(this Stream stream)
         {
