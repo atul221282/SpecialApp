@@ -25,27 +25,11 @@ namespace SpecialApp.API.Controllers
             using (var service = serviceFunc())
             {
                 if (name.IsNullOrWhiteSpace())
-                {
                     return StatusCode(404, SetError($"{name} related action not found"));
-                }
 
                 var result = await service.GetByDictionary(name);
 
                 return Ok(result);
-
-                //switch (name)
-                //{
-                //    case "AddressType":
-                //        return Ok(await service.Get<AddressType>());
-                //    case "CompanyFranchiseCategory":
-                //        return Ok(await service.Get<CompanyFranchiseCategory>());
-                //    case "Country":
-                //        return Ok(await service.Get<Country>());
-                //    case "Company":
-                //        return Ok(await service.Get());
-                //    default:
-                //        return StatusCode(500, SetError("Invalid request"));
-                //}
             }
         }
     }

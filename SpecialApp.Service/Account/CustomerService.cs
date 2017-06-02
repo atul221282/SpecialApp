@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity.Model.Account;
+using SpecialApp.Service.Account.Rules;
 
 namespace SpecialApp.Service.Account
 {
@@ -55,39 +56,55 @@ namespace SpecialApp.Service.Account
 
             busEx.ThrowIfErrors();
 
-            var createdResult = await Service.CreateAsync(new SpecialAppUsers
+            //Create Special App user which is aspnet user
+            //IdentityResult createdResult = await CreateSpecialUser(model);
+
+            var next = await new CreateSpecialAppUser(CreateSpecialUser).Create(model);
+
+            await next.Create(model);
+
+            if (1 == 1)
+                throw new NotImplementedException("Fix this method ");
+
+            await Uow.CommitAsync();
+
+            scope.Commit();
+
+            return null;
+        }
+
+        private async Task<ICreateCustomerRule> CreateSpecialUser(RegisterCustomer model)
+        {
+            var result = await Service.CreateAsync(new SpecialAppUsers
             {
                 Email = model.EmailAddress,
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber
             }, password: model.Password);
 
+            var cUser = new CreateUser(CreateUser);
+
+            return cUser;
+        }
+
+        private async Task<ICreateCustomerRule> CreateUser(RegisterCustomer model)
+        {
             var newUser = await Service.FindByEmailAsync(model.EmailAddress);
 
-            if (createdResult.Succeeded)
+            var repo = Uow.GetRepository<Users>();
+            //Create User
+            var users = new Users
             {
-                repo = Uow.GetRepository<Users>();
-                
-                var users = new Users
-                {
-                    DOB = model.DateOfBirth,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    SpecialAppUsersId = newUser.Id,
-                    State = State.Added
-                };
+                DOB = model.DateOfBirth,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                SpecialAppUsersId = newUser.Id,
+                State = State.Added
+            };
 
-                repo.Add(users.SetDefaults(loggedInUser: string.Empty));
+            repo.Add(users.SetDefaults(loggedInUser: string.Empty));
 
-                await Uow.CommitAsync();
-
-                var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
-
-                scope.Commit();
-
-                return addedUsers;
-            }
-            return null;
+            return new StopCreateUser();
         }
 
         public async Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync()
