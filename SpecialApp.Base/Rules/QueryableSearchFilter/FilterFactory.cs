@@ -6,9 +6,14 @@ namespace SpecialApp.Base.Rules.QueryableSearchFilter
 {
     public static class FilterFactory
     {
-        public static IListFilter CreateFilter(Func<bool> func, Action action)
+        public static IListFIlter CreateFilterWithFunc(Func<bool> func, Action action)
         {
-            return new ListFilter(Tuple.Create(func, action));
+            return new FuncWithFilter(Tuple.Create(func, action));
+        }
+
+        public static IListFIlter CreateNullOrDefault<T>(T value, Action action)
+        {
+            return new NullOrDefaultFilter<T>(value, action);
         }
     }
 }

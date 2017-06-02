@@ -4,11 +4,11 @@ using System.Text;
 
 namespace SpecialApp.Base.Rules.QueryableSearchFilter
 {
-    public class ListFilter : IListFilter
+    public class FuncWithFilter : IListFIlter
     {
         private Tuple<Func<bool>, Action> p;
 
-        public ListFilter(Tuple<Func<bool>, Action> p)
+        public FuncWithFilter(Tuple<Func<bool>, Action> p)
         {
             this.p = p;
         }
