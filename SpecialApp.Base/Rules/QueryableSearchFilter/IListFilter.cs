@@ -2,8 +2,8 @@
 
 namespace SpecialApp.Base.Rules.QueryableSearchFilter
 {
-    public interface IPermitSearchFilter<T>
+    public interface IListFilter
     {
-        IEnumerable<T> Execute(IEnumerable<T> listData);
+        void Execute();
     }
 }

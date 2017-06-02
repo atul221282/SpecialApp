@@ -4,8 +4,8 @@ namespace SpecialApp.Base.Rules.QueryableSearchFilter
 {
     public interface IPermitSearchFlterFactory<T>
     {
-        IPermitSearchFlterFactory<T> AddFilter(IPermitSearchFilter<T> filter);
+        IPermitSearchFlterFactory<T> AddFilter(IListFilter filter);
 
-        IEnumerable<T> RunFilters();
+        void RunFilters();
     }
 }
