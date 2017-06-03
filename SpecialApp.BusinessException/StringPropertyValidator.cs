@@ -1,23 +1,23 @@
-﻿using System;
+﻿using SpecialApp.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SpecialApp.BusinessException
 {
-    public class StringPropertyValidator : IPropertyValidator
+    public class StringPropertyValidator<T> : IPropertyValidator
     {
-        private readonly Func<string, bool> func;
-        private readonly string model;
+        private readonly Func<T, string> func;
+        private readonly T model;
 
         public KeyValuePair<string, string> errorMessage { get; private set; }
 
-        public StringPropertyValidator(Func<string, bool> func, string model, KeyValuePair<string, string> erroroMessage)
+        public StringPropertyValidator(Func<T, string> func, T model)
         {
             this.func = func;
-            this.errorMessage = errorMessage;
             this.model = model;
         }
 
-        public bool Execute() => this.func(model);
+        public bool Execute() => this.func(model).IsNotNullOrWhiteSpace();
     }
 }

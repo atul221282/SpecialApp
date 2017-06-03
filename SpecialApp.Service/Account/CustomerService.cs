@@ -57,10 +57,10 @@ namespace SpecialApp.Service.Account
             var result = await Service.FindByEmailAsync(model.EmailAddress);
 
             busRules.RulesFor(() => model)
-                .WhenEmpty(x => x.EmailAddress.IsNotNullOrWhiteSpace())
-                .AddError("EmailAddress", "Email Address is manadatory")
-                .WhenEmpty(x => x.FirstName.IsNotNullOrWhiteSpace())
+                .WhenEmpty(x => x.FirstName)
                 .AddError("FirstName", "First Name is manadatory")
+                .When(x => x.EmailAddress.IsNotNullOrWhiteSpace())
+                .AddError("EmailAddress", "Email Address is manadatory")
                 .ThrowError();
 
             busEx

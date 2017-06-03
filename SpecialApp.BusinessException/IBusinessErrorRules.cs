@@ -6,11 +6,9 @@ namespace SpecialApp.BusinessException
 {
     public interface IBusinessErrorRules<T>
     {
-        IAddBusinessError<T> WhenEmpty(Func<T, bool> func);
+        IAddBusinessError<T> When(Func<T, bool> func);
 
-        IAddBusinessError<T> WhenNull(Func<T, bool> func);
-
-        IAddBusinessError<T> WhenNullOrDefault(Func<T, bool> func);
+        IAddBusinessError<T> WhenEmpty(Func<T, string> action);
 
         void ThrowError();
     }

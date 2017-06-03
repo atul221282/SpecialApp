@@ -23,7 +23,7 @@ namespace SpecialApp.BusinessException
             this.businessRulesError = businessRulesError;
         }
 
-        public IAddBusinessError<T> WhenEmpty(Func<T, bool> func)
+        public IAddBusinessError<T> When(Func<T, bool> func)
         {
             var busError = new AddBusinessError<T>(this);
 
@@ -34,22 +34,11 @@ namespace SpecialApp.BusinessException
             return busError;
         }
 
-        public IAddBusinessError<T> WhenNull(Func<T, bool> func)
+        public IAddBusinessError<T> WhenEmpty(Func<T, string> action)
         {
             var busError = new AddBusinessError<T>(this);
 
-            var validator = new FuncPropertyValidator<T>(func, model);
-
-            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
-
-            return busError;
-        }
-
-        public IAddBusinessError<T> WhenNullOrDefault(Func<T, bool> func)
-        {
-            var busError = new AddBusinessError<T>(this);
-
-            var validator = new FuncPropertyValidator<T>(func, model);
+            var validator = new StringPropertyValidator<T>(action, model);
 
             errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
 
