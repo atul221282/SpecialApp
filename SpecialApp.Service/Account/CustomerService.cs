@@ -14,6 +14,7 @@ using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.Service.Account.Rules;
+using SpecialApp.BusinessException;
 
 namespace SpecialApp.Service.Account
 {
@@ -28,6 +29,8 @@ namespace SpecialApp.Service.Account
         public ISpecialUOW Uow => _uow = _uow ?? uow.Value;
 
         private IUserManagerService _service;
+        private readonly IBusinessRulesException busRules;
+
         public IUserManagerService Service
         {
             get
@@ -37,11 +40,12 @@ namespace SpecialApp.Service.Account
         }
 
         public CustomerService(Lazy<ISpecialUOW> uow, Func<IUserManagerService> serviceFunc,
-            IBusinessException busEx) : base(uow.Value)
+            IBusinessException busEx, IBusinessRulesException busRules) : base(uow.Value)
         {
             this.serviceFunc = serviceFunc;
             this.busEx = busEx;
             this.uow = uow;
+            this.busRules = busRules;
         }
 
         public async Task<Users> CreateAsync(RegisterCustomer model)
@@ -51,6 +55,13 @@ namespace SpecialApp.Service.Account
             var scope = await Uow.BeginTransaction();
 
             var result = await Service.FindByEmailAsync(model.EmailAddress);
+
+            busRules.RulesFor(() => model)
+                .WhenEmpty(x => x.EmailAddress.IsNotNullOrWhiteSpace())
+                .AddError("EmailAddress", "Email Address is manadatory")
+                .WhenEmpty(x => x.FirstName.IsNotNullOrWhiteSpace())
+                .AddError("FirstName", "First Name is manadatory")
+                .ThrowError();
 
             busEx
                 .NullOrDefault(result, "User with same email address already exists", "SpecialAppUsers")

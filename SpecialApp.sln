@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Context.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Base.Test", "SpecialApp.Base.Test\SpecialApp.Base.Test.csproj", "{FD1992E6-83EF-4575-A245-A2B07BD905C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.BusinessException", "SpecialApp.BusinessException\SpecialApp.BusinessException.csproj", "{CC0E6D46-BE27-4722-96BC-F7B2185FC220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{FD1992E6-83EF-4575-A245-A2B07BD905C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1992E6-83EF-4575-A245-A2B07BD905C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1992E6-83EF-4575-A245-A2B07BD905C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
