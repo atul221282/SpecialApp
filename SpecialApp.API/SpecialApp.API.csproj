@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpecialApp.Base\SpecialApp.Base.csproj" />
+    <ProjectReference Include="..\SpecialApp.BusinessException\SpecialApp.BusinessException.csproj" />
     <ProjectReference Include="..\SpecialApp.Context2\SpecialApp.Context.csproj" />
     <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity.csproj" />
     <ProjectReference Include="..\SpecialApp.Service\SpecialApp.Service.csproj" />

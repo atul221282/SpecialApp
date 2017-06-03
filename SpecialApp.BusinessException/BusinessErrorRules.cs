@@ -10,12 +10,16 @@ namespace SpecialApp.BusinessException
         private T model;
         private List<Tuple<IAddBusinessError, IPropertyValidator>> errorList;
         private readonly IDictionary<string, string> Errors;
+        private readonly IBusinessRulesError businessRulesError;
 
-        public BusinessErrorRules(T model, List<Tuple<IAddBusinessError, IPropertyValidator>> errorList)
+        public BusinessErrorRules(T model, 
+            List<Tuple<IAddBusinessError, IPropertyValidator>> errorList,
+            IBusinessRulesError businessRulesError)
         {
             this.model = model;
             this.errorList = errorList;
             Errors = new Dictionary<string, string>();
+            this.businessRulesError = businessRulesError;
         }
 
         public IAddBusinessError<T> WhenEmpty(Func<T, bool> func)
@@ -57,9 +61,11 @@ namespace SpecialApp.BusinessException
             {
                 if (x.Item2.Execute())
                 {
-                    Errors.Add(x.Item2.errorMessage.Key, x.Item2.errorMessage.Value);
+                    Errors.Add(x.Item1.errorMessage.Key, x.Item1.errorMessage.Value);
                 }
             });
+
+            businessRulesError.ThrowError(Errors);
         }
     }
 }

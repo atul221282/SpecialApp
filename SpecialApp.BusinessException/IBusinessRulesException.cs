@@ -8,4 +8,9 @@ namespace SpecialApp.BusinessException
     {
         IBusinessErrorRules<T> RulesFor<T>(Func<T> modelFunc);
     }
+
+    public interface IBusinessRulesError
+    {
+        void ThrowError(IDictionary<string, string> Errors);
+    }
 }
