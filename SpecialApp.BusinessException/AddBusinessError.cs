@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpecialApp.BusinessException
 {
-    public class AddBusinessError<T> : IAddBusinessError<T>
+    public class AddBusinessError<T> : IAddBusinessError<T>, IAddBusinessError
     {
         private IBusinessErrorRules<T> rules;
         public KeyValuePair<string, string> errorMessage { get; private set; }

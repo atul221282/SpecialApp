@@ -1,23 +1,24 @@
-﻿using SpecialApp.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace SpecialApp.BusinessException
 {
     public class BusinessErrorRules<T> : IBusinessErrorRules<T>
     {
         private T model;
-        private List<Tuple<IAddBusinessError, IPropertyValidator>> errorList;
-        private readonly IDictionary<string, string> Errors;
+
+        private List<Tuple<IAddBusinessError, IPropertyValidator>> errorList =
+            new List<Tuple<IAddBusinessError, IPropertyValidator>>();
+
+        private IDictionary<string, string> Errors;
+
         private readonly IBusinessRulesError businessRulesError;
 
-        public BusinessErrorRules(T model, 
-            List<Tuple<IAddBusinessError, IPropertyValidator>> errorList,
+        public BusinessErrorRules(T model,
             IBusinessRulesError businessRulesError)
         {
             this.model = model;
-            this.errorList = errorList;
             Errors = new Dictionary<string, string>();
             this.businessRulesError = businessRulesError;
         }
@@ -26,7 +27,7 @@ namespace SpecialApp.BusinessException
         {
             var busError = new AddBusinessError<T>(this);
 
-            var validator = new FuncPropertyValidator<T>(func, model, busError.errorMessage);
+            var validator = new FuncPropertyValidator<T>(func, model);
 
             errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
 
@@ -37,7 +38,7 @@ namespace SpecialApp.BusinessException
         {
             var busError = new AddBusinessError<T>(this);
 
-            var validator = new FuncPropertyValidator<T>(func, model, busError.errorMessage);
+            var validator = new FuncPropertyValidator<T>(func, model);
 
             errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
 
@@ -48,7 +49,7 @@ namespace SpecialApp.BusinessException
         {
             var busError = new AddBusinessError<T>(this);
 
-            var validator = new FuncPropertyValidator<T>(func, model, busError.errorMessage);
+            var validator = new FuncPropertyValidator<T>(func, model);
 
             errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
 
@@ -57,13 +58,8 @@ namespace SpecialApp.BusinessException
 
         public void ThrowError()
         {
-            errorList.ForEach(x =>
-            {
-                if (x.Item2.Execute())
-                {
-                    Errors.Add(x.Item1.errorMessage.Key, x.Item1.errorMessage.Value);
-                }
-            });
+            Errors = errorList.Where(x => x.Item2.Execute())
+                .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
 
             businessRulesError.ThrowError(Errors);
         }

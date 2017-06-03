@@ -6,17 +6,15 @@ namespace SpecialApp.BusinessException
 {
     public class BusinessRulesException : Exception, IBusinessRulesException, IBusinessRulesError
     {
-        List<Tuple<IAddBusinessError, IPropertyValidator>> list;
         IDictionary<string, string> Errors;
 
         public BusinessRulesException() : base()
         {
-            this.list = new List<Tuple<IAddBusinessError, IPropertyValidator>>();
         }
 
         public IBusinessErrorRules<T> RulesFor<T>(Func<T> modelFunc)
         {
-            return new BusinessErrorRules<T>(modelFunc(), list, this);
+            return new BusinessErrorRules<T>(modelFunc(), this);
         }
 
         public IDictionary<string, string> GetErrors()
@@ -27,6 +25,7 @@ namespace SpecialApp.BusinessException
         public void ThrowError(IDictionary<string, string> Errors)
         {
             this.Errors = Errors;
+
             if (Errors.Count > 0)
                 throw this;
         }
