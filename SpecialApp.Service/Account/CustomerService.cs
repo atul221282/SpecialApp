@@ -49,62 +49,49 @@ namespace SpecialApp.Service.Account
             IRepository<Users> repo = null;
 
             var scope = await Uow.BeginTransaction();
+
             var result = await Service.FindByEmailAsync(model.EmailAddress);
 
-            if (result != null)
-                busEx.Add("SpecialAppUsers", "User with same email address already exists");
+            busEx
+                .NullOrDefault(result, "User with same email address already exists", "SpecialAppUsers")
+                .Empty(model.EmailAddress, "Email is required", "Email")
+                .ErrorWhen(() => model.EmailAddress.IsNullOrWhiteSpace(), "", "")
+                .RuleFor(() => model).When(x => x.EmailAddress.IsNotNullOrWhiteSpace())
+                .ThrowIfErrors();
 
-            busEx.ThrowIfErrors();
-
-            //Create Special App user which is aspnet user
-            //IdentityResult createdResult = await CreateSpecialUser(model);
-
-            var next = await new CreateSpecialAppUser(CreateSpecialUser).Create(model);
-
-            await next.Create(model);
-
-            if (1 == 1)
-                throw new NotImplementedException("Fix this method ");
-
-            await Uow.CommitAsync();
-
-            scope.Commit();
-
-            return null;
-        }
-
-        private async Task<ICreateCustomerRule> CreateSpecialUser(RegisterCustomer model)
-        {
-            var result = await Service.CreateAsync(new SpecialAppUsers
+            var createdResult = await Service.CreateAsync(new SpecialAppUsers
             {
                 Email = model.EmailAddress,
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber
             }, password: model.Password);
 
-            var cUser = new CreateUser(CreateUser);
-
-            return cUser;
-        }
-
-        private async Task<ICreateCustomerRule> CreateUser(RegisterCustomer model)
-        {
             var newUser = await Service.FindByEmailAsync(model.EmailAddress);
 
-            var repo = Uow.GetRepository<Users>();
-            //Create User
-            var users = new Users
+            if (createdResult.Succeeded)
             {
-                DOB = model.DateOfBirth,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                SpecialAppUsersId = newUser.Id,
-                State = State.Added
-            };
+                repo = Uow.GetRepository<Users>();
 
-            repo.Add(users.SetDefaults(loggedInUser: string.Empty));
+                var users = new Users
+                {
+                    DOB = model.DateOfBirth,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    SpecialAppUsersId = newUser.Id,
+                    State = State.Added
+                };
 
-            return new StopCreateUser();
+                repo.Add(users.SetDefaults(loggedInUser: string.Empty));
+
+                await Uow.CommitAsync();
+
+                var addedUsers = await repo.GetAll().Include(x => x.SpecialAppUsers).FirstOrDefaultAsync();
+
+                scope.Commit();
+
+                return addedUsers;
+            }
+            return null;
         }
 
         public async Task<Tuple<SpecialAppUsers, SpecialAppUsers>> CreateTestAsync()

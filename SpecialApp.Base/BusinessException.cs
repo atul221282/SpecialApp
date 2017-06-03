@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpecialApp.Base.BusinessExceptionRules;
+using System;
 using System.Collections.Generic;
 
 namespace SpecialApp.Base
@@ -17,6 +18,30 @@ namespace SpecialApp.Base
             Errors.Add(key, error);
         }
 
+        public IBusinessException ErrorWhen(Func<bool> func, string error, string key = "")
+        {
+            if (func())
+                Errors.Add(key, error);
+
+            return this;
+        }
+
+        public IBusinessException NullOrDefault<T>(T value, string error, string key = "")
+        {
+            if (value.IsNullOrDefault())
+                Errors.Add(key ?? nameof(T), error);
+
+            return this;
+        }
+
+        public IBusinessException Empty(string value, string error, string key)
+        {
+            if (value.IsNotNullOrWhiteSpace())
+                Errors.Add(key, error);
+
+            return this;
+        }
+
         public void ThrowIfErrors()
         {
             if (Errors.Count > 0)
@@ -26,6 +51,11 @@ namespace SpecialApp.Base
         public IDictionary<string, string> GetErrors()
         {
             return this.Errors;
+        }
+
+        public IBusinessExceptionFor<T> RuleFor<T>(Func<T> model)
+        {
+            return new BusinessExceptionFor<T>(model, this);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace SpecialApp.Entity
 
     public class AnonymousUser : IdentityUser, IAppUsers
     {
+        [ThreadStatic]
         private static AnonymousUser _instance;
         private AnonymousUser()
         {
@@ -65,7 +66,9 @@ namespace SpecialApp.Entity
 
     public class UnauthorisedUser : IdentityUser, IAppUsers
     {
+        [ThreadStatic]
         private static UnauthorisedUser _instance;
+
         private UnauthorisedUser()
         {
             this.PhoneNumber = "";
@@ -74,6 +77,8 @@ namespace SpecialApp.Entity
             this.UserName = "";
             this.PasswordHash = "";
         }
+
+        
         public static UnauthorisedUser Instance
         {
             get

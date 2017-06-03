@@ -29,7 +29,7 @@ namespace SpecialApp.Base.Test
 
             var list = orgList;
 
-            var testFilters = new PermitSearchFlterFactory<AddressType>(list);
+            var testFilters = new PermitSearchFlterFactory<AddressType>();
 
             string code = "", description = "1";
             int id = 1;

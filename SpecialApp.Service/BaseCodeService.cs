@@ -13,15 +13,11 @@ namespace SpecialApp.Service
 {
     public class BaseCodeService : BaseService, IBaseCodeService
     {
-        private readonly Dictionary<string, Func<Task<IEnumerable<IBaseCode>>>> BaseCodeTables =
-            new Dictionary<string, Func<Task<IEnumerable<IBaseCode>>>>();
+        private readonly IReadOnlyDictionary<string, Func<Task<IEnumerable<IBaseCode>>>> BaseCodeTables;
 
         public BaseCodeService(ISpecialUOW uow) : base(uow)
         {
-            this.BaseCodeTables.Add("AddressType", Get<AddressType>);
-            this.BaseCodeTables.Add("CompanyFranchiseCategory", Get<CompanyFranchiseCategory>);
-            this.BaseCodeTables.Add("Country", Get<Country>);
-            this.BaseCodeTables.Add("Company", Get<Company>);
+            BaseCodeTables = InitBaseCodes();
         }
 
         public async Task<IEnumerable<IBaseCode>> GetByDictionary(string key)
@@ -38,5 +34,14 @@ namespace SpecialApp.Service
                 .ToListAsync();
             return result;
         }
+
+        private IReadOnlyDictionary<string, Func<Task<IEnumerable<IBaseCode>>>> InitBaseCodes() =>
+            new Dictionary<string, Func<Task<IEnumerable<IBaseCode>>>>
+            {
+                ["AddressType"] = Get<AddressType>,
+                ["CompanyFranchiseCategory"] = Get<CompanyFranchiseCategory>,
+                ["Country"] = Get<Country>,
+                ["Company"] = Get<Company>
+            };
     }
 }

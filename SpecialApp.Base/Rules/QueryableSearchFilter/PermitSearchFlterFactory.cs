@@ -7,13 +7,6 @@ namespace SpecialApp.Base.Rules.QueryableSearchFilter
     public class PermitSearchFlterFactory<T> : IPermitSearchFlterFactory<T>
     {
         List<IListFIlter> filters = new List<IListFIlter>();
-        private IEnumerable<T> listData;
-
-        public PermitSearchFlterFactory(IEnumerable<T> listData)
-        {
-            this.listData = listData;
-
-        }
 
         public IPermitSearchFlterFactory<T> AddFilter(IListFIlter filter)
         {
