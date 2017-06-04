@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SpecialApp.Entity.Model.Account;
-using SpecialApp.BusinessException;
 using SpecialApp.Base;
 
-namespace SpecialApp.Service.ValidatorFactory
+namespace SpecialApp.BusinessException.ValidatorFactory
 {
     public class CustomerValidatorFactory : ICustomerValidatorFactory
     {
@@ -20,17 +17,15 @@ namespace SpecialApp.Service.ValidatorFactory
         {
             var busRules = busRulesFunc();
 
-            model = null;
-
             busRules.RulesFor(() => model)
-                .WhenNull(x => x)
-                .AddError(nameof(RegisterCustomer), "Inavlid Data")
-                .WhenNull(x => x.PhoneNumber)
-                .AddError("PhoneNumber", "Phone Number is manadatory")
                 .WhenEmpty(x => x.PhoneNumber)
                 .AddError("PhoneNumber", "Phone Number is manadatory")
                 .When(x => x.EmailAddress.IsNullOrWhiteSpace())
                 .AddError("EmailAddress", "Email Address is manadatory")
+                .WhenNull(x => x)
+                .AddError(nameof(RegisterCustomer), "Inavlid Data")
+                .WhenNull(x => x.PhoneNumber)
+                .AddError("PhoneNumber", "Phone Number is manadatory")
                 .ValidateAndThrow();
         }
     }

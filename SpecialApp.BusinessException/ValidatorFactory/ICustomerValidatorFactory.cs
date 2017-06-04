@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpecialApp.Service.ValidatorFactory
+namespace SpecialApp.BusinessException.ValidatorFactory
 {
     public interface ICustomerValidatorFactory
     {

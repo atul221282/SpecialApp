@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using SpecialApp.Entity.Account;
-using SpecialApp.Entity.Model;
 using SpecialApp.UnitOfWork;
 using SpecialApp.Repository;
 using SpecialApp.Context.Services;
@@ -13,8 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity.Model.Account;
-using SpecialApp.BusinessException;
-using SpecialApp.Service.ValidatorFactory;
+using SpecialApp.BusinessException.ValidatorFactory;
 
 namespace SpecialApp.Service.Account
 {
