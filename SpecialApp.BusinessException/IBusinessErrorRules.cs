@@ -10,6 +10,8 @@ namespace SpecialApp.BusinessException
 
         IAddBusinessError<T> WhenEmpty(Func<T, string> action);
 
-        void ThrowError();
+        IDictionary<string, string> GetErrors();
+
+        void ValidateAndThrow();
     }
 }

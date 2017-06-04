@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpecialApp.BusinessException
+namespace SpecialApp.BusinessException.PropertyValidator
 {
     public class FuncPropertyValidator<T> : IPropertyValidator
     {

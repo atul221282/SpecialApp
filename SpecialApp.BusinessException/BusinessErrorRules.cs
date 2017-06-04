@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpecialApp.BusinessException.PropertyValidator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,12 +46,24 @@ namespace SpecialApp.BusinessException
             return busError;
         }
 
-        public void ThrowError()
+        public void ValidateAndThrow()
+        {
+            SetErrors();
+
+            businessRulesError.ThrowError(Errors);
+        }
+
+        public IDictionary<string,string> GetErrors()
+        {
+            SetErrors();
+
+            return Errors;
+        }
+
+        private void SetErrors()
         {
             Errors = errorList.Where(x => x.Item2.Execute())
                 .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
-
-            businessRulesError.ThrowError(Errors);
         }
     }
 }

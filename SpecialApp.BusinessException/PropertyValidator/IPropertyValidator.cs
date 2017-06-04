@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SpecialApp.BusinessException
+namespace SpecialApp.BusinessException.PropertyValidator
 {
     public interface IPropertyValidator
     {

@@ -61,14 +61,7 @@ namespace SpecialApp.Service.Account
                 .AddError("FirstName", "First Name is manadatory")
                 .When(x => x.EmailAddress.IsNotNullOrWhiteSpace())
                 .AddError("EmailAddress", "Email Address is manadatory")
-                .ThrowError();
-
-            busEx
-                .NullOrDefault(result, "User with same email address already exists", "SpecialAppUsers")
-                .Empty(model.EmailAddress, "Email is required", "Email")
-                .ErrorWhen(() => model.EmailAddress.IsNullOrWhiteSpace(), "", "")
-                .RuleFor(() => model).When(x => x.EmailAddress.IsNotNullOrWhiteSpace())
-                .ThrowIfErrors();
+                .ValidateAndThrow();
 
             var createdResult = await Service.CreateAsync(new SpecialAppUsers
             {
