@@ -5,6 +5,8 @@ using SpecialApp.Entity.Specials;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Optional;
+using System.Linq;
 
 namespace SpecialApp.Repository.Repository.Specials
 {
@@ -16,6 +18,12 @@ namespace SpecialApp.Repository.Repository.Specials
         {
             this.context = context;
         }
+
+        public async Task<Option<ISpecial>> GetById(int id)
+        {
+            return Option.Some((ISpecial)await DbSet.Where(x => x.Id == id).FirstOrDefaultAsync());
+        }
+
         public async Task<IEnumerable<Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
             return await DbSet.FromSql($@" SELECT S.* FROM Special S 

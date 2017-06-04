@@ -15,7 +15,6 @@ namespace SpecialApp.Service.Infrastructure
         {
             IncludeRegistry<BusinessExceptionRegistry>();
             IncludeRegistry<UOWRegistry>();
-            For(typeof(IOption<>)).Use(typeof(Option<>));
             Scan(y =>
             {
                 y.TheCallingAssembly();

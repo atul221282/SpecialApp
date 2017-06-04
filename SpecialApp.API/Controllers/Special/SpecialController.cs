@@ -23,6 +23,10 @@ namespace SpecialApp.API.Controllers.Special
             {
                 var service = serviceFunc();
 
+                var specialOption = await service.GetById(99);
+
+                var sepcial = specialOption.ValueOr(() => new Entity.Specials.Special { });
+
                 var data = await service.GetLocations(-34.809964, 138.680274, distance: distance);
 
                 var listData =(await data.WithAddress()).Resolve();

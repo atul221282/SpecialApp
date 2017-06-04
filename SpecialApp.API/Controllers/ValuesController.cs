@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Optional;
 using SpecialApp.API.Filters;
 using SpecialApp.Entity;
 using SpecialApp.Service;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SpecialApp.API.Controllers
 {
-    
+
     public class ValuesController : BaseApiController
     {
         private readonly Func<IAddressTypeService> tempServiceFunc;
@@ -21,28 +23,22 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IAddressType at = null;
-            try
-            {
-                at = await tempServiceFunc().Get();
-                if (at == null)
-                {
-                    tempServiceFunc().Add();
-                    await tempServiceFunc().CommitAsync();
-                    at = await tempServiceFunc().Get();
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return Ok(new string[] { at?.Description, "value1", "value2" });
+            var at = await tempServiceFunc().Get();
+
+            var data = at.ValueOr(default(IEnumerable<IAddressType>));
+
+            return Ok(data);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(new { data = $"{(await tempServiceFunc().Get()).Description} {id}" });
+            var addressTypeOption = await tempServiceFunc().Get(id);
+
+            var addresType = addressTypeOption.ValueOr(default(IAddressType));
+
+            return Ok(addresType);
         }
 
         // POST api/values
@@ -61,6 +57,7 @@ namespace SpecialApp.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }

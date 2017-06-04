@@ -26,6 +26,14 @@ namespace SpecialApp.Service.Special
         {
             this.uowFunc = uowFunc;
         }
+
+        public async Task<Option<SP.ISpecial>> GetById(int Id)
+        {
+            var result = await Uow.SpecialRepository.GetById(Id);
+
+            return result;
+        }
+
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<SP.Special>(

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Optional;
 using SpecialApp.Base;
 using SpecialApp.Entity;
 using SpecialApp.UnitOfWork;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Service
@@ -32,10 +34,21 @@ namespace SpecialApp.Service
             uowFunc().GetRepository<AddressType>().Add(addressType);
         }
 
-        public async Task<IAddressType> Get()
+        public async Task<Option<IEnumerable<IAddressType>>> Get()
         {
-            return await uowFunc().GetRepository<AddressType>().GetAll().GetActive().FirstOrDefaultAsync();
+            var result = await uowFunc().GetRepository<AddressType>().GetAll().GetActive().ToListAsync();
+
+            return Option.Some((IEnumerable<IAddressType>)result);
         }
+
+        public async Task<Option<IAddressType>> Get(int id)
+        {
+            var result = await uowFunc().GetRepository<AddressType>().GetAll().GetActive().FirstOrDefaultAsync(x => x.Id == id);
+
+            return Option.Some((IAddressType)result);
+        }
+
+
 
         public async Task<int> CommitAsync()
         {

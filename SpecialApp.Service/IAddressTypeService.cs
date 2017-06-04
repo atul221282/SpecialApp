@@ -1,4 +1,6 @@
-﻿using SpecialApp.Entity;
+﻿using Optional;
+using SpecialApp.Entity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Service
@@ -7,7 +9,9 @@ namespace SpecialApp.Service
     {
         void Add();
 
-        Task<IAddressType> Get();
+        Task<Option<IEnumerable<IAddressType>>> Get();
+
+        Task<Option<IAddressType>> Get(int id);
 
         Task<int> CommitAsync();
     }

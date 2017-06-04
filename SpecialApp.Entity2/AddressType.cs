@@ -4,7 +4,7 @@
     {
     }
 
-    public interface IAddressType : IBaseCode
+    public interface IAddressType
     {
 
     }
