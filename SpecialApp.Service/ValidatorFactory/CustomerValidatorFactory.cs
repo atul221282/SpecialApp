@@ -20,7 +20,11 @@ namespace SpecialApp.Service.ValidatorFactory
         {
             var busRules = busRulesFunc();
 
+            model = null;
+
             busRules.RulesFor(() => model)
+                .WhenNull(x => x)
+                .AddError(nameof(RegisterCustomer), "Inavlid Data")
                 .WhenEmpty(x => x.PhoneNumber)
                 .AddError("PhoneNumber", "Phone Number is manadatory")
                 .When(x => x.EmailAddress.IsNullOrWhiteSpace())

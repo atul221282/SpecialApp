@@ -10,6 +10,8 @@ namespace SpecialApp.BusinessException
 
         IAddBusinessError<T> WhenEmpty(Func<T, string> action);
 
+        IAddBusinessError<T> WhenNull<T1>(Func<T, T1> func);
+
         IDictionary<string, string> GetErrors();
 
         void ValidateAndThrow();

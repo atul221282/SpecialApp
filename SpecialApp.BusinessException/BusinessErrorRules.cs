@@ -9,8 +9,8 @@ namespace SpecialApp.BusinessException
     {
         private T model;
 
-        private List<Tuple<IAddBusinessError, IPropertyValidator>> errorList =
-            new List<Tuple<IAddBusinessError, IPropertyValidator>>();
+        private List<Tuple<IAddBusinessError, IPropertyValidator, Func<Type>>> errorList =
+            new List<Tuple<IAddBusinessError, IPropertyValidator, Func<Type>>>();
 
         private IDictionary<string, string> Errors;
 
@@ -30,7 +30,8 @@ namespace SpecialApp.BusinessException
 
             var validator = new FuncPropertyValidator<T>(func, model);
 
-            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
+            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator, Func<Type>>
+                (busError, validator, () => typeof(IPropertyValidator)));
 
             return busError;
         }
@@ -41,7 +42,20 @@ namespace SpecialApp.BusinessException
 
             var validator = new StringPropertyValidator<T>(action, model);
 
-            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator>(busError, validator));
+            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator, Func<Type>>
+                (busError, validator, () => typeof(IPropertyValidator)));
+
+            return busError;
+        }
+
+        public IAddBusinessError<T> WhenNull<T1>(Func<T, T1> func)
+        {
+            var busError = new AddBusinessError<T>(this);
+
+            var validator = new NullPropertyValidator<T, T1>(func, model);
+
+            errorList.Add(Tuple.Create<IAddBusinessError, IPropertyValidator, Func<Type>>
+                (busError, validator, () => typeof(INullPropertyValidator)));
 
             return busError;
         }
@@ -53,7 +67,7 @@ namespace SpecialApp.BusinessException
             businessRulesError.ThrowError(Errors);
         }
 
-        public IDictionary<string,string> GetErrors()
+        public IDictionary<string, string> GetErrors()
         {
             SetErrors();
 
@@ -62,8 +76,14 @@ namespace SpecialApp.BusinessException
 
         private void SetErrors()
         {
-            Errors = errorList.Where(x => x.Item2.Execute())
-                .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
+            Errors = errorList.Where(x => x.Item3.Invoke() == typeof(INullPropertyValidator)
+            && x.Item2.Execute()).ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
+
+            if (Errors.Count <= 0)
+            {
+                Errors = errorList.Where(x => x.Item2.Execute())
+                    .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
+            }
         }
     }
 }
