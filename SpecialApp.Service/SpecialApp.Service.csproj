@@ -15,4 +15,8 @@
     <ProjectReference Include="..\SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Account\Rules\" />
+  </ItemGroup>
+
 </Project>

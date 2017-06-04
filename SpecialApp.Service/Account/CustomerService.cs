@@ -13,8 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity.Model.Account;
-using SpecialApp.Service.Account.Rules;
 using SpecialApp.BusinessException;
+using SpecialApp.Service.ValidatorFactory;
 
 namespace SpecialApp.Service.Account
 {
@@ -29,7 +29,7 @@ namespace SpecialApp.Service.Account
         public ISpecialUOW Uow => _uow = _uow ?? uow.Value;
 
         private IUserManagerService _service;
-        private readonly IBusinessRulesException busRules;
+        private readonly Func<ICustomerValidatorFactory> customerValidatorFactoryFunc;
 
         public IUserManagerService Service
         {
@@ -40,12 +40,12 @@ namespace SpecialApp.Service.Account
         }
 
         public CustomerService(Lazy<ISpecialUOW> uow, Func<IUserManagerService> serviceFunc,
-            IBusinessException busEx, IBusinessRulesException busRules) : base(uow.Value)
+            IBusinessException busEx, Func<ICustomerValidatorFactory> customerValidatorFactoryFunc) : base(uow.Value)
         {
             this.serviceFunc = serviceFunc;
             this.busEx = busEx;
             this.uow = uow;
-            this.busRules = busRules;
+            this.customerValidatorFactoryFunc = customerValidatorFactoryFunc;
         }
 
         public async Task<Users> CreateAsync(RegisterCustomer model)
@@ -56,12 +56,9 @@ namespace SpecialApp.Service.Account
 
             var result = await Service.FindByEmailAsync(model.EmailAddress);
 
-            busRules.RulesFor(() => model)
-                .WhenEmpty(x => x.FirstName)
-                .AddError("FirstName", "First Name is manadatory")
-                .When(x => x.EmailAddress.IsNotNullOrWhiteSpace())
-                .AddError("EmailAddress", "Email Address is manadatory")
-                .ValidateAndThrow();
+            var customerValidatorFactory = customerValidatorFactoryFunc();
+
+            customerValidatorFactory.ValidateCreateCustomer(model);
 
             var createdResult = await Service.CreateAsync(new SpecialAppUsers
             {

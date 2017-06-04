@@ -18,6 +18,6 @@ namespace SpecialApp.BusinessException.PropertyValidator
             this.model = model;
         }
 
-        public bool Execute() => this.func(model).IsNotNullOrWhiteSpace();
+        public bool Execute() => this.func(model).IsNullOrWhiteSpace();
     }
 }
