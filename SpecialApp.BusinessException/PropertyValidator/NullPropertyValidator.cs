@@ -16,6 +16,6 @@ namespace SpecialApp.BusinessException.PropertyValidator
             this.model = model;
         }
 
-        public bool Execute() => func(model).IsNullOrDefault();
+        public bool Execute() => model.IsNullOrDefault() || func(model).IsNullOrDefault();
     }
 }

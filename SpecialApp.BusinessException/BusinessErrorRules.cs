@@ -76,14 +76,13 @@ namespace SpecialApp.BusinessException
 
         private void SetErrors()
         {
-            Errors = errorList.Where(x => x.Item3.Invoke() == typeof(INullPropertyValidator)
-            && x.Item2.Execute()).ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
+            Errors = errorList
+                .Where(x => x.Item3.Invoke() == typeof(INullPropertyValidator) && x.Item2.Execute())
+                .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
 
             if (Errors.Count <= 0)
-            {
                 Errors = errorList.Where(x => x.Item2.Execute())
                     .ToDictionary(dic => dic.Item1.errorMessage.Key, dic => dic.Item1.errorMessage.Value);
-            }
         }
     }
 }
