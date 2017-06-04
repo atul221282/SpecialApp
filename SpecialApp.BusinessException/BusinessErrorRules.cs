@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SpecialApp.BusinessException
 {
@@ -65,6 +66,13 @@ namespace SpecialApp.BusinessException
             SetErrors();
 
             businessRulesError.ThrowError(Errors);
+        }
+
+        public async Task ValidateAndThrowAsync()
+        {
+            SetErrors();
+
+            await Task.Factory.StartNew(()=> businessRulesError.ThrowError(Errors));
         }
 
         public IDictionary<string, string> GetErrors()

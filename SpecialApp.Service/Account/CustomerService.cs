@@ -11,6 +11,7 @@ using SpecialApp.Entity.Helpers;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.BusinessException.ValidatorFactory;
+using Optional;
 
 namespace SpecialApp.Service.Account
 {
@@ -54,7 +55,7 @@ namespace SpecialApp.Service.Account
 
             var customerValidatorFactory = customerValidatorFactoryFunc();
 
-            customerValidatorFactory.ValidateCreateCustomer(model);
+            await customerValidatorFactory.ValidateCreateCustomer(model);
 
             var createdResult = await Service.CreateAsync(new SpecialAppUsers
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SpecialApp.BusinessException
 {
@@ -15,5 +16,7 @@ namespace SpecialApp.BusinessException
         IDictionary<string, string> GetErrors();
 
         void ValidateAndThrow();
+
+        Task ValidateAndThrowAsync();
     }
 }

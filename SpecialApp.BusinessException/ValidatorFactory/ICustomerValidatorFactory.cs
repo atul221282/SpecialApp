@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SpecialApp.BusinessException.ValidatorFactory
 {
     public interface ICustomerValidatorFactory
     {
-        void ValidateCreateCustomer(RegisterCustomer model);
+        Task ValidateCreateCustomer(RegisterCustomer model);
     }
 }

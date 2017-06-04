@@ -1,6 +1,7 @@
 ﻿using System;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.Base;
+using System.Threading.Tasks;
 
 namespace SpecialApp.BusinessException.ValidatorFactory
 {
@@ -13,20 +14,17 @@ namespace SpecialApp.BusinessException.ValidatorFactory
             this.busRulesFunc = busRulesFunc;
         }
 
-        public void ValidateCreateCustomer(RegisterCustomer model)
+        public async Task ValidateCreateCustomer(RegisterCustomer model)
         {
             var busRules = busRulesFunc();
 
-            busRules.RulesFor(() => model)
-                .WhenEmpty(x => x.PhoneNumber)
-                .AddError("PhoneNumber", "Phone Number is manadatory")
-                .When(x => x.EmailAddress.IsNullOrWhiteSpace())
-                .AddError("EmailAddress", "Email Address is manadatory")
-                .WhenNull(x => x)
-                .AddError(nameof(RegisterCustomer), "Inavlid Data")
-                .WhenNull(x => x.PhoneNumber)
-                .AddError("PhoneNumber", "Phone Number is manadatory")
-                .ValidateAndThrow();
+            await busRules.RulesFor(() => model).WhenEmpty(x => x.PhoneNumber)
+                 .AddError("PhoneNumber", "Phone Number is manadatory")
+                 .When(x => x.EmailAddress.IsNullOrWhiteSpace())
+                 .AddError("EmailAddress", "Email Address is manadatory")
+                 .WhenNull(x => x).AddError(nameof(RegisterCustomer), "Inavlid Data")
+                 .WhenNull(x => x.PhoneNumber).AddError("PhoneNumber", "Phone Number is manadatory")
+                 .ValidateAndThrowAsync();
         }
     }
 }

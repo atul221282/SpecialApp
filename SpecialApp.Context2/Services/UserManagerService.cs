@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SpecialApp.Entity;
 using Microsoft.AspNetCore.Identity;
 using SpecialApp.Base;
@@ -63,6 +61,8 @@ namespace SpecialApp.Context.Services
         public async Task<IAppUsers> GetUser(string email)
         {
             var result = (await UserManager.FindByEmailAsync(email));
+
+
 
             return result?.Resolve() ?? UnauthorisedUser.Instance;
         }
