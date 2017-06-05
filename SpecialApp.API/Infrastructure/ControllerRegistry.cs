@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using SpecialApp.Service.Proxy.Infrastructure;
 
 namespace SpecialApp.API.Infrastructure
 {

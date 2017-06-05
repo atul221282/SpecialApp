@@ -36,6 +36,7 @@
     <ProjectReference Include="..\SpecialApp.BusinessException\SpecialApp.BusinessException.csproj" />
     <ProjectReference Include="..\SpecialApp.Context2\SpecialApp.Context.csproj" />
     <ProjectReference Include="..\SpecialApp.Entity2\SpecialApp.Entity.csproj" />
+    <ProjectReference Include="..\SpecialApp.Service.Proxy\SpecialApp.Service.Proxy.csproj" />
     <ProjectReference Include="..\SpecialApp.Service\SpecialApp.Service.csproj" />
   </ItemGroup>
 

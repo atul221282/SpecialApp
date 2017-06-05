@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Base.Test", "Spe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.BusinessException", "SpecialApp.BusinessException\SpecialApp.BusinessException.csproj", "{CC0E6D46-BE27-4722-96BC-F7B2185FC220}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Service.Proxy", "SpecialApp.Service.Proxy\SpecialApp.Service.Proxy.csproj", "{2D0E97D9-2A51-47EC-929D-A1A0408CD687}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0E6D46-BE27-4722-96BC-F7B2185FC220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

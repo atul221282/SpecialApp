@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.Service
 {
-    public interface IAddressTypeService
+    public interface IAddressTypeService : IBaseService
     {
         void Add();
 
@@ -13,6 +13,5 @@ namespace SpecialApp.Service
 
         Task<Option<IAddressType>> Get(int id);
 
-        Task<int> CommitAsync();
     }
 }

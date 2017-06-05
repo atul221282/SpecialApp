@@ -11,7 +11,9 @@ namespace SpecialApp.Repository.Repository.Specials
     public interface ISpecialRepository
     {
         Task<IEnumerable<Special>> GetByLocation(double latitude, double longitude, int distance = 4000);
+
         Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000);
+
         Task<Option<ISpecial>> GetById(int id);
     }
 }

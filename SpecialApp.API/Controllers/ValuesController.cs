@@ -3,6 +3,7 @@ using Optional;
 using SpecialApp.API.Filters;
 using SpecialApp.Entity;
 using SpecialApp.Service;
+using SpecialApp.Service.Proxy.AddressTypeProxy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,20 +13,23 @@ namespace SpecialApp.API.Controllers
 
     public class ValuesController : BaseApiController
     {
-        private readonly Func<IAddressTypeService> tempServiceFunc;
+        private readonly Func<IAddressTypeServiceProxy> addressTypeServiceProxy;
+        private readonly Func<IFileDataService> fileDataServiceFunc;
 
-        public ValuesController(Func<IAddressTypeService> tempServiceFunc)
+        public ValuesController(Func<IAddressTypeServiceProxy> tempServiceFunc,
+            Func<IFileDataService> fileDataServiceFunc)
         {
-            this.tempServiceFunc = tempServiceFunc;
+            this.addressTypeServiceProxy = tempServiceFunc;
+            this.fileDataServiceFunc = fileDataServiceFunc;
         }
 
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var at = await tempServiceFunc().Get();
+            var fileList = await fileDataServiceFunc().Get();
 
-            var data = at.ValueOr(default(IEnumerable<IAddressType>));
+            var data = fileList.ValueOr(default(IEnumerable<FileData>));
 
             return Ok(data);
         }
@@ -34,11 +38,14 @@ namespace SpecialApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var addressTypeOption = await tempServiceFunc().Get(id);
+            using (var service = addressTypeServiceProxy().GetService())
+            {
+                var addressTypeOption = await service.Get(id);
 
-            var addresType = addressTypeOption.ValueOr(default(IAddressType));
+                var addresType = addressTypeOption.ValueOr(default(IAddressType));
 
-            return Ok(addresType);
+                return Ok(addresType);
+            }
         }
 
         // POST api/values

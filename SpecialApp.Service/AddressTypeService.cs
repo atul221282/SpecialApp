@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SpecialApp.Service
 {
-    public class AddressTypeService : IAddressTypeService
+    public class AddressTypeService : BaseService, IAddressTypeService
     {
         private readonly Func<ISpecialUOW> uowFunc;
 
-        public AddressTypeService(Func<ISpecialUOW> uowFunc)
+        public AddressTypeService(Func<ISpecialUOW> uowFunc) : base(uowFunc())
         {
             this.uowFunc = uowFunc;
         }
@@ -43,16 +43,11 @@ namespace SpecialApp.Service
 
         public async Task<Option<IAddressType>> Get(int id)
         {
-            var result = await uowFunc().GetRepository<AddressType>().GetAll().GetActive().FirstOrDefaultAsync(x => x.Id == id);
+            var resultOf = await uowFunc().GetRepository<AddressType>()
+                .GetAll().GetActive().FirstOrDefaultAsync(x => x.Id == id);
 
-            return Option.Some((IAddressType)result);
+            return resultOf.NoneWhen<IAddressType>(x => x == null);
         }
-
-
-
-        public async Task<int> CommitAsync()
-        {
-            return await uowFunc().CommitAsync();
-        }
+        
     }
 }

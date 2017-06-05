@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.0.0" />
+    <PackageReference Include="structuremap" Version="4.4.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpecialApp.Service\SpecialApp.Service.csproj" />
+    <ProjectReference Include="..\SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj" />
+  </ItemGroup>
+
+</Project>

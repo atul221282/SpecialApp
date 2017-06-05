@@ -14,7 +14,9 @@ namespace SpecialApp.Service.Infrastructure
         public ServiceAppRegistry()
         {
             IncludeRegistry<BusinessExceptionRegistry>();
+
             IncludeRegistry<UOWRegistry>();
+
             Scan(y =>
             {
                 y.TheCallingAssembly();

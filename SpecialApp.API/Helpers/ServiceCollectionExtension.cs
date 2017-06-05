@@ -16,6 +16,7 @@ using SpecialApp.API.Infrastructure;
 using SpecialApp.Context.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using SpecialApp.Service.Proxy.Infrastructure;
 
 namespace SpecialApp.API.Helpers
 {
@@ -54,14 +55,21 @@ namespace SpecialApp.API.Helpers
             container.Configure(config =>
             {
                 config.AddRegistry(new ControllerRegistry(services, container));
+
                 config.AddRegistry<BaseRegistry>();
+                
                 config.AddRegistry<ServiceAppRegistry>();
+
+                config.AddRegistry<ServiceProxyRegistry>();
+
                 config.AddRegistry(new ContextRegistry(services));
+
                 config.Scan((y) =>
                 {
                     y.TheCallingAssembly();
                     y.WithDefaultConventions();
                 });
+
                 config.Populate(services);
 
             });
