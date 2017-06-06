@@ -48,8 +48,6 @@ namespace SpecialApp.Service.Proxy
 
             var keyName = GetParamWithValueKey(methodInvocation);
 
-            keyName = keyName.IsNullOrWhiteSpace() ? parentKey : keyName;
-
             if (useCache.TryGetValue(keyName, out object cacheEntry))
                 return methodInvocation.CreateResult(cacheEntry);
 
@@ -78,7 +76,9 @@ namespace SpecialApp.Service.Proxy
             var childElementKey = string.Join(",", methodInvocation.Arguments
                             .Select(x => new StringBuilder($"{x.ParameterInfo.Name}|{x.Value}")));
 
-            return childElementKey.Trim();
+            return childElementKey.IsNullOrWhiteSpace()
+                ? GetClassAndMethodName(methodInvocation)
+                : childElementKey;
         }
 
         private static string GetClassAndMethodName(IAsyncMethodInvocation methodInvocation)
