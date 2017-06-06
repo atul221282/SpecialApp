@@ -26,11 +26,11 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var fileList = await fileDataServiceFunc().Get();
+            var addressListOption = await addressTypeService().Get();
 
-            var data = fileList.ValueOr(default(IEnumerable<FileData>));
+            var addressList = addressListOption.ValueOr(() => new List<IAddressType>());
 
-            return Ok(data);
+            return Ok(addressList);
         }
 
         // GET api/values/5

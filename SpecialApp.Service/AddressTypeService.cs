@@ -5,6 +5,7 @@ using SpecialApp.Entity;
 using SpecialApp.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SpecialApp.Service
@@ -38,7 +39,7 @@ namespace SpecialApp.Service
         {
             var result = await uowFunc().GetRepository<AddressType>().GetAll().GetActive().ToListAsync();
 
-            return Option.Some((IEnumerable<IAddressType>)result);
+            return result.Some<IEnumerable<IAddressType>>();
         }
 
         public async Task<Option<IAddressType>> Get(int id)
@@ -48,6 +49,6 @@ namespace SpecialApp.Service
 
             return resultOf.NoneWhen<IAddressType>(x => x == null);
         }
-        
+
     }
 }

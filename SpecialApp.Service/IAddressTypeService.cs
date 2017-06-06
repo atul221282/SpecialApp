@@ -10,6 +10,7 @@ namespace SpecialApp.Service
     {
         void Add();
 
+        [ResolveFromCache]
         Task<Option<IEnumerable<IAddressType>>> Get();
 
         [ResolveFromCache]
