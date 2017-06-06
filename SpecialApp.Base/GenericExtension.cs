@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Optional;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -67,6 +68,11 @@ namespace SpecialApp.Base
             for (int totalBytesCopied = 0; totalBytesCopied < stream.Length;)
                 totalBytesCopied += stream.Read(buffer, totalBytesCopied, Convert.ToInt32(stream.Length) - totalBytesCopied);
             return buffer;
+        }
+
+        public static T NoneWhenNullOrDefault<T>(this T Value, Func<T> valueOr)
+        {
+            return Value.NoneWhen((x) => x.IsNullOrDefault()).ValueOr(valueOr);
         }
     }
 }

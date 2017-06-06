@@ -5,13 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.0.0" />
     <PackageReference Include="structuremap" Version="4.4.5" />
+    <PackageReference Include="StructureMap.DynamicInterception" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpecialApp.Service\SpecialApp.Service.csproj" />
-    <ProjectReference Include="..\SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj" />
+    <ProjectReference Include="..\SpecialApp.Base\SpecialApp.Base.csproj" />
   </ItemGroup>
 
 </Project>

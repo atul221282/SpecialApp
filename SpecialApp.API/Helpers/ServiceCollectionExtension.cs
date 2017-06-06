@@ -57,10 +57,10 @@ namespace SpecialApp.API.Helpers
                 config.AddRegistry(new ControllerRegistry(services, container));
 
                 config.AddRegistry<BaseRegistry>();
-                
-                config.AddRegistry<ServiceAppRegistry>();
 
                 config.AddRegistry<ServiceProxyRegistry>();
+
+                config.AddRegistry<ServiceAppRegistry>();
 
                 config.AddRegistry(new ContextRegistry(services));
 

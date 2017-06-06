@@ -3,7 +3,6 @@ using Optional;
 using SpecialApp.API.Filters;
 using SpecialApp.Entity;
 using SpecialApp.Service;
-using SpecialApp.Service.Proxy.AddressTypeProxy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,13 +12,13 @@ namespace SpecialApp.API.Controllers
 
     public class ValuesController : BaseApiController
     {
-        private readonly Func<IAddressTypeServiceProxy> addressTypeServiceProxy;
+        private readonly Func<IAddressTypeService> addressTypeService;
         private readonly Func<IFileDataService> fileDataServiceFunc;
 
-        public ValuesController(Func<IAddressTypeServiceProxy> tempServiceFunc,
+        public ValuesController(Func<IAddressTypeService> tempServiceFunc,
             Func<IFileDataService> fileDataServiceFunc)
         {
-            this.addressTypeServiceProxy = tempServiceFunc;
+            this.addressTypeService = tempServiceFunc;
             this.fileDataServiceFunc = fileDataServiceFunc;
         }
 
@@ -38,7 +37,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            using (var service = addressTypeServiceProxy().GetService())
+            using (var service = addressTypeService())
             {
                 var addressTypeOption = await service.Get(id);
 

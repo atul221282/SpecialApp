@@ -54,6 +54,8 @@ namespace SpecialApp.API
 
             services.AddSpecialChallenge();
 
+            services.AddMemoryCache();
+
             // add mvc middleware
             services.AddMvc().AddJsonOptions(opt =>
             {
