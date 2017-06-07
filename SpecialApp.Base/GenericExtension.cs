@@ -74,5 +74,27 @@ namespace SpecialApp.Base
         {
             return Value.NoneWhen((x) => x.IsNullOrDefault()).ValueOr(valueOr);
         }
+
+        public static void WhenTrue(this bool Value, Action action)
+        {
+            if (Value)
+                action();
+        }
+
+        public static T WhenTrueOrDefault<T>(this bool Value, Func<T> action)
+        {
+            if (Value)
+                return action();
+
+            return default(T);
+        }
+
+        public static T WhenTrueOrFalse<T>(this bool Value, Func<T> OnTrue, Func<T> OnFalse)
+        {
+            if (Value)
+                return OnTrue();
+
+            return OnFalse();
+        }
     }
 }

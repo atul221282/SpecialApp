@@ -35,6 +35,7 @@ namespace SpecialApp.Service.Proxy
 
         private async Task<IMethodInvocationResult> GetWithoutCache(IAsyncMethodInvocation methodInvocation)
         {
+            //If call is not valid or not allowed to cache data, then just return the result ASAP
             return await methodInvocation.InvokeNextAsync();
         }
 
@@ -42,22 +43,26 @@ namespace SpecialApp.Service.Proxy
         {
             var parentKey = GetClassAndMethodName(methodInvocation);
 
-            //If call is not valid or not allowed to cache data, then just return the result ASAP
             var useCache = cache.Get<IDictionary<string, object>>(parentKey)
                 .NoneWhenNullOrDefault(() => ResolveCacheDictionary(parentKey));
 
             var keyName = GetParamWithValueKey(methodInvocation);
 
-            if (useCache.TryGetValue(keyName, out object cacheEntry))
-                return methodInvocation.CreateResult(cacheEntry);
+            var res = await Task.Factory.StartNew(() => useCache.TryGetValue(keyName, out object cacheEntry)
+                .WhenTrueOrFalse(
+                () => methodInvocation.CreateResult(cacheEntry),
+                () => SetCacheAndReturn(methodInvocation, useCache, keyName)));
 
-            var result = await methodInvocation.InvokeNextAsync();
+            return res;
+        }
 
+        private static IMethodInvocationResult SetCacheAndReturn(IAsyncMethodInvocation methodInvocation, IDictionary<string, object> useCache, string keyName)
+        {
+            var resultIn = methodInvocation.InvokeNextAsync().GetAwaiter().GetResult();
             //add to cache when it is a sucess call
-            if (result.Successful)
-                useCache.Add(keyName, result.ReturnValue);
+            resultIn.Successful.WhenTrue(() => useCache.Add(keyName, resultIn.ReturnValue));
 
-            return result;
+            return resultIn;
         }
 
         private static string GetClassMethodParamAndValue(IAsyncMethodInvocation methodInvocation)
