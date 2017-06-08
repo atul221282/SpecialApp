@@ -23,10 +23,7 @@ namespace SpecialApp.API.Controllers.Account
         private ICompanyService _service;
         private readonly Lazy<IMapper> lazyMapper;
         private readonly Infrastructure.IUrlHelperResolver urlHelper;
-        public ICompanyService Service
-        {
-            get { return _service = _service ?? lazyService.Value; }
-        }
+        public ICompanyService Service=> _service = _service ?? lazyService.Value;
 
         public CompanyController(Lazy<ICompanyService> lazyService,
             Lazy<IMapper> lazyMapper, IUrlHelperResolver urlHelper)
@@ -36,7 +33,7 @@ namespace SpecialApp.API.Controllers.Account
             this.urlHelper = urlHelper;
         }
 
-        [HttpGet(Name = "GetCollection")]
+        [HttpGet(Name = nameof(GetCollection))]
         public async Task<IActionResult> GetCollection()
         {
             using (Service)
@@ -49,7 +46,7 @@ namespace SpecialApp.API.Controllers.Account
             }
         }
 
-        [HttpGet("{id}", Name = "GetCompany")]
+        [HttpGet("{id}", Name = nameof(GetCompany))]
         public async Task<IActionResult> GetCompany([FromRoute] int id)
         {
             using (Service)
@@ -62,7 +59,7 @@ namespace SpecialApp.API.Controllers.Account
             }
         }
 
-        [HttpPatch("{id}", Name = "PartiallyUpdateCompany")]
+        [HttpPatch("{id}", Name = nameof(PartiallyUpdateCompany))]
         public async Task<IActionResult> PartiallyUpdateCompany(int id, [FromBody]JsonPatchDocument<CompanyModel> model)
         {
             var pp = new CompanyModel { ComapnyId = id, CompanyName = "" };
@@ -72,7 +69,7 @@ namespace SpecialApp.API.Controllers.Account
             return NoContent();
         }
 
-        [HttpPost(Name = "CreateCompany")]
+        [HttpPost(Name = nameof(CreateCompany))]
         public async Task<IActionResult> CreateCompany([FromBody]CompanyModel companyModel)
         {
             using (Service)
@@ -83,7 +80,7 @@ namespace SpecialApp.API.Controllers.Account
 
                 var data = Result<Entity.Companies.Company>.Ok(company, CreateLinks());
 
-                return CreatedAtRoute("GetCompany", new { id = company.Id }, data);
+                return CreatedAtRoute(nameof(GetCompany), new { id = company.Id }, data);
             }
         }
 
@@ -93,7 +90,7 @@ namespace SpecialApp.API.Controllers.Account
         //    return NoContent();
         //}
 
-        [HttpPut("{id}", Name = "UpdateCompanyCollection")]
+        [HttpPut("{id}", Name = nameof(UpdateCompanyCollection))]
         public async Task<IActionResult> UpdateCompanyCollection(int id, [FromBody] List<CompanyModel> models)
         {
             var data = Result<List<CompanyModel>>.Ok(models, CreateLinks());
@@ -105,27 +102,27 @@ namespace SpecialApp.API.Controllers.Account
         {
             return new List<HateoasLinks> {
                  new HateoasLinks {
-                        Href =  urlHelper.UrlHelper.Link("GetCollection",null),
+                        Href =  urlHelper.UrlHelper.Link(nameof(GetCollection),null),
                         Rel = "get-company-collection",
                         Method = "GET"
                     },
                     new HateoasLinks {
-                        Href =  urlHelper.UrlHelper.Link("GetCompany", new { id = 1 }),
+                        Href =  urlHelper.UrlHelper.Link(nameof(GetCompany), new { id = 1 }),
                         Rel = "get-full-company",
                         Method = "GET"
                     },
                     new HateoasLinks {
-                        Href = urlHelper.UrlHelper.Link("CreateCompany",null),
+                        Href = urlHelper.UrlHelper.Link(nameof(CreateCompany),null),
                         Rel = "create-company",
                         Method = "POST"
                     },
                      new HateoasLinks {
-                        Href = urlHelper.UrlHelper.Link("UpdateCompanyCollection",null),
+                        Href = urlHelper.UrlHelper.Link(nameof(UpdateCompanyCollection),null),
                         Rel = "update-company",
                         Method = "PUT"
                     },
                       new HateoasLinks {
-                        Href = urlHelper.UrlHelper.Link("PartiallyUpdateCompany",null),
+                        Href = urlHelper.UrlHelper.Link(nameof(PartiallyUpdateCompany),null),
                         Rel = "patch-company",
                         Method = "PATCH"
                     }

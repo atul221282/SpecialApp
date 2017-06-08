@@ -23,8 +23,8 @@ namespace SpecialApp.Service.Proxy
             this.cache = cache;
             this.identity = identity;
 
-            this.CallWithOrWithoutCache.Add(true.ToString(), GetFromCache);
-            this.CallWithOrWithoutCache.Add(false.ToString(), GetWithoutCache);
+            this.CallWithOrWithoutCache.Add(true.ToString(), GetFromCacheAsync);
+            this.CallWithOrWithoutCache.Add(false.ToString(), GetWithoutCacheAsync);
         }
 
         public async Task<IMethodInvocationResult> InterceptAsync(IAsyncMethodInvocation methodInvocation)
@@ -33,13 +33,10 @@ namespace SpecialApp.Service.Proxy
                 .Invoke(methodInvocation);
         }
 
-        private async Task<IMethodInvocationResult> GetWithoutCache(IAsyncMethodInvocation methodInvocation)
-        {
-            //If call is not valid or not allowed to cache data, then just return the result ASAP
-            return await methodInvocation.InvokeNextAsync();
-        }
+        private async static Task<IMethodInvocationResult> GetWithoutCacheAsync(IAsyncMethodInvocation methodInvocation)
+            => await methodInvocation.InvokeNextAsync();
 
-        private async Task<IMethodInvocationResult> GetFromCache(IAsyncMethodInvocation methodInvocation)
+        private async Task<IMethodInvocationResult> GetFromCacheAsync(IAsyncMethodInvocation methodInvocation)
         {
             var parentKey = GetClassAndMethodName(methodInvocation);
 
@@ -48,32 +45,18 @@ namespace SpecialApp.Service.Proxy
 
             var keyName = GetParamWithValueKey(methodInvocation);
 
-            var res = await Task.Factory.StartNew(() => useCache.TryGetValue(keyName, out object cacheEntry)
-                .WhenTrueOrFalse(
-                () => methodInvocation.CreateResult(cacheEntry),
-                () => SetCacheAndReturn(methodInvocation, useCache, keyName)));
-
-            return res;
+            return useCache.TryGetValue(keyName, out object cacheEntry)
+                ? methodInvocation.CreateResult(cacheEntry)
+                : await SetCacheAndReturnAsync(methodInvocation, useCache, keyName);
         }
 
-        private static IMethodInvocationResult SetCacheAndReturn(IAsyncMethodInvocation methodInvocation, IDictionary<string, object> useCache, string keyName)
+        private static async Task<IMethodInvocationResult> SetCacheAndReturnAsync(IAsyncMethodInvocation methodInvocation, IDictionary<string, object> useCache, string keyName)
         {
-            var resultIn = methodInvocation.InvokeNextAsync().GetAwaiter().GetResult();
+            var resultIn = await methodInvocation.InvokeNextAsync();
             //add to cache when it is a sucess call
             resultIn.Successful.WhenTrue(() => useCache.Add(keyName, resultIn.ReturnValue));
 
             return resultIn;
-        }
-
-        private static string GetClassMethodParamAndValue(IAsyncMethodInvocation methodInvocation)
-        {
-            string methodWithClassName = GetClassAndMethodName(methodInvocation);
-
-            StringBuilder sb = new StringBuilder(methodWithClassName);
-
-            sb.Append(GetParamWithValueKey(methodInvocation));
-
-            return sb.ToString();
         }
 
         private static string GetParamWithValueKey(IAsyncMethodInvocation methodInvocation)
@@ -91,15 +74,14 @@ namespace SpecialApp.Service.Proxy
             var className = methodInvocation.TargetInstance.GetType().Name;
 
             var methodWithUserName = $"{className}={methodInvocation.MethodInfo.Name}=";
+
             return methodWithUserName;
         }
 
         private static bool IsValidMethodCall(IAsyncMethodInvocation methodInvocation)
         {
-            var result = methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
+            return methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
                 && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null;
-
-            return result;
         }
 
         private IDictionary<string, object> ResolveCacheDictionary(string parentKey)

@@ -35,11 +35,8 @@ namespace SpecialApp.Base
 
         public static bool IsNullOrDefault<T>(this T value)
         {
-            var result = IsNull(value);
-            if (result == false)
-            {
-                result = Equals(value, default(T));
-            }
+            var result = IsNull(value) || Equals(value, default(T));
+            
             return result;
         }
 
@@ -70,31 +67,17 @@ namespace SpecialApp.Base
             return buffer;
         }
 
-        public static T NoneWhenNullOrDefault<T>(this T Value, Func<T> valueOr)
-        {
-            return Value.NoneWhen((x) => x.IsNullOrDefault()).ValueOr(valueOr);
-        }
+        public static T NoneWhenNullOrDefault<T>(this T Value, Func<T> valueOr) 
+            => Value.NoneWhen((x) => x.IsNullOrDefault()).ValueOr(valueOr);
 
         public static void WhenTrue(this bool Value, Action action)
         {
             if (Value)
-                action();
+                action?.Invoke();
         }
 
-        public static T WhenTrueOrDefault<T>(this bool Value, Func<T> action)
-        {
-            if (Value)
-                return action();
+        public static Option<T> WhenTrueOrDefault<T>(this bool Value, Func<T> action)
+            => Value ? action().Some() : default(T).None();
 
-            return default(T);
-        }
-
-        public static T WhenTrueOrFalse<T>(this bool Value, Func<T> OnTrue, Func<T> OnFalse)
-        {
-            if (Value)
-                return OnTrue();
-
-            return OnFalse();
-        }
     }
 }

@@ -11,10 +11,10 @@ namespace SpecialApp.Service
         void Add();
 
         [ResolveFromCache]
-        Task<Option<IEnumerable<IAddressType>>> Get();
+        Task<Option<IEnumerable<IAddressType>>> GetAsync();
 
         [ResolveFromCache]
-        Task<Option<IAddressType>> Get(int id);
+        Task<Option<IAddressType>> GetAsync(int id);
 
     }
 }

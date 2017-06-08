@@ -26,7 +26,7 @@ namespace SpecialApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var addressListOption = await addressTypeService().Get();
+            var addressListOption = await addressTypeService().GetAsync();
 
             var addressList = addressListOption.ValueOr(() => new List<IAddressType>());
 
@@ -39,7 +39,7 @@ namespace SpecialApp.API.Controllers
         {
             using (var service = addressTypeService())
             {
-                var addressTypeOption = await service.Get(id);
+                var addressTypeOption = await service.GetAsync(id);
 
                 var addresType = addressTypeOption.ValueOr(default(IAddressType));
 

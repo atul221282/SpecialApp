@@ -12,11 +12,11 @@ namespace SpecialApp.Service
 {
     public class AddressTypeService : BaseService, IAddressTypeService
     {
-        private readonly Func<ISpecialUOW> uowFunc;
+        private readonly ISpecialUOW uow;
 
-        public AddressTypeService(Func<ISpecialUOW> uowFunc) : base(uowFunc())
+        public AddressTypeService(ISpecialUOW uow) : base(uow)
         {
-            this.uowFunc = uowFunc;
+            this.uow = uow;
         }
 
         public void Add()
@@ -32,19 +32,19 @@ namespace SpecialApp.Service
                 State = State.Added,
                 IsDeleted = false
             };
-            uowFunc().GetRepository<AddressType>().Add(addressType);
+            uow.GetRepository<AddressType>().Add(addressType);
         }
 
-        public async Task<Option<IEnumerable<IAddressType>>> Get()
+        public async Task<Option<IEnumerable<IAddressType>>> GetAsync()
         {
-            var result = await uowFunc().GetRepository<AddressType>().GetAll().GetActive().ToListAsync();
+            var result = await uow.GetRepository<AddressType>().GetAll().GetActive().ToListAsync();
 
             return result.Some<IEnumerable<IAddressType>>();
         }
 
-        public async Task<Option<IAddressType>> Get(int id)
+        public async Task<Option<IAddressType>> GetAsync(int id)
         {
-            var resultOf = await uowFunc().GetRepository<AddressType>()
+            var resultOf = await uow.GetRepository<AddressType>()
                 .GetAll().GetActive().FirstOrDefaultAsync(x => x.Id == id);
 
             return resultOf.NoneWhen<IAddressType>(x => x == null);
