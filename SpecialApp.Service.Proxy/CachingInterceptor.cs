@@ -84,13 +84,11 @@ namespace SpecialApp.Service.Proxy
             var result = new RuleStatement<bool>(
                 () => methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
                     && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null,
-                new StopWithResultRule<bool>(true), new StopWithResultRule<bool>(false));
+                new StopWithFuncRule<bool>(() => true), new StopWithFuncRule<bool>(() => false));
 
-            var isValid= result.Process();
+            var isValid = result.Process();
 
             return isValid;
-            //return methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
-            //    && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null;
         }
 
         private IDictionary<string, object> ResolveCacheDictionary(string parentKey)

@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SpecialApp.Base.RulesEngine
 {
-    public class StopWithResultRule<T>:IRuleStatement<T>
+    public class StopWithFuncRule<T> : IRuleStatement<T>
     {
-        private readonly T Value;
+        private readonly Func<T> func;
 
-        public StopWithResultRule(T Value)
+        public StopWithFuncRule(Func<T> func)
         {
-            this.Value = Value;
+            this.func = func;
         }
 
         public bool IsValid()
@@ -20,7 +20,7 @@ namespace SpecialApp.Base.RulesEngine
 
         public T Process()
         {
-            return Value;
+            return func();
         }
     }
 }
