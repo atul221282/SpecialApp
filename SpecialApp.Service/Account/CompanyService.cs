@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using SpecialApp.Base;
 using SpecialApp.Entity.Composer;
 using AutoMapper.QueryableExtensions;
+using SpecialApp.Base.RulesEngine;
 
 namespace SpecialApp.Service.Account
 {
@@ -35,8 +36,15 @@ namespace SpecialApp.Service.Account
 
         public Company Add(CompanyModel companyModel)
         {
+            var email = identity.GetEmail();
+
             var company = mapper.Map<Company>(companyModel,
-                opts => opts.Items.Add("EmailAddress", identity.GetEmail() ?? "system"));
+                opts => opts.Items.Add("EmailAddress",
+                new RuleStatement<string>(
+                    () => email.IsNotNullOrWhiteSpace(),
+                    new StopWithFuncRule<string>(() => email),
+                    new StopWithFuncRule<string>(() => "system")
+                )));
 
             return Add(company);
         }
