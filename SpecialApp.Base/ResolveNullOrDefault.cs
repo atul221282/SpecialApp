@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SpecialApp.Base
 {
-    internal class CheckNullableOrDefault<T>
+    public class ResolveNullOrDefault<T>
     {
         private T value;
         private IDictionary<bool, Func<T>> dict = new Dictionary<bool, Func<T>>();
 
-        public CheckNullableOrDefault(T v, Func<T> whenNullOrDefault)
+        public ResolveNullOrDefault(T v, Func<T> whenNullOrDefault)
         {
             this.value = v;
             dict.Add(false, whenNullOrDefault);

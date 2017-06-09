@@ -5,12 +5,12 @@ using System.Text;
 
 namespace SpecialApp.Base
 {
-    public class EnsureNullOrEmpty
+    public class ResolveNullOrEmpty
     {
         private readonly string value;
         private readonly IDictionary<bool, Func<string>> dict = new Dictionary<bool, Func<string>>();
 
-        public EnsureNullOrEmpty(string value,Func<string> whenNullOrEmpty)
+        public ResolveNullOrEmpty(string value,Func<string> whenNullOrEmpty)
         {
             this.value = value;
             dict.Add(true, whenNullOrEmpty);
