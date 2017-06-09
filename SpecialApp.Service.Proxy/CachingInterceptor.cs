@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Optional;
 using SpecialApp.Base;
+using SpecialApp.Base.RulesEngine;
 using StructureMap.DynamicInterception;
 using System;
 using System.Collections.Generic;
@@ -80,8 +81,16 @@ namespace SpecialApp.Service.Proxy
 
         private static bool IsValidMethodCall(IAsyncMethodInvocation methodInvocation)
         {
-            return methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
-                && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null;
+            var result = new RuleStatement<bool>(
+                () => methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
+                    && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null,
+                new StopWithResultRule<bool>(true), new StopWithResultRule<bool>(false));
+
+            var isValid= result.Process();
+
+            return isValid;
+            //return methodInvocation.InstanceMethodInfo.ReturnType != typeof(void)
+            //    && methodInvocation.MethodInfo.GetCustomAttributes<ResolveFromCacheAttribute>() != null;
         }
 
         private IDictionary<string, object> ResolveCacheDictionary(string parentKey)
