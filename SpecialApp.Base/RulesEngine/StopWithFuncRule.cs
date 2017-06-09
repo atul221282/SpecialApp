@@ -13,14 +13,8 @@ namespace SpecialApp.Base.RulesEngine
             this.func = func;
         }
 
-        public bool IsValid()
-        {
-            return true;
-        }
+        public bool IsValid => true;
 
-        public T Process()
-        {
-            return func();
-        }
+        public T Process() => func();
     }
 }

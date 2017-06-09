@@ -17,11 +17,11 @@ namespace SpecialApp.Base.RulesEngine
             this.whenConditionTrue = whenConditionTrue;
         }
 
-        public bool IsValid() => condition();
+        public bool IsValid => condition();
 
         public T Process()
         {
-            if (IsValid())
+            if (IsValid)
                 return whenConditionTrue.Process();
 
             return next.Process();

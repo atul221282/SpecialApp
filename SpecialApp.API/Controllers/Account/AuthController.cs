@@ -85,14 +85,14 @@ namespace SpecialApp.API.Controllers.Account
                         return appUser.ErrorMessage(SetAPIResponse(appUser, model.RememberMe), tokenService());
                     }, tokenService()));
                 }
-                catch
+                catch (Exception)
                 {
                     return StatusCode(() => Tuple.Create(500, SetError("Failed to login")));
                 }
             }
         }
 
-        private Func<ITokenService, object> SetAPIResponse(IAppUsers appUser, bool rememberMe)
+        private static Func<ITokenService, object> SetAPIResponse(IAppUsers appUser, bool rememberMe)
             => (serv) =>
         {
             var tokenData = serv.GenerateToken(null, appUser, rememberMe);
