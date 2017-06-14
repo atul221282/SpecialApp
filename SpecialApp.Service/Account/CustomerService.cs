@@ -158,6 +158,11 @@ namespace SpecialApp.Service.Account
             return GetResolveUser();
         }
 
+        public async Task<SpecialAppUsers> GetAppusers(string email)
+        {
+            return await Service.FindByEmailAsync(email);
+        }
+
         private ResolvedUser GetResolveUser()
         {
             return new ResolvedUser(userResultType, Service, Uow);

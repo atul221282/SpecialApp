@@ -15,7 +15,7 @@ namespace SpecialApp.Service
         private DateTime tokenExpiry { get; set; }
         private JwtSecurityToken token { get; set; }
 
-        public ITokenService GenerateToken(IConfigurationRoot config, IAppUsers user, bool rememberMe = false)
+        public ITokenService GenerateToken(IConfigurationRoot config, SpecialAppUsers user, bool rememberMe = false)
         {
             CreateToken(config, user, rememberMe);
 

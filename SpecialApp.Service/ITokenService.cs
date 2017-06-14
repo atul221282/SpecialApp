@@ -8,7 +8,7 @@ namespace SpecialApp.Service
 {
     public interface ITokenService
     {
-        ITokenService GenerateToken(IConfigurationRoot config, IAppUsers user, bool rememberMe=false);
+        ITokenService GenerateToken(IConfigurationRoot config, SpecialAppUsers user, bool rememberMe=false);
         JwtSecurityToken GetToken();
         DateTime GetExpiry();
         string GetTokenString();

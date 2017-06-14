@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SpecialApp.API.Filters;
+using SpecialApp.API.StatePattern.AuthUser;
 using SpecialApp.Base;
+using SpecialApp.Context.Services;
 using SpecialApp.Entity;
 using SpecialApp.Entity.Model.Account;
 using SpecialApp.Service;
@@ -25,6 +27,7 @@ namespace SpecialApp.API.Controllers.Account
 
         private ICustomerService _customerService;
         private readonly Func<ITokenService> tokenService;
+        private readonly Func<IUserManagerService> managerServiceFunc;
 
         public ICustomerService CustomerService
         {
@@ -44,8 +47,9 @@ namespace SpecialApp.API.Controllers.Account
 
         public AuthController(Func<ICustomerService> customerServiceFunc,
             Func<IPasswordHasher<SpecialAppUsers>> hasher, Func<ITokenService> tokenService,
-            IResolvedUser sss)
+            Func<IUserManagerService> managerServiceFunc)
         {
+            this.managerServiceFunc = managerServiceFunc;
             this.customerServiceFunc = customerServiceFunc;
             this.hasher = hasher;
             this.tokenService = tokenService;
@@ -63,7 +67,6 @@ namespace SpecialApp.API.Controllers.Account
         public async Task<IActionResult> Get(string email)
         {
             var result = await CustomerService.GetUser(email);
-
             return Ok(result.ResolveUser());
         }
 
@@ -73,41 +76,36 @@ namespace SpecialApp.API.Controllers.Account
         {
             using (CustomerService)
             {
-                IAppUsers appUser;
                 try
                 {
-                    var gAppUser = await CustomerService.GetUser(model.EmailAddress);
+                    var specialAppUser = await CustomerService.GetAppusers(model.EmailAddress);
 
-                    appUser = await gAppUser.ResolveUser(Hasher, model.Password);
+                    var myAppUser = new AppUser(specialAppUser);
 
-                    return StatusCode(() => gAppUser.SetStatus((ser) =>
+                    var appUserState = myAppUser.ResolveAppuser();
+
+                    var result = appUserState.GetUserState();
+
+                    var apiResponse = await result.GetVerifiedUser(managerServiceFunc(), hasher(), model.Password);
+
+                    return apiResponse.GetResult(() =>
                     {
-                        return appUser.ErrorMessage(SetAPIResponse(appUser, model.RememberMe), tokenService());
-                    }, tokenService()));
+                        var tokenData = tokenService().GenerateToken(null, specialAppUser, model.RememberMe);
+
+                        return new
+                        {
+                            token = tokenData.GetTokenString(),
+                            expiration = tokenData.GetExpiry(),
+                            expires_in = tokenData.GetExpiry()
+                        };
+
+                    });
                 }
                 catch (Exception)
                 {
-                    return StatusCode(() => Tuple.Create(500, SetError("Failed to login")));
+                    return BadRequest(SetError("Failed to login"));
                 }
             }
-        }
-
-        private static Func<ITokenService, object> SetAPIResponse(IAppUsers appUser, bool rememberMe)
-            => (serv) =>
-        {
-            var tokenData = serv.GenerateToken(null, appUser, rememberMe);
-            return new
-            {
-                token = tokenData.GetTokenString(),
-                expiration = tokenData.GetExpiry(),
-                expires_in = tokenData.GetExpiry()
-            };
-        };
-
-        private IActionResult StatusCode(Func<Tuple<int, object>> p)
-        {
-            var result = p();
-            return StatusCode(result.Item1, result.Item2);
         }
     }
 }

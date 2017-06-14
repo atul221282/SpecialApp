@@ -19,5 +19,6 @@ namespace SpecialApp.Service.Account
 
         Task<IResolvedUser> GetUser(string email);
 
+        Task<SpecialAppUsers> GetAppusers(string email);
     }
 }
