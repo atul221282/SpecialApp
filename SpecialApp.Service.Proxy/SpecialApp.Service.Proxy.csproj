@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="structuremap" Version="4.4.5" />
+    <PackageReference Include="structuremap" Version="4.5.0" />
     <PackageReference Include="StructureMap.DynamicInterception" Version="1.0.3" />
   </ItemGroup>
 

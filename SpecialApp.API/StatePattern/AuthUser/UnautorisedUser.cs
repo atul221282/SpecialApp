@@ -26,9 +26,6 @@ namespace SpecialApp.API.StatePattern.AuthUser
         }
 
         public async Task<IUserResult> GetVerifiedUser(IUserManagerService managerService,
-            IPasswordHasher<SpecialAppUsers> hasher, string password)
-        {
-            return await Task.FromResult(new InvalidUserResult());
-        }
+            IPasswordHasher<SpecialAppUsers> hasher, string password) => await Task.FromResult(new InvalidUserResult());
     }
 }

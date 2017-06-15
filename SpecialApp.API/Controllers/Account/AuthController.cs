@@ -75,30 +75,25 @@ namespace SpecialApp.API.Controllers.Account
         public async Task<IActionResult> Login([FromBody]LoginModel model)
         {
             using (CustomerService)
+            using (var userManagerService = managerServiceFunc())
             {
                 try
                 {
                     var specialAppUser = await CustomerService.GetAppusers(model.EmailAddress);
 
-                    var myAppUser = new AppUser(specialAppUser);
+                    var result = new AppUser(specialAppUser).ResolveAppuser().GetUserState();
 
-                    var appUserState = myAppUser.ResolveAppuser();
-
-                    var result = appUserState.GetUserState();
-
-                    var apiResponse = await result.GetVerifiedUser(managerServiceFunc(), hasher(), model.Password);
+                    var apiResponse = await result.GetVerifiedUser(userManagerService, hasher(), model.Password);
 
                     return apiResponse.GetResult(() =>
                     {
                         var tokenData = tokenService().GenerateToken(null, specialAppUser, model.RememberMe);
-
                         return new
                         {
                             token = tokenData.GetTokenString(),
                             expiration = tokenData.GetExpiry(),
                             expires_in = tokenData.GetExpiry()
                         };
-
                     });
                 }
                 catch (Exception)
