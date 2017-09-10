@@ -8,15 +8,27 @@ namespace SpecialApp.Base.Rules.QueryableSearchFilter
     {
         List<IListFIlter> filters = new List<IListFIlter>();
 
+        /// <summary>
+        /// Add filter.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IPermitSearchFlterFactory"/>.
+        /// </returns>
         public IPermitSearchFlterFactory<T> AddFilter(IListFIlter filter)
         {
-            filters.Add(filter);
+            this.filters.Add(filter);
             return this;
         }
 
+        /// <summary>
+        /// Run filters.
+        /// </summary>
         public void RunFilters()
         {
-            filters.ForEach(x =>
+            this.filters.ForEach(x =>
             {
                 x.Execute();
             });
