@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="structuremap" Version="4.5.0" />
-    <PackageReference Include="StructureMap.DynamicInterception" Version="1.0.3" />
+    <PackageReference Include="structuremap" Version="4.5.2" />
+    <PackageReference Include="StructureMap.DynamicInterception" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

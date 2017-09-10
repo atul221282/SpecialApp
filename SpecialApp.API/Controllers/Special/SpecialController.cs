@@ -25,13 +25,19 @@ namespace SpecialApp.API.Controllers.Special
 
                 var specialOption = await service.GetById(99);
 
-                var sepcial = specialOption.ValueOr(() => new Entity.Specials.Special { });
+                //var sepcial = specialOption.ValueOr(() => new Entity.Specials.Special { });
 
-                var data = await service.GetLocations(-34.809964, 138.680274, distance: distance);
+                var specialWithId = specialOption();
 
-                var listData =(await data.WithAddress()).Resolve();
+                var data = (await service.GetLocations(-34.809964, 138.680274, distance: distance))();
 
-                return Ok(listData);
+                if (data.IsRight)
+                {
+                    // Get address
+                    return Ok(data.Right);
+                }
+
+                return StatusCode(data.Left.GetCode(), data.Left.GetError());
             }
             catch (Exception ex)
             {

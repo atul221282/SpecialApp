@@ -6,7 +6,8 @@ using SP = SpecialApp.Entity.Specials;
 using SpecialApp.UnitOfWork;
 using SpecialApp.Entity.Composer;
 using SpecialApp.Base;
-using Optional;
+using Monad;
+using SpecialApp.Base.ServiceResponse;
 
 namespace SpecialApp.Service.Special
 {
@@ -22,22 +23,30 @@ namespace SpecialApp.Service.Special
                 return _uow = _uow ?? uowFunc();
             }
         }
+
         public SpecialService(Func<ISpecialUOW> uowFunc) : base(uowFunc())
         {
             this.uowFunc = uowFunc;
         }
 
-        public async Task<Option<SP.ISpecial>> GetById(int Id)
+        public async Task<Either<string, SP.ISpecial>> GetById(int Id)
         {
             var result = await Uow.SpecialRepository.GetById(Id);
 
-            return result;
+            if (!result.HasValue())
+            {
+                return Either.Left<string, SP.ISpecial>(() => "");
+            }
+
+            var eitherRight = Either.Right<string, SP.ISpecial>(() => result.Value());
+
+            return eitherRight;
         }
 
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<SP.Special>(
-                await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance))
+                (await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
             return result;
@@ -52,13 +61,19 @@ namespace SpecialApp.Service.Special
             return result;
         }
 
-        public async Task<ISpecialAddressHelper> GetLocations(double latitude, double longitude, int distance = 4000)
+        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocations(double latitude, double longitude, int distance = 4000)
         {
-            var result = new ActiveOnlyEntity<SP.Special>(
-                await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance))
-                .GetActive();
+            var result = await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance);
 
-            return new SpecialAddressHelper(Uow, result); ;
+            if (!result.HasValue())
+            {
+                return Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
+                    () => new NotFoundError($"No location found for the given latitude={latitude} and longitude={longitude}"));
+            }
+
+            return Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result.Value());
         }
     }
+
+
 }
