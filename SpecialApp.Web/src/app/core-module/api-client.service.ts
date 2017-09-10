@@ -28,7 +28,8 @@ export class ApiClientService {
     post<T>(url: string, data: any, options?: RequestOptionsArgs): Observable<T> {
 
         let headers = new Headers({
-            'Authorization': this.accessToken
+            'Authorization': this.accessToken,
+            'Content-Type': 'application/json'
         });
 
         if (!options || options !== null)
