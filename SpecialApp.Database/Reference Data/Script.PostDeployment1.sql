@@ -21,3 +21,5 @@ GO
 GO
 :r".\CompanyAddress.sql"
 GO
+:r".\Location.sql"
+GO

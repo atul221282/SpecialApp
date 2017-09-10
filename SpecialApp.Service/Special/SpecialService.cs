@@ -8,6 +8,7 @@ using SpecialApp.Entity.Composer;
 using SpecialApp.Base;
 using Monad;
 using SpecialApp.Base.ServiceResponse;
+using System.Linq;
 
 namespace SpecialApp.Service.Special
 {
@@ -54,26 +55,26 @@ namespace SpecialApp.Service.Special
 
         public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
-            var result = new ActiveOnlyEntity<Location>(await Uow.SpecialRepository
-                .GetLocation(latitude, longitude, distance: distance))
+            var result = new ActiveOnlyEntity<Location>((await Uow.SpecialRepository
+                .GetLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
             return result;
         }
 
-        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocations(double latitude, double longitude, int distance = 4000)
+        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocationsAsync(double latitude, double longitude, int distance = 4000)
         {
+            var testResult = await Uow.SpecialRepository.GetLocation(latitude, longitude, distance: distance);
+            var pp = testResult.Value();
+
             var result = await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance);
 
-            if (!result.HasValue())
+            if (!result.HasValue() || !result.Value().Any())
             {
                 return Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
-                    () => new NotFoundError($"No location found for the given latitude={latitude} and longitude={longitude}"));
+                    () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}"));
             }
-
             return Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result.Value());
         }
     }
-
-
 }

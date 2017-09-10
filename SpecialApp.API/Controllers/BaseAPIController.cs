@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Monad;
 using SpecialApp.API.Filters;
 using SpecialApp.API.Helpers;
+using SpecialApp.Base.ServiceResponse;
 using System;
 using System.Collections.Generic;
 
@@ -39,6 +41,18 @@ namespace SpecialApp.API.Controllers
             string name = nameWithExtension ?? Guid.NewGuid().ToString();
             Response.Headers.Append("Content-Disposition", $"inline; filename={name}");
             return File(data, mimeType, nameWithExtension);
+        }
+
+        protected virtual IActionResult EitherResponse<TRight>(Either<IErrorResponse, TRight> eitherResponse)
+        {
+            var either = eitherResponse();
+
+            if (either.IsRight)
+            {
+                return Ok(either.Right);
+            }
+
+            return StatusCode(either.Left.GetCode(), SetError(either.Left.GetError()));
         }
     }
 }

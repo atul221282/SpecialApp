@@ -12,7 +12,7 @@ namespace SpecialApp.Repository.Repository.Specials
     {
         Task<Option<IEnumerable<Special>>> GetByLocation(double latitude, double longitude, int distance = 4000);
 
-        Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000);
+        Task<Option<IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000);
 
         Task<Option<ISpecial>> GetById(int id);
     }

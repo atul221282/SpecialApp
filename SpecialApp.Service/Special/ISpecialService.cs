@@ -17,6 +17,6 @@ namespace SpecialApp.Service.Special
 
         Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000);
 
-        Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocations(double latitude, double longitude, int distance = 4000);
+        Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocationsAsync(double latitude, double longitude, int distance = 4000);
     }
 }

@@ -75,4 +75,8 @@
   <ItemGroup>
     <PostDeploy Include="Reference Data\Script.PostDeployment1.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Reference Data\Location.sql" />
+    <None Include="SpecialApp.Database.publish.xml" />
+  </ItemGroup>
 </Project>

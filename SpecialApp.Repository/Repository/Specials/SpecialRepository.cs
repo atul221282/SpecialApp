@@ -38,14 +38,14 @@ namespace SpecialApp.Repository.Repository.Specials
             return Option.Return(() => result.AsEnumerable());
         }
 
-        public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<Option<IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
             var test = await context.Set<Location>()
                .FromSql($"SELECT * from [dbo].[Location] L WHERE " +
-               $"geography::Point(L.Latitude, L.Longitude, 4326).STDistance(geography::Point(@p0, @p1, 4326)) <=@p2",
+               $"geography::Point(@p0, @p1, 4326).STDistance(geography::Point(@p0, @p1, 4326)) <=@p2",
                latitude, longitude, distance).GetActive().ToListAsync();
 
-            return test;
+            return Option.Return(() => test.AsEnumerable());
         }
     }
 }
