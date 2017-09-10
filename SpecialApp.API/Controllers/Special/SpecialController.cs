@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using SP = SpecialApp.Entity.Specials;
 using System.Threading.Tasks;
+using SpecialApp.Transport.Special;
 
 namespace SpecialApp.API.Controllers.Special
 {
@@ -23,10 +24,6 @@ namespace SpecialApp.API.Controllers.Special
             {
                 var service = serviceFunc();
 
-                var specialOption = await service.GetById(99);
-
-                var specialWithId = specialOption();
-
                 var data = (await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance));
 
                 return EitherResponse(data);
@@ -35,6 +32,12 @@ namespace SpecialApp.API.Controllers.Special
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateSpecial special)
+        {
+            return Ok(special);
         }
     }
 }

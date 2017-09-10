@@ -78,5 +78,7 @@
   <ItemGroup>
     <None Include="Reference Data\Location.sql" />
     <None Include="SpecialApp.Database.publish.xml" />
+    <None Include="Reference Data\AspNetUsers.sql" />
+    <None Include="Reference Data\Users.sql" />
   </ItemGroup>
 </Project>

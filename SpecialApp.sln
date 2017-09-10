@@ -1,35 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.API", "SpecialApp.API\SpecialApp.API.csproj", "{19CB32D2-5344-4302-AD90-3EFABD9711EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.API", "SpecialApp.API\SpecialApp.API.csproj", "{19CB32D2-5344-4302-AD90-3EFABD9711EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Web", "SpecialApp.Web\SpecialApp.Web.csproj", "{B986A4C1-6195-4554-914A-4491E396F14F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Web", "SpecialApp.Web\SpecialApp.Web.csproj", "{B986A4C1-6195-4554-914A-4491E396F14F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Context", "SpecialApp.Context2\SpecialApp.Context.csproj", "{51BCE886-14DA-4E3F-A973-650510B1D824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Context", "SpecialApp.Context2\SpecialApp.Context.csproj", "{51BCE886-14DA-4E3F-A973-650510B1D824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Entity", "SpecialApp.Entity2\SpecialApp.Entity.csproj", "{E58C9B0D-7511-4AF6-AC9D-90D0994E4D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Entity", "SpecialApp.Entity2\SpecialApp.Entity.csproj", "{E58C9B0D-7511-4AF6-AC9D-90D0994E4D89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Base", "SpecialApp.Base\SpecialApp.Base.csproj", "{DB76DFA4-85BC-4B7A-B4F5-5F3F5B7A7EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Base", "SpecialApp.Base\SpecialApp.Base.csproj", "{DB76DFA4-85BC-4B7A-B4F5-5F3F5B7A7EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Service", "SpecialApp.Service\SpecialApp.Service.csproj", "{B9A51747-26AF-49DC-A28F-9BA3199F1878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Service", "SpecialApp.Service\SpecialApp.Service.csproj", "{B9A51747-26AF-49DC-A28F-9BA3199F1878}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.UnitOfWork", "SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj", "{2012747C-A2E7-4BC6-A260-F8E41F37ED9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.UnitOfWork", "SpecialApp.UnitOfWork\SpecialApp.UnitOfWork.csproj", "{2012747C-A2E7-4BC6-A260-F8E41F37ED9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Repository", "SpecialApp.Repository\SpecialApp.Repository.csproj", "{443DBEC6-2D52-4265-8238-7347CF623C71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Repository", "SpecialApp.Repository\SpecialApp.Repository.csproj", "{443DBEC6-2D52-4265-8238-7347CF623C71}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SpecialApp.Database", "SpecialApp.Database\SpecialApp.Database.sqlproj", "{0503DD10-7E41-4326-942C-8B71C9E61499}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33E712D4-EA0E-4390-A2F0-36D82DDD2C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Context.Tests", "SpecialApp.Context.Tests\SpecialApp.Context.Tests.csproj", "{15A16DD5-4CAD-4370-9B24-01EF46FE5687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Context.Tests", "SpecialApp.Context.Tests\SpecialApp.Context.Tests.csproj", "{15A16DD5-4CAD-4370-9B24-01EF46FE5687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Base.Test", "SpecialApp.Base.Test\SpecialApp.Base.Test.csproj", "{FD1992E6-83EF-4575-A245-A2B07BD905C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Base.Test", "SpecialApp.Base.Test\SpecialApp.Base.Test.csproj", "{FD1992E6-83EF-4575-A245-A2B07BD905C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.BusinessException", "SpecialApp.BusinessException\SpecialApp.BusinessException.csproj", "{CC0E6D46-BE27-4722-96BC-F7B2185FC220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.BusinessException", "SpecialApp.BusinessException\SpecialApp.BusinessException.csproj", "{CC0E6D46-BE27-4722-96BC-F7B2185FC220}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Service.Proxy", "SpecialApp.Service.Proxy\SpecialApp.Service.Proxy.csproj", "{2D0E97D9-2A51-47EC-929D-A1A0408CD687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecialApp.Service.Proxy", "SpecialApp.Service.Proxy\SpecialApp.Service.Proxy.csproj", "{2D0E97D9-2A51-47EC-929D-A1A0408CD687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecialApp.Transport", "SpecialApp.Transport\SpecialApp.Transport.csproj", "{0F2C88AB-E703-4116-A074-ADE0CD0677C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D0E97D9-2A51-47EC-929D-A1A0408CD687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2C88AB-E703-4116-A074-ADE0CD0677C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2C88AB-E703-4116-A074-ADE0CD0677C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2C88AB-E703-4116-A074-ADE0CD0677C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2C88AB-E703-4116-A074-ADE0CD0677C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{15A16DD5-4CAD-4370-9B24-01EF46FE5687} = {33E712D4-EA0E-4390-A2F0-36D82DDD2C4D}
 		{FD1992E6-83EF-4575-A245-A2B07BD905C1} = {33E712D4-EA0E-4390-A2F0-36D82DDD2C4D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {454C5A6C-B805-4ABF-A95C-FE9F3AFDAEFB}
 	EndGlobalSection
 EndGlobal
