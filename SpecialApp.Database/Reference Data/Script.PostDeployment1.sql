@@ -23,3 +23,7 @@ GO
 GO
 :r".\Location.sql"
 GO
+:r".\AspNetUsers.sql"
+GO
+:r".\Users.sql"
+GO
