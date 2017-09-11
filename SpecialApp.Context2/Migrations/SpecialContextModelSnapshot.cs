@@ -669,10 +669,6 @@ namespace SpecialApp.Context.Migrations
                     b.Property<bool?>("IsDeleted")
                         .IsRequired();
 
-                    b.Property<double>("Latitude");
-
-                    b.Property<double>("Longitude");
-
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();

@@ -6,8 +6,8 @@ namespace SpecialApp.Base.ServiceResponse
 {
     public interface IErrorResponse
     {
-        string GetError();
-        int GetCode();
+        string Error { get; }
+        int Code { get; }
     }
     public class NotFoundError : IErrorResponse
     {
@@ -20,8 +20,8 @@ namespace SpecialApp.Base.ServiceResponse
             _code = 404;
         }
 
-        public int GetCode() => _code;
+        public int Code => _code;
 
-        public string GetError() => _error;
+        public string Error => _error;
     }
 }

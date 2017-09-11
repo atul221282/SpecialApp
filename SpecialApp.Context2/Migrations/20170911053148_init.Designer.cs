@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170911030026_init")]
+    [Migration("20170911053148_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -669,10 +669,6 @@ namespace SpecialApp.Context.Migrations
 
                     b.Property<bool?>("IsDeleted")
                         .IsRequired();
-
-                    b.Property<double>("Latitude");
-
-                    b.Property<double>("Longitude");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()

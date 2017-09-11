@@ -24,7 +24,7 @@ namespace SpecialApp.API.Controllers.Special
             {
                 var service = serviceFunc();
 
-                var data = (await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance));
+                var data = await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance);
 
                 return EitherResponse(data);
             }

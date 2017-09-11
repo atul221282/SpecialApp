@@ -157,8 +157,6 @@ namespace SpecialApp.Context.Migrations
                     AuditLastUpdatedBy = table.Column<string>(maxLength: 100, nullable: false),
                     AuditLastUpdatedDate = table.Column<DateTimeOffset>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Latitude = table.Column<double>(nullable: false),
-                    Longitude = table.Column<double>(nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>

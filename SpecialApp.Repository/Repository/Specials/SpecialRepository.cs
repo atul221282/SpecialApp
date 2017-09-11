@@ -41,7 +41,8 @@ namespace SpecialApp.Repository.Repository.Specials
         public async Task<Option<IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
             var test = await context.Set<Location>()
-               .FromSql($"SELECT * from [dbo].[Location] L WHERE " +
+               .FromSql($"SELECT L.Id, L.[AuditCreatedDate], L.[AuditCreatedBy], L.[AuditLastUpdatedDate], L.[AuditLastUpdatedBy], L.[IsDeleted], L.[RowVersion]" + 
+               "from [dbo].[Location] L WHERE " +
                $"geography::Point(@p0, @p1, 4326).STDistance(geography::Point(@p0, @p1, 4326)) <=@p2",
                latitude, longitude, distance).GetActive().ToListAsync();
 

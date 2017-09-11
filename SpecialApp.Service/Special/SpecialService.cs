@@ -64,9 +64,6 @@ namespace SpecialApp.Service.Special
 
         public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocationsAsync(double latitude, double longitude, int distance = 4000)
         {
-            var testResult = await Uow.SpecialRepository.GetLocation(latitude, longitude, distance: distance);
-            var pp = testResult.Value();
-
             var result = await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance);
 
             if (!result.HasValue() || !result.Value().Any())
