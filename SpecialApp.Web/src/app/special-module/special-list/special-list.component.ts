@@ -6,6 +6,7 @@ import { ApiClientService } from 'app';
     templateUrl: './special-list.component.html',
     styleUrls: ['./special-list.component.css']
 })
+
 export class SpecialListComponent implements OnInit, OnDestroy {
 
     constructor(private apiClient: ApiClientService) { }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Monad;
 using SpecialApp.API.Filters;
 using SpecialApp.API.Helpers;
+using SpecialApp.Base;
 using SpecialApp.Base.ServiceResponse;
 using System;
 using System.Collections.Generic;
@@ -43,16 +44,23 @@ namespace SpecialApp.API.Controllers
             return File(data, mimeType, nameWithExtension);
         }
 
+        /// <summary>
+        /// Return Http Response based upon the either type
+        /// </summary>
+        /// <typeparam name="TRight">The expected value from user</typeparam>
+        /// <param name="eitherResponse">Response value with correct right value and error left value</param>
+        /// <returns></returns>
         protected virtual IActionResult EitherResponse<TRight>(Either<IErrorResponse, TRight> eitherResponse)
         {
-            var either = eitherResponse();
+            var either = eitherResponse?.Invoke() ?? default(EitherPair<IErrorResponse, TRight>);
+
+            if (either.IsNullOrDefault())
+                return StatusCode(500);
 
             if (either.IsRight)
-            {
                 return Ok(either.Right);
-            }
 
-            return StatusCode(either.Left.GetCode(), SetError(either.Left.GetError()));
+            return StatusCode(either.Left.Code, SetError(either.Left.Error));
         }
     }
 }
