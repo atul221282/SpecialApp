@@ -80,5 +80,9 @@
     <None Include="Reference Data\AspNetUsers.sql" />
     <None Include="Reference Data\Users.sql" />
     <None Include="SpecialApp.Database.publish.xml" />
+    <None Include="Reference Data\CompanyFranchise.sql" />
+    <None Include="Reference Data\SpecialCategory.sql" />
+    <None Include="Reference Data\Special.sql" />
+    <None Include="Reference Data\SpecialLocation.sql" />
   </ItemGroup>
 </Project>

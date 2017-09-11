@@ -13,6 +13,8 @@ Post-Deployment Script Template
 GO
 :r".\AddressType.sql"
 GO
+:r".\SpecialCategory.sql"
+GO
 :r".\Country.sql"
 GO
 :r".\Address.sql"
@@ -27,3 +29,10 @@ GO
 GO
 :r".\Users.sql"
 GO
+:r".\CompanyFranchise.sql"
+GO
+:r".\Special.sql"
+GO
+:r".\SpecialLocation.sql"
+GO
+
