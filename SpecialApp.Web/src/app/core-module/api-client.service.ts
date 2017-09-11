@@ -1,4 +1,4 @@
-﻿import { Injectable, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from './storage.service';

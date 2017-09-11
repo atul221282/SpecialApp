@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdCardModule, MdButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { CoreModule } from '../core-module/core.module';
 import { SpecialRouterModule, routedComponents } from './special-routing.module';
 import { CanActivateSpecialGuard } from './guard/can-activate-special-guard';
 import { CanDeactivateSpecialGuardService } from './guard/can-deactivate-special-guard.service';
+import { SpecialService } from 'app/special-module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, MdCardModule, MdButtonModule, FlexLayoutModule, SpecialRouterModule],
+    imports: [CommonModule, FormsModule, MdCardModule, MdButtonModule, FlexLayoutModule, SpecialRouterModule, CoreModule],
     declarations: [routedComponents],
-    providers: [CanActivateSpecialGuard, CanDeactivateSpecialGuardService]
+    providers: [SpecialService, CanActivateSpecialGuard, CanDeactivateSpecialGuardService]
 })
 export class SpecialModule { }
 

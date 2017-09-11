@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiClientService } from 'app';
-
+import { SpecialService } from 'app/special-module';
 
 @Component({
     selector: 'special-list',
@@ -10,10 +10,10 @@ import { ApiClientService } from 'app';
 
 export class SpecialListComponent implements OnInit {
     specials: any[] = [];
-    constructor(private apiClient: ApiClientService) { }
+    constructor(private specialService: SpecialService) { }
 
     ngOnInit() {
-        this.apiClient.get('Special/122').subscribe((data: any[]) => {
+        this.specialService.getByLocation().subscribe((data: any[]) => {
             this.specials = data;
         });
     }

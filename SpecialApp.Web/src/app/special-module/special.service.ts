@@ -1,11 +1,21 @@
-﻿import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { MainCoreService } from '../core-module/main-core.service';
 
 @Injectable()
 export class SpecialService {
-    constructor() { }
+    private baseUrl: string = "Special";
+    constructor(private mainCore: MainCoreService) { }
 
-    get<T>(): Observable<T> {
-        return null;
+    getByLocation() {
+        // Special
+        return this.mainCore.ApiClientService.get(`${this.baseUrl}/122`).map(data => {
+            return data;
+        }).catch(this.handleError);;
+    }
+
+    private handleError(error: Response) {
+        let msg = `Error status code ${error.status} at ${error.url}`;
+        return Observable.throw(error);
     }
 }
