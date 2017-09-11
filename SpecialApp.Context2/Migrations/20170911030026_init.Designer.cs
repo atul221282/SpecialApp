@@ -8,7 +8,7 @@ using SpecialApp.Context;
 namespace SpecialApp.Context.Migrations
 {
     [DbContext(typeof(SpecialContext))]
-    [Migration("20170910233515_init")]
+    [Migration("20170911030026_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
