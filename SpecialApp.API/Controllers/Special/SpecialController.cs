@@ -18,20 +18,13 @@ namespace SpecialApp.API.Controllers.Special
         }
 
         [HttpGet("{distance}")]
-        public async Task<IActionResult> Get(int distance)
+        public async Task<IActionResult> GetAsync(int distance)
         {
-            try
-            {
-                var service = serviceFunc();
+            var service = serviceFunc();
 
-                var data = await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance);
+            var data = await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance);
 
-                return EitherResponse(data);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return EitherResponse(data);
         }
 
         [HttpPost]
