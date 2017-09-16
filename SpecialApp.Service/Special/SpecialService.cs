@@ -68,9 +68,8 @@ namespace SpecialApp.Service.Special
             var result = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
 
             return result.When(() => result.HasValue() && result.Value().Any())
-                .Then(() => Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result.Value()))
-                .Else(() => Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
-                     () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}")));
+                .Then(result.Value)
+                .Else(() => GetNotFoundError(longitude, latitude));
 
 
             //return result.HasValue() && result.Value().Any()
@@ -80,6 +79,11 @@ namespace SpecialApp.Service.Special
 
             //    : Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
             //        () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}"));
+        }
+
+        private static IErrorResponse GetNotFoundError(double longitude, double latitude)
+        {
+            return new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}");
         }
     }
 }

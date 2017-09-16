@@ -23,39 +23,39 @@ namespace SpecialApp.Base
             _conditionFunc = conditionFunc;
         }
 
-        public IOnFalse<T> Then(Func<Either<IErrorResponse, T>> func)
+        public IOnFalse<T> Then(Func<T> func)
         {
             return new OnFalse<T>(func, _conditionFunc);
         }
     }
 
-    internal class OnFalse<T> : IOnFalse<T>
+    public class OnFalse<T> : IOnFalse<T>
     {
-        private Func<Either<IErrorResponse, T>> _whenTrueFunc;
+        private Func<T> _whenTrueFunc;
         private readonly Func<bool> _conditionFunc;
 
-        public OnFalse(Func<Either<IErrorResponse, T>> whenTrueFunc, Func<bool> conditionFunc)
+        public OnFalse(Func<T> whenTrueFunc, Func<bool> conditionFunc)
         {
             _whenTrueFunc = whenTrueFunc;
             _conditionFunc = conditionFunc;
         }
 
-        public Either<IErrorResponse, T> Else(Func<Either<IErrorResponse, T>> func)
+        public Either<IErrorResponse, T> Else(Func<IErrorResponse> func)
         {
             if (_conditionFunc())
-                return _whenTrueFunc();
+                return Either.Right<IErrorResponse, T>(_whenTrueFunc);
 
-            return func();
+            return Either.Left<IErrorResponse, T>(func);
         }
     }
 
     public interface IOnTrue<T>
     {
-        IOnFalse<T> Then(Func<Either<IErrorResponse, T>> func);
+        IOnFalse<T> Then(Func<T> func);
     }
 
     public interface IOnFalse<T>
     {
-        Either<IErrorResponse, T> Else(Func<Either<IErrorResponse, T>> func);
+        Either<IErrorResponse, T> Else(Func<IErrorResponse> func);
     }
 }

@@ -52,7 +52,7 @@ namespace SpecialApp.API.Controllers
         /// <returns></returns>
         protected virtual IActionResult EitherResponse<TRight>(Either<IErrorResponse, TRight> eitherResponse)
         {
-            var either = eitherResponse?.Invoke() ?? default(EitherPair<IErrorResponse, TRight>);
+            var either = eitherResponse();
 
             if (either.IsNullOrDefault())
                 return StatusCode(500);
