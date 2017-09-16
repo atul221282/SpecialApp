@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using SP = SpecialApp.Entity.Specials;
 using System.Threading.Tasks;
 using SpecialApp.Transport.Special;
+using static System.String;
 
 namespace SpecialApp.API.Controllers.Special
 {

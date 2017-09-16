@@ -19,14 +19,14 @@ namespace SpecialApp.Repository.Repository.Specials
             this.context = context;
         }
 
-        public async Task<Option<ISpecial>> GetById(int id)
+        public async Task<Option<ISpecial>> TryGetById(int id)
         {
             var result = await DbSet.Where(x => x.Id == id).FirstOrDefaultAsync();
 
             return Option.Return(() => result as ISpecial);
         }
 
-        public async Task<Option<IEnumerable<Special>>> GetByLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<Option<IEnumerable<Special>>> TryGetByLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = await DbSet.FromSql($@" SELECT S.* FROM Special S 
                                          INNER JOIN SpecialLocation SL ON S.Id = SL.SpecialId
@@ -38,7 +38,7 @@ namespace SpecialApp.Repository.Repository.Specials
             return Option.Return(() => result.AsEnumerable());
         }
 
-        public async Task<Option<IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<Option<IEnumerable<Location>>> TryGetLocation(double latitude, double longitude, int distance = 4000)
         {
             var test = await context.Set<Location>()
                .FromSql($@"SELECT L.Id, L.[AuditCreatedDate], L.[AuditCreatedBy], L.[AuditLastUpdatedDate], L.[AuditLastUpdatedBy], 

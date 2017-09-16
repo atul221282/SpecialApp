@@ -11,7 +11,7 @@ namespace SpecialApp.Service.Special
 {
     public interface ISpecialService : IBaseService
     {
-        Task<Either<string, SP.ISpecial>> GetById(int Id);
+        Task<Either<string, SP.ISpecial>> GetByIdAsync(int Id);
 
         Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000);
 

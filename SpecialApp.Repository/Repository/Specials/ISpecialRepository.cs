@@ -10,10 +10,10 @@ namespace SpecialApp.Repository.Repository.Specials
 {
     public interface ISpecialRepository
     {
-        Task<Option<IEnumerable<Special>>> GetByLocation(double latitude, double longitude, int distance = 4000);
+        Task<Option<IEnumerable<Special>>> TryGetByLocation(double latitude, double longitude, int distance = 4000);
 
-        Task<Option<IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000);
+        Task<Option<IEnumerable<Location>>> TryGetLocation(double latitude, double longitude, int distance = 4000);
 
-        Task<Option<ISpecial>> GetById(int id);
+        Task<Option<ISpecial>> TryGetById(int id);
     }
 }

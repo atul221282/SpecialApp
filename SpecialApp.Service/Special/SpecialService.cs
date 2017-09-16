@@ -30,9 +30,9 @@ namespace SpecialApp.Service.Special
             this.uowFunc = uowFunc;
         }
 
-        public async Task<Either<string, SP.ISpecial>> GetById(int Id)
+        public async Task<Either<string, SP.ISpecial>> GetByIdAsync(int Id)
         {
-            var result = await Uow.SpecialRepository.GetById(Id);
+            var result = await Uow.SpecialRepository.TryGetById(Id);
 
             if (!result.HasValue())
             {
@@ -47,7 +47,7 @@ namespace SpecialApp.Service.Special
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<SP.Special>(
-                (await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance)).Value())
+                (await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
             return result;
@@ -56,22 +56,30 @@ namespace SpecialApp.Service.Special
         public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<Location>((await Uow.SpecialRepository
-                .GetLocation(latitude, longitude, distance: distance)).Value())
+                .TryGetLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
             return result;
         }
 
-        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocationsAsync(double latitude, double longitude, int distance = 4000)
+        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>>
+            GetLocationsAsync(double latitude, double longitude, int distance = 4000)
         {
-            var result = await Uow.SpecialRepository.GetByLocation(latitude, longitude, distance: distance);
+            var result = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
 
-            if (!result.HasValue() || !result.Value().Any())
-            {
-                return Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
-                    () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}"));
-            }
-            return Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result.Value());
+            return result.When(() => result.HasValue() && result.Value().Any())
+                .Then(() => Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result.Value()))
+                .Else(() => Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
+                     () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}")));
+
+
+            //return result.HasValue() && result.Value().Any()
+
+            //    ? Either.Right<IErrorResponse, IEnumerable<SP.Special>>(
+            //        () => result.Value())
+
+            //    : Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
+            //        () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}"));
         }
     }
 }

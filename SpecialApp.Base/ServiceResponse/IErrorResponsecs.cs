@@ -9,18 +9,31 @@ namespace SpecialApp.Base.ServiceResponse
         string Error { get; }
         int Code { get; }
     }
+
     public class NotFoundError : IErrorResponse
     {
         private readonly string _error;
-        private readonly int _code;
 
         public NotFoundError(string error)
         {
             _error = error;
-            _code = 404;
         }
 
-        public int Code => _code;
+        public int Code => 404;
+
+        public string Error => _error;
+    }
+
+    public class UnprocessableEntity : IErrorResponse
+    {
+        private readonly string _error;
+
+        public UnprocessableEntity(string error)
+        {
+            _error = error;
+        }
+
+        public int Code => 422;
 
         public string Error => _error;
     }
