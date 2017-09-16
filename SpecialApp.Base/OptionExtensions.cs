@@ -40,22 +40,81 @@ namespace SpecialApp.Base
             _conditionFunc = conditionFunc;
         }
 
-        public Either<IErrorResponse, T> Else(Func<IErrorResponse> func)
+        public Either<TError, T> Else<TError>(Func<TError> func)
+        {
+            return Process(func);
+        }
+
+        public Either<TError, T> SafeElse<TError>(Func<TError> func)
+        {
+            try
+            {
+                return Process(func);
+            }
+            catch (Exception)
+            {
+                // log error
+                return Process(func);
+            }
+        }
+
+        public Either<TError, T> SafeElse<TError>(Func<TError> func, Action action)
+        {
+            try
+            {
+                return Process(func);
+            }
+            catch (Exception)
+            {
+                action();
+                return Process(func);
+            }
+        }
+
+        private Either<TError, T> Process<TError>(Func<TError> func)
         {
             if (_conditionFunc())
-                return Either.Right<IErrorResponse, T>(_whenTrueFunc);
+                return Either.Right<TError, T>(_whenTrueFunc);
 
-            return Either.Left<IErrorResponse, T>(func);
+            return Either.Left<TError, T>(func);
         }
     }
 
     public interface IOnTrue<T>
     {
+        /// <summary>
+        /// Func when condition is true
+        /// </summary>
+        /// <param name="func">The right func</param>
+        /// <returns></returns>
         IOnFalse<T> Then(Func<T> func);
     }
 
     public interface IOnFalse<T>
     {
-        Either<IErrorResponse, T> Else(Func<IErrorResponse> func);
+        /// <summary>
+        /// Execute call
+        /// </summary>
+        /// <typeparam name="TError">The error type</typeparam>
+        /// <param name="func">The error func</param>
+        /// <returns>Return either left or right response</returns>
+        Either<TError, T> Else<TError>(Func<TError> func);
+
+        /// <summary>
+        /// Execute call with try and catch
+        /// </summary>
+        /// <typeparam name="TError">The error type</typeparam>
+        /// <param name="func">The error func</param>
+        /// <returns>Return either left or right response</returns>
+        Either<TError, T> SafeElse<TError>(Func<TError> func);
+
+        /// <summary>
+        /// Execute call with try and catch
+        /// </summary>
+        /// <typeparam name="TError">The error type</typeparam>
+        /// <param name="func">The error func</param>
+        /// <param name="action">The action to perform when there is an error</param>
+        /// <returns>Return either left or right response</returns>
+        Either<TError, T> SafeElse<TError>(Func<TError> func, Action action);
     }
 }

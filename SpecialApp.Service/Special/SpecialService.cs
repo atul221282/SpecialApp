@@ -34,14 +34,15 @@ namespace SpecialApp.Service.Special
         {
             var result = await Uow.SpecialRepository.TryGetById(Id);
 
-            if (!result.HasValue())
-            {
-                return Either.Left<string, SP.ISpecial>(() => "");
-            }
+            return result.When(() => result.HasValue()).Then(result.Value).Else(() => "");
+            //if (!result.HasValue())
+            //{
+            //    return Either.Left<string, SP.ISpecial>(() => "");
+            //}
 
-            var eitherRight = Either.Right<string, SP.ISpecial>(() => result.Value());
+            //var eitherRight = Either.Right<string, SP.ISpecial>(() => result.Value());
 
-            return eitherRight;
+            //return eitherRight;0
         }
 
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
@@ -69,21 +70,10 @@ namespace SpecialApp.Service.Special
 
             return result.When(() => result.HasValue() && result.Value().Any())
                 .Then(result.Value)
-                .Else(() => GetNotFoundError(longitude, latitude));
-
-
-            //return result.HasValue() && result.Value().Any()
-
-            //    ? Either.Right<IErrorResponse, IEnumerable<SP.Special>>(
-            //        () => result.Value())
-
-            //    : Either.Left<IErrorResponse, IEnumerable<SP.Special>>(
-            //        () => new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}"));
+                .SafeElse(() => GetNotFoundError?.Invoke(longitude, latitude));
         }
 
-        private static IErrorResponse GetNotFoundError(double longitude, double latitude)
-        {
-            return new NotFoundError($"No location found for the given latitude = {latitude} and longitude = {longitude}");
-        }
+        private Func<double, double, IErrorResponse> GetNotFoundError =>
+             (lon, lat) => new NotFoundError($"No location found for the given latitude = {lat} and longitude = {lon}");
     }
 }
