@@ -1,6 +1,10 @@
-﻿using System;
+﻿using static System.String;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using Monad;
+using SpecialApp.Entity.Specials;
+using System;
+using System.Threading.Tasks;
 
 namespace SpecialApp.Base.ServiceResponse
 {
@@ -22,6 +26,8 @@ namespace SpecialApp.Base.ServiceResponse
         public int Code => 404;
 
         public string Error => _error;
+
+        private bool HasError => !IsNullOrWhiteSpace(Error);
     }
 
     public class UnprocessableEntity : IErrorResponse
@@ -36,5 +42,16 @@ namespace SpecialApp.Base.ServiceResponse
         public int Code => 422;
 
         public string Error => _error;
+
+        private bool HasError => !IsNullOrWhiteSpace(Error);
+
+        public async Task<Either<IErrorResponse, T>> ProcessAsync<T>(Func<Task<Either<IErrorResponse, T>>> successCase)
+        {
+            if (HasError)
+            {
+                return Either.Left<IErrorResponse, T>(() => this);
+            }
+            return await successCase?.Invoke();
+        }
     }
 }

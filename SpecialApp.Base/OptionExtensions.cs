@@ -71,6 +71,18 @@ namespace SpecialApp.Base
             }
         }
 
+        public Either<TError, T> SafeElse<TError>(Func<TError> func, Func<TError> exceptionFunc)
+        {
+            try
+            {
+                return Process(func);
+            }
+            catch (Exception)
+            {
+                return Process(exceptionFunc);
+            }
+        }
+
         private Either<TError, T> Process<TError>(Func<TError> func)
         {
             if (_conditionFunc())
@@ -107,6 +119,14 @@ namespace SpecialApp.Base
         /// <param name="func">The error func</param>
         /// <returns>Return either left or right response</returns>
         Either<TError, T> SafeElse<TError>(Func<TError> func);
+
+        /// <summary>
+        /// Execute call with try and catch
+        /// </summary>
+        /// <typeparam name="TError">The error type</typeparam>
+        /// <param name="func">The error func</param>
+        /// <returns>Return either left or right response</returns>
+        Either<TError, T> SafeElse<TError>(Func<TError> func, Func<TError> exceptionFunc);
 
         /// <summary>
         /// Execute call with try and catch

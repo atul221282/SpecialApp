@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using M = Monad;
 using Optional;
+using SpecialApp.Base.ServiceResponse;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace SpecialApp.Base
@@ -36,12 +39,11 @@ namespace SpecialApp.Base
         public static bool IsNullOrDefault<T>(this T value)
         {
             var result = IsNull(value) || Equals(value, default(T));
-            
+
             return result;
         }
 
         public static bool IsNotNullOrDefault<T>(this T value) => !IsNullOrDefault(value);
-
 
         public static PropertyBuilder<T> IsOptional<T>(this PropertyBuilder<T> value)
         {
@@ -67,7 +69,7 @@ namespace SpecialApp.Base
             return buffer;
         }
 
-        public static T NoneWhenNullOrDefault<T>(this T Value, Func<T> valueOr) 
+        public static T NoneWhenNullOrDefault<T>(this T Value, Func<T> valueOr)
             => Value.NoneWhen((x) => x.IsNullOrDefault()).ValueOr(valueOr);
 
         public static void WhenTrue(this bool Value, Action action)
@@ -79,5 +81,11 @@ namespace SpecialApp.Base
         public static Option<T> WhenTrueOrDefault<T>(this bool Value, Func<T> action)
             => Value ? action().Some() : default(T).None();
 
+        public static bool HasError(this IEnumerable<IErrorResponse> errors) => errors.Any();
+
+        public static M.Either<IErrorResponse, T> GetError<T>(this IEnumerable<IErrorResponse> errors)
+        {
+            return M.Either.Left<IErrorResponse, T>(() => new NotFoundError(string.Join(",", errors.Select(e => e.Error).ToArray())));
+        }
     }
 }

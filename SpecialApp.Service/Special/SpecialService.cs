@@ -9,6 +9,7 @@ using SpecialApp.Base;
 using Monad;
 using SpecialApp.Base.ServiceResponse;
 using System.Linq;
+using System.Text;
 
 namespace SpecialApp.Service.Special
 {
@@ -30,20 +31,8 @@ namespace SpecialApp.Service.Special
             this.uowFunc = uowFunc;
         }
 
-        public async Task<Either<string, SP.ISpecial>> GetByIdAsync(int Id)
-        {
-            var result = await Uow.SpecialRepository.TryGetById(Id);
-
-            return result.When(() => result.HasValue()).Then(result.Value).Else(() => "");
-            //if (!result.HasValue())
-            //{
-            //    return Either.Left<string, SP.ISpecial>(() => "");
-            //}
-
-            //var eitherRight = Either.Right<string, SP.ISpecial>(() => result.Value());
-
-            //return eitherRight;0
-        }
+        public async Task<Either<IErrorResponse, SP.ISpecial>> GetByIdAsync(int Id)
+            => await TryGetByIdAsync(Id);
 
         public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
@@ -66,14 +55,41 @@ namespace SpecialApp.Service.Special
         public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>>
             GetLocationsAsync(double latitude, double longitude, int distance = 4000)
         {
-            var result = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
+            var errors = new List<IErrorResponse>();
 
-            return result.When(() => result.HasValue() && result.Value().Any())
-                .Then(result.Value)
-                .SafeElse(() => GetNotFoundError?.Invoke(longitude, latitude));
+            if (latitude != 0)
+                errors.Add(new NotFoundError("Latitude is null"));
+
+            if (longitude != 0)
+                errors.Append(new NotFoundError("Longitude is null"));
+
+            var locations = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
+
+            var result = locations.When(() => locations.HasValue() && locations.Value().Any())
+                .Then(locations.Value)
+                .SafeElse(
+                () => NoLocationFoundError?.Invoke(longitude, latitude),
+                () => LocationExceptionError?.Invoke(longitude, latitude));
+
+            return errors.HasError() ? errors.GetError<IEnumerable<SP.Special>>() : result;
         }
 
-        private Func<double, double, IErrorResponse> GetNotFoundError =>
+        private async Task<Either<IErrorResponse, SP.ISpecial>> TryGetByIdAsync(int Id)
+        {
+            var result = await Uow.SpecialRepository.TryGetById(Id);
+
+            return result.When(() => result.HasValue())
+                .Then(result.Value)
+                .SafeElse(() => NoSpecialFoundError.Invoke(Id));
+        }
+
+        private Func<double, double, IErrorResponse> NoLocationFoundError =>
              (lon, lat) => new NotFoundError($"No location found for the given latitude = {lat} and longitude = {lon}");
+
+        private Func<double, double, IErrorResponse> LocationExceptionError =>
+             (lon, lat) => new NotFoundError($"Error processign request for finding location where given latitude = {lat} and longitude = {lon}");
+
+        private Func<int, IErrorResponse> NoSpecialFoundError =>
+             (id) => new NotFoundError($"No special found for the given id = {id}");
     }
 }

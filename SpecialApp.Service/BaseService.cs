@@ -16,19 +16,10 @@ namespace SpecialApp.Service
             this._uow = uow;
         }
 
-        public async Task<IDbContextTransaction> BeginTransaction()
-        {
-            return await _uow.BeginTransaction();
-        }
+        public async Task<IDbContextTransaction> BeginTransaction() => await _uow.BeginTransaction();
 
-        public async Task CommitAsync()
-        {
-            await _uow.CommitAsync();
-        }
+        public async Task CommitAsync() => await _uow.CommitAsync();
 
-        public void Dispose()
-        {
-            _uow?.Dispose();
-        }
+        public void Dispose() => _uow?.Dispose();
     }
 }
