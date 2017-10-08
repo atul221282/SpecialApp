@@ -13,9 +13,9 @@ namespace SpecialApp.Service.Special
     {
         Task<Either<IErrorResponse, SP.ISpecial>> GetByIdAsync(int Id);
 
-        Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000);
+        Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetByLocation(double latitude, double longitude, int distance = 4000);
 
-        Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000);
+        Task<Either<IErrorResponse, IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000);
 
         Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetLocationsAsync(double latitude, double longitude, int distance = 4000);
     }

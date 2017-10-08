@@ -6,6 +6,8 @@ using SP = SpecialApp.Entity.Specials;
 using System.Threading.Tasks;
 using SpecialApp.Transport.Special;
 using static System.String;
+using SpecialApp.Base;
+using SpecialApp.Entity;
 
 namespace SpecialApp.API.Controllers.Special
 {
@@ -23,7 +25,20 @@ namespace SpecialApp.API.Controllers.Special
         {
             var service = serviceFunc();
 
-            var data = await service.GetLocationsAsync(-34.809964, 138.680274, distance: distance);
+            var lat = -34.809964;
+            var longi = 138.680274;
+
+            var data = await service.GetLocationsAsync(lat, longi, distance: distance);
+
+            var data2 = await service.GetByLocation(lat, longi);
+
+            var data3 = await service.GetLocation(lat, longi);
+
+            var tt = EitherComposite.Combine(data, data2, data3);
+
+            var ghg = tt.IsFailure;
+
+            var errors = tt.Error;
 
             return EitherResponse(data);
         }

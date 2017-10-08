@@ -34,22 +34,32 @@ namespace SpecialApp.Service.Special
         public async Task<Either<IErrorResponse, SP.ISpecial>> GetByIdAsync(int Id)
             => await TryGetByIdAsync(Id);
 
-        public async Task<IEnumerable<SP.Special>> GetByLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>> GetByLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<SP.Special>(
                 (await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
-            return result;
+            if (result == null)
+            {
+                return Either.Left<IErrorResponse, IEnumerable<SP.Special>>(() => new NotFoundError("No location found"));
+            }
+
+            return Either.Right<IErrorResponse, IEnumerable<SP.Special>>(() => result);
         }
 
-        public async Task<IEnumerable<Location>> GetLocation(double latitude, double longitude, int distance = 4000)
+        public async Task<Either<IErrorResponse, IEnumerable<Location>>> GetLocation(double latitude, double longitude, int distance = 4000)
         {
             var result = new ActiveOnlyEntity<Location>((await Uow.SpecialRepository
                 .TryGetLocation(latitude, longitude, distance: distance)).Value())
                 .GetActive();
 
-            return result;
+            if (result == null)
+            {
+                return Either.Left<IErrorResponse, IEnumerable<Location>>(() => new NotFoundError("No location found"));
+            }
+
+            return Either.Right<IErrorResponse, IEnumerable<Location>>(() => result);
         }
 
         public async Task<Either<IErrorResponse, IEnumerable<SP.Special>>>
@@ -60,7 +70,7 @@ namespace SpecialApp.Service.Special
             if (latitude != 0)
                 errors.Add(new NotFoundError("Latitude is null"));
 
-            if (longitude != 0)
+            if (longitude == 0)
                 errors.Append(new NotFoundError("Longitude is null"));
 
             var locations = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
