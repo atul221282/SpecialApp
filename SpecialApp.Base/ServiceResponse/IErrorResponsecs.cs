@@ -54,4 +54,17 @@ namespace SpecialApp.Base.ServiceResponse
             return await successCase?.Invoke();
         }
     }
+
+    public class ServerError : IErrorResponse
+    {
+        private readonly string _error;
+
+        public ServerError(string error)
+        {
+            _error = error;
+        }
+        public string Error => _error;
+
+        public int Code => 500;
+    }
 }

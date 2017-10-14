@@ -67,11 +67,11 @@ namespace SpecialApp.Service.Special
         {
             var errors = new List<IErrorResponse>();
 
-            if (latitude != 0)
-                errors.Add(new NotFoundError("Latitude is null"));
+            if (latitude == 0)
+                errors.Add(new ServerError("Latitude is null"));
 
             if (longitude == 0)
-                errors.Append(new NotFoundError("Longitude is null"));
+                errors.Append(new ServerError("Longitude is null"));
 
             var locations = await Uow.SpecialRepository.TryGetByLocation(latitude, longitude, distance: distance);
 

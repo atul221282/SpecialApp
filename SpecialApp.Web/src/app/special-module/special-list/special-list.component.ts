@@ -5,7 +5,7 @@ import { SpecialService } from 'app/special-module';
 @Component({
     selector: 'special-list',
     templateUrl: './special-list.component.html',
-    styleUrls: ['./special-list.component.css']
+    styleUrls: ['./special-list.component.scss']
 })
 
 export class SpecialListComponent implements OnInit {
@@ -13,8 +13,10 @@ export class SpecialListComponent implements OnInit {
     constructor(private specialService: SpecialService) { }
 
     ngOnInit() {
-        this.specialService.getByLocation().subscribe((data: any[]) => {
-            this.specials = data;
+        this.specialService.getUserLocation().subscribe((data: Position) => {
+            this.specialService.getByLocation(data).subscribe((specials: any[]) => {
+                this.specials = specials;
+            });
         });
     }
 }

@@ -85,7 +85,7 @@ namespace SpecialApp.Base
 
         public static M.Either<IErrorResponse, T> GetError<T>(this IEnumerable<IErrorResponse> errors)
         {
-            return M.Either.Left<IErrorResponse, T>(() => new NotFoundError(string.Join(",", errors.Select(e => e.Error).ToArray())));
+            return M.Either.Left<IErrorResponse, T>(() => new ServerError(string.Join(",", errors.Select(e => e.Error).ToArray())));
         }
     }
 }

@@ -20,25 +20,15 @@ namespace SpecialApp.API.Controllers.Special
             this.serviceFunc = serviceFunc;
         }
 
-        [HttpGet("{distance}")]
-        public async Task<IActionResult> GetAsync(int distance)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync([FromQuery]ClientLocation clientLocation)
         {
             var service = serviceFunc();
 
-            var lat = -34.809964;
-            var longi = 138.680274;
+            const double lat = -34.809964, longi = 138.680274;
 
-            var data = await service.GetLocationsAsync(lat, longi, distance: distance);
-
-            var data2 = await service.GetByLocation(lat, longi);
-
-            var data3 = await service.GetLocation(lat, longi);
-
-            var tt = EitherComposite.Combine(data, data2, data3);
-
-            var ghg = tt.IsFailure;
-
-            var errors = tt.Error;
+            var data = await service.GetLocationsAsync(clientLocation.Latitude, 
+                clientLocation.Longitude, distance: 1000);
 
             return EitherResponse(data);
         }

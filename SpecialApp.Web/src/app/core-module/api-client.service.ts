@@ -19,8 +19,10 @@ export class ApiClientService {
     }
 
     get<T>(url: string, options?: RequestOptionsArgs): Observable<T> {
-        return this.http.get(`${this.apiUrl}${url}`)
+        debugger;
+        return this.http.get(`${this.apiUrl}${url}`, { params: options.params })
             .map((res: Response) => {
+                debugger;
                 return res.json() as T;
             }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
