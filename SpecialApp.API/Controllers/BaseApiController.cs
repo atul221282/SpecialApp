@@ -13,6 +13,7 @@ namespace SpecialApp.API.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [Consumes("application/json")]
     [ExceptionHandlerFilter]
     [EnableCors(APIGlobalConstants.CorsPolicy)]
     public abstract class BaseApiController : Controller

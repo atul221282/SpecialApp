@@ -8,6 +8,8 @@ using SpecialApp.Transport.Special;
 using static System.String;
 using SpecialApp.Base;
 using SpecialApp.Entity;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SpecialApp.API.Controllers.Special
 {
@@ -27,8 +29,8 @@ namespace SpecialApp.API.Controllers.Special
 
             const double lat = -34.809964, longi = 138.680274;
 
-            var data = await service.GetLocationsAsync(clientLocation.Latitude, 
-                clientLocation.Longitude, distance: 1000);
+            var data = await service.GetLocationsAsync(clientLocation.Latitude,
+                clientLocation.Longitude, distance: 1);
 
             return EitherResponse(data);
         }

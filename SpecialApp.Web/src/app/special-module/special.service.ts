@@ -14,15 +14,11 @@ export class SpecialService {
     }
 
     getByLocation(data: Position) {
-        const queryParams = new URLSearchParams();
-        queryParams.set('Accuracy', data.coords.accuracy.toString());
-        queryParams.set('Latitude', data.coords.latitude.toString());
-        queryParams.set('Longitude', data.coords.longitude.toString());
-
+        const coords = data.coords;
         // Special
-        return this.http.get(`${this.baseUrl}`,
-            { params: queryParams }).map(data => {
-                return data;
+        return this.http.get(`${this.baseUrl}?latitude=${coords.latitude}
+                        &longitude=${coords.longitude}&accuracy=${coords.accuracy}`).map(data => {
+                return data.json();
             }).catch(this.handleError);
     }
 
