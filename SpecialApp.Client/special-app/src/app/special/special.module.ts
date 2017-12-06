@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ListComponent } from './list/list.component';
 import { routedComponents, SpecialRouterModule } from './special-routing.module';
+import { SpecialService } from "../shared/special.service";
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { routedComponents, SpecialRouterModule } from './special-routing.module'
     SpecialRouterModule,
   ],
   declarations: [routedComponents],
-  providers: []
+  providers: [SpecialService]
 })
 export class SpecialModule { }
