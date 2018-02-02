@@ -32,7 +32,7 @@ namespace SpecialApp.Context.Tests
         public void AddUsersTests()
         {
             var users = context.Users.Include(x => x.SpecialAppUsers).ThenInclude(x=>x.Claims);
-            var user = users.Where(x => x.SpecialAppUsers.Email == "atul221282@gmail.com").FirstOrDefault();
+            var user = users.FirstOrDefault(x => x.SpecialAppUsers.Email == "atul221282@gmail.com");
             user = new Users
             {
                 AuditCreatedBy = "system",
